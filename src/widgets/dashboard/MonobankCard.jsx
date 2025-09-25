@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import monobankLogo from "../../assets/logo_card.png";
 import visa from "../../assets/visa.svg";
-export default function MonobankCard({ cardNumber = "4441 **** **** 1931" }) {
-  const [isOpen, setIsOpen] = useState(false);
 
+export default function MonobankCard({
+  cardNumber = "4441 **** **** 1931",
+  setIsOpen,
+  isOpen,
+}) {
   return (
     <div className="flex justify-center items-center relative">
       {/* Perspective wrapper */}

@@ -1,7 +1,6 @@
 // src/router/index.jsx
 import React from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import Contacts from "../pages/contacts/Contacts";
 import CardActions from "../pages/card-actions/CardActions";
 import Payments from "../pages/payments/Payments";
 import PaymentStatus from "../pages/payment-status/PaymentStatus";
@@ -26,7 +25,6 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Dashboard /> },
       { path: "/card-actions", element: <CardActions /> },
-      { path: "/contacts", element: <Contacts /> },
       { path: "/payments", element: <Payments /> },
       { path: "/payment-status", element: <PaymentStatus /> },
     ],

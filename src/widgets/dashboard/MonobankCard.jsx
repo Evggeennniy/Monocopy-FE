@@ -6,6 +6,7 @@ export default function MonobankCard({
   cardNumber = "4441 **** **** 1931",
   setIsOpen,
   isOpen,
+  isContactsOpen,
 }) {
   return (
     <div className="flex justify-center items-center relative">
@@ -23,7 +24,7 @@ export default function MonobankCard({
             background: "linear-gradient(to bottom, #0F0E0C, #2B2B2B)",
           }}
         >
-          {/* Card content */}
+          {/* Карточка content */}
           <div className="flex flex-col gap-6 h-full relative z-10">
             <div
               className={`${
@@ -40,10 +41,20 @@ export default function MonobankCard({
             >
               {cardNumber}
             </p>
-
-            <div className="ml-auto mt-auto  ">
-              <img src={visa} alt="Visa" className="w-full" />
-            </div>
+          </div>
+          {isOpen && (
+            <>
+              <p className="absolute bottom-6 left-6 uppercase text-[15px]">
+                Vasyl Petrenko
+              </p>
+            </>
+          )}
+          {/* Visa layer — отдельный слой */}
+          <div
+            className="absolute bottom-6 right-6 w-[60px] sm:w-[80px]"
+            style={{ transform: "translateZ(1px)" }}
+          >
+            <img src={visa} alt="Visa" className="w-full" />
           </div>
         </div>
       </div>

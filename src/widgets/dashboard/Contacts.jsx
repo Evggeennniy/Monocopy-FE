@@ -11,7 +11,9 @@ import mono_red from "../../assets/mono_red.svg";
 import search from "../../assets/search.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-const contacts = [
+import { useNavigate } from "react-router-dom";
+
+export const contacts = [
   {
     id: 1,
     name: "Анастасія Ковальчук",
@@ -177,6 +179,7 @@ const cards = [
 ];
 
 function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
+  const navigate = useNavigate();
   return (
     <motion.div
       initial={{ x: "100%", opacity: 0 }} // start outside right
@@ -272,7 +275,13 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
             <h1 className="text-2xl font-bold mb-2">Контакти</h1>
             <ul className="space-y-4">
               {contacts.map((c) => (
-                <li key={c.id} className="flex justify-between cursor-pointer">
+                <li
+                  key={c.id}
+                  onClick={() => {
+                    navigate("/transfer/" + c.id);
+                  }}
+                  className="flex justify-between cursor-pointer"
+                >
                   <div className="flex items-center gap-4  w-full rounded-xl ">
                     <img
                       src={c.image}

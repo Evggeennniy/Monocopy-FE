@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { contacts } from "../../widgets/dashboard/Contacts";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, MessageCircle, Star } from "lucide-react";
 import transfer_black_card from "../../assets/transfer_black_card.svg";
-
+import comment from "../../assets/comment.svg";
 import grivna from "../../assets/grivna.svg";
+import prize from "../../assets/prize.svg";
 export default function TransferPage() {
   const { id } = useParams();
   const user = contacts.find((c) => c.id === +id);
@@ -38,8 +39,10 @@ export default function TransferPage() {
       </div>
       {/* Amount */}
       <div className="flex flex-col items-center justify-center flex-1">
-        <div className="bg-[#1E1E1E] px-3 py-1 rounded-full text-sm text-gray-300 mb-3">
-          108 893.83 ₴
+        <div className="bg-[#1E1E1E] flex gap-1 items-center border border-[#323232] text-[#91A2B1] px-3 py-1 rounded-full text-[14px] text-gray-300 mb-3">
+          <img src={transfer_black_card} alt="w-[18px] h-[14px]" />
+          108 893.83
+          <img src={grivna} alt="₴" className="w-3 h-3 object-contain " />
         </div>
 
         <div className="flex justify-center mt-6">
@@ -49,15 +52,19 @@ export default function TransferPage() {
               value={value}
               onChange={(e) => setValue(e.target.value)}
               placeholder="0"
-              className="text-5xl text-right font-semibold bg-transparent outline-none  [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              className="text-5xl text-right font-semibold bg-transparent outline-none text-[#E1E1E1] 
+               [appearance:textfield] 
+               [&::-webkit-outer-spin-button]:appearance-none 
+               [&::-webkit-inner-spin-button]:appearance-none
+               placeholder-[#E1E1E1]"
               style={{
-                width: `${(value.length || 1) + 1}ch`, // растёт по длине числа
+                width: `${(value.length || 1) + 1}ch`, // grows with number length
               }}
             />
             <img
               src={grivna}
               alt="₴"
-              className="w-10 h-10 object-contain mt-1 "
+              className="w-10 h-10 object-contain mt-1"
             />
           </div>
         </div>
@@ -66,20 +73,29 @@ export default function TransferPage() {
       </div>
 
       {/* Footer */}
-      <div className="p-4 border-t border-gray-800">
-        <div className="flex items-center gap-3 mb-3">
-          <input
-            type="text"
-            placeholder="Коментар..."
-            className="flex-1 bg-transparent border-b border-gray-700 text-white focus:outline-none text-sm pb-1"
-          />
-          <button className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center">
-            🎁
+      <div className="border-t border-[#323232] ">
+        <div className="flex pt-3 justify-between items-center gap-3 mb-3">
+          <div className="flex items-center gap-3">
+            <img src={comment} alt="w-[16px] h-[16px]" />
+            <input
+              type="text"
+              placeholder="Коментар..."
+              className="flex-1 bg-transparent text-[#91A2B1] focus:outline-none text-[13px] "
+            />
+          </div>
+
+          <button className="w-8 h-8 rounded-full border border-[#323232] w-[56px] flex items-center justify-center">
+            <img src={prize} alt="w-[16px] h-[16px]" />
           </button>
         </div>
-        <button className="w-full py-3 bg-gray-800 rounded-lg text-lg font-semibold">
-          Надіслати
-        </button>
+        <div className="flex justify-between gap-[10px] ">
+          <button className=" bg-[#2F2F2F] p-5 flex item-center  rounded-2xl  text-[#FFFFFF]">
+            <Star className="w-5 h-5  inline-block " />
+          </button>
+          <button className="w-full py-3 bg-[#414141] rounded-2xl px-[110px] py-5 text-[#FFFFFF]  text-[14px] font-semibold">
+            Надіслати
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -10,6 +10,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import plus from "../../assets/plus.svg";
 import grivna from "../../assets/grivna.svg";
+import message from "../../assets/message.svg";
+import price from "../../assets/price.svg";
+import monobank from "../../assets/monobank.svg";
+import rating from "../../assets/rating.svg";
+import two_cards from "../../assets/two_cards.png";
+import credits from "../../assets/credits.png";
+import six from "../../assets/16.png";
+import dots from "../../assets/dots.png";
+import market from "../../assets/market.png";
 export const cardsArray = [
   {
     id: 1,
@@ -63,6 +72,30 @@ export default function Balance() {
         isContactsOpen ? "p-0" : " p-3"
       } `}
     >
+      {!isSettingsOpen && !isContactsOpen && (
+        <div className="flex justify-between w-full items-center  pr-2">
+          <div className="flex gap-3 items-center">
+            <img
+              src=""
+              alt=""
+              className="w-[37px] bg-[#3F497A] h-[37px] rounded-full"
+            />
+            <img src={message} alt="" />
+          </div>
+          <div className="flex  items-center gap-3">
+            <div className="flex gap-2 items-center">
+              <img src={price} alt="" />
+              <div className="text-[#E1E1E1]">Кешбек</div>
+            </div>
+            <div className="h-[24px] w-[1px] bg-[#3F497A]"></div>
+            <div className="flex gap-2 items-center">
+              <img src={monobank} alt="" />
+              <img src={rating} alt="" />
+            </div>
+          </div>
+        </div>
+      )}
+
       {isSettingsOpen && !isContactsOpen && (
         <div className="h-[80px] w-full"></div>
       )}
@@ -180,6 +213,35 @@ export default function Balance() {
           />
         )}
       </AnimatePresence>
+
+      {!isSettingsOpen && !isContactsOpen && (
+        <div className="flex justify-center fixed bottom-2 z-[999]  gap-3 mt-3 mx-auto w-full items-center  ">
+          <div className="bg-[#292929] py-[12px] px-[30px]  rounded-full">
+            <div className="flex gap-[20px]">
+              <div className="flex flex-col justify-center items-center">
+                <img src={two_cards} alt="" />
+                <p className="text-[10px]">Картки</p>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <img src={credits} alt="" />
+                <p className="text-[10px]">Кредити</p>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <img src={six} alt="" />
+                <p className="text-[10px]">Накопичення</p>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <img src={dots} alt="" />
+                <p className="text-[10px]">Ще</p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-[#292929] h-[65px] w-[65px] flex items-center justify-center rounded-full">
+            <img src={market} alt="w-[37px] h-[37px]" />
+          </div>
+        </div>
+      )}
+      {!isSettingsOpen && !isContactsOpen && <div className="mt-[70px]"></div>}
     </div>
   );
 }

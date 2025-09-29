@@ -17,7 +17,7 @@ export default function MonobankCard({
       >
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-full h-full text-white p-6 rounded-2xl border-b-4 border-[#0F0E0C] shadow-2xl cursor-pointer transition-transform duration-700 ease-out"
+          className="relative w-full h-full text-white p-6 rounded-2xl border-b-4 border-[#0F0E0C] shadow-2xl cursor-pointer transition-transform duration-2000 ease-out"
           style={{
             transform: isOpen ? "rotateX(0deg)" : "rotateX(63deg)",
             transformStyle: "preserve-3d",

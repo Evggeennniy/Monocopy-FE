@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { contacts } from "../../widgets/dashboard/Contacts";
 import { ArrowLeft, MessageCircle, Star } from "lucide-react";
 import transfer_black_card from "../../assets/transfer_black_card.svg";
@@ -10,11 +10,12 @@ export default function TransferPage() {
   const { id } = useParams();
   const user = contacts.find((c) => c.id === +id);
   const [value, setValue] = useState("");
+  const navigate = useNavigate();
   return (
     <div className="bg-[#1E1E1E] text-white min-h-screen  flex flex-col">
       {/* Header */}
       <div className="p-4">
-        <button className="mb-4">
+        <button onClick={() => navigate("/")} className="mb-4">
           <ArrowLeft className="w-6 h-6 text-gray-300" />
         </button>
         <div className="flex relative items-center gap-3">

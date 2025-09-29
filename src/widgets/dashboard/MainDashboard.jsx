@@ -8,7 +8,9 @@ import pink_pdf from "../../assets/pink_pdf.svg";
 import green_pdf from "../../assets/green_pdf.svg";
 import bank_cards from "../../assets/bank-cards.svg";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 function MainDashboard({ setIsContactsOpen, setIsOpen, isContactsOpen }) {
+  const navigate = useNavigate();
   return (
     <>
       {!isContactsOpen && (
@@ -62,7 +64,10 @@ function MainDashboard({ setIsContactsOpen, setIsOpen, isContactsOpen }) {
             <div className="mt-8 bg-[#272727] py-4 px-3 rounded-2xl">
               <h3 className="text-lg font-semibold mb-4">Операції</h3>
               <ul className="flex flex-col gap-5">
-                <li className="flex justify-between items-center rounded-xl  ">
+                <li
+                  onClick={() => navigate("/transaction/1")}
+                  className="flex justify-between items-center rounded-xl  "
+                >
                   <div className="flex gap-4 items-center">
                     <div className="w-[42px] h-[42px] rounded-full bg-[#04070E] flex justify-center items-center"></div>
                     <span>Starbucks</span>
@@ -70,14 +75,20 @@ function MainDashboard({ setIsContactsOpen, setIsOpen, isContactsOpen }) {
 
                   <span className="text-red-400">- 120.00 ₴ </span>
                 </li>
-                <li className="flex justify-between items-center rounded-xl  ">
+                <li
+                  onClick={() => navigate("/transaction/2")}
+                  className="flex justify-between items-center rounded-xl  "
+                >
                   <div className="flex gap-4 items-center">
                     <div className="w-[42px] h-[42px] rounded-full bg-[#04070E] flex justify-center items-center"></div>
                     <span>Зарплата</span>
                   </div>
                   <span className="text-green-400">+ 15,000.00 ₴</span>
                 </li>
-                <li className="flex justify-between items-center rounded-xl  ">
+                <li
+                  onClick={() => navigate("/transaction/3")}
+                  className="flex justify-between items-center rounded-xl  "
+                >
                   <div className="flex gap-4 items-center">
                     <div className="w-[42px] h-[42px] rounded-full bg-[#04070E] flex justify-center items-center"></div>
                     <span>Starbucks</span>

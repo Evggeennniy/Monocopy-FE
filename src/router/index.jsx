@@ -5,6 +5,7 @@ import CardActions from "../pages/card-actions/CardActions";
 import PaymentStatus from "../pages/payment-status/PaymentStatus";
 import Dashboard from "../pages/dashboard/Dashboard";
 import TransferPage from "../pages/transfer/TransferPage";
+import TransactionPage from "../pages/transaction/TransactionPage";
 
 // Layout (optional)
 const MainLayout = () => (
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Dashboard /> },
       { path: "/card-actions", element: <CardActions /> },
       { path: "/transfer/:id", element: <TransferPage /> },
+      { path: "/transaction/:id", element: <TransactionPage /> },
       { path: "/payment-status", element: <PaymentStatus /> },
     ],
   },

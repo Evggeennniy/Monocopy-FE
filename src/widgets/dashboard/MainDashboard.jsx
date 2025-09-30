@@ -9,8 +9,14 @@ import green_pdf from "../../assets/green_pdf.svg";
 import bank_cards from "../../assets/bank-cards.svg";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-function MainDashboard({ setIsContactsOpen, setIsOpen, isContactsOpen }) {
+function MainDashboard({
+  setIsContactsOpen,
+  setIsOpen,
+  isContactsOpen,
+  operationsCards,
+}) {
   const navigate = useNavigate();
+  console.log(operationsCards);
   return (
     <>
       {!isContactsOpen && (
@@ -64,38 +70,33 @@ function MainDashboard({ setIsContactsOpen, setIsOpen, isContactsOpen }) {
             <div className="mt-8 bg-[#272727] py-4 px-3 rounded-2xl">
               <h3 className="text-lg font-semibold mb-4">Операції</h3>
               <ul className="flex flex-col gap-5">
-                <li
-                  onClick={() => navigate("/transaction/1")}
-                  className="flex justify-between items-center rounded-xl  "
-                >
-                  <div className="flex gap-4 items-center">
-                    <div className="w-[42px] h-[42px] rounded-full bg-[#04070E] flex justify-center items-center"></div>
-                    <span>Starbucks</span>
-                  </div>
-
-                  <span className="text-red-400">- 120.00 ₴ </span>
-                </li>
-                <li
-                  onClick={() => navigate("/transaction/2")}
-                  className="flex justify-between items-center rounded-xl  "
-                >
-                  <div className="flex gap-4 items-center">
-                    <div className="w-[42px] h-[42px] rounded-full bg-[#04070E] flex justify-center items-center"></div>
-                    <span>Зарплата</span>
-                  </div>
-                  <span className="text-green-400">+ 15,000.00 ₴</span>
-                </li>
-                <li
-                  onClick={() => navigate("/transaction/3")}
-                  className="flex justify-between items-center rounded-xl  "
-                >
-                  <div className="flex gap-4 items-center">
-                    <div className="w-[42px] h-[42px] rounded-full bg-[#04070E] flex justify-center items-center"></div>
-                    <span>Starbucks</span>
-                  </div>
-
-                  <span className="text-red-400">- 120.00 ₴</span>
-                </li>
+                {operationsCards.map((item) => {
+                  return (
+                    <li
+                      onClick={() => navigate("/transaction/" + item.id)}
+                      className="flex justify-between items-center rounded-xl  "
+                    >
+                      <div className="flex gap-4 items-center">
+                        <div className="w-[42px] h-[42px] rounded-full bg-[#04070E] flex justify-center items-center"></div>
+                        <span>{item.name}</span>
+                      </div>
+                      {item.color === "red" ? (
+                        <>
+                          {" "}
+                          <span className="text-red-400">
+                            - {item.amount} {item.currency}{" "}
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-green-400">
+                            {item.amount} {item.currency}{" "}
+                          </span>
+                        </>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
             <div className=" bg-[#272727] py-4 px-3 rounded-2xl">

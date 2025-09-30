@@ -7,6 +7,8 @@ export default function MonobankCard({
   setIsOpen,
   isOpen,
   isContactsOpen,
+  borderColor = "#0F0E0C",
+  owner, // default color
 }) {
   return (
     <div className="flex justify-center items-center relative">
@@ -17,14 +19,15 @@ export default function MonobankCard({
       >
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-full h-full text-white p-6 rounded-2xl border-b-4 border-[#0F0E0C] shadow-2xl cursor-pointer transition-transform duration-2000 ease-out"
+          className="relative w-full h-full text-white p-6 rounded-2xl shadow-2xl cursor-pointer transition-transform duration-1000 ease-out"
           style={{
             transform: isOpen ? "rotateX(0deg)" : "rotateX(63deg)",
             transformStyle: "preserve-3d",
             background: "linear-gradient(to bottom, #0F0E0C, #2B2B2B)",
+            borderBottom: `4px solid ${borderColor}`, // dynamic bottom border
           }}
         >
-          {/* Карточка content */}
+          {/* Card content */}
           <div className="flex flex-col gap-6 h-full relative z-10">
             <div
               className={`${
@@ -43,13 +46,12 @@ export default function MonobankCard({
             </p>
           </div>
           {isOpen && (
-            <>
-              <p className="absolute bottom-6 left-6 uppercase text-[15px]">
-                Vasyl Petrenko
-              </p>
-            </>
+            <p className="absolute bottom-6 left-6 uppercase text-[15px]">
+              {owner}
+            </p>
           )}
-          {/* Visa layer — отдельный слой */}
+
+          {/* Visa layer */}
           <div
             className="absolute bottom-6 right-6 w-[60px] sm:w-[80px]"
             style={{ transform: "translateZ(1px)" }}

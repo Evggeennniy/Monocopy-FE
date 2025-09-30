@@ -26,34 +26,65 @@ export const cardsArray = [
     owner: "Vasyl Petrenko",
     borderColor: "#0F0E0C", // additional border color
     backgroundGradient: "linear-gradient(to bottom, #0F0E0C, #2B2B2B)",
+    balance: "25,430.50",
     operationsCards: [
-      { id: 1, label: "Starbucks", amount: -120, currency: "₴", color: "red" },
+      {
+        id: 1,
+        name: "Starbucks",
+        type: "expense",
+        amount: 120.0,
+        currency: "₴",
+        color: "red",
+      },
       {
         id: 2,
-        label: "Зарплата",
-        amount: 15000,
+        name: "Зарплата",
+        type: "income",
+        amount: 15000.0,
         currency: "₴",
         color: "green",
       },
-      { id: 3, label: "Starbucks", amount: -120, currency: "₴", color: "red" },
+      {
+        id: 3,
+        name: "Starbucks",
+        type: "expense",
+        amount: 120.0,
+        currency: "₴",
+        color: "red",
+      },
     ],
   },
   {
     id: 2,
     cardNumber: "4441 **** **** 1931",
     owner: "Vasyl Petrenko",
-    borderColor: "green", // additional border color
+    borderColor: "#FB5255", // additional border color
     backgroundGradient: "linear-gradient(to bottom, #0F0E0C, #2B2B2B)",
     operationsCards: [
-      { id: 1, label: "Starbucks", amount: -120, currency: "₴", color: "red" },
+      {
+        id: 1,
+        name: "Starbucks",
+        type: "expense",
+        amount: 120.0,
+        currency: "₴",
+        color: "red",
+      },
       {
         id: 2,
-        label: "Зарплата",
-        amount: 15000,
+        name: "Зарплата",
+        type: "income",
+        amount: 15000.0,
         currency: "₴",
         color: "green",
       },
-      { id: 3, label: "Starbucks", amount: -120, currency: "₴", color: "red" },
+      {
+        id: 3,
+        name: "Starbucks",
+        type: "expense",
+        amount: 120.0,
+        currency: "₴",
+        color: "red",
+      },
     ],
   },
 ];
@@ -62,6 +93,7 @@ export default function Balance() {
   // const [isSettingsOpen, setIsOpen] = useState(false);
   const [isContactsOpen, setIsContactsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
   return (
     <div
       style={{
@@ -146,8 +178,9 @@ export default function Balance() {
           centeredSlides={false}
           slidesOffsetBefore={0}
           slidesOffsetAfter={16}
+          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         >
-          {cardsArray.map((card) => (
+          {cardsArray.map((card, index) => (
             <SwiperSlide key={card.id} className="">
               <div className=" ">
                 {/* Top spacer + balance */}
@@ -157,7 +190,7 @@ export default function Balance() {
                     <div className="text-center flex items-center justify-center gap-2">
                       <img src={plus} alt="" className="mt-2" />
                       <p className="text-[47px] text-[#E1E1E1] font-semibold leading-[40px] flex items-center">
-                        <div>25,430.50</div>{" "}
+                        <div>{card.balance}</div>{" "}
                         <img src={grivna} alt="" className="mt-2" />
                       </p>
                     </div>
@@ -165,11 +198,21 @@ export default function Balance() {
                 )}
 
                 {!isContactsOpen && (
-                  <div className="!w-[100%]">
+                  <div
+                    className={`!w-[100%] relative transition-all duration-500 ease-in-out`}
+                    style={{
+                      right:
+                        activeIndex !== index && !isSettingsOpen
+                          ? "3.5rem"
+                          : "",
+                    }}
+                  >
                     <MonobankCard
                       cardNumber={card.cardNumber}
                       isOpen={isSettingsOpen}
                       setIsOpen={setIsSettingsOpen}
+                      borderColor={card.borderColor}
+                      owner={card.owner}
                     />
                   </div>
                 )}
@@ -180,6 +223,7 @@ export default function Balance() {
                       isContactsOpen={isContactsOpen}
                       setIsOpen={setIsSettingsOpen}
                       setIsContactsOpen={setIsContactsOpen}
+                      operationsCards={card.operationsCards}
                     />
                   )}
                 </AnimatePresence>

@@ -97,7 +97,10 @@ export default function TransferPage() {
             <button className=" bg-[#2F2F2F] p-5 flex item-center  rounded-2xl  text-[#FFFFFF]">
               <Star className="w-5 h-5  inline-block " />
             </button>
-            <button className="w-full py-3 bg-[#414141] rounded-2xl px-[110px] py-5 text-[#FFFFFF]  text-[14px] font-semibold">
+            <button
+              onClick={() => navigate("/payment-status")}
+              className="w-full py-3 bg-[#414141] rounded-2xl px-[110px] py-5 text-[#FFFFFF]  text-[14px] font-semibold"
+            >
               Надіслати
             </button>
           </div>

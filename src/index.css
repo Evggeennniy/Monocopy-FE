@@ -1,1 +1,17 @@
 @import "tailwindcss";
+@keyframes fadeOutRightToLeft {
+  0% {
+    background: linear-gradient(90deg, #ef5559 0%, #ef5559 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  100% {
+    background: linear-gradient(90deg, #1e1e1e 0%, #ef5559 0%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.text-disappear {
+  animation: fadeOutRightToLeft 3s forwards; /* adjust speed */
+}

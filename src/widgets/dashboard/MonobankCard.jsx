@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import monobankLogo from "../../assets/logo_card.png";
 import visa from "../../assets/visa.svg";
-
+function maskCardNumber(number) {
+  if (!number) return "";
+  const first = number.slice(0, 4);
+  const last = number.slice(-4);
+  return `${first} **** **** ${last}`;
+}
 export default function MonobankCard({
   cardNumber = "4441 **** **** 1931",
   setIsOpen,
@@ -38,11 +43,11 @@ export default function MonobankCard({
             </div>
 
             <p
-              className={`${
-                !isOpen ? "opacity-65" : ""
-              } tracking-widest text-[26px] sm:text-[28px] mx-auto`}
+              className={`tracking-widest  sm:text-[28px] mx-auto ${
+                !isOpen ? "opacity-65 text-[26px]" : "text-[23px]"
+              }`}
             >
-              {cardNumber}
+              {isOpen ? cardNumber : maskCardNumber(cardNumber)}
             </p>
           </div>
           {isOpen && (

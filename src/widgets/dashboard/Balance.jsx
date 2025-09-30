@@ -10,9 +10,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import plus from "../../assets/plus.svg";
 import grivna from "../../assets/grivna.svg";
-import message from "../../assets/message.svg";
-import price from "../../assets/price.svg";
-import monobank from "../../assets/monobank.svg";
+import message from "../../assets/message.png";
+import price from "../../assets/price.png";
+import monobank from "../../assets/monobank.png";
 import rating from "../../assets/rating.svg";
 import two_cards from "../../assets/two_cards.png";
 import credits from "../../assets/credits.png";
@@ -22,10 +22,9 @@ import market from "../../assets/market.png";
 export const cardsArray = [
   {
     id: 1,
-    cardNumber: "4441 **** **** 1931",
+    cardNumber: "4441 5555 5555 1931",
     owner: "Vasyl Petrenko",
-    borderColor: "#0F0E0C", // additional border color
-    backgroundGradient: "linear-gradient(to bottom, #0F0E0C, #2B2B2B)",
+    borderColor: "#0F0E0C",
     balance: "25,430.50",
     operationsCards: [
       {
@@ -56,10 +55,9 @@ export const cardsArray = [
   },
   {
     id: 2,
-    cardNumber: "4441 **** **** 1931",
+    cardNumber: "4441 5555 5555 1931",
     owner: "Vasyl Petrenko",
-    borderColor: "#FB5255", // additional border color
-    backgroundGradient: "linear-gradient(to bottom, #0F0E0C, #2B2B2B)",
+    borderColor: "#FB5255",
     operationsCards: [
       {
         id: 1,
@@ -101,27 +99,27 @@ export default function Balance() {
           "linear-gradient(179.99deg, #0B0D40 0%, #16265A 16.21%, #112658 31.61%, #0D244E 48.57%, #121212 57.07%, #121212 98.97%)",
       }}
       className={`min-h-screen text-white flex flex-col items-center ${
-        isContactsOpen ? "p-0" : " p-3"
+        isContactsOpen ? "p-0" : " p-0"
       } `}
     >
       {!isSettingsOpen && !isContactsOpen && (
-        <div className="flex justify-between w-full items-center  pr-2">
+        <div className="flex justify-between  w-full items-center p-3 pr-2">
           <div className="flex gap-3 items-center">
             <img
               src=""
               alt=""
-              className="w-[37px] bg-[#3F497A] h-[37px] rounded-full"
+              className="w-[32px] bg-[#3F497A] h-[33px] rounded-full"
             />
-            <img src={message} alt="" />
+            <img src={message} alt="" className="w-[32px] h-[33px]" />
           </div>
           <div className="flex  items-center gap-3">
             <div className="flex gap-2 items-center">
-              <img src={price} alt="" />
+              <img src={price} alt="" className="w-[27px] h-[33px]" />
               <div className="text-[#E1E1E1]">Кешбек</div>
             </div>
             <div className="h-[24px] w-[1px] bg-[#3F497A]"></div>
             <div className="flex gap-2 items-center">
-              <img src={monobank} alt="" />
+              <img src={monobank} alt="" className="w-[22px] h-[22px]" />
               <img src={rating} alt="" />
             </div>
           </div>
@@ -134,46 +132,9 @@ export default function Balance() {
 
       {/* Карточка */}
 
-      {/* <>
-        {!isSettingsOpen && !isContactsOpen && (
-          <>
-            <div className="h-[80px] w-full"></div>
-            <div className="text-center">
-              <p className="text-[43px] font-semibold leading-[40px]">
-                ₴ 25,430.50
-              </p>
-            </div>
-          </>
-        )}
-        {!isContactsOpen && (
-          <motion.div
-            layout
-            initial={false}
-            animate={{ y: isSettingsOpen ? -30 : 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="flex justify-center w-full"
-          >
-            <MonobankCard
-              isOpen={isSettingsOpen}
-              setIsOpen={setIsSettingsOpen}
-              cardNumber="4441 **** **** 1931"
-            />
-          </motion.div>
-        )}
-        <AnimatePresence mode="wait">
-          {!isSettingsOpen && !isContactsOpen && (
-            <>
-              <MainDashboard
-                setIsContactsOpen={setIsContactsOpen}
-              ></MainDashboard>
-            </>
-          )}
-        </AnimatePresence>
-      </> */}
-
-      <div className="w-full">
+      <div className="w-full ">
         <Swiper
-          spaceBetween={16}
+          spaceBetween={0}
           slidesPerView="auto"
           centeredSlides={false}
           slidesOffsetBefore={0}
@@ -199,11 +160,11 @@ export default function Balance() {
 
                 {!isContactsOpen && (
                   <div
-                    className={`!w-[100%] relative transition-all duration-500 ease-in-out`}
+                    className={` relative transition-all px-4 duration-500 ease-in-out`}
                     style={{
                       right:
                         activeIndex !== index && !isSettingsOpen
-                          ? "3.5rem"
+                          ? "2.3rem"
                           : "",
                     }}
                   >
@@ -219,12 +180,14 @@ export default function Balance() {
 
                 <AnimatePresence mode="wait">
                   {!isSettingsOpen && !isContactsOpen && (
-                    <MainDashboard
-                      isContactsOpen={isContactsOpen}
-                      setIsOpen={setIsSettingsOpen}
-                      setIsContactsOpen={setIsContactsOpen}
-                      operationsCards={card.operationsCards}
-                    />
+                    <div className="p-3 ">
+                      <MainDashboard
+                        isContactsOpen={isContactsOpen}
+                        setIsOpen={setIsSettingsOpen}
+                        setIsContactsOpen={setIsContactsOpen}
+                        operationsCards={card.operationsCards}
+                      />
+                    </div>
                   )}
                 </AnimatePresence>
               </div>
@@ -259,29 +222,29 @@ export default function Balance() {
       </AnimatePresence>
 
       {!isSettingsOpen && !isContactsOpen && (
-        <div className="flex justify-center fixed bottom-2 z-[999]  gap-3 mt-3 mx-auto w-full items-center  ">
+        <div className="flex justify-center  fixed bottom-2 z-[999]  gap-3 mt-3 mx-auto w-full items-center  ">
           <div className="bg-[#292929] py-[12px] px-[30px]  rounded-full">
             <div className="flex gap-[20px]">
               <div className="flex flex-col justify-center items-center">
-                <img src={two_cards} alt="" />
-                <p className="text-[10px]">Картки</p>
+                <img src={two_cards} alt="" className="w-[27px] h-[27px]" />
+                <p className="text-[10px] text-[#FB5257]">Картки</p>
               </div>
               <div className="flex flex-col justify-center items-center">
-                <img src={credits} alt="" />
+                <img src={credits} alt="" className="w-[27px] h-[27px]" />
                 <p className="text-[10px]">Кредити</p>
               </div>
               <div className="flex flex-col justify-center items-center">
-                <img src={six} alt="" />
+                <img src={six} alt="" className="w-[27px] h-[27px]" />
                 <p className="text-[10px]">Накопичення</p>
               </div>
               <div className="flex flex-col justify-center items-center">
-                <img src={dots} alt="" />
+                <img src={dots} alt="" className="w-[27px] h-[27px]" />
                 <p className="text-[10px]">Ще</p>
               </div>
             </div>
           </div>
           <div className="bg-[#292929] h-[65px] w-[65px] flex items-center justify-center rounded-full">
-            <img src={market} alt="w-[37px] h-[37px]" />
+            <img src={market} alt="" className="w-[37px] h-[37px]" />
           </div>
         </div>
       )}

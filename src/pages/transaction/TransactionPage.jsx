@@ -3,13 +3,13 @@ import edit from "../../assets/edit.svg";
 import grivna from "../../assets/grivna.svg";
 import tag from "../../assets/tag.svg";
 import rest from "../../assets/rest.svg";
-import separate from "../../assets/separate.svg";
+import separate from "../../assets/separate.png";
 
-import repeat from "../../assets/repeat.svg";
-import save from "../../assets/save.svg";
-import rewatch from "../../assets/rewatch.svg";
-import always from "../../assets/always.svg";
-import rasrochka from "../../assets/rasrochka.svg";
+import repeat from "../../assets/repeat.png";
+import save from "../../assets/save.png";
+import rewatch from "../../assets/rewatch.png";
+import always from "../../assets/always.png";
+import rasrochka from "../../assets/rasrochka.png";
 import transaction from "../../assets/transaction.svg";
 import { useNavigate } from "react-router-dom";
 export default function TransactionPage() {
@@ -19,7 +19,7 @@ export default function TransactionPage() {
       <button onClick={() => navigate("/")}>
         <ArrowLeft className="w-6 h-6 text-white absolute top-5 left-3" />
       </button>
-      <div className="bg-[#272727] relative h-screen mt-[100px]  rounded-t-2xl flex flex-col gap-[15px]">
+      <div className="bg-[#272727] relative min-h-screen mt-[100px]  rounded-t-2xl flex flex-col gap-[15px]">
         <img
           src={transaction}
           alt=""
@@ -62,7 +62,7 @@ export default function TransactionPage() {
         </div>
         <div className="flex flex-col pb-4 ">
           <div className="flex items-center gap-3 pl-[20px]">
-            <img src={separate} alt="" className="flex-1" />
+            <img src={separate} alt="" className="flex-1 w-[22px] h-[50px]" />
             <p
               className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -73,7 +73,7 @@ export default function TransactionPage() {
             </p>
           </div>
           <div className="flex items-center gap-3 pl-[20px]">
-            <img src={repeat} alt="" className="flex-1" />
+            <img src={repeat} alt="" className="flex-1 w-[22px] h-[50px]" />
             <p
               className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -84,7 +84,7 @@ export default function TransactionPage() {
             </p>
           </div>
           <div className="flex items-center gap-3 pl-[20px]">
-            <img src={save} alt="" className="flex-1" />
+            <img src={save} alt="" className="flex-1 w-[22px] h-[50px]" />
             <p
               className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -95,7 +95,7 @@ export default function TransactionPage() {
             </p>
           </div>
           <div className="flex items-center gap-3 pl-[20px]">
-            <img src={rewatch} alt="" className="flex-1" />
+            <img src={rewatch} alt="" className="flex-1 w-[22px] h-[50px]" />
             <p
               className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -106,7 +106,7 @@ export default function TransactionPage() {
             </p>
           </div>
           <div className="flex items-center gap-3 pl-[20px]">
-            <img src={always} alt="" className="flex-1" />
+            <img src={always} alt="" className="flex-1 w-[22px] h-[50px]" />
             <p
               className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -117,7 +117,7 @@ export default function TransactionPage() {
             </p>
           </div>
           <div className="flex items-center gap-3 pl-[20px]">
-            <img src={rasrochka} alt="" className="flex-1" />
+            <img src={rasrochka} alt="" className="flex-1 w-[22px] h-[50px]" />
             <p
               className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "

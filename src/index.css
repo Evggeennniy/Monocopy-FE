@@ -1,4 +1,40 @@
 @import "tailwindcss";
+
+/* src/index.css or App.css */
+
+@font-face {
+  font-family: "SF Pro Rounded";
+  src: url("./assets/fonts/SFProRounded-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SF Pro Rounded";
+  src: url("./assets/fonts/SFProRounded-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SF Pro Rounded";
+  src: url("./assets/fonts/SFProRounded-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SF Pro Rounded";
+  src: url("./assets/fonts/SFProRounded-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Apply globally */
+body {
+  font-family: "SF Pro Rounded", sans-serif;
+}
+
 @keyframes fadeOutRightToLeft {
   0% {
     background: linear-gradient(90deg, #ef5559 0%, #ef5559 100%);

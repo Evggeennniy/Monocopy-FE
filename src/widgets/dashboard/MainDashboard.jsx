@@ -1,11 +1,11 @@
 import React from "react";
-import card_icon from "../../assets/card_icon.svg";
-import pdf_icon from "../../assets/pdf_icon.svg";
-import slices_icon from "../../assets/slices.svg";
-import blue_smile from "../../assets/blue_smile.svg";
-import pink_icon from "../../assets/pink_icon.svg";
-import pink_pdf from "../../assets/pink_pdf.svg";
-import green_pdf from "../../assets/green_pdf.svg";
+import card_icon from "../../assets/card_icon.png";
+import pdf_icon from "../../assets/pdf_icon.png";
+import slices_icon from "../../assets/slices.png";
+import blue_smile from "../../assets/blue_smile.png";
+import pink_icon from "../../assets/pink_icon.png";
+import pink_pdf from "../../assets/pink_pdf.png";
+import green_pdf from "../../assets/green_pdf.png";
 import bank_cards from "../../assets/bank-cards.svg";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -46,19 +46,19 @@ function MainDashboard({
               className="flex flex-col items-center gap-3 w-[77px]  text-center cursor-pointer"
             >
               <div className="w-[57px] h-[57px] rounded-full bg-[#04070E] flex justify-center items-center">
-                <img src={card_icon} alt="" />
+                <img src={card_icon} alt="" className="w-[30px] h-[30px]" />
               </div>
               <p>Переказати на картку</p>
             </div>
             <div className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer">
               <div className="w-[57px] h-[57px] rounded-full bg-[#04070E] flex justify-center items-center">
-                <img src={pdf_icon} alt="" />
+                <img src={pdf_icon} alt="" className="w-[30px] h-[30px]" />
               </div>
               <p>Платіж за IBAN</p>
             </div>
             <div className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer">
               <div className="w-[57px] h-[57px] rounded-full bg-[#04070E] flex justify-center items-center">
-                <img src={slices_icon} alt="" />
+                <img src={slices_icon} alt="" className="w-[30px] h-[30px]" />
               </div>
               <p>Інші платежі</p>
             </div>

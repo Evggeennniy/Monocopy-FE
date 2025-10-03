@@ -6,11 +6,19 @@ import si_copy from "../../assets/si_copy.png";
 import { motion } from "framer-motion";
 import share from "../../assets/share.png";
 import { useNavigate } from "react-router-dom";
+function formatCardNumber(card) {
+  return card
+    .replace(/\s+/g, "") // убираем все пробелы
+    .replace(/(\d{4})(?=\d)/g, "$1 ") // добавляем пробел после каждых 4 цифр
+    .trim();
+}
 function PaymentStatus() {
   const navigate = useNavigate();
   const [finished, setFinished] = useState(false);
+  const data = JSON.parse(localStorage.getItem("formData"));
+  console.log(data);
   return (
-    <div className="bg-[#1E1E1E] min-h-screen  p-3">
+    <div className="bg-[#1E1E1E] flex flex-col justify-between min-h-screen  p-3">
       <div className="mt-[70px] flex flex-col items-center  mb-[44px]">
         <img src={cat_big} alt="" className="w-[221px] " />
       </div>
@@ -20,8 +28,12 @@ function PaymentStatus() {
       <div className="flex items-center gap-3 ml-6 mb-[35px]">
         <img src={white_card} alt="" className="w-[41px]" />
         <div className="flex flex-col text-white">
-          <div className="text-[17px]">1.00 ₴ на картку</div>
-          <div className="font-bold text-[16px]">Поліна Л.</div>
+          <div className="text-[17px]">
+            {Number(data.amount).toFixed(2)} ₴ на картку
+          </div>
+          <div className="font-bold text-[16px]">
+            {formatCardNumber(data.to_card)}
+          </div>
         </div>
       </div>
       <div className="p-5  mb-[35px] bg-[#272727] rounded-xl">
@@ -59,7 +71,7 @@ function PaymentStatus() {
       </motion.div>
 
       <button
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/dashboard")}
         className="w-full bg-[#EF5559] text-[14px] py-4 mt-auto rounded-xl text-white"
       >
         Готово

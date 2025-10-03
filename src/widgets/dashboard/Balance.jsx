@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MonobankCard from "./MonobankCard";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,6 +19,9 @@ import credits from "../../assets/credits.png";
 import six from "../../assets/16.png";
 import dots from "../../assets/dots.png";
 import market from "../../assets/market.png";
+import fetchWithAuth from "../../util/fetchWithAuth";
+import { API_URL } from "../../url";
+import bank_cards from "../../assets/bank-cards.svg";
 export const cardsArray = [
   {
     id: 1,
@@ -89,14 +92,43 @@ export const cardsArray = [
 
 export default function Balance() {
   // const [isSettingsOpen, setIsOpen] = useState(false);
+
   const [isContactsOpen, setIsContactsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [cards, setCards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchCards() {
+      setLoading(true);
+      try {
+        const res = await fetchWithAuth(`${API_URL}/cards/`);
+        if (!res.ok) {
+          throw new Error(`Ошибка: ${res.status}`);
+        }
+        console.log(res);
+        const data = await res.json();
+        console.log(data, "data");
+        // если API возвращает JSON
+        setCards(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCards();
+  }, []);
+  console.log(cards, "cards");
   return (
     <div
       style={{
-        background:
-          "linear-gradient(179.99deg, #0B0D40 0%, #16265A 16.21%, #112658 31.61%, #0D244E 48.57%, #121212 57.07%, #121212 98.97%)",
+        background: !isSettingsOpen
+          ? "linear-gradient(179.99deg, #0B0D40 0%, #16265A 16.21%, #112658 31.61%, #0D244E 48.57%, #121212 57.07%, #121212 98.97%)"
+          : "linear-gradient(180deg, #060622 0%, #181C2A 16.21%, #0D1D41 31.61%, #0E2652 48.57%, #132646 100%)",
       }}
       className={`min-h-screen text-white flex flex-col items-center ${
         isContactsOpen ? "p-0" : " p-0"
@@ -105,11 +137,10 @@ export default function Balance() {
       {!isSettingsOpen && !isContactsOpen && (
         <div className="flex justify-between  w-full items-center p-3 pr-2">
           <div className="flex gap-3 items-center">
-            <img
-              src=""
-              alt=""
-              className="w-[32px] bg-[#3F497A] h-[33px] rounded-full"
-            />
+            <div className="w-[42px] h-[42px] rounded-full bg-[#315cc0] flex justify-center items-center">
+              {cards[0]?.user.first_name.charAt(0).toUpperCase()}
+            </div>
+
             <img src={message} alt="" className="w-[32px] h-[33px]" />
           </div>
           <div className="flex  items-center gap-3">
@@ -139,9 +170,12 @@ export default function Balance() {
           centeredSlides={false}
           slidesOffsetBefore={0}
           slidesOffsetAfter={16}
-          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+          onSlideChange={(swiper) => {
+            setActiveIndex(swiper.activeIndex);
+            localStorage.setItem("card", swiper.activeIndex);
+          }}
         >
-          {cardsArray.map((card, index) => (
+          {cards.map((card, index) => (
             <SwiperSlide key={card.id} className="">
               <div className=" ">
                 {/* Top spacer + balance */}
@@ -169,23 +203,23 @@ export default function Balance() {
                     }}
                   >
                     <MonobankCard
-                      cardNumber={card.cardNumber}
+                      cardNumber={card.card_number}
                       isOpen={isSettingsOpen}
                       setIsOpen={setIsSettingsOpen}
-                      borderColor={card.borderColor}
-                      owner={card.owner}
+                      borderColor={index === 0 ? "#0F0E0C" : "#FB5255"}
+                      owner={card.user.first_name + " " + card.user.last_name}
                     />
                   </div>
                 )}
 
-                <AnimatePresence mode="wait">
+                <AnimatePresence mode="popLayout">
                   {!isSettingsOpen && !isContactsOpen && (
                     <div className="p-3 ">
                       <MainDashboard
                         isContactsOpen={isContactsOpen}
                         setIsOpen={setIsSettingsOpen}
                         setIsContactsOpen={setIsContactsOpen}
-                        operationsCards={card.operationsCards}
+                        operationsCards={card.transactions}
                       />
                     </div>
                   )}
@@ -194,9 +228,19 @@ export default function Balance() {
             </SwiperSlide>
           ))}
         </Swiper>
+        {!isSettingsOpen && !isContactsOpen && (
+          <button
+            className="flex absolute top-[44%] right-[40%] z-[100]  items-center  mx-auto px-2 gap-2 cursor-pointer py-1
+            rounded-full bg-[#0A1D3E] opacity-90"
+          >
+            {" "}
+            <img src={bank_cards} alt="" />
+            <p className="text-[12px] text-[#A0A6B9] ">Усі картки</p>
+          </button>
+        )}
       </div>
       {/* Нижние блоки */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="popLayout">
         {/* {!isSettingsOpen && !isContactsOpen && (
           <>
             <div className="h-[80px] w-full"></div>

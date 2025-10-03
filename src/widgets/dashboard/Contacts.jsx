@@ -17,146 +17,170 @@ export const contacts = [
   {
     id: 1,
     name: "Анастасія Ковальчук",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
     favorite: true,
-  },
-  {
-    id: 2,
-    name: "Дмитро Шевченко",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
-    favorite: false,
-  },
-  {
-    id: 3,
-    name: "Олена Петренко",
-    image: "https://randomuser.me/api/portraits/women/12.jpg",
-    favorite: true,
-  },
-  {
-    id: 4,
-    name: "Максим Бондаренко",
-    image: "https://randomuser.me/api/portraits/men/67.jpg",
-    favorite: false,
-  },
-  {
-    id: 5,
-    name: "Софія Мельник",
-    image: "https://randomuser.me/api/portraits/women/25.jpg",
-    favorite: false,
-  },
-  {
-    id: 6,
-    name: "Іван Гончаренко",
-    image: "https://randomuser.me/api/portraits/men/40.jpg",
-    favorite: true,
-  },
-  {
-    id: 7,
-    name: "Марія Литвиненко",
-    image: "https://randomuser.me/api/portraits/women/41.jpg",
-    favorite: false,
-  },
-  {
-    id: 8,
-    name: "Олександр Мороз",
-    image: "https://randomuser.me/api/portraits/men/53.jpg",
-    favorite: false,
-  },
-  {
-    id: 9,
-    name: "Катерина Ткаченко",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
-    favorite: true,
-  },
-  {
-    id: 10,
-    name: "Олег Сидоренко",
-    image: "https://randomuser.me/api/portraits/men/21.jpg",
-    favorite: false,
-  },
-  {
-    id: 11,
-    name: "Вікторія Кравчук",
-    image: "https://randomuser.me/api/portraits/women/30.jpg",
-    favorite: false,
-  },
-  {
-    id: 12,
-    name: "Наталія Іваненко",
-    image: "https://randomuser.me/api/portraits/women/16.jpg",
-    favorite: true,
+    bgColor: "hsl(210, 70%, 80%)",
+    cardNumber: "4000 1234 5678 9010",
   },
   {
     id: 13,
     name: "Артем Поліщук",
-    image: "https://randomuser.me/api/portraits/men/28.jpg",
     favorite: false,
+    bgColor: "hsl(45, 70%, 80%)",
+    cardNumber: "4000 2345 6789 0123",
   },
   {
     id: 14,
     name: "Аліна Чорна",
-    image: "https://randomuser.me/api/portraits/women/34.jpg",
     favorite: false,
-  },
-  {
-    id: 15,
-    name: "Володимир Савченко",
-    image: "https://randomuser.me/api/portraits/men/45.jpg",
-    favorite: true,
-  },
-  {
-    id: 16,
-    name: "Ірина Бондар",
-    image: "https://randomuser.me/api/portraits/women/27.jpg",
-    favorite: false,
-  },
-  {
-    id: 17,
-    name: "Сергій Ковтун",
-    image: "https://randomuser.me/api/portraits/men/64.jpg",
-    favorite: false,
-  },
-  {
-    id: 18,
-    name: "Юлія Романенко",
-    image: "https://randomuser.me/api/portraits/women/29.jpg",
-    favorite: true,
-  },
-  {
-    id: 19,
-    name: "Михайло Панасюк",
-    image: "https://randomuser.me/api/portraits/men/34.jpg",
-    favorite: false,
-  },
-  {
-    id: 20,
-    name: "Тетяна Гриценко",
-    image: "https://randomuser.me/api/portraits/women/19.jpg",
-    favorite: false,
+    bgColor: "hsl(320, 70%, 80%)",
+    cardNumber: "4000 3456 7890 1234",
   },
   {
     id: 21,
     name: "Андрій Дорошенко",
-    image: "https://randomuser.me/api/portraits/men/36.jpg",
     favorite: true,
+    bgColor: "hsl(180, 70%, 80%)",
+    cardNumber: "4000 4567 8901 2345",
   },
   {
-    id: 22,
-    name: "Оксана Верес",
-    image: "https://randomuser.me/api/portraits/women/15.jpg",
+    id: 11,
+    name: "Вікторія Кравчук",
     favorite: false,
+    bgColor: "hsl(90, 70%, 80%)",
+    cardNumber: "4000 5678 9012 3456",
   },
   {
-    id: 23,
-    name: "Руслан Колесник",
-    image: "https://randomuser.me/api/portraits/men/50.jpg",
+    id: 15,
+    name: "Володимир Савченко",
+    favorite: true,
+    bgColor: "hsl(300, 70%, 80%)",
+    cardNumber: "4000 6789 0123 4567",
+  },
+  {
+    id: 2,
+    name: "Дмитро Шевченко",
     favorite: false,
+    bgColor: "hsl(15, 70%, 80%)",
+    cardNumber: "4000 7890 1234 5678",
   },
   {
     id: 24,
     name: "Дарина Зайцева",
-    image: "https://randomuser.me/api/portraits/women/23.jpg",
     favorite: true,
+    bgColor: "hsl(200, 70%, 80%)",
+    cardNumber: "4000 8901 2345 6789",
+  },
+  {
+    id: 20,
+    name: "Тетяна Гриценко",
+    favorite: false,
+    bgColor: "hsl(350, 70%, 80%)",
+    cardNumber: "4000 9012 3456 7890",
+  },
+  {
+    id: 16,
+    name: "Ірина Бондар",
+    favorite: false,
+    bgColor: "hsl(60, 70%, 80%)",
+    cardNumber: "4000 0123 4567 8901",
+  },
+  {
+    id: 6,
+    name: "Іван Гончаренко",
+    favorite: true,
+    bgColor: "hsl(270, 70%, 80%)",
+    cardNumber: "4000 1234 5678 9012",
+  },
+  {
+    id: 4,
+    name: "Максим Бондаренко",
+    favorite: false,
+    bgColor: "hsl(120, 70%, 80%)",
+    cardNumber: "4000 2345 6789 0124",
+  },
+  {
+    id: 7,
+    name: "Марія Литвиненко",
+    favorite: false,
+    bgColor: "hsl(30, 70%, 80%)",
+    cardNumber: "4000 3456 7890 1235",
+  },
+  {
+    id: 12,
+    name: "Наталія Іваненко",
+    favorite: true,
+    bgColor: "hsl(250, 70%, 80%)",
+    cardNumber: "4000 4567 8901 2346",
+  },
+  {
+    id: 8,
+    name: "Олександр Мороз",
+    favorite: false,
+    bgColor: "hsl(10, 70%, 80%)",
+    cardNumber: "4000 5678 9012 3457",
+  },
+  {
+    id: 22,
+    name: "Оксана Верес",
+    favorite: false,
+    bgColor: "hsl(190, 70%, 80%)",
+    cardNumber: "4000 6789 0123 4568",
+  },
+  {
+    id: 3,
+    name: "Олена Петренко",
+    favorite: true,
+    bgColor: "hsl(330, 70%, 80%)",
+    cardNumber: "4000 7890 1234 5679",
+  },
+  {
+    id: 10,
+    name: "Олег Сидоренко",
+    favorite: false,
+    bgColor: "hsl(140, 70%, 80%)",
+    cardNumber: "4000 8901 2345 6780",
+  },
+  {
+    id: 9,
+    name: "Катерина Ткаченко",
+    favorite: true,
+    bgColor: "hsl(70, 70%, 80%)",
+    cardNumber: "4000 9012 3456 7891",
+  },
+  {
+    id: 19,
+    name: "Михайло Панасюк",
+    favorite: false,
+    bgColor: "hsl(100, 70%, 80%)",
+    cardNumber: "4000 0123 4567 8902",
+  },
+  {
+    id: 23,
+    name: "Руслан Колесник",
+    favorite: false,
+    bgColor: "hsl(210, 70%, 80%)",
+    cardNumber: "4000 1234 5678 9013",
+  },
+  {
+    id: 17,
+    name: "Сергій Ковтун",
+    favorite: false,
+    bgColor: "hsl(280, 70%, 80%)",
+    cardNumber: "4000 2345 6789 0125",
+  },
+  {
+    id: 5,
+    name: "Софія Мельник",
+    favorite: false,
+    bgColor: "hsl(160, 70%, 80%)",
+    cardNumber: "4000 3456 7890 1236",
+  },
+  {
+    id: 18,
+    name: "Юлія Романенко",
+    favorite: true,
+    bgColor: "hsl(230, 70%, 80%)",
+    cardNumber: "4000 4567 8901 2347",
   },
 ];
 
@@ -215,14 +239,14 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
         <h1 className="text-[23px] ">Переказ на картку</h1>
         {/* Left back arrow */}
 
-        <div className="relative w-full  w-full">
+        <div className="relative w-full ">
           {/* Icon */}
 
           {/* Input */}
           <input
             type="text"
             placeholder="Уведіть ім’я, номер картки або телефону"
-            className="w-full  pr-10 pl-4 placeholder-[#91A2B1] opacity-80 py-3 rounded-2xl text-white placeholder-white focus:outline-none"
+            className="w-full  pr-10 pl-4 placeholder-[#91A2B1] opacity-80 py-3 rounded-2xl text-white  focus:outline-none"
             style={{
               background: "linear-gradient(180deg, #2E45A3 0%, #3964B3 100%)",
             }}
@@ -274,27 +298,37 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
           <div className=" bg-[#1E1E1E] rounded-3xl p-4">
             <h1 className="text-2xl font-bold mb-2">Контакти</h1>
             <ul className="space-y-4">
-              {contacts.map((c) => (
-                <li
-                  key={c.id}
-                  onClick={() => {
-                    navigate("/transfer/" + c.id);
-                  }}
-                  className="flex justify-between cursor-pointer"
-                >
-                  <div className="flex items-center gap-4  w-full rounded-xl ">
-                    <img
-                      src={c.image}
-                      alt={c.name}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                    <div className="flex-1 text-[#E0E0E0] text-[16px]">
-                      <p className="">{c.name}</p>
+              {contacts.map((c) => {
+                // Генерируем случайный светлый цвет
+
+                const firstLetter = c.name.charAt(0).toUpperCase();
+
+                return (
+                  <li
+                    key={c.id}
+                    onClick={() => {
+                      navigate("/transfer/" + c.id);
+                    }}
+                    className="flex justify-between cursor-pointer"
+                  >
+                    <div className="flex items-center relative gap-4 w-full rounded-xl">
+                      <div
+                        className="w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg"
+                        style={{ backgroundColor: c.bgColor }}
+                      >
+                        {firstLetter}
+                        <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full  bg-black flex items-center justify-center text-white ">
+                          <p>m</p>
+                        </div>
+                      </div>
+                      <div className="flex-1 text-[#E0E0E0] text-[16px]">
+                        <p>{c.name}</p>
+                      </div>
+                      <Star className="mt-2" size={20} color="#E1E1E1" />
                     </div>
-                    <Star className="mt-2" size={20} color="#E1E1E1" />
-                  </div>
-                </li>
-              ))}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

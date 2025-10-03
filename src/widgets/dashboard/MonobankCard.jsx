@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import monobankLogo from "../../assets/logo_card.png";
 import visa from "../../assets/visa.svg";
-function maskCardNumber(number) {
-  if (!number) return "";
-  const first = number.slice(0, 4);
-  const last = number.slice(-4);
-  return `${first} **** **** ${last}`;
+import { maskCardNumber } from "../../util/maskCardNumber";
+function formatCardNumber(str) {
+  if (!str) return "";
+  // оставим только символы (например цифры), если нужно — убрать все нецифры:
+  const cleaned = str.replace(/\s+/g, "");
+  // вставляем пробел после каждых 4 символов
+  return cleaned.replace(/(.{4})/g, "$1 ").trim();
 }
 export default function MonobankCard({
   cardNumber = "4441 **** **** 1931",
@@ -19,12 +21,14 @@ export default function MonobankCard({
     <div className="flex justify-center items-center relative">
       {/* Perspective wrapper */}
       <div
-        className="w-[320px] sm:w-[384px] h-[196px]"
+        className={`${
+          !isOpen ? "w-[320px]" : "w-[340px]"
+        } sm:w-[384px] h-[196px]`}
         style={{ perspective: "1200px" }}
       >
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-full h-full text-white p-6 rounded-2xl shadow-2xl cursor-pointer transition-transform duration-1000 ease-out"
+          className="relative w-full h-full text-white p-6 rounded-2xl shadow-2xl cursor-pointer transition-transform duration-600 ease-out"
           style={{
             transform: isOpen ? "rotateX(0deg)" : "rotateX(63deg)",
             transformStyle: "preserve-3d",
@@ -44,10 +48,12 @@ export default function MonobankCard({
 
             <p
               className={`tracking-widest  sm:text-[28px] mx-auto ${
-                !isOpen ? "opacity-65 text-[26px]" : "text-[23px]"
+                !isOpen ? "opacity-65 text-[26px]" : "text-[25px]"
               }`}
             >
-              {isOpen ? cardNumber : maskCardNumber(cardNumber)}
+              {isOpen
+                ? formatCardNumber(cardNumber)
+                : maskCardNumber(cardNumber)}
             </p>
           </div>
           {isOpen && (

@@ -6,7 +6,7 @@ import blue_smile from "../../assets/blue_smile.png";
 import pink_icon from "../../assets/pink_icon.png";
 import pink_pdf from "../../assets/pink_pdf.png";
 import green_pdf from "../../assets/green_pdf.png";
-import bank_cards from "../../assets/bank-cards.svg";
+import arrow_left from "../../assets/arrow_left.svg";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 function MainDashboard({
@@ -17,6 +17,22 @@ function MainDashboard({
 }) {
   const navigate = useNavigate();
   console.log(operationsCards);
+  const lastThreeReversed = operationsCards.slice(-3).reverse();
+  function getRandomColor() {
+    const colors = [
+      "#FF6B6B",
+      "#6BCB77",
+      "#4D96FF",
+      "#FFD93D",
+      "#845EC2",
+      "#FF9671",
+      "#2C73D2",
+      "#0081CF",
+      "#00C9A7",
+      "#F9F871",
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
   return (
     <>
       {!isContactsOpen && (
@@ -30,12 +46,10 @@ function MainDashboard({
         >
           {/* Баланс */}
           <button
-            className="flex items-center mx-auto px-2 gap-2 cursor-pointer py-1
-            rounded-full bg-[#0A1D3E]"
-          >
-            <img src={bank_cards} alt="" />
-            <p className="text-[12px] text-[#A0A6B9] ">Усі картки</p>
-          </button>
+            className=" h-[49px] 
+           "
+          ></button>
+
           {/* Навигация */}
           <div className="flex justify-around  mt-4 ">
             <div
@@ -68,29 +82,51 @@ function MainDashboard({
           <>
             {" "}
             <div className="mt-8 bg-[#272727] py-4 px-3 rounded-2xl">
-              <h3 className="text-lg font-semibold mb-4">Операції</h3>
+              <div className="flex justify-between">
+                <h3 className="text-lg font-semibold mb-4">Операції</h3>
+                <p className="bg-[#2F3239] rounded-full w-[54px] justify-center  gap-1 text-[11px] h-[25px] text-[#6386BD] flex items-center">
+                  Усі <img src={arrow_left} alt="" className="pt-[1px]" />
+                </p>
+              </div>
+
               <ul className="flex flex-col gap-5">
-                {operationsCards.map((item) => {
+                {lastThreeReversed.map((item) => {
+                  const bgColor = getRandomColor();
                   return (
                     <li
                       onClick={() => navigate("/transaction/" + item.id)}
                       className="flex justify-between items-center rounded-xl  "
                     >
                       <div className="flex gap-4 items-center">
-                        <div className="w-[42px] h-[42px] rounded-full bg-[#04070E] flex justify-center items-center"></div>
-                        <span>{item.name}</span>
+                        {item.operation_type === "withdraw" ? (
+                          <div className="w-[42px] h-[42px] rounded-full bg-[#315cc0] flex justify-center items-center">
+                            {item.cardholder_name.charAt(0).toUpperCase()}
+                          </div>
+                        ) : (
+                          <div
+                            style={{ background: bgColor }}
+                            className="w-[42px] h-[42px] rounded-full  flex justify-center items-center"
+                          >
+                            {" "}
+                            {item.cardholder_name.charAt(0).toUpperCase()}
+                          </div>
+                        )}
+
+                        <span>{item.cardholder_name}</span>
                       </div>
-                      {item.color === "red" ? (
+                      {item.operation_type === "withdraw" ? (
                         <>
                           {" "}
                           <span className="text-red-400">
-                            - {item.amount} {item.currency}{" "}
+                            - {Number(item.amount).toLocaleString("uk-UA")}{" "}
+                            &#8372;
                           </span>
                         </>
                       ) : (
                         <>
                           <span className="text-green-400">
-                            {item.amount} {item.currency}{" "}
+                            {Number(item.amount).toLocaleString("uk-UA")}{" "}
+                            &#8372;
                           </span>
                         </>
                       )}

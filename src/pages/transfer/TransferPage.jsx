@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { contacts } from "../../widgets/dashboard/Contacts";
 import { ArrowLeft, MessageCircle, Star } from "lucide-react";
@@ -6,32 +6,95 @@ import transfer_black_card from "../../assets/transfer_black_card.svg";
 import comment from "../../assets/comment.svg";
 import grivna from "../../assets/grivna.svg";
 import prize from "../../assets/prize.svg";
+import fetchWithAuth from "../../util/fetchWithAuth";
+import { API_URL } from "../../url";
+import Balance from "../../widgets/dashboard/Balance";
 export default function TransferPage() {
   const { id } = useParams();
   const user = contacts.find((c) => c.id === +id);
   const [value, setValue] = useState("");
   const navigate = useNavigate();
+  const [cards, setCards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const firstLetter = user.name.charAt(0).toUpperCase();
+  useEffect(() => {
+    async function fetchCards() {
+      setLoading(true);
+      try {
+        const res = await fetchWithAuth(`${API_URL}/cards/`);
+        if (!res.ok) {
+          throw new Error(`Ошибка: ${res.status}`);
+        }
+        console.log(res);
+        const data = await res.json();
+        console.log(data, "data");
+        // если API возвращает JSON
+        setCards(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCards();
+  }, []);
+  console.log(cards);
+
+  const submit = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      cardholder_name:
+        cards[0]?.user.first_name + " " + cards[0]?.user.last_name,
+      from_card: cards[0]?.card_number,
+      to_card: user.cardNumber.replace(/\s+/g, "").trim(),
+      amount: +value,
+    };
+
+    try {
+      const res = await fetchWithAuth(API_URL + "/transactions/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Ошибка: ${res.status}`);
+      }
+
+      const data = await res.json();
+      localStorage.setItem("formData", JSON.stringify(formData));
+      console.log("Успешно отправлено:", data);
+      // здесь можно очистить форму или показать сообщение
+      navigate("/payment-status");
+    } catch (err) {
+      console.error("Ошибка при отправке:", err);
+    }
+  };
   return (
     <div className="bg-[#1E1E1E] text-white min-h-screen  flex flex-col">
       {/* Header */}
       <div className="p-4">
-        <button onClick={() => navigate("/")} className="mb-4">
+        <button onClick={() => navigate("/dashboard")} className="mb-4">
           <ArrowLeft className="w-6 h-6 text-gray-300" />
         </button>
         <div className="flex relative items-center gap-3">
-          <div className="">
-            <img
-              src={user?.image}
-              alt={user?.name}
-              className="w-10 h-10 rounded-full"
-            />
+          <div
+            className="w-[52px] h-[52px] rounded-full flex items-center justify-center text-white text-lg"
+            style={{ backgroundColor: user.bgColor }}
+          >
+            {firstLetter}
           </div>
-          <div className="w-6 h-6 left-5 top-6 absolute flex-items rounded-full  bg-black flex items-center justify-center text-white pb-2 ">
+          <div className="w-6 h-6 left-8 top-8 absolute flex-items rounded-full  bg-black flex items-center justify-center text-white pb-1 ">
             <p>m</p>
           </div>
           <div>
             <h2 className="font-semibold text-base text-[#E0E0E0] text-[17px">
-              Алина Снегирь
+              {user.name}
             </h2>
             <div clear-both className="flex items-center gap-1">
               <img src={transfer_black_card} alt="" />
@@ -43,9 +106,9 @@ export default function TransferPage() {
 
       {/* Amount */}
       <div className="flex flex-col items-center justify-center flex-1">
-        <div className="bg-[#1E1E1E] flex gap-1 items-center border border-[#323232] text-[#91A2B1] px-3 py-1 rounded-full text-[14px] text-gray-300 mb-3">
+        <div className="bg-[#1E1E1E] flex gap-1 items-center border border-[#323232] text-[#91A2B1] px-3 py-1 rounded-full text-[14px] mb-3">
           <img src={transfer_black_card} alt="w-[18px] h-[14px]" />
-          108 893.83
+          {cards[0]?.balance}
           <img src={grivna} alt="₴" className="w-3 h-3 object-contain " />
         </div>
 
@@ -98,7 +161,7 @@ export default function TransferPage() {
               <Star className="w-5 h-5  inline-block " />
             </button>
             <button
-              onClick={() => navigate("/payment-status")}
+              onClick={submit}
               className="w-full py-3 bg-[#414141] rounded-2xl px-[110px] py-5 text-[#FFFFFF]  text-[14px] font-semibold"
             >
               Надіслати

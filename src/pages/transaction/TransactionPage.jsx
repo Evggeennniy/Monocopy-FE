@@ -11,12 +11,68 @@ import rewatch from "../../assets/rewatch.png";
 import always from "../../assets/always.png";
 import rasrochka from "../../assets/rasrochka.png";
 import transaction from "../../assets/transaction.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import fetchWithAuth from "../../util/fetchWithAuth";
+import { API_URL } from "../../url";
+function formatUADate(isoString) {
+  const date = new Date(isoString);
+
+  const months = [
+    "січня",
+    "лютого",
+    "березня",
+    "квітня",
+    "травня",
+    "червня",
+    "липня",
+    "серпня",
+    "вересня",
+    "жовтня",
+    "листопада",
+    "грудня",
+  ];
+
+  const day = date.getUTCDate();
+  const month = months[date.getUTCMonth()];
+  const year = date.getUTCFullYear();
+  const hours = String(date.getUTCHours()).padStart(2, "0");
+  const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+
+  return `${day} ${month} ${year}, ${hours}:${minutes}`;
+}
+
 export default function TransactionPage() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [transactionData, setTransactionData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchTransaction() {
+      setLoading(true);
+      try {
+        const res = await fetchWithAuth(`${API_URL}/transactions/${id}/`);
+        if (!res.ok) throw new Error(`Ошибка: ${res.status}`);
+        const data = await res.json();
+        setTransactionData(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchTransaction();
+  }, [id]);
+  console.log(transactionData);
+  if (loading) return <div>Загрузка...</div>;
+  if (error) return <div className="text-red-500">Ошибка: {error}</div>;
+  if (!transactionData) return <div>Транзакция не найдена</div>;
   return (
     <div className="bg-[#5F5FD9] relative h-[120px] flex flex-col">
-      <button onClick={() => navigate("/")}>
+      <button onClick={() => navigate("/dashboard")}>
         <ArrowLeft className="w-6 h-6 text-white absolute top-5 left-3" />
       </button>
       <div className="bg-[#272727] relative min-h-screen mt-[100px]  rounded-t-2xl flex flex-col gap-[15px]">
@@ -26,7 +82,7 @@ export default function TransactionPage() {
           className="absolute left-[50%]  transform -translate-x-1/2 -translate-y-1/2"
         />
         <h3 className="text-[#E0E0E0] text-center text-[17px] mt-[38px]">
-          Алина Снегирь
+          {transactionData.cardholder_name}
         </h3>
         <div className="flex gap-[25px] justify-center items-center">
           <div className="h-[1px] bg-[#4B4B4B] w-[18%]"></div>
@@ -38,10 +94,12 @@ export default function TransactionPage() {
           <div className="h-[1px] bg-[#4B4B4B] w-[18%]"></div>
         </div>
         <div className="text-[#91A2B1] text-[13px] text-center">
-          26 вересня 2025, 23:59
+          {formatUADate(transactionData.timestamp)}
         </div>
         <div className="text-[#FDFDFD] text-[47px] flex items-center justify-center">
-          -1 200
+          {transactionData.operation_type === "deposit"
+            ? Math.abs(transactionData.amount).toLocaleString()
+            : `-${Math.abs(transactionData.amount).toLocaleString()}`}
           <span className="text-[35px] flex  pt-[12px] h-full ">
             .00 <img src={grivna} className="w-[28px] mt-4 h-[28px]" alt="" />
           </span>

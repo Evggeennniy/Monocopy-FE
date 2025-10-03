@@ -1,0 +1,15 @@
+{
+  "name": "Monobank Copy",
+  "short_name": "Monobank",
+  "start_url": "https://46.101.108.17",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/preview.png",
+      "sizes": "192x192",
+      "type": "image/x-icon"
+    }
+  ]
+}

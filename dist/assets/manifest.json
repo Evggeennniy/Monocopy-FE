@@ -3,8 +3,8 @@
   "short_name": "Monobank",
   "start_url": "https://46.101.108.17",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "theme_color": "#0D1B57",
+  "background_color": "#0D1B57",
   "icons": [
     {
       "src": "/preview.png",

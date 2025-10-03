@@ -230,7 +230,7 @@ export default function Balance() {
         </Swiper>
         {!isSettingsOpen && !isContactsOpen && (
           <button
-            className="flex absolute top-[44%] right-[40%] z-[100]  items-center  mx-auto px-2 gap-2 cursor-pointer py-1
+            className="flex absolute top-[45%] right-[40%] z-[100]  items-center  mx-auto px-2 gap-2 cursor-pointer py-1
             rounded-full bg-[#0A1D3E] opacity-90"
           >
             {" "}
@@ -266,7 +266,7 @@ export default function Balance() {
       </AnimatePresence>
 
       {!isSettingsOpen && !isContactsOpen && (
-        <div className="flex justify-center  fixed bottom-2 z-[999]  gap-3 mt-3 mx-auto w-full items-center  ">
+        <div className="flex justify-center  fixed bottom-6 z-[999]  gap-3 mt-3 mx-auto w-full items-center  ">
           <div className="bg-[#292929] py-[12px] px-[30px]  rounded-full">
             <div className="flex gap-[20px]">
               <div className="flex flex-col justify-center items-center">

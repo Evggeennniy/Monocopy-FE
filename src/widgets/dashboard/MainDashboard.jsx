@@ -45,10 +45,6 @@ function MainDashboard({
           className="w-full flex flex-col gap-3"
         >
           {/* Баланс */}
-          <button
-            className=" h-[49px] 
-           "
-          ></button>
 
           {/* Навигация */}
           <div className="flex justify-around  mt-4 ">

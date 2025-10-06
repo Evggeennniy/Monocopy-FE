@@ -101,6 +101,8 @@ export default function Balance() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let intervalId;
+
     async function fetchCards() {
       setLoading(true);
       try {
@@ -108,10 +110,7 @@ export default function Balance() {
         if (!res.ok) {
           throw new Error(`Ошибка: ${res.status}`);
         }
-        console.log(res);
         const data = await res.json();
-        console.log(data, "data");
-        // если API возвращает JSON
         setCards(data);
       } catch (err) {
         setError(err);
@@ -120,7 +119,11 @@ export default function Balance() {
       }
     }
 
-    fetchCards();
+    fetchCards(); // сразу загрузим данные при первом рендере
+
+    intervalId = setInterval(fetchCards, 5000); // обновляем каждые 5 секунд
+
+    return () => clearInterval(intervalId); // очистка при размонтировании
   }, []);
   console.log(cards, "cards");
   return (
@@ -185,7 +188,9 @@ export default function Balance() {
                     <div className="text-center flex items-center justify-center gap-2">
                       <img src={plus} alt="" className="mt-2" />
                       <p className="text-[47px] text-[#E1E1E1] font-semibold leading-[40px] flex items-center">
-                        <div>{card.balance}</div>{" "}
+                        <div>
+                          {Number(card.balance).toLocaleString("uk-UA")}
+                        </div>
                         <img src={grivna} alt="" className="mt-2" />
                       </p>
                     </div>
@@ -194,12 +199,10 @@ export default function Balance() {
 
                 {!isContactsOpen && (
                   <div
-                    className={` relative transition-all px-4 duration-500 ease-in-out`}
+                    className={` relative transition-all px-4 duration-600 ease-in-out`}
                     style={{
                       right:
-                        activeIndex !== index && !isSettingsOpen
-                          ? "2.3rem"
-                          : "",
+                        activeIndex !== index && !isSettingsOpen ? "4rem" : "",
                     }}
                   >
                     <MonobankCard
@@ -230,7 +233,7 @@ export default function Balance() {
         </Swiper>
         {!isSettingsOpen && !isContactsOpen && (
           <button
-            className="flex absolute top-[45%] right-[40%] z-[100]  items-center  mx-auto px-2 gap-2 cursor-pointer py-1
+            className="flex absolute top-[22.5rem] right-[40%] z-[100]  items-center  mx-auto px-2 gap-2 cursor-pointer py-1
             rounded-full bg-[#0A1D3E] opacity-90"
           >
             {" "}
@@ -240,7 +243,7 @@ export default function Balance() {
         )}
       </div>
       {/* Нижние блоки */}
-      <AnimatePresence mode="popLayout">
+      <div mode="popLayout">
         {/* {!isSettingsOpen && !isContactsOpen && (
           <>
             <div className="h-[80px] w-full"></div>
@@ -263,7 +266,7 @@ export default function Balance() {
             setIsContactsOpen={setIsContactsOpen}
           />
         )}
-      </AnimatePresence>
+      </div>
 
       {!isSettingsOpen && !isContactsOpen && (
         <div className="flex justify-center  fixed bottom-6 z-[999]  gap-3 mt-3 mx-auto w-full items-center  ">

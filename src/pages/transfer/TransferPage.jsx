@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { contacts } from "../../widgets/dashboard/Contacts";
 import { ArrowLeft, MessageCircle, Star } from "lucide-react";
@@ -11,16 +11,41 @@ import { API_URL } from "../../url";
 import Balance from "../../widgets/dashboard/Balance";
 export default function TransferPage() {
   const { id } = useParams();
-  const user = contacts.find((c) => c.id === +id);
+  const [foundCard, setFoundCard] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [value, setValue] = useState("");
   const navigate = useNavigate();
   const [cards, setCards] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const firstLetter = user.name.charAt(0).toUpperCase();
+  const firstLetter = foundCard?.user.first_name.charAt(0).toUpperCase();
+  useEffect(() => {
+    async function fetchCard() {
+      setLoading(true);
+      try {
+        const res = await fetchWithAuth(
+          `${API_URL}/cards/by-number/?card_number=${id}`
+        );
+        if (!res.ok) {
+          throw new Error(`Ошибка: ${res.status}`);
+        }
+        const data = await res.json();
+        setFoundCard(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCard();
+    const interval = setInterval(fetchCard, 5000); // обновление каждые 5 сек
+
+    return () => clearInterval(interval);
+  }, [id]);
+
   useEffect(() => {
     async function fetchCards() {
-      setLoading(true);
       try {
         const res = await fetchWithAuth(`${API_URL}/cards/`);
         if (!res.ok) {
@@ -32,16 +57,23 @@ export default function TransferPage() {
         // если API возвращает JSON
         setCards(data);
       } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
+        console.log(err);
       }
     }
 
     fetchCards();
   }, []);
-  console.log(cards);
+  // const user = contacts.find((c) => c.id === +id);
 
+  const color = useMemo(
+    () =>
+      `#${Math.floor(Math.random() * 16777215)
+        .toString(16)
+        .padStart(6, "0")}`,
+    [foundCard?.id]
+  );
+
+  console.log(foundCard, "data");
   const submit = async (e) => {
     e.preventDefault();
 
@@ -49,7 +81,7 @@ export default function TransferPage() {
       cardholder_name:
         cards[0]?.user.first_name + " " + cards[0]?.user.last_name,
       from_card: cards[0]?.card_number,
-      to_card: user.cardNumber.replace(/\s+/g, "").trim(),
+      to_card: foundCard.card_number.replace(/\s+/g, "").trim(),
       amount: +value,
     };
 
@@ -75,6 +107,7 @@ export default function TransferPage() {
       console.error("Ошибка при отправке:", err);
     }
   };
+  console.log(cards, "cards");
   return (
     <div className="bg-[#1E1E1E] text-white min-h-screen  flex flex-col">
       {/* Header */}
@@ -85,7 +118,7 @@ export default function TransferPage() {
         <div className="flex relative items-center gap-3">
           <div
             className="w-[52px] h-[52px] rounded-full flex items-center justify-center text-white text-lg"
-            style={{ backgroundColor: user.bgColor }}
+            style={{ backgroundColor: color }}
           >
             {firstLetter}
           </div>
@@ -94,7 +127,7 @@ export default function TransferPage() {
           </div>
           <div>
             <h2 className="font-semibold text-base text-[#E0E0E0] text-[17px">
-              {user.name}
+              {foundCard?.user.first_name + " " + foundCard?.user.last_name}
             </h2>
             <div clear-both className="flex items-center gap-1">
               <img src={transfer_black_card} alt="" />
@@ -108,7 +141,7 @@ export default function TransferPage() {
       <div className="flex flex-col items-center justify-center flex-1">
         <div className="bg-[#1E1E1E] flex gap-1 items-center border border-[#323232] text-[#91A2B1] px-3 py-1 rounded-full text-[14px] mb-3">
           <img src={transfer_black_card} alt="w-[18px] h-[14px]" />
-          {cards[0]?.balance}
+          <p>{cards && cards[0]?.balance}</p>
           <img src={grivna} alt="₴" className="w-3 h-3 object-contain " />
         </div>
 

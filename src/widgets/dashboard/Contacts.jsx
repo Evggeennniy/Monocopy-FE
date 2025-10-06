@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { motion } from "framer-motion";
 
@@ -12,7 +12,11 @@ import search from "../../assets/search.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useNavigate } from "react-router-dom";
-
+import fetchWithAuth from "../../util/fetchWithAuth";
+import { API_URL } from "../../url";
+import abank from "../../assets/abank.jpg";
+import pumb from "../../assets/pumb.jpg";
+import privat from "../../assets/privat.jpg";
 export const contacts = [
   {
     id: 1,
@@ -204,12 +208,41 @@ const cards = [
 
 function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
   const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState("");
+  const [foundCard, setFoundCard] = useState(null);
+  const color = useMemo(
+    () =>
+      `#${Math.floor(Math.random() * 16777215)
+        .toString(16)
+        .padStart(6, "0")}`,
+    [foundCard?.id]
+  );
+  useEffect(() => {
+    const clean = inputValue.replace(/\s+/g, "");
+    if (clean.length === 16) {
+      (async () => {
+        try {
+          const res = await fetchWithAuth(
+            `${API_URL}/cards/by-number/?card_number=${clean}`
+          );
+          if (!res.ok) throw new Error();
+          const data = await res.json();
+          setFoundCard(data);
+        } catch {
+          setFoundCard(null);
+        }
+      })();
+    } else {
+      setFoundCard(null);
+    }
+  }, [inputValue]);
+  console.log(foundCard, "foundCard");
   return (
     <motion.div
-      initial={{ x: "100%", opacity: 0 }} // start outside right
-      animate={{ x: 0, opacity: 1 }} // move to position
-      exit={{ x: "-100%", opacity: 0 }} // (optional) when leaving
-      transition={{ duration: 0.6, ease: "easeInOut" }}
+      initial={{ x: "100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: "-100%", opacity: 0 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
       className=" w-full h- full flex flex-col gap-3"
     >
       <div
@@ -226,25 +259,25 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
               setIsSettingsOpen(false);
               console.log("clicked");
             }}
-            // className="p-2 rounded-full  transition"
           >
             <ArrowLeft size={24} />
           </button>
 
-          {/* Right icon */}
           <button>
             <img src={archive} alt="" />
           </button>
         </div>
         <h1 className="text-[23px] ">Переказ на картку</h1>
-        {/* Left back arrow */}
 
         <div className="relative w-full ">
-          {/* Icon */}
-
-          {/* Input */}
           <input
             type="text"
+            value={inputValue}
+            onChange={(e) => {
+              const val = e.target.value.replace(/\D/g, "");
+              const formatted = val.replace(/(.{4})/g, "$1 ").trim();
+              setInputValue(formatted);
+            }}
             placeholder="Уведіть ім’я, номер картки або телефону"
             className="w-full  pr-10 pl-4 placeholder-[#91A2B1] opacity-80 py-3 rounded-2xl text-white  focus:outline-none"
             style={{
@@ -258,80 +291,164 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
           />
         </div>
       </div>
-      {/* <div className="h-[170px]"></div> */}
 
-      <div className="bg-[#121212] x w-full pt-[195px]  flex flex-col gap-4">
-        <div className="px-4 ">
-          <div className="p-4 flex gap-3 items-center bg-[#1E1E1E] rounded-2xl">
-            <div className="">
-              <img src={group} alt="" />
-            </div>
-            <div className="text-[#E0E0E0] text-[16px]">Групові витрати</div>
-          </div>
-        </div>
-        <div className="h-[1px] w-full bg-[#4B4B4B] my-2"></div>
-
-        <div className="w-full relative pl-4 ">
-          <Swiper
-            spaceBetween={10}
-            slidesPerView="auto"
-            centeredSlides={false} // первый слайд не центрируется
-            slidesOffsetBefore={0} // сдвигаем карусель в самый левый край
-            slidesOffsetAfter={20}
-          >
-            {cards.map((card) => (
-              <SwiperSlide key={card.id} className="!w-[63%]">
-                <div className="flex items-center gap-3 rounded-3xl p-2 bg-[#1E1E1E]">
-                  <img
-                    src={card.image}
-                    alt={card.name}
-                    className="w-[50px] h-[50px] rounded-full object-cover"
-                  />
-                  <p className="font-semibold text-[16px]">{card.name}</p>
+      <div className="bg-[#121212] min-h-screen min-w-[430px] pt-[195px]  items-stretch  space-y-4">
+        {!foundCard ? (
+          <>
+            <div className="px-4 ">
+              <div className="p-4 flex gap-3 items-center bg-[#1E1E1E] rounded-2xl">
+                <div className="">
+                  <img src={group} alt="" />
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-        <div className="px-4 ">
-          {" "}
-          <div className=" bg-[#1E1E1E] rounded-3xl p-4">
-            <h1 className="text-2xl font-bold mb-2">Контакти</h1>
-            <ul className="space-y-4">
-              {contacts.map((c) => {
-                // Генерируем случайный светлый цвет
+                <div className="text-[#E0E0E0] text-[16px]">
+                  Групові витрати
+                </div>
+              </div>
+            </div>
+            <div className="h-[1px] w-full bg-[#4B4B4B] my-2"></div>
 
-                const firstLetter = c.name.charAt(0).toUpperCase();
-
-                return (
-                  <li
-                    key={c.id}
-                    onClick={() => {
-                      navigate("/transfer/" + c.id);
-                    }}
-                    className="flex justify-between cursor-pointer"
-                  >
-                    <div className="flex items-center relative gap-4 w-full rounded-xl">
-                      <div
-                        className="w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg"
-                        style={{ backgroundColor: c.bgColor }}
-                      >
-                        {firstLetter}
-                        <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full  bg-black flex items-center justify-center text-white ">
-                          <p>m</p>
-                        </div>
-                      </div>
-                      <div className="flex-1 text-[#E0E0E0] text-[16px]">
-                        <p>{c.name}</p>
-                      </div>
-                      <Star className="mt-2" size={20} color="#E1E1E1" />
+            <div className="w-full relative pl-4 ">
+              <Swiper
+                spaceBetween={10}
+                slidesPerView="auto"
+                centeredSlides={false}
+                slidesOffsetBefore={0}
+                slidesOffsetAfter={20}
+              >
+                {cards.map((card) => (
+                  <SwiperSlide key={card.id} className="!w-[63%]">
+                    <div className="flex items-center gap-3 rounded-3xl p-2 bg-[#1E1E1E]">
+                      <img
+                        src={card.image}
+                        alt={card.name}
+                        className="w-[50px] h-[50px] rounded-full object-cover"
+                      />
+                      <p className="font-semibold text-[16px]">{card.name}</p>
                     </div>
-                  </li>
-                );
-              })}
-            </ul>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+            <div className="px-4 ">
+              <div className=" bg-[#1E1E1E] rounded-3xl p-4">
+                <h1 className="text-2xl font-bold mb-2">Контакти</h1>
+                <ul className="space-y-4">
+                  {contacts.map((c) => {
+                    const firstLetter = c.name.charAt(0).toUpperCase();
+                    return (
+                      <li
+                        key={c.id}
+                        className="flex justify-between cursor-pointer"
+                      >
+                        <div className="flex items-center relative gap-4 w-full rounded-xl">
+                          <div
+                            className="w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg"
+                            style={{ backgroundColor: c.bgColor }}
+                          >
+                            {firstLetter}
+                            <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full  bg-black flex items-center justify-center text-white ">
+                              <p>m</p>
+                            </div>
+                          </div>
+                          <div className="flex-1 text-[#E0E0E0] text-[16px]">
+                            <p>{c.name}</p>
+                          </div>
+                          <Star className="mt-2" size={20} color="#E1E1E1" />
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="w-full">
+            <div className="px-4 w-full">
+              <div className=" bg-[#1E1E1E] w-full rounded-3xl p-4">
+                <h1 className="text-2xl font-bold mb-2">Контакти</h1>
+                <ul className="space-y-4 w-full">
+                  {foundCard && (
+                    <li
+                      key={foundCard.id}
+                      onClick={() =>
+                        navigate("/transfer/" + foundCard.card_number)
+                      }
+                      className="flex justify-between cursor-pointer"
+                    >
+                      <div className="flex items-center relative gap-4 w-full rounded-xl">
+                        <div
+                          className="w-[42px] h-[42px] rounded-full text-center flex items-center justify-center text-white text-lg"
+                          style={{ backgroundColor: color }}
+                        >
+                          <p className="text-center">
+                            {" "}
+                            {foundCard.user.first_name?.charAt(0).toUpperCase()}
+                          </p>
+                          <div className="">
+                            {foundCard.card_number &&
+                            ["4441", "5375", "4899", "4042"].includes(
+                              foundCard.card_number
+                                .replace(/\s+/g, "")
+                                .slice(0, 4)
+                            ) ? (
+                              // Монобанк — буква M
+                              <>
+                                {foundCard.name?.charAt(0).toUpperCase()}
+
+                                <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white">
+                                  <p>m</p>
+                                </div>
+                              </>
+                            ) : ["5168", "4341", "4405", "4581"].includes(
+                                foundCard.card_number
+                                  .replace(/\s+/g, "")
+                                  .slice(0, 4)
+                              ) ? (
+                              <img
+                                src={privat}
+                                alt="Privat"
+                                className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                              />
+                            ) : ["5355", "5374", "5358", "5440"].includes(
+                                foundCard.card_number
+                                  .replace(/\s+/g, "")
+                                  .slice(0, 4)
+                              ) ? (
+                              <img
+                                src={pumb}
+                                alt="PUMB"
+                                className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                              />
+                            ) : ["4349", "5169"].includes(
+                                foundCard.card_number
+                                  .replace(/\s+/g, "")
+                                  .slice(0, 4)
+                              ) ? (
+                              <img
+                                src={abank}
+                                alt="ABank"
+                                className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                              />
+                            ) : null}
+                          </div>
+                        </div>
+                        <div className="flex-1 text-[#E0E0E0] text-[16px]">
+                          <p>
+                            {foundCard.user.first_name +
+                              " " +
+                              foundCard.user.last_name}
+                          </p>
+                        </div>
+                        <Star className="mt-2" size={20} color="#E1E1E1" />
+                      </div>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </motion.div>
   );

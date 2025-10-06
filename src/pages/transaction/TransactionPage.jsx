@@ -101,7 +101,8 @@ export default function TransactionPage() {
             ? Math.abs(transactionData.amount).toLocaleString()
             : `-${Math.abs(transactionData.amount).toLocaleString()}`}
           <span className="text-[35px] flex  pt-[12px] h-full ">
-            .00 <img src={grivna} className="w-[28px] mt-4 h-[28px]" alt="" />
+            .00{" "}
+            <img src={grivna} className="w-[28px] mt-[14px] h-[28px]" alt="" />
           </span>
         </div>
 
@@ -118,7 +119,7 @@ export default function TransactionPage() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col pb-4 ">
+        <div className="flex flex-col gap-3 pb-4 ">
           <div className="flex items-center gap-3 pl-[20px]">
             <img src={separate} alt="" className="flex-1 w-[22px] h-[50px]" />
             <p
@@ -147,7 +148,7 @@ export default function TransactionPage() {
               className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
             >
-              <div className=""> Розділити витрату</div>
+              <div className=""> Повторити платіж</div>
 
               <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
             </p>
@@ -158,7 +159,7 @@ export default function TransactionPage() {
               className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
             >
-              <div className=""> Розділити витрату</div>
+              <div className=""> Переглянути квитанцію</div>
 
               <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
             </p>
@@ -169,20 +170,20 @@ export default function TransactionPage() {
               className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
             >
-              <div className=""> Розділити витрату</div>
+              <div className="">Перевести в росрочку</div>
 
               <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
             </p>
           </div>
-          <div className="flex items-center gap-3 pl-[20px]">
+          <div className="flex items-center gap-3 h-[60px] flex items-between pl-[20px]">
             <img src={rasrochka} alt="" className="flex-1 w-[22px] h-[50px]" />
             <p
-              className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
+              className="text-[16px] h-full flex justify-center flex-col gap-4  flex-13 text-[#E4E4E4]
               "
             >
-              <div className=""> Розділити витрату</div>
+              <div className=""> Перевести в росрочку</div>
 
-              <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
+              <div className="h-[2px]   bg-[#4B4B4B] w-full"></div>
             </p>
           </div>
         </div>

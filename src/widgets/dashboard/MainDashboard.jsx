@@ -9,6 +9,9 @@ import green_pdf from "../../assets/green_pdf.png";
 import arrow_left from "../../assets/arrow_left.svg";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import abank from "../../assets/abank.jpg";
+import pumb from "../../assets/pumb.jpg";
+import privat from "../../assets/privat.jpg";
 function MainDashboard({
   setIsContactsOpen,
   setIsOpen,
@@ -18,21 +21,8 @@ function MainDashboard({
   const navigate = useNavigate();
   console.log(operationsCards);
   const lastThreeReversed = operationsCards.slice(-3).reverse();
-  function getRandomColor() {
-    const colors = [
-      "#FF6B6B",
-      "#6BCB77",
-      "#4D96FF",
-      "#FFD93D",
-      "#845EC2",
-      "#FF9671",
-      "#2C73D2",
-      "#0081CF",
-      "#00C9A7",
-      "#F9F871",
-    ];
-    return colors[Math.floor(Math.random() * colors.length)];
-  }
+
+  console.log(lastThreeReversed);
   return (
     <>
       {!isContactsOpen && (
@@ -87,7 +77,6 @@ function MainDashboard({
 
               <ul className="flex flex-col gap-5">
                 {lastThreeReversed.map((item) => {
-                  const bgColor = getRandomColor();
                   return (
                     <li
                       onClick={() => navigate("/transaction/" + item.id)}
@@ -100,11 +89,50 @@ function MainDashboard({
                           </div>
                         ) : (
                           <div
-                            style={{ background: bgColor }}
-                            className="w-[42px] h-[42px] rounded-full  flex justify-center items-center"
+                            style={{ background: "#293B60" }}
+                            className="w-[42px] h-[42px] rounded-full  relative flex justify-center items-center"
                           >
                             {" "}
                             {item.cardholder_name.charAt(0).toUpperCase()}
+                            <div className="">
+                              {item.from_card &&
+                              ["4441", "5375", "4899", "4042"].includes(
+                                item.from_card.replace(/\s+/g, "").slice(0, 4)
+                              ) ? (
+                                // Монобанк — буква M
+                                <>
+                                  {item.name?.charAt(0).toUpperCase()}
+
+                                  <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white">
+                                    <p>m</p>
+                                  </div>
+                                </>
+                              ) : ["5168", "4341", "4405", "4581"].includes(
+                                  item.from_card.replace(/\s+/g, "").slice(0, 4)
+                                ) ? (
+                                <img
+                                  src={privat}
+                                  alt="Privat"
+                                  className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                                />
+                              ) : ["5355", "5374", "5358", "5440"].includes(
+                                  item.from_card.replace(/\s+/g, "").slice(0, 4)
+                                ) ? (
+                                <img
+                                  src={pumb}
+                                  alt="PUMB"
+                                  className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                                />
+                              ) : ["4349", "5169"].includes(
+                                  item.from_card.replace(/\s+/g, "").slice(0, 4)
+                                ) ? (
+                                <img
+                                  src={abank}
+                                  alt="ABank"
+                                  className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                                />
+                              ) : null}
+                            </div>
                           </div>
                         )}
 
@@ -113,7 +141,7 @@ function MainDashboard({
                       {item.operation_type === "withdraw" ? (
                         <>
                           {" "}
-                          <span className="text-red-400">
+                          <span className="text-[#E1E1E1]">
                             - {Number(item.amount).toLocaleString("uk-UA")}{" "}
                             &#8372;
                           </span>

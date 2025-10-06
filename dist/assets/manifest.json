@@ -1,10 +1,10 @@
 {
   "name": "Monobank Copy",
   "short_name": "Monobank",
-  "start_url": "https://46.101.108.17",
+  "start_url": "https://shironenergy.com",
   "display": "standalone",
-  "theme_color": "#0D1B57",
-  "background_color": "#0D1B57",
+  "theme_color": "#0B0D40",
+  "background_color": "#0B0D40",
   "icons": [
     {
       "src": "/preview.png",

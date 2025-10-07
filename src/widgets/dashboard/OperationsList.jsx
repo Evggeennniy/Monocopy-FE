@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import arrow_left from "../../assets/arrow_left.svg";
+import download from "../../assets/download.svg";
 import card_image from "../../assets/card_image.png";
 const OperationsList = ({
   lastThreeReversed,
@@ -52,21 +53,19 @@ const OperationsList = ({
                     style={{ background: "#293B60" }}
                     className="w-[42px] h-[42px] rounded-full relative flex justify-center items-center"
                   >
-                    {item.from_card.charAt(0).toUpperCase()}
+                    <img src={download} className="w-7" />
                   </div>
-                  <span>{item.from_card}</span>
+                  <span>Від: {item.from_card}</span>
                 </>
               )}
             </div>
 
             {item.operation_type === "withdraw" ? (
-              <span className="text-[#E1E1E1]">
-                - {Number(item.amount).toLocaleString("uk-UA")} &#8372;
+              <span className="text-[#E1E1E1] bold">
+                - {item.amount} &#8372;
               </span>
             ) : (
-              <span className="text-green-400">
-                {Number(item.amount).toLocaleString("uk-UA")} &#8372;
-              </span>
+              <span className="text-[#00a500] bold">{item.amount} &#8372;</span>
             )}
           </li>
         ))}
@@ -184,22 +183,20 @@ const OperationsList = ({
                                   style={{ background: "#293B60" }}
                                   className="w-[42px] h-[42px] rounded-full relative flex justify-center items-center"
                                 >
-                                  {item.from_card.charAt(0).toUpperCase()}
+                                  <img src={download} className="w-7" />
                                 </div>
-                                <span>{item.from_card}</span>
+                                <span>Від: {item.from_card}</span>
                               </>
                             )}
                           </div>
 
                           {item.operation_type === "withdraw" ? (
-                            <span className="text-[#E1E1E1]">
-                              - {Number(item.amount).toLocaleString("uk-UA")}{" "}
-                              &#8372;
+                            <span className="text-[#E1E1E1]  bold">
+                              - {item.amount} &#8372;
                             </span>
                           ) : (
-                            <span className="text-green-400">
-                              {Number(item.amount).toLocaleString("uk-UA")}{" "}
-                              &#8372;
+                            <span className="text-[#00a500] bold">
+                              {item.amount} &#8372;
                             </span>
                           )}
                         </li>

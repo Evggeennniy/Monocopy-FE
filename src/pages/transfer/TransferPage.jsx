@@ -9,6 +9,8 @@ import prize from "../../assets/prize.svg";
 import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
 import Balance from "../../widgets/dashboard/Balance";
+
+
 export default function TransferPage() {
   const { id } = useParams();
   const [foundCard, setFoundCard] = useState(null);
@@ -51,7 +53,7 @@ export default function TransferPage() {
   console.log(foundCard, "data");
   const submit = async (e) => {
     e.preventDefault();
-
+    console.log(cards);
     const formData = {
       cardholder_name:
         cards[0]?.user.first_name + " " + cards[0]?.user.last_name,

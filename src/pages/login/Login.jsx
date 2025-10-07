@@ -57,13 +57,12 @@ export default function LoginPage() {
       });
 
       console.log("login success", data);
-
+      navigate("/dashboard");
       // TODO: редирект или обновление состояния auth
     } catch (err) {
       setError(err.message || "Не удалось войти");
     } finally {
       setLoading(false);
-      navigate("/dashboard");
     }
   };
 

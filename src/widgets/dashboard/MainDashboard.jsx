@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import card_icon from "../../assets/card_icon.png";
 import pdf_icon from "../../assets/pdf_icon.png";
 import slices_icon from "../../assets/slices.png";
@@ -6,23 +6,28 @@ import blue_smile from "../../assets/blue_smile.png";
 import pink_icon from "../../assets/pink_icon.png";
 import pink_pdf from "../../assets/pink_pdf.png";
 import green_pdf from "../../assets/green_pdf.png";
-import arrow_left from "../../assets/arrow_left.svg";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import abank from "../../assets/abank.jpg";
 import pumb from "../../assets/pumb.jpg";
 import privat from "../../assets/privat.jpg";
+import OperationsList from "./OperationsList.JSX";
 function MainDashboard({
   setIsContactsOpen,
   setIsOpen,
   isContactsOpen,
   operationsCards,
+  showAll,
+  setShowAll,
+  balance,
 }) {
   const navigate = useNavigate();
   console.log(operationsCards);
   const lastThreeReversed = operationsCards.slice(-3).reverse();
 
   console.log(lastThreeReversed);
+
   return (
     <>
       {!isContactsOpen && (
@@ -67,7 +72,7 @@ function MainDashboard({
 
           <>
             {" "}
-            <div className="mt-8 bg-[#272727] py-4 px-3 rounded-2xl">
+            {/* <div className="mt-8 bg-[#272727] py-4 px-3 rounded-2xl">
               <div className="flex justify-between">
                 <h3 className="text-lg font-semibold mb-4">Операції</h3>
                 <p className="bg-[#2F3239] rounded-full w-[54px] justify-center  gap-1 text-[11px] h-[25px] text-[#6386BD] flex items-center">
@@ -158,7 +163,14 @@ function MainDashboard({
                   );
                 })}
               </ul>
-            </div>
+            </div> */}
+            <OperationsList
+              lastThreeReversed={lastThreeReversed}
+              allOperations={operationsCards}
+              setShowAll={setShowAll}
+              showAll={showAll}
+              balance={balance}
+            />
             <div className=" bg-[#272727] py-4 px-3 rounded-2xl">
               <h3 className="text-lg font-semibold mb-4">Інформація</h3>
               <div className="bg-[#343434] flex flex-col gap-2 p-4 rounded-xl">

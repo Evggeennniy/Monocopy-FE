@@ -99,7 +99,7 @@ export default function Balance() {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [showAll, setShowAll] = useState(false);
   useEffect(() => {
     let intervalId;
 
@@ -137,7 +137,7 @@ export default function Balance() {
         isContactsOpen ? "p-0" : " p-0"
       } `}
     >
-      {!isSettingsOpen && !isContactsOpen && (
+      {!isSettingsOpen && !isContactsOpen && !showAll && (
         <div className="flex justify-between  w-full items-center p-3 pr-2">
           <div className="flex gap-3 items-center">
             <div className="w-[42px] h-[42px] rounded-full bg-[#315cc0] flex justify-center items-center">
@@ -182,7 +182,7 @@ export default function Balance() {
             <SwiperSlide key={card.id} className="">
               <div className=" ">
                 {/* Top spacer + balance */}
-                {!isSettingsOpen && !isContactsOpen && (
+                {!isSettingsOpen && !isContactsOpen && !showAll && (
                   <>
                     <div className="h-[80px] w-full"></div>
                     <div className="text-center flex items-center justify-center gap-2">
@@ -197,7 +197,7 @@ export default function Balance() {
                   </>
                 )}
 
-                {!isContactsOpen && (
+                {!isContactsOpen && !showAll && (
                   <div
                     className={` relative transition-all px-4 duration-600 ease-in-out`}
                     style={{
@@ -219,6 +219,9 @@ export default function Balance() {
                   {!isSettingsOpen && !isContactsOpen && (
                     <div className="p-3 ">
                       <MainDashboard
+                        showAll={showAll}
+                        balance={Number(card.balance).toLocaleString("uk-UA")}
+                        setShowAll={setShowAll}
                         isContactsOpen={isContactsOpen}
                         setIsOpen={setIsSettingsOpen}
                         setIsContactsOpen={setIsContactsOpen}
@@ -231,7 +234,7 @@ export default function Balance() {
             </SwiperSlide>
           ))}
         </Swiper>
-        {!isSettingsOpen && !isContactsOpen && (
+        {!isSettingsOpen && !isContactsOpen && !showAll && (
           <button
             className="flex absolute top-[22.5rem] right-[40%] z-[100]  items-center  mx-auto px-2 gap-2 cursor-pointer py-1
             rounded-full bg-[#0A1D3E] opacity-90"
@@ -268,7 +271,7 @@ export default function Balance() {
         )}
       </div>
 
-      {!isSettingsOpen && !isContactsOpen && (
+      {!isSettingsOpen && !isContactsOpen && !showAll && (
         <div className="flex justify-center  fixed bottom-6 z-[999]  gap-3 mt-3 mx-auto w-full items-center  ">
           <div className="bg-[#292929] py-[12px] px-[30px]  rounded-full">
             <div className="flex gap-[20px]">

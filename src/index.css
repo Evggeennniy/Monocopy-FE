@@ -33,6 +33,7 @@
 /* Apply globally */
 body {
   font-family: "SF Pro Rounded", sans-serif;
+  background: #272727;
 }
 
 @keyframes fadeOutRightToLeft {

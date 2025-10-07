@@ -67,9 +67,8 @@ export default function TransactionPage() {
     fetchTransaction();
   }, [id]);
   console.log(transactionData);
-  if (loading) return <div>Загрузка...</div>;
-  if (error) return <div className="text-red-500">Ошибка: {error}</div>;
-  if (!transactionData) return <div>Транзакция не найдена</div>;
+
+  if (!transactionData) return null;
   return (
     <div className="bg-[#5F5FD9] relative h-[120px] flex flex-col">
       <button onClick={() => navigate("/dashboard")}>

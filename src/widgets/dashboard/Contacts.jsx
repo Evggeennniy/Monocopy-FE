@@ -220,18 +220,7 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
   useEffect(() => {
     const clean = inputValue.replace(/\s+/g, "");
     if (clean.length === 16) {
-      (async () => {
-        try {
-          const res = await fetchWithAuth(
-            `${API_URL}/cards/by-number/?card_number=${clean}`
-          );
-          if (!res.ok) throw new Error();
-          const data = await res.json();
-          setFoundCard(data);
-        } catch {
-          setFoundCard(null);
-        }
-      })();
+      setFoundCard(inputValue);
     } else {
       setFoundCard(null);
     }
@@ -273,10 +262,11 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
           <input
             type="text"
             value={inputValue}
+            maxLength={16}
             onChange={(e) => {
               const val = e.target.value.replace(/\D/g, "");
-              const formatted = val.replace(/(.{4})/g, "$1 ").trim();
-              setInputValue(formatted);
+
+              setInputValue(val);
             }}
             placeholder="Уведіть ім’я, номер картки або телефону"
             className="w-full  pr-10 pl-4 placeholder-[#91A2B1] opacity-80 py-3 rounded-2xl text-white  focus:outline-none"
@@ -366,14 +356,12 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
           <div className="w-full">
             <div className="px-4 w-full">
               <div className=" bg-[#1E1E1E] w-full rounded-3xl p-4">
-                <h1 className="text-2xl font-bold mb-2">Контакти</h1>
+                <h1 className="text-2xl font-bold mb-2">Знайдено</h1>
                 <ul className="space-y-4 w-full">
                   {foundCard && (
                     <li
-                      key={foundCard.id}
-                      onClick={() =>
-                        navigate("/transfer/" + foundCard.card_number)
-                      }
+                      key={foundCard}
+                      onClick={() => navigate("/transfer/" + foundCard)}
                       className="flex justify-between cursor-pointer"
                     >
                       <div className="flex items-center relative gap-4 w-full rounded-xl">
@@ -383,27 +371,23 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                         >
                           <p className="text-center">
                             {" "}
-                            {foundCard.user.first_name?.charAt(0).toUpperCase()}
+                            {foundCard?.charAt(0).toUpperCase()}
                           </p>
                           <div className="">
-                            {foundCard.card_number &&
+                            {foundCard &&
                             ["4441", "5375", "4899", "4042"].includes(
-                              foundCard.card_number
-                                .replace(/\s+/g, "")
-                                .slice(0, 4)
+                              foundCard.replace(/\s+/g, "").slice(0, 4)
                             ) ? (
                               // Монобанк — буква M
                               <>
-                                {foundCard.name?.charAt(0).toUpperCase()}
+                                {foundCard?.charAt(0).toUpperCase()}
 
                                 <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white">
                                   <p>m</p>
                                 </div>
                               </>
                             ) : ["5168", "4341", "4405", "4581"].includes(
-                                foundCard.card_number
-                                  .replace(/\s+/g, "")
-                                  .slice(0, 4)
+                                foundCard.replace(/\s+/g, "").slice(0, 4)
                               ) ? (
                               <img
                                 src={privat}
@@ -411,9 +395,7 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                                 className="w-5 h-5 left-7 rounded-full top-6 absolute"
                               />
                             ) : ["5355", "5374", "5358", "5440"].includes(
-                                foundCard.card_number
-                                  .replace(/\s+/g, "")
-                                  .slice(0, 4)
+                                foundCard.replace(/\s+/g, "").slice(0, 4)
                               ) ? (
                               <img
                                 src={pumb}
@@ -421,9 +403,7 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                                 className="w-5 h-5 left-7 rounded-full top-6 absolute"
                               />
                             ) : ["4349", "5169"].includes(
-                                foundCard.card_number
-                                  .replace(/\s+/g, "")
-                                  .slice(0, 4)
+                                foundCard.replace(/\s+/g, "").slice(0, 4)
                               ) ? (
                               <img
                                 src={abank}
@@ -434,11 +414,7 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                           </div>
                         </div>
                         <div className="flex-1 text-[#E0E0E0] text-[16px]">
-                          <p>
-                            {foundCard.user.first_name +
-                              " " +
-                              foundCard.user.last_name}
-                          </p>
+                          <p>{foundCard}</p>
                         </div>
                         <Star className="mt-2" size={20} color="#E1E1E1" />
                       </div>

@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import abank from "../../assets/abank.jpg";
 import pumb from "../../assets/pumb.jpg";
 import privat from "../../assets/privat.jpg";
-import OperationsList from "./OperationsList.JSX";
+import OperationsList from "./OperationsList.jsx";
 function MainDashboard({
   setIsContactsOpen,
   setIsOpen,

@@ -18,31 +18,7 @@ export default function TransferPage() {
   const [value, setValue] = useState("");
   const navigate = useNavigate();
   const [cards, setCards] = useState([]);
-  const firstLetter = foundCard?.user.first_name.charAt(0).toUpperCase();
-  useEffect(() => {
-    async function fetchCard() {
-      setLoading(true);
-      try {
-        const res = await fetchWithAuth(
-          `${API_URL}/cards/by-number/?card_number=${id}`
-        );
-        if (!res.ok) {
-          throw new Error(`Ошибка: ${res.status}`);
-        }
-        const data = await res.json();
-        setFoundCard(data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchCard();
-    const interval = setInterval(fetchCard, 5000); // обновление каждые 5 сек
-
-    return () => clearInterval(interval);
-  }, [id]);
+  const firstLetter = id?.charAt(0).toUpperCase();
 
   useEffect(() => {
     async function fetchCards() {
@@ -63,7 +39,6 @@ export default function TransferPage() {
 
     fetchCards();
   }, []);
-  // const user = contacts.find((c) => c.id === +id);
 
   const color = useMemo(
     () =>
@@ -81,7 +56,7 @@ export default function TransferPage() {
       cardholder_name:
         cards[0]?.user.first_name + " " + cards[0]?.user.last_name,
       from_card: cards[0]?.card_number,
-      to_card: foundCard.card_number.replace(/\s+/g, "").trim(),
+      to_card: id.replace(/\s+/g, "").trim(),
       amount: +value,
     };
 
@@ -127,7 +102,7 @@ export default function TransferPage() {
           </div>
           <div>
             <h2 className="font-semibold text-base text-[#E0E0E0] text-[17px">
-              {foundCard?.user.first_name + " " + foundCard?.user.last_name}
+              {id}
             </h2>
             <div clear-both className="flex items-center gap-1">
               <img src={transfer_black_card} alt="" />

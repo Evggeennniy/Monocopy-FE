@@ -40,18 +40,23 @@ const OperationsList = ({
           >
             <div className="flex gap-4 items-center">
               {item.operation_type === "withdraw" ? (
-                <div className="w-[42px] h-[42px] rounded-full bg-[#315cc0] flex justify-center items-center">
-                  {item.cardholder_name.charAt(0).toUpperCase()}
-                </div>
+                <>
+                  <div className="w-[42px] h-[42px] rounded-full bg-[#315cc0] flex justify-center items-center">
+                    {item.to_card.charAt(0).toUpperCase()}
+                  </div>
+                  <span>{item.to_card}</span>
+                </>
               ) : (
-                <div
-                  style={{ background: "#293B60" }}
-                  className="w-[42px] h-[42px] rounded-full relative flex justify-center items-center"
-                >
-                  {item.cardholder_name.charAt(0).toUpperCase()}
-                </div>
+                <>
+                  <div
+                    style={{ background: "#293B60" }}
+                    className="w-[42px] h-[42px] rounded-full relative flex justify-center items-center"
+                  >
+                    {item.from_card.charAt(0).toUpperCase()}
+                  </div>
+                  <span>{item.from_card}</span>
+                </>
               )}
-              <span>{item.cardholder_name}</span>
             </div>
 
             {item.operation_type === "withdraw" ? (
@@ -167,18 +172,23 @@ const OperationsList = ({
                         >
                           <div className="flex gap-4 items-center">
                             {item.operation_type === "withdraw" ? (
-                              <div className="w-[42px] h-[42px] rounded-full bg-[#315cc0] flex justify-center items-center">
-                                {item.cardholder_name.charAt(0).toUpperCase()}
-                              </div>
+                              <>
+                                <div className="w-[42px] h-[42px] rounded-full bg-[#315cc0] flex justify-center items-center">
+                                  {item.to_card.charAt(0).toUpperCase()}
+                                </div>
+                                <span>{item.to_card}</span>
+                              </>
                             ) : (
-                              <div
-                                style={{ background: "#293B60" }}
-                                className="w-[42px] h-[42px] rounded-full relative flex justify-center items-center"
-                              >
-                                {item.cardholder_name.charAt(0).toUpperCase()}
-                              </div>
+                              <>
+                                <div
+                                  style={{ background: "#293B60" }}
+                                  className="w-[42px] h-[42px] rounded-full relative flex justify-center items-center"
+                                >
+                                  {item.from_card.charAt(0).toUpperCase()}
+                                </div>
+                                <span>{item.from_card}</span>
+                              </>
                             )}
-                            <span>{item.cardholder_name}</span>
                           </div>
 
                           {item.operation_type === "withdraw" ? (

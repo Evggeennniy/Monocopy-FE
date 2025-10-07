@@ -100,31 +100,61 @@ export default function Balance() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showAll, setShowAll] = useState(false);
+  const [displayBalance, setDisplayBalance] = useState(0); // для анимации
+
+  // функция для плавного изменения баланса
+  const animateBalance = (from, to, duration = 500) => {
+    const startTime = performance.now();
+
+    const step = (currentTime) => {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const value = from + (to - from) * progress;
+      setDisplayBalance(Math.round(value));
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  };
+
   useEffect(() => {
     let intervalId;
 
-    async function fetchCards() {
+    const fetchCards = async () => {
       setLoading(true);
       try {
         const res = await fetchWithAuth(`${API_URL}/cards/`);
-        if (!res.ok) {
-          throw new Error(`Ошибка: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`Ошибка: ${res.status}`);
         const data = await res.json();
         setCards(data);
+
+        if (data.length > 0) {
+          const newBalance = data[0].balance; // баланс первой карты
+
+          const prevBalance =
+            parseFloat(localStorage.getItem("firstCardBalance")) || 0;
+
+          if (prevBalance !== newBalance) {
+            animateBalance(prevBalance, newBalance); // анимируем
+            localStorage.setItem("firstCardBalance", newBalance); // обновляем LocalStorage
+          }
+        }
       } catch (err) {
         setError(err);
       } finally {
         setLoading(false);
       }
-    }
+    };
 
-    fetchCards(); // сразу загрузим данные при первом рендере
+    fetchCards(); // сразу при монтировании
 
-    intervalId = setInterval(fetchCards, 5000); // обновляем каждые 5 секунд
+    intervalId = setInterval(fetchCards, 5000); // каждые 3 секунды
 
-    return () => clearInterval(intervalId); // очистка при размонтировании
+    return () => clearInterval(intervalId);
   }, []);
+
   console.log(cards, "cards");
   return (
     <div
@@ -189,7 +219,7 @@ export default function Balance() {
                       <img src={plus} alt="" className="mt-2" />
                       <p className="text-[47px] text-[#E1E1E1] font-semibold leading-[40px] flex items-center">
                         <div>
-                          {Number(card.balance).toLocaleString("uk-UA")}
+                          {Number(displayBalance).toLocaleString("uk-UA")}
                         </div>
                         <img src={grivna} alt="" className="mt-2" />
                       </p>

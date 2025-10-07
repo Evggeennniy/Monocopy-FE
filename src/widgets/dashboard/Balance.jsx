@@ -219,7 +219,12 @@ export default function Balance() {
                       <img src={plus} alt="" className="mt-2" />
                       <p className="text-[47px] text-[#E1E1E1] font-semibold leading-[40px] flex items-center">
                         <div>
-                          {Number(displayBalance).toLocaleString("uk-UA")}
+                          {Number(displayBalance)
+                            .toLocaleString("en-US", {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })
+                            .replace(/,/g, " ")}
                         </div>
                         <img src={grivna} alt="" className="mt-2" />
                       </p>
@@ -250,7 +255,12 @@ export default function Balance() {
                     <div className="p-3 ">
                       <MainDashboard
                         showAll={showAll}
-                        balance={Number(card.balance).toLocaleString("uk-UA")}
+                        balance={Number(displayBalance)
+                          .toLocaleString("en-US", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })
+                          .replace(/,/g, " ")}
                         setShowAll={setShowAll}
                         isContactsOpen={isContactsOpen}
                         setIsOpen={setIsSettingsOpen}

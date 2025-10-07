@@ -101,7 +101,7 @@ export default function Balance() {
   const [error, setError] = useState(null);
   const [showAll, setShowAll] = useState(false);
   const [displayBalance, setDisplayBalance] = useState(0); // для анимации
-
+  console.log(cards[0]?.balance, "cards");
   // функция для плавного изменения баланса
   const animateBalance = (from, to, duration = 500) => {
     const startTime = performance.now();

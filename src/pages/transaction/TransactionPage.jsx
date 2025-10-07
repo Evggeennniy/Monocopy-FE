@@ -169,7 +169,7 @@ export default function TransactionPage() {
               className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
             >
-              <div className="">Перевести в росрочку</div>
+              <div className="">Зробити регулярним</div>
 
               <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
             </p>

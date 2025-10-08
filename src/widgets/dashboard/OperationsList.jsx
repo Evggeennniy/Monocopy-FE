@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import arrow_left from "../../assets/arrow_left.svg";
 import download from "../../assets/download.svg";
 import card_image from "../../assets/card_image.png";
+import abank from "../../assets/abank.jpg";
+import pumb from "../../assets/pumb.jpg";
+import privat from "../../assets/privat.jpg";
+import bank from "../../assets/bank-svgrepo.svg";
 const OperationsList = ({
   lastThreeReversed,
   allOperations,
@@ -42,8 +46,51 @@ const OperationsList = ({
             <div className="flex gap-4 items-center">
               {item.operation_type === "withdraw" ? (
                 <>
-                  <div className="w-[42px] h-[42px] rounded-full bg-[#315cc0] flex justify-center items-center">
+                  <div className="w-[42px] h-[42px] relative rounded-full bg-[#315cc0] flex justify-center items-center">
                     {item.to_card.charAt(0).toUpperCase()}
+                    <div className="">
+                      {item.to_card &&
+                      ["4441", "5375", "4899", "4042"].includes(
+                        item.to_card.replace(/\s+/g, "").slice(0, 4)
+                      ) ? (
+                        // Монобанк — буква M
+                        <>
+                          {item.to_card?.charAt(0).toUpperCase()}
+
+                          <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white">
+                            <p>m</p>
+                          </div>
+                        </>
+                      ) : ["5168", "4341", "4405", "4581"].includes(
+                          item.to_card.replace(/\s+/g, "").slice(0, 4)
+                        ) ? (
+                        <img
+                          src={privat}
+                          alt="Privat"
+                          className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                        />
+                      ) : ["5355", "5374", "5358", "5440"].includes(
+                          item.to_card.replace(/\s+/g, "").slice(0, 4)
+                        ) ? (
+                        <img
+                          src={pumb}
+                          alt="PUMB"
+                          className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                        />
+                      ) : ["4349", "5169"].includes(
+                          item.to_card.replace(/\s+/g, "").slice(0, 4)
+                        ) ? (
+                        <img
+                          src={abank}
+                          alt="ABank"
+                          className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                        />
+                      ) : (
+                        <div className="w-6 h-6 flex items-center justify-center bg-gray-600 left-7 rounded-full top-6 absolute">
+                          <img src={bank} alt="bank" className="w-3 h-3" />
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <span>{item.to_card}</span>
                 </>
@@ -172,10 +219,80 @@ const OperationsList = ({
                           <div className="flex gap-4 items-center">
                             {item.operation_type === "withdraw" ? (
                               <>
-                                <div className="w-[42px] h-[42px] rounded-full bg-[#315cc0] flex justify-center items-center">
+                                <div className="w-[42px] h-[42px] rounded-full relative bg-[#315cc0] flex justify-center items-center">
                                   {item.to_card.charAt(0).toUpperCase()}
+                                  <div className="">
+                                    {item.to_card &&
+                                    ["4441", "5375", "4899", "4042"].includes(
+                                      item.to_card
+                                        .replace(/\s+/g, "")
+                                        .slice(0, 4)
+                                    ) ? (
+                                      // Монобанк — буква M
+                                      <>
+                                        {item.to_card?.charAt(0).toUpperCase()}
+
+                                        <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white">
+                                          <p>m</p>
+                                        </div>
+                                      </>
+                                    ) : [
+                                        "5168",
+                                        "4341",
+                                        "4405",
+                                        "4581",
+                                      ].includes(
+                                        item.to_card
+                                          .replace(/\s+/g, "")
+                                          .slice(0, 4)
+                                      ) ? (
+                                      <img
+                                        src={privat}
+                                        alt="Privat"
+                                        className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                                      />
+                                    ) : [
+                                        "5355",
+                                        "5374",
+                                        "5358",
+                                        "5440",
+                                      ].includes(
+                                        item.to_card
+                                          .replace(/\s+/g, "")
+                                          .slice(0, 4)
+                                      ) ? (
+                                      <img
+                                        src={pumb}
+                                        alt="PUMB"
+                                        className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                                      />
+                                    ) : ["4349", "5169"].includes(
+                                        item.to_card
+                                          .replace(/\s+/g, "")
+                                          .slice(0, 4)
+                                      ) ? (
+                                      <img
+                                        src={abank}
+                                        alt="ABank"
+                                        className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                                      />
+                                    ) : (
+                                      <div className="w-6 h-6 flex items-center justify-center bg-gray-600 left-7 rounded-full top-6 absolute">
+                                        <img
+                                          src={bank}
+                                          alt="bank"
+                                          className="w-3 h-3"
+                                        />
+                                      </div>
+                                    )}
+                                  </div>
                                 </div>
-                                <span>{item.to_card}</span>
+
+                                <span>
+                                  {item.to_card.slice(0, 6) +
+                                    "*".repeat(item.to_card.length - 12) +
+                                    item.to_card.slice(-4)}
+                                </span>
                               </>
                             ) : (
                               <>

@@ -17,6 +17,7 @@ import { API_URL } from "../../url";
 import abank from "../../assets/abank.jpg";
 import pumb from "../../assets/pumb.jpg";
 import privat from "../../assets/privat.jpg";
+import bank from "../../assets/bank-svgrepo.svg";
 export const contacts = [
   {
     id: 1,
@@ -410,7 +411,15 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                                 alt="ABank"
                                 className="w-5 h-5 left-7 rounded-full top-6 absolute"
                               />
-                            ) : null}
+                            ) : (
+                              <div className="w-6 h-6 flex items-center justify-center bg-gray-600 left-7 rounded-full top-6 absolute">
+                                <img
+                                  src={bank}
+                                  alt="bank"
+                                  className="w-3 h-3"
+                                />
+                              </div>
+                            )}
                           </div>
                         </div>
                         <div className="flex-1 text-[#E0E0E0] text-[16px]">

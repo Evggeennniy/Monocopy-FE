@@ -7,6 +7,7 @@ import card_image from "../../assets/card_image.png";
 import abank from "../../assets/abank.jpg";
 import pumb from "../../assets/pumb.jpg";
 import privat from "../../assets/privat.jpg";
+import transaction from "../../assets/transaction.svg";
 import bank from "../../assets/bank-svgrepo.svg";
 const OperationsList = ({
   lastThreeReversed,
@@ -47,7 +48,8 @@ const OperationsList = ({
               {item.operation_type === "withdraw" ? (
                 <>
                   <div className="w-[42px] h-[42px] relative rounded-full bg-[#315cc0] flex justify-center items-center">
-                    {item.to_card.charAt(0).toUpperCase()}
+                    {/* {item.to_card.charAt(0).toUpperCase()} */}
+                    <img src={transaction} alt="" />
                     <div className="">
                       {item.to_card &&
                       ["4441", "5375", "4899", "4042"].includes(
@@ -152,14 +154,14 @@ const OperationsList = ({
 
             {/* ПОЛНЫЙ ЭКРАН */}
             <motion.div
-              className="fixed inset-0 bg-[#272727] z-50 flex flex-col p-5 overflow-y-auto"
+              className="fixed inset-0 bg-[#272727] z-50 flex flex-col px-5 overflow-y-auto"
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ duration: 0.45, ease: [0.25, 0.8, 0.25, 1] }}
             >
               {/* Верхняя панель */}
-              <div className="flex justify-between items-start mb-5 sticky top-0 bg-[#272727] pb-3 z-10">
+              <div className="flex justify-between items-start mb-5 sticky pt-5 top-0 bg-[#272727] pb-3 z-10">
                 {/* Кнопка закрытия (крестик) */}
                 <button
                   onClick={() => setShowAll(false)}
@@ -239,7 +241,7 @@ const OperationsList = ({
                             {item.operation_type === "withdraw" ? (
                               <>
                                 <div className="w-[42px] h-[42px] rounded-full relative bg-[#315cc0] flex justify-center items-center">
-                                  {item.to_card.charAt(0).toUpperCase()}
+                                  <img src={transaction} alt="" />
                                   <div className="">
                                     {item.to_card &&
                                     ["4441", "5375", "4899", "4042"].includes(

@@ -18,6 +18,7 @@ import abank from "../../assets/abank.jpg";
 import pumb from "../../assets/pumb.jpg";
 import privat from "../../assets/privat.jpg";
 import bank from "../../assets/bank-svgrepo.svg";
+import transaction from "../../assets/transaction.svg";
 export const contacts = [
   {
     id: 1,
@@ -372,7 +373,7 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                         >
                           <p className="text-center">
                             {" "}
-                            {foundCard?.charAt(0).toUpperCase()}
+                            <img src={transaction} alt="" />
                           </p>
                           <div className="">
                             {foundCard &&

@@ -9,7 +9,7 @@ import prize from "../../assets/prize.svg";
 import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
 import Balance from "../../widgets/dashboard/Balance";
-
+import transaction from "../../assets/transaction.svg";
 
 export default function TransferPage() {
   const { id } = useParams();
@@ -97,7 +97,7 @@ export default function TransferPage() {
             className="w-[52px] h-[52px] rounded-full flex items-center justify-center text-white text-lg"
             style={{ backgroundColor: color }}
           >
-            {firstLetter}
+            <img src={transaction} alt="" className="" />
           </div>
           <div className="w-6 h-6 left-8 top-8 absolute flex-items rounded-full  bg-black flex items-center justify-center text-white pb-1 ">
             <p>m</p>

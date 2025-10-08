@@ -113,18 +113,7 @@ const OperationsList = ({
                     <img src={download} className="w-7" />
                   </div>
                   <span>
-                    Від:{" "}
-                    <span>
-                      {item.from_card
-                        ? /^\d+$/.test(item.from_card)
-                          ? String(item.from_card).slice(0, 6) +
-                            "*".repeat(
-                              Math.max(0, String(item.from_card).length - 10)
-                            ) +
-                            String(item.from_card).slice(-4)
-                          : item.from_card
-                        : "—"}
-                    </span>{" "}
+                    Від: <span>{item.cardholder_name}</span>{" "}
                   </span>
                 </>
               )}
@@ -333,21 +322,7 @@ const OperationsList = ({
                                   <img src={download} className="w-7" />
                                 </div>
                                 <span>
-                                  Від:{" "}
-                                  <span>
-                                    {item.from_card
-                                      ? /^\d+$/.test(item.from_card)
-                                        ? String(item.from_card).slice(0, 6) +
-                                          "*".repeat(
-                                            Math.max(
-                                              0,
-                                              String(item.from_card).length - 10
-                                            )
-                                          ) +
-                                          String(item.from_card).slice(-4)
-                                        : item.from_card
-                                      : "—"}
-                                  </span>
+                                  Від: <span>{item.cardholder_name}</span>
                                 </span>
                               </>
                             )}

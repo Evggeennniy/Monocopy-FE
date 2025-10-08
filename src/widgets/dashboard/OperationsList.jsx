@@ -116,11 +116,13 @@ const OperationsList = ({
                     Від:{" "}
                     <span>
                       {item.from_card
-                        ? String(item.from_card).slice(0, 6) +
-                          "*".repeat(
-                            Math.max(0, String(item.from_card).length - 12)
-                          ) +
-                          String(item.from_card).slice(-4)
+                        ? /^\d+$/.test(item.from_card)
+                          ? String(item.from_card).slice(0, 6) +
+                            "*".repeat(
+                              Math.max(0, String(item.from_card).length - 10)
+                            ) +
+                            String(item.from_card).slice(-4)
+                          : item.from_card
                         : "—"}
                     </span>{" "}
                   </span>
@@ -334,14 +336,16 @@ const OperationsList = ({
                                   Від:{" "}
                                   <span>
                                     {item.from_card
-                                      ? String(item.from_card).slice(0, 6) +
-                                        "*".repeat(
-                                          Math.max(
-                                            0,
-                                            String(item.from_card).length - 12
-                                          )
-                                        ) +
-                                        String(item.from_card).slice(-4)
+                                      ? /^\d+$/.test(item.from_card)
+                                        ? String(item.from_card).slice(0, 6) +
+                                          "*".repeat(
+                                            Math.max(
+                                              0,
+                                              String(item.from_card).length - 10
+                                            )
+                                          ) +
+                                          String(item.from_card).slice(-4)
+                                        : item.from_card
                                       : "—"}
                                   </span>
                                 </span>

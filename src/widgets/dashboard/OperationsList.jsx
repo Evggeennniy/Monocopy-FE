@@ -57,7 +57,7 @@ const OperationsList = ({
                       ) ? (
                         // Монобанк — буква M
                         <>
-                          {item.to_card?.charAt(0).toUpperCase()}
+                          {/* {item.to_card?.charAt(0).toUpperCase()} */}
 
                           <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white">
                             <p>m</p>
@@ -242,7 +242,7 @@ const OperationsList = ({
                                     ) ? (
                                       // Монобанк — буква M
                                       <>
-                                        {item.to_card?.charAt(0).toUpperCase()}
+                                        {/* {item.to_card?.charAt(0).toUpperCase()} */}
 
                                         <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white">
                                           <p>m</p>

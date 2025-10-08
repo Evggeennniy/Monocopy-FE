@@ -114,7 +114,7 @@ export default function TransactionPage() {
             <img src={rest} alt="" />
             <div className="flex flex-col ">
               <p className="text-[#91A2B1] text-[13px]">Залишок</p>
-              <p className="text-[#E0E0E0] text-[15px]">100 000.32 ₴</p>
+              <p className="text-[#E0E0E0] text-[15px]">2 345 786 ₴</p>
             </div>
           </div>
         </div>

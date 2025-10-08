@@ -93,9 +93,13 @@ const OperationsList = ({
                     </div>
                   </div>
                   <span>
-                    {item.to_card.slice(0, 6) +
-                      "*".repeat(item.to_card.length - 12) +
-                      item.to_card.slice(-4)}
+                    {item.to_card
+                      ? String(item.to_card).slice(0, 6) +
+                        "*".repeat(
+                          Math.max(0, String(item.to_card).length - 12)
+                        ) +
+                        String(item.to_card).slice(-4)
+                      : "—"}
                   </span>
                 </>
               ) : (
@@ -109,9 +113,13 @@ const OperationsList = ({
                   <span>
                     Від:{" "}
                     <span>
-                      {item.to_card.slice(0, 6) +
-                        "*".repeat(item.from_card.length - 12) +
-                        item.to_card.slice(-4)}
+                      {item.from_card
+                        ? String(item.from_card).slice(0, 6) +
+                          "*".repeat(
+                            Math.max(0, String(item.from_card).length - 12)
+                          ) +
+                          String(item.from_card).slice(-4)
+                        : "—"}
                     </span>{" "}
                   </span>
                 </>
@@ -300,9 +308,16 @@ const OperationsList = ({
                                 </div>
 
                                 <span>
-                                  {item.to_card.slice(0, 6) +
-                                    "*".repeat(item.to_card.length - 12) +
-                                    item.to_card.slice(-4)}
+                                  {item.to_card
+                                    ? String(item.to_card).slice(0, 6) +
+                                      "*".repeat(
+                                        Math.max(
+                                          0,
+                                          String(item.to_card).length - 12
+                                        )
+                                      ) +
+                                      String(item.to_card).slice(-4)
+                                    : "—"}
                                 </span>
                               </>
                             ) : (
@@ -316,9 +331,16 @@ const OperationsList = ({
                                 <span>
                                   Від:{" "}
                                   <span>
-                                    {item.to_card.slice(0, 6) +
-                                      "*".repeat(item.from_card.length - 12) +
-                                      item.to_card.slice(-4)}
+                                    {item.from_card
+                                      ? String(item.from_card).slice(0, 6) +
+                                        "*".repeat(
+                                          Math.max(
+                                            0,
+                                            String(item.from_card).length - 12
+                                          )
+                                        ) +
+                                        String(item.from_card).slice(-4)
+                                      : "—"}
                                   </span>
                                 </span>
                               </>

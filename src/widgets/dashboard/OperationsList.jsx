@@ -92,7 +92,11 @@ const OperationsList = ({
                       )}
                     </div>
                   </div>
-                  <span>{item.to_card}</span>
+                  <span>
+                    {item.to_card.slice(0, 6) +
+                      "*".repeat(item.to_card.length - 12) +
+                      item.to_card.slice(-4)}
+                  </span>
                 </>
               ) : (
                 <>
@@ -102,7 +106,14 @@ const OperationsList = ({
                   >
                     <img src={download} className="w-7" />
                   </div>
-                  <span>Від: {item.from_card}</span>
+                  <span>
+                    Від:{" "}
+                    <span>
+                      {item.to_card.slice(0, 6) +
+                        "*".repeat(item.from_card.length - 12) +
+                        item.to_card.slice(-4)}
+                    </span>{" "}
+                  </span>
                 </>
               )}
             </div>
@@ -302,7 +313,14 @@ const OperationsList = ({
                                 >
                                   <img src={download} className="w-7" />
                                 </div>
-                                <span>Від: {item.from_card}</span>
+                                <span>
+                                  Від:{" "}
+                                  <span>
+                                    {item.to_card.slice(0, 6) +
+                                      "*".repeat(item.from_card.length - 12) +
+                                      item.to_card.slice(-4)}
+                                  </span>
+                                </span>
                               </>
                             )}
                           </div>

@@ -22,24 +22,32 @@ export default function MonobankCard({
       {/* Темный синий туман/тень */}
       {!isOpen && (
         <div
-          className="absolute z-[1001]  bottom-0 left-1/2 -translate-x-1/2 w-[360px] sm:w-[420px] h-[120px] rounded-full blur-[120px] pointer-events-none"
+          className="absolute z-[1001] top-2 left-10  w-[50px] sm:w-[420px] h-[50px] rounded-full blur-[30px] pointer-events-none"
           style={{
             background:
               "radial-gradient(ellipse at center, rgba(0,30,60,0.8) 0%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,0) 100%)",
           }}
         ></div>
       )}
-
-      {/* Дополнительный слой для глубины */}
       {!isOpen && (
         <div
-          className="absolute z-[1001] bottom-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[360px] h-[80px] rounded-full blur-[80px] pointer-events-none"
+          className="absolute z-[1001] top-2   w-[300px] sm:w-[360px] h-[80px] rounded-full blur-[40px] pointer-events-none"
+          style={{
+            background: "rgba(0,30,60,0.6)",
+            // "radial-gradient(ellipse at center, rgba(0,30,60,0.6) 0%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%)",
+          }}
+        ></div>
+      )}
+      {/* Дополнительный слой для глубины */}
+      {/* {!isOpen && (
+        <div
+          className="absolute z-[1001] top-2 left-1/2 -translate-x-1/2 w-[300px] sm:w-[360px] h-[80px] rounded-full blur-[80px] pointer-events-none"
           style={{
             background:
               "radial-gradient(ellipse at center, rgba(0,30,60,0.6) 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0) 100%)",
           }}
         ></div>
-      )}
+      )} */}
 
       {/* Карточка */}
       <div
@@ -50,7 +58,7 @@ export default function MonobankCard({
       >
         {!isOpen && (
           <div
-            className="absolute top-2 inset-0 w-[300px] pointer-events-none rounded-2xl"
+            className="absolute top-2  inset-0 w-[300px] pointer-events-none rounded-2xl"
             style={{
               background:
                 "radial-gradient(circle at 50% 40%, rgba(0,20,180,0.25) 0%, rgba(0,0,0,0) 50%)",

@@ -160,7 +160,7 @@ export default function Balance() {
     <div
       style={{
         background: !isSettingsOpen
-          ? "linear-gradient(179.99deg, #0B0D40 0%, #16265A 16.21%, #112658 31.61%, #0D244E 48.57%, #121212 57.07%, #121212 98.97%)"
+          ? "linear-gradient(179.99deg, #0B0D40 0%,   #0D244E 35.57%, #121212 55.07%, #121212 98.97%)"
           : "linear-gradient(180deg, #060622 0%, #181C2A 16.21%, #0D1D41 31.61%, #0E2652 48.57%, #132646 100%)",
       }}
       className={`min-h-screen text-white flex flex-col items-center ${
@@ -312,31 +312,34 @@ export default function Balance() {
       </div>
 
       {!isSettingsOpen && !isContactsOpen && !showAll && (
-        <div className="flex justify-center  fixed bottom-6 z-[999]  gap-3 mt-3 mx-auto w-full items-center  ">
-          <div className="bg-[#292929] py-[12px] px-[30px]  rounded-full">
-            <div className="flex gap-[20px]">
-              <div className="flex flex-col justify-center items-center">
-                <img src={two_cards} alt="" className="w-[27px] h-[27px]" />
-                <p className="text-[10px] text-[#FB5257]">Картки</p>
-              </div>
-              <div className="flex flex-col justify-center items-center">
-                <img src={credits} alt="" className="w-[27px] h-[27px]" />
-                <p className="text-[10px]">Кредити</p>
-              </div>
-              <div className="flex flex-col justify-center items-center">
-                <img src={six} alt="" className="w-[27px] h-[27px]" />
-                <p className="text-[10px]">Накопичення</p>
-              </div>
-              <div className="flex flex-col justify-center items-center">
-                <img src={dots} alt="" className="w-[27px] h-[27px]" />
-                <p className="text-[10px]">Ще</p>
+        <>
+          <div className="flex justify-center  fixed bottom-6 z-[999]  gap-3 mt-3 mx-auto w-full items-center  ">
+            <div className="bg-[#292929] py-[12px] px-[30px]  rounded-full">
+              <div className="flex gap-[20px]">
+                <div className="flex flex-col justify-center items-center">
+                  <img src={two_cards} alt="" className="w-[27px] h-[27px]" />
+                  <p className="text-[10px] text-[#FB5257]">Картки</p>
+                </div>
+                <div className="flex flex-col justify-center items-center">
+                  <img src={credits} alt="" className="w-[27px] h-[27px]" />
+                  <p className="text-[10px]">Кредити</p>
+                </div>
+                <div className="flex flex-col justify-center items-center">
+                  <img src={six} alt="" className="w-[27px] h-[27px]" />
+                  <p className="text-[10px]">Накопичення</p>
+                </div>
+                <div className="flex flex-col justify-center items-center">
+                  <img src={dots} alt="" className="w-[27px] h-[27px]" />
+                  <p className="text-[10px]">Ще</p>
+                </div>
               </div>
             </div>
+            <div className="bg-[#292929] h-[65px] w-[65px] flex items-center justify-center rounded-full">
+              <img src={market} alt="" className="w-[37px] h-[37px]" />
+            </div>
           </div>
-          <div className="bg-[#292929] h-[65px] w-[65px] flex items-center justify-center rounded-full">
-            <img src={market} alt="" className="w-[37px] h-[37px]" />
-          </div>
-        </div>
+          <div className="flex justify-center bg-black w-full h-[80px]  fixed bottom-[-15px] z-[1] blur-[15px]   gap-3 mt-3 mx-auto items-center  "></div>
+        </>
       )}
       {!isSettingsOpen && !isContactsOpen && <div className="mt-[70px]"></div>}
     </div>

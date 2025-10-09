@@ -25,7 +25,7 @@ const OperationsList = ({
   return (
     <div className="mt-8 bg-[#272727] py-4 px-3 rounded-2xl relative z-[1000]">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold mb-4">Операції</h3>
+        <h3 className="text-[17px] font-semibold mb-4">Операції</h3>
 
         <button
           onClick={() => setShowAll(true)}
@@ -94,7 +94,7 @@ const OperationsList = ({
                       )}
                     </div>
                   </div>
-                  <span>
+                  <span className="text-[15px]">
                     {item.to_card
                       ? String(item.to_card).slice(0, 6) +
                         "*".repeat(
@@ -112,19 +112,22 @@ const OperationsList = ({
                   >
                     <img src={download} className="w-7" />
                   </div>
-                  <span>
-                    Від: <span>{item.cardholder_name}</span>{" "}
+                  <span className="text-[15px]">
+                    Від:{" "}
+                    <span className="font-medium">{item.cardholder_name}</span>
                   </span>
                 </>
               )}
             </div>
 
             {item.operation_type === "withdraw" ? (
-              <span className="text-[#E1E1E1] bold">
+              <span className="text-[#E1E1E1] text-[16px] ">
                 - {item.amount} &#8372;
               </span>
             ) : (
-              <span className="text-[#00a500] bold">{item.amount} &#8372;</span>
+              <span className="text-[#00a500] text-[16px] ">
+                {item.amount} &#8372;
+              </span>
             )}
           </li>
         ))}
@@ -300,7 +303,7 @@ const OperationsList = ({
                                   </div>
                                 </div>
 
-                                <span>
+                                <span className="text-[15px]">
                                   {item.to_card
                                     ? String(item.to_card).slice(0, 6) +
                                       "*".repeat(
@@ -321,19 +324,22 @@ const OperationsList = ({
                                 >
                                   <img src={download} className="w-7" />
                                 </div>
-                                <span>
-                                  Від: <span>{item.cardholder_name}</span>
+                                <span className="text-[15px]">
+                                  Від:{" "}
+                                  <span className="font-medium">
+                                    {item.cardholder_name}
+                                  </span>
                                 </span>
                               </>
                             )}
                           </div>
 
                           {item.operation_type === "withdraw" ? (
-                            <span className="text-[#E1E1E1]  bold">
+                            <span className="text-[#E1E1E1] text-[16px] ">
                               - {item.amount} &#8372;
                             </span>
                           ) : (
-                            <span className="text-[#00a500] bold">
+                            <span className="text-[#00a500] text-[16px]">
                               {item.amount} &#8372;
                             </span>
                           )}

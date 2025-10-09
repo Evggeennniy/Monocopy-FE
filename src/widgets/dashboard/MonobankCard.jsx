@@ -19,24 +19,65 @@ export default function MonobankCard({
 }) {
   return (
     <div className="flex justify-center items-center relative">
-      {/* Perspective wrapper */}
+      {/* Темный синий туман/тень */}
+      {!isOpen && (
+        <div
+          className="absolute z-[1001]  bottom-0 left-1/2 -translate-x-1/2 w-[360px] sm:w-[420px] h-[120px] rounded-full blur-[120px] pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(0,30,60,0.8) 0%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,0) 100%)",
+          }}
+        ></div>
+      )}
+
+      {/* Дополнительный слой для глубины */}
+      {!isOpen && (
+        <div
+          className="absolute z-[1001] bottom-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[360px] h-[80px] rounded-full blur-[80px] pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(0,30,60,0.6) 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0) 100%)",
+          }}
+        ></div>
+      )}
+
+      {/* Карточка */}
       <div
         className={`${
           !isOpen ? "w-[320px]" : "w-[340px]"
         } sm:w-[384px] h-[196px]`}
         style={{ perspective: "1200px" }}
       >
+        {!isOpen && (
+          <div
+            className="absolute top-2 inset-0 w-[300px] pointer-events-none rounded-2xl"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 40%, rgba(0,20,180,0.25) 0%, rgba(0,0,0,0) 50%)",
+              filter: "blur(40px)",
+              zIndex: 5, // над картой
+              transition: "all 0.7s ease",
+            }}
+          ></div>
+        )}{" "}
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-full h-full text-white p-6 rounded-2xl shadow-2xl cursor-pointer transition-transform duration-600 ease-out"
+          className="relative w-full h-full text-white p-6 rounded-2xl cursor-pointer transition-all duration-700 ease-out"
           style={{
-            transform: isOpen ? "rotateX(0deg)" : "rotateX(63deg)",
+            transform: isOpen
+              ? "translateY(0px) rotateX(0deg)"
+              : "translateY(-10px) rotateX(61deg)",
             transformStyle: "preserve-3d",
             background: "linear-gradient(to bottom, #0F0E0C, #2B2B2B)",
-            borderBottom: `4px solid ${borderColor}`, // dynamic bottom border
+            borderBottom: !isOpen
+              ? `7px solid ${borderColor}`
+              : `3px solid ${borderColor}`,
+            boxShadow: isOpen
+              ? ""
+              : "0 30px 40px rgba(0,0,0,0.6), 0 0 50px rgba(0,0,0,0.1) inset",
           }}
         >
-          {/* Card content */}
+          {/* Контент карты */}
           <div className="flex flex-col gap-6 h-full relative z-10">
             <div
               className={`${
@@ -46,16 +87,28 @@ export default function MonobankCard({
               <img src={monobankLogo} alt="Monobank" className="w-full" />
             </div>
 
-            <p
-              className={`tracking-widest  sm:text-[28px] mx-auto ${
-                !isOpen ? "opacity-65 text-[26px]" : "text-[25px]"
-              }`}
-            >
-              {isOpen
-                ? formatCardNumber(cardNumber)
-                : maskCardNumber(cardNumber)}
-            </p>
+            <div className="relative mx-auto">
+              <p
+                className={`tracking-widest sm:text-[28px] text-center`}
+                style={{
+                  fontFamily: "'SF Pro Rounded', sans-serif",
+                  fontWeight: 500, // Medium
+                  fontSize: isOpen ? "23px" : "25px",
+                  color: "rgba(245,245,245,1)", // мягкий белый
+                  fontVariantNumeric: "tabular-nums",
+                  textShadow: "0 1px 2px rgba(0,0,0,0.3)", // лёгкая тень для объёма
+                  textRendering: "geometricPrecision",
+                  WebkitFontSmoothing: "antialiased",
+                  MozOsxFontSmoothing: "grayscale",
+                }}
+              >
+                {isOpen
+                  ? formatCardNumber(cardNumber)
+                  : maskCardNumber(cardNumber)}
+              </p>
+            </div>
           </div>
+
           {isOpen && (
             <p className="absolute bottom-6 left-6 uppercase text-[15px]">
               {owner}
@@ -71,9 +124,6 @@ export default function MonobankCard({
           </div>
         </div>
       </div>
-
-      {/* Shadow */}
-      <div className="absolute bottom-0 left-1/2 w-[320px] sm:w-[384px] h-6 bg-black opacity-20 rounded-full blur-2xl -translate-x-1/2"></div>
     </div>
   );
 }

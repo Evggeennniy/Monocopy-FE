@@ -67,7 +67,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#121212] via-[#0f0f0f] to-[#0a0a0a] p-6">
+    <div className="min-h-screen flex items-center justify-center  bg-gradient-to-b from-[#121212] via-[#0f0f0f] to-[#0a0a0a] p-6">
       <div
         className="w-full max-w-md bg-opacity-60 backdrop-blur-md rounded-2xl border border-gray-800 shadow-lg p-8"
         style={{ backgroundColor: "rgba(18,18,18,0.6)" }}
@@ -76,21 +76,21 @@ export default function LoginPage() {
           Вход в аккаунт
         </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 ">
           <label className="block">
             <span className="text-sm text-gray-300">Name</span>
             <input
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Aboba"
+              placeholder="name"
               className="mt-1 block w-full rounded-lg border border-gray-700 bg-[#121212] px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600"
               required
               aria-label="E-mail"
             />
           </label>
 
-          <label className="block relative">
+          <label className="block relative ">
             <span className="text-sm text-gray-300">Пароль</span>
             <div className="mt-1 flex items-center">
               <input
@@ -98,7 +98,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Введите пароль"
-                className="flex-1 rounded-l-lg border border-gray-700 bg-[#121212] px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600"
+                className="mt-1 block w-full rounded-lg border border-gray-700 bg-[#121212] px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600"
                 required
                 aria-label="Пароль"
               />

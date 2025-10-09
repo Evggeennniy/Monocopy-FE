@@ -50,22 +50,30 @@ function MainDashboard({
               }}
               className="flex flex-col items-center gap-3 w-[77px]  text-center cursor-pointer"
             >
-              <div className="w-[57px] h-[57px] rounded-full bg-[#04070E] flex justify-center items-center">
-                <img src={card_icon} alt="" className="w-[30px] h-[30px]" />
+              <div className="flex flex-col items-center gap-2 w-[77px] text-center cursor-pointer">
+                <div className="w-[57px] h-[57px] rounded-full bg-[#04070E] flex justify-center items-center">
+                  <img src={card_icon} alt="" className="w-[30px] h-[30px]" />
+                </div>
+                <p className="text-[13.5px] leading-[15px] font-medium text-[#E1E1E1]">
+                  Переказати на картку
+                </p>
               </div>
-              <p>Переказати на картку</p>
             </div>
-            <div className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer">
+            <div className="flex flex-col items-center gap-2 w-[77px] text-center cursor-pointer">
               <div className="w-[57px] h-[57px] rounded-full bg-[#04070E] flex justify-center items-center">
                 <img src={pdf_icon} alt="" className="w-[30px] h-[30px]" />
               </div>
-              <p>Платіж за IBAN</p>
+              <p className="text-[13.5px] leading-[15px] font-medium text-[#E1E1E1]">
+                Платіж <br /> за IBAN
+              </p>
             </div>
-            <div className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer">
+            <div className="flex flex-col items-center gap-2 w-[77px] text-center cursor-pointer">
               <div className="w-[57px] h-[57px] rounded-full bg-[#04070E] flex justify-center items-center">
                 <img src={slices_icon} alt="" className="w-[30px] h-[30px]" />
               </div>
-              <p>Інші платежі</p>
+              <p className="text-[13.5px] leading-[15px] font-medium text-[#E1E1E1]">
+                Інші <br /> платежі
+              </p>
             </div>
           </div>
           {/* Операции */}

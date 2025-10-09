@@ -85,10 +85,10 @@ export default function TransactionPage() {
         </h3>
         <div className="flex gap-[25px] justify-center items-center">
           <div className="h-[1px] bg-[#4B4B4B] w-[18%]"></div>
-          <button className="flex text-[#FFFFFF] rounded-full items-center text-[12px] gap-1 bg-[#3833A9] px-4">
+          <button className="flex text-[#FFFFFF] rounded-full items-center text-[12px] gap-1 py-[2px] bg-[#3833A9] px-4">
             <div className=""> Переказ на картку</div>
 
-            <img src={edit} alt="" className="pt-1" />
+            <img src={edit} alt="" className="" />
           </button>
           <div className="h-[1px] bg-[#4B4B4B] w-[18%]"></div>
         </div>
@@ -118,6 +118,7 @@ export default function TransactionPage() {
             </div>
           </div>
         </div>
+
         <div className="flex flex-col gap-3 pb-4 ">
           <div className="flex items-center gap-3 pl-[20px]">
             <img src={separate} alt="" className="flex-1 w-[22px] h-[50px]" />
@@ -130,6 +131,7 @@ export default function TransactionPage() {
               <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
             </p>
           </div>
+
           <div className="flex items-center gap-3 pl-[20px]">
             <img src={repeat} alt="" className="flex-1 w-[22px] h-[50px]" />
             <p

@@ -154,7 +154,10 @@ export default function TransactionPage() {
               <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
             </p>
           </div>
-          <div className="flex items-center gap-3 pl-[20px]">
+          <div
+            onClick={() => navigate(`/receipt/${id}`)}
+            className="flex items-center gap-3 pl-[20px]"
+          >
             <img src={rewatch} alt="" className="flex-1 w-[22px] h-[50px]" />
             <p
               className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]

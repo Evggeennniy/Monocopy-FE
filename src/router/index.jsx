@@ -7,6 +7,7 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import TransferPage from "../pages/transfer/TransferPage";
 import TransactionPage from "../pages/transaction/TransactionPage";
 import Login from "../pages/login/Login";
+import Receipt from "../pages/Receipt/Receipt";
 
 // Layout (optional)
 const MainLayout = () => (
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: "/transfer/:id", element: <TransferPage /> },
       { path: "/transaction/:id", element: <TransactionPage /> },
       { path: "/payment-status", element: <PaymentStatus /> },
+      { path: "/receipt/:id", element: <Receipt /> },
     ],
   },
 ]);

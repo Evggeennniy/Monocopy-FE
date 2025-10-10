@@ -160,7 +160,7 @@ export default function Balance() {
     <div
       style={{
         background: !isSettingsOpen
-          ? "linear-gradient(179.99deg, #0B0D40 0%,   #0D244E 35.57%, #121212 55.07%, #121212 98.97%)"
+          ? "linear-gradient(179.99deg, #0B0D40 0%,#0D1D51 30.57%,    #121212 40.07%, #121212 98.97%)"
           : "linear-gradient(180deg, #060622 0%, #181C2A 16.21%, #0D1D41 31.61%, #0E2652 48.57%, #132646 100%)",
       }}
       className={`min-h-screen text-white flex flex-col items-center ${
@@ -226,7 +226,7 @@ export default function Balance() {
                             })
                             .replace(/,/g, " ")}
                         </div>
-                        <img src={grivna} alt="" className="mt-2" />
+                        <img src={grivna} alt="" className="" />
                       </p>
                     </div>
                   </>
@@ -274,16 +274,32 @@ export default function Balance() {
             </SwiperSlide>
           ))}
         </Swiper>
-        {!isSettingsOpen && !isContactsOpen && !showAll && (
-          <button
-            className="flex absolute top-[22.5rem] right-[40%] z-[100]  items-center  mx-auto px-2 gap-2 cursor-pointer py-1
-            rounded-full bg-[#0A1D3E] opacity-90"
-          >
-            {" "}
-            <img src={bank_cards} alt="" />
-            <p className="text-[12px] text-[#A0A6B9] ">Усі картки</p>
-          </button>
-        )}
+        {!isSettingsOpen &&
+          !isContactsOpen &&
+          !showAll &&
+          (cards.length === 1 ? (
+            <div
+              className="flex absolute top-[22.5rem] right-1/2 z-[100] w-[120px] bg-black/20 
+                rounded-full justify-center items-center gap-2 transform translate-x-1/2"
+            >
+              {/* Точка */}
+              <span className="w-2 h-2 bg-white rounded-full"></span>
+              {/* Плюсик */}
+              <button className="text-gray-500 pb-[1px] font-bold">+</button>
+            </div>
+          ) : (
+            !isSettingsOpen &&
+            !isContactsOpen &&
+            !showAll && (
+              <button
+                className="flex absolute top-[22.5rem] right-[40%] z-[100]  items-center mx-auto px-2 gap-2 cursor-pointer py-1
+      rounded-full bg-[#0A1D3E] opacity-90"
+              >
+                <img src={bank_cards} alt="" />
+                <p className="text-[12px] text-[#A0A6B9]">Усі картки</p>
+              </button>
+            )
+          ))}
       </div>
       {/* Нижние блоки */}
       <div mode="popLayout">

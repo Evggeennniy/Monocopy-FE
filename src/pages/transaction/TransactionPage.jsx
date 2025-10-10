@@ -12,6 +12,7 @@ import always from "../../assets/always.png";
 import rasrochka from "../../assets/rasrochka.png";
 import transaction from "../../assets/transaction.svg";
 import keshbek from "../../assets/keshbek.jpg";
+import grafic from "../../assets/grafic.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import fetchWithAuth from "../../util/fetchWithAuth";
@@ -79,7 +80,7 @@ export default function TransactionPage() {
           </button>
         </div>
 
-        <div className="bg-[#272727] absolute top-[100px] z-10 min-h-screen    rounded-t-2xl flex flex-col gap-[15px]">
+        <div className="bg-[#272727] absolute top-[100px] w-full z-10 min-h-screen    rounded-t-2xl flex flex-col gap-[15px]">
           <img
             src={transaction}
             alt=""
@@ -102,8 +103,8 @@ export default function TransactionPage() {
           </div>
           <div className="text-[#FDFDFD] text-[47px] flex items-center justify-center">
             {transactionData.operation_type === "deposit"
-              ? Math.abs(transactionData.amount).toLocaleString()
-              : `-${Math.abs(transactionData.amount).toLocaleString()}`}
+              ? Math.abs(transactionData.amount).toLocaleString("ru-RU")
+              : `-${Math.abs(transactionData.amount).toLocaleString("ru-RU")}`}
             <span className="text-[35px] flex  pt-[12px] h-full ">
               .00{" "}
               <img
@@ -115,7 +116,7 @@ export default function TransactionPage() {
           </div>
 
           <div className="bg-[#1E1E1E] px-5 pb-5 pt-4 flex w-full flex-col ">
-            {["4441"].includes(
+            {!["4441"].includes(
               transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
             ) && <img src={keshbek} alt="" />}
             <div className="bg-[#272727] rounded-lg flex mt-3 items-center p-[15px] w-full gap-3 text-[#767676] text-[13px]">
@@ -129,6 +130,7 @@ export default function TransactionPage() {
                 <p className="text-[#E0E0E0] text-[15px]">2 345 786 ₴</p>
               </div>
             </div>
+            <img src={grafic} alt="" className="mt-1" />
           </div>
 
           <div className="flex flex-col gap-3 pb-4 ">

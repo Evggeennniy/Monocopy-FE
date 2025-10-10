@@ -9,6 +9,8 @@ import pumb from "../../assets/pumb.jpg";
 import privat from "../../assets/privat.jpg";
 import transaction from "../../assets/transaction.svg";
 import bank from "../../assets/bank-svgrepo.svg";
+
+import grivna from "../../assets/grivna.svg";
 const OperationsList = ({
   lastThreeReversed,
   allOperations,
@@ -121,13 +123,19 @@ const OperationsList = ({
             </div>
 
             {item.operation_type === "withdraw" ? (
-              <span className="text-[#E1E1E1] text-[16px] ">
-                - {item.amount} &#8372;
-              </span>
+              <div className="flex">
+                <span className="text-[#E1E1E1] text-[16px] ">
+                  - {Math.abs(item.amount).toLocaleString("ru-RU")}
+                </span>
+                <span className="text-[16px] flex  h-full ">.00 &#8372;</span>
+              </div>
             ) : (
-              <span className="text-[#00a500] text-[16px] ">
-                {item.amount} &#8372;
-              </span>
+              <div className="flex">
+                <span className="text-[#00a500] text-[16px] ">
+                  {Math.abs(item.amount).toLocaleString("ru-RU")} &#8372;
+                </span>
+                <span className="text-[16px] flex  h-full ">.00 &#8372;</span>
+              </div>
             )}
           </li>
         ))}
@@ -335,13 +343,25 @@ const OperationsList = ({
                           </div>
 
                           {item.operation_type === "withdraw" ? (
-                            <span className="text-[#E1E1E1] text-[16px] ">
-                              - {item.amount} &#8372;
-                            </span>
+                            <div className="flex">
+                              <span className="text-[#E1E1E1] text-[16px] ">
+                                -{" "}
+                                {Math.abs(item.amount).toLocaleString("ru-RU")}
+                              </span>
+                              <span className="text-[16px] flex  h-full ">
+                                .00 &#8372;
+                              </span>
+                            </div>
                           ) : (
-                            <span className="text-[#00a500] text-[16px]">
-                              {item.amount} &#8372;
-                            </span>
+                            <div className="flex">
+                              <span className="text-[#00a500] text-[16px] ">
+                                {Math.abs(item.amount).toLocaleString("ru-RU")}{" "}
+                                &#8372;
+                              </span>
+                              <span className="text-[16px] flex  h-full ">
+                                .00 &#8372;
+                              </span>
+                            </div>
                           )}
                         </li>
                       ))}

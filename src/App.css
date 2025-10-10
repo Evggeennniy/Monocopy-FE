@@ -1,0 +1,18 @@
+/* === Импорт всех похожих шрифтов === */
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+@import url("https://fonts.cdnfonts.com/css/ocr-a-std");
+@import url("https://fonts.cdnfonts.com/css/credit-card");
+
+.main-card {
+  /* 🔹 Попробуй по очереди эти варианты */
+  font-family: "OCR A Std", "Credit Card", "Share Tech Mono", "Space Mono",
+    "Roboto Mono", "VT323", monospace;
+
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #d1d5db;
+  white-space: nowrap; /* заменил text-wrap на актуальный */
+}

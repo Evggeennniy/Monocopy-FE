@@ -132,9 +132,10 @@ const OperationsList = ({
             ) : (
               <div className="flex">
                 <span className="text-[#00a500] text-[16px] ">
-                  {Math.abs(item.amount).toLocaleString("ru-RU")} &#8372;
+                  {Math.abs(item.amount).toLocaleString("ru-RU")}
+                  {".00"} &#8372;
                 </span>
-                <span className="text-[16px] flex  h-full ">.00 &#8372;</span>
+                <span className="text-[16px] flex  h-full "></span>
               </div>
             )}
           </li>
@@ -355,12 +356,11 @@ const OperationsList = ({
                           ) : (
                             <div className="flex">
                               <span className="text-[#00a500] text-[16px] ">
-                                {Math.abs(item.amount).toLocaleString("ru-RU")}{" "}
+                                {Math.abs(item.amount).toLocaleString("ru-RU")}
+                                {".00"}
                                 &#8372;
                               </span>
-                              <span className="text-[16px] flex  h-full ">
-                                .00 &#8372;
-                              </span>
+                              <span className="text-[16px] flex  h-full "></span>
                             </div>
                           )}
                         </li>

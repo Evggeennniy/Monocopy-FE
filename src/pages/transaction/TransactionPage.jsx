@@ -1,6 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import edit from "../../assets/edit.svg";
-import grivna from "../../assets/grivna.svg";
+import grivna from "../../assets/uah-icon.svg";
 import tag from "../../assets/tag.svg";
 import rest from "../../assets/rest.svg";
 import separate from "../../assets/separate.png";
@@ -84,7 +84,7 @@ export default function TransactionPage() {
           <img
             src={transaction}
             alt=""
-            className="absolute left-[50%]  transform -translate-x-1/2 -translate-y-1/2"
+            className="absolute left-[50%]  transform -translate-x-1/2 -translate-y-1/2 h-[64px]"
           />
           <h3 className="text-[#E0E0E0] text-center text-[17px] mt-[38px]">
             {transactionData.cardholder_name}
@@ -92,7 +92,7 @@ export default function TransactionPage() {
           <div className="flex gap-[25px] justify-center items-center">
             <div className="h-[1px] bg-[#4B4B4B] w-[18%]"></div>
             <button className="flex text-[#FFFFFF] rounded-full items-center text-[12px] gap-1 py-[2px] bg-[#3833A9] px-4">
-              <div className=""> Переказ на картку</div>
+              <div className="">Переказ на картку</div>
 
               <img src={edit} alt="" className="" />
             </button>
@@ -124,7 +124,7 @@ export default function TransactionPage() {
               Опис та #теги
             </div>
             <div className="bg-[#272727] rounded-lg flex mt-3 items-center px-[15px] py-[13px] w-full gap-3 text-[#767676] text-[13px]">
-              <img src={rest} alt="" />
+              <img src={rest} className="h-[25px]" />
               <div className="flex flex-col ">
                 <p className="text-[#91A2B1] text-[13px]">Залишок</p>
                 <p className="text-[#E0E0E0] text-[15px]">2 345 786 ₴</p>
@@ -140,7 +140,7 @@ export default function TransactionPage() {
                 className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
               >
-                <div className=""> Розділити витрату</div>
+                <div className="">Розділити витрату</div>
 
                 <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
               </p>
@@ -152,7 +152,7 @@ export default function TransactionPage() {
                 className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
               >
-                <div className=""> Розділити витрату</div>
+                <div className="">Повторити платiж</div>
 
                 <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
               </p>
@@ -163,7 +163,7 @@ export default function TransactionPage() {
                 className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
               >
-                <div className=""> Повторити платіж</div>
+                <div className="">Зберегти карту</div>
 
                 <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
               </p>
@@ -177,7 +177,7 @@ export default function TransactionPage() {
                 className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
               >
-                <div className=""> Переглянути квитанцію</div>
+                <div className="">Переглянути квитанцію</div>
 
                 <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
               </p>
@@ -203,7 +203,7 @@ export default function TransactionPage() {
                 className="text-[16px] h-full flex justify-center flex-col gap-4  flex-13 text-[#E4E4E4]
               "
               >
-                <div className=""> Перевести в росрочку</div>
+                <div className="">Перевести в росрочку</div>
 
                 <div className="h-[2px]   bg-[#4B4B4B] w-full"></div>
               </p>

@@ -70,18 +70,18 @@ export default function MonobankCard({
         )}{" "}
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-full h-full text-white p-6 rounded-2xl cursor-pointer transition-all duration-700 ease-out"
+          className="main-card relative w-full h-full text-white p-6 rounded-2xl cursor-pointer transition-transform duration-700 ease-out"
           style={{
             transform: isOpen
               ? "translateY(0px) rotateX(0deg)"
               : "translateY(-10px) rotateX(61deg)",
             transformStyle: "preserve-3d",
             background: "linear-gradient(to bottom, #0F0E0C, #2B2B2B)",
-            borderBottom: !isOpen
-              ? `7px solid ${borderColor}`
-              : `3px solid ${borderColor}`,
+            borderBottom: isOpen
+              ? `3px solid ${borderColor}`
+              : `7px solid ${borderColor}`,
             boxShadow: isOpen
-              ? ""
+              ? "0 10px 15px rgba(0,0,0,0.5) inset"
               : "0 30px 40px rgba(0,0,0,0.6), 0 0 50px rgba(0,0,0,0.1) inset",
           }}
         >
@@ -99,9 +99,8 @@ export default function MonobankCard({
               <p
                 className={`tracking-widest sm:text-[28px] text-center`}
                 style={{
-                  fontFamily: "'SF Pro Rounded', sans-serif",
                   fontWeight: 500, // Medium
-                  fontSize: isOpen ? "23px" : "25px",
+                  fontSize: isOpen ? "20px" : "19px",
                   color: "rgba(245,245,245,1)", // мягкий белый
                   fontVariantNumeric: "tabular-nums",
                   textShadow: "0 1px 2px rgba(0,0,0,0.3)", // лёгкая тень для объёма

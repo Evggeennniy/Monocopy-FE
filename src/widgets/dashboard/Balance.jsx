@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import MonobankCard from "./MonobankCard";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import MainDashboard from "./MainDashboard";
 import Settings from "./Settings";
 import Contacts from "./Contacts";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import plus from "../../assets/plus.svg";
-import grivna from "../../assets/grivna.svg";
-import message from "../../assets/message.png";
-import price from "../../assets/price.png";
-import monobank from "../../assets/monobank.png";
+import grivna from "../../assets/uah-icon.svg";
+import message from "../../assets/message.svg";
+import price from "../../assets/price.svg";
+import monobank from "../../assets/monobank.svg";
 import rating from "../../assets/rating.svg";
 import two_cards from "../../assets/two_cards.png";
 import credits from "../../assets/credits.png";
@@ -22,6 +21,7 @@ import market from "../../assets/market.png";
 import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
 import bank_cards from "../../assets/bank-cards.svg";
+
 export const cardsArray = [
   {
     id: 1,
@@ -170,7 +170,7 @@ export default function Balance() {
       {!isSettingsOpen && !isContactsOpen && !showAll && (
         <div className="flex justify-between  w-full items-center p-3 pr-2">
           <div className="flex gap-3 items-center">
-            <div className="w-[42px] h-[42px] rounded-full bg-[#315cc0] flex justify-center items-center">
+            <div className="w-[33px] h-[33px] rounded-full bg-[#315cc0] flex justify-center items-center">
               {cards[0]?.user.first_name.charAt(0).toUpperCase()}
             </div>
 
@@ -184,7 +184,7 @@ export default function Balance() {
             <div className="h-[24px] w-[1px] bg-[#3F497A]"></div>
             <div className="flex gap-2 items-center">
               <img src={monobank} alt="" className="w-[22px] h-[22px]" />
-              <img src={rating} alt="" />
+              <img src={rating} alt="" className="w-[22px] h-[22px]" />
             </div>
           </div>
         </div>
@@ -216,7 +216,7 @@ export default function Balance() {
                   <>
                     <div className="h-[80px] w-full"></div>
                     <div className="text-center flex items-center justify-center gap-2">
-                      <img src={plus} alt="" className="mt-2" />
+                      <img src={plus} alt="" className="" />
                       <p className="text-[47px] text-[#E1E1E1] font-semibold leading-[40px] flex items-center">
                         <div>
                           {Number(displayBalance)
@@ -226,7 +226,7 @@ export default function Balance() {
                             })
                             .replace(/,/g, " ")}
                         </div>
-                        <img src={grivna} alt="" className="" />
+                        <img src={grivna} alt="" className="h-[30px]" />
                       </p>
                     </div>
                   </>

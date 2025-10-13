@@ -373,7 +373,11 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                         >
                           <p className="text-center">
                             {" "}
-                            <img src={transaction} alt="" />
+                            <img
+                              src={transaction}
+                              alt=""
+                              className="w-[42px] h-[42px]"
+                            />
                           </p>
                           <div className="">
                             {foundCard &&

@@ -6,6 +6,7 @@ import qr_code from "../../assets/qr_code.png";
 import sing from "../../assets/sing.png";
 import mono_logo from "../../assets/mono_logo.jpg";
 import { ArrowLeft } from "lucide-react";
+import NumberToUkrCurrency from "../../shared/NumberToUkrCurrency";
 function formatKyivDate(utcString) {
   if (!utcString) return "—"; // если пусто
 
@@ -55,8 +56,10 @@ function Receipt(props) {
     fetchTransaction();
   }, [id]);
   const date = new Date(transactionData?.timestamp);
+
+  console.log(transactionData.to_card);
   return (
-    <div className="h-min-screen flex flex-col  leading-[1.2] justify-between bg-[#1E1E1E] p-2">
+    <div className="h-dvh flex flex-col  leading-[1.2] justify-between bg-[#1E1E1E] p-2">
       <div className="h-[90px] flex flex-col p-3 gap-1 border-b-1 border-[#333333]">
         <ArrowLeft color="#FFFFFF" onClick={() => navigate("/dashboard")} />
         <div className="pl-1">
@@ -123,7 +126,7 @@ function Receipt(props) {
                 <Row label="Платіжна система" value="VISA" />
                 <Row
                   label="Платіжний інструмент"
-                  value="UA613220010000026200340086222, 432334******5079"
+                  value={transactionData.from_card}
                 />
               </div>
             </section>
@@ -135,7 +138,7 @@ function Receipt(props) {
                 <Row label="Платіжна система" value="-" />
                 <Row
                   label="Платіжний інструмент"
-                  value="UA613220010000026200340086222"
+                  value={transactionData.to_card}
                 />
               </div>
             </section>
@@ -153,7 +156,9 @@ function Receipt(props) {
                 <Row label="Комісія (грн)" value="0.00" />
                 <Row
                   label="Сума літерами"
-                  value="чотириста п'ятдесят тисяч гривень 00 копійок"
+                  value={
+                    <NumberToUkrCurrency value={transactionData?.amount} />
+                  }
                 />
                 <Row label="Код авторизації" value="347245" />
                 <Row

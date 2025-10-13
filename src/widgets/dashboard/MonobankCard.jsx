@@ -53,7 +53,7 @@ export default function MonobankCard({
             className="absolute top-2  inset-0 w-[300px] pointer-events-none rounded-2xl"
             style={{
               background:
-                "radial-gradient(circle at 50% 40%, rgba(0,20,180,0.25) 0%, rgba(0,0,0,0) 50%)",
+                "radial-gradient(circle at 50% 40%, rgba(17, 38, 100, 0.6) 0%, rgba(0,0,0,0) 50%)",
               filter: "blur(40px)",
               zIndex: 5, // над картой
               transition: "all 0.7s ease",

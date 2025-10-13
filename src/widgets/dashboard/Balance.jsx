@@ -22,73 +22,73 @@ import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
 import bank_cards from "../../assets/bank-cards.svg";
 
-export const cardsArray = [
-  {
-    id: 1,
-    cardNumber: "4441 5555 5555 1931",
-    owner: "Vasyl Petrenko",
-    borderColor: "#0F0E0C",
-    balance: "25,430.50",
-    operationsCards: [
-      {
-        id: 1,
-        name: "Starbucks",
-        type: "expense",
-        amount: 120.0,
-        currency: "₴",
-        color: "red",
-      },
-      {
-        id: 2,
-        name: "Зарплата",
-        type: "income",
-        amount: 15000.0,
-        currency: "₴",
-        color: "green",
-      },
-      {
-        id: 3,
-        name: "Starbucks",
-        type: "expense",
-        amount: 120.0,
-        currency: "₴",
-        color: "red",
-      },
-    ],
-  },
-  {
-    id: 2,
-    cardNumber: "4441 5555 5555 1931",
-    owner: "Vasyl Petrenko",
-    borderColor: "#FB5255",
-    operationsCards: [
-      {
-        id: 1,
-        name: "Starbucks",
-        type: "expense",
-        amount: 120.0,
-        currency: "₴",
-        color: "red",
-      },
-      {
-        id: 2,
-        name: "Зарплата",
-        type: "income",
-        amount: 15000.0,
-        currency: "₴",
-        color: "green",
-      },
-      {
-        id: 3,
-        name: "Starbucks",
-        type: "expense",
-        amount: 120.0,
-        currency: "₴",
-        color: "red",
-      },
-    ],
-  },
-];
+// export const cardsArray = [
+//   {
+//     id: 1,
+//     cardNumber: "4441 5555 5555 1931",
+//     owner: "Vasyl Petrenko",
+//     borderColor: "#0F0E0C",
+//     balance: "25,430.50",
+//     operationsCards: [
+//       {
+//         id: 1,
+//         name: "Starbucks",
+//         type: "expense",
+//         amount: 120.0,
+//         currency: "₴",
+//         color: "red",
+//       },
+//       {
+//         id: 2,
+//         name: "Зарплата",
+//         type: "income",
+//         amount: 15000.0,
+//         currency: "₴",
+//         color: "green",
+//       },
+//       {
+//         id: 3,
+//         name: "Starbucks",
+//         type: "expense",
+//         amount: 120.0,
+//         currency: "₴",
+//         color: "red",
+//       },
+//     ],
+//   },
+//   {
+//     id: 2,
+//     cardNumber: "4441 5555 5555 1931",
+//     owner: "Vasyl Petrenko",
+//     borderColor: "#FB5255",
+//     operationsCards: [
+//       {
+//         id: 1,
+//         name: "Starbucks",
+//         type: "expense",
+//         amount: 120.0,
+//         currency: "₴",
+//         color: "red",
+//       },
+//       {
+//         id: 2,
+//         name: "Зарплата",
+//         type: "income",
+//         amount: 15000.0,
+//         currency: "₴",
+//         color: "green",
+//       },
+//       {
+//         id: 3,
+//         name: "Starbucks",
+//         type: "expense",
+//         amount: 120.0,
+//         currency: "₴",
+//         color: "red",
+//       },
+//     ],
+//   },
+// ];
 
 export default function Balance() {
   // const [isSettingsOpen, setIsOpen] = useState(false);
@@ -160,7 +160,7 @@ export default function Balance() {
     <div
       style={{
         background: !isSettingsOpen
-          ? "linear-gradient(to bottom, #0B0D3F 1%,#112658 18%, #0D244E 28%, #111111 40%)"
+          ? "linear-gradient(to bottom, #0B0D3F 1%,#112658 9%,#112658 16%, #0D244E 25%, #111111 40%)"
           : "linear-gradient(180deg, #060622 0%, #181C2A 16.21%, #0D1D41 31.61%, #0E2652 48.57%, #132646 100%)",
       }}
       className={`min-h-screen text-white flex flex-col items-center ${
@@ -217,8 +217,8 @@ export default function Balance() {
                     <div className="h-[80px] w-full"></div>
                     <div className="text-center flex items-center justify-center gap-2">
                       <img src={plus} alt="" className="" />
-                      <p className="text-[47px] text-[#E1E1E1] font-semibold leading-[40px] flex items-center">
-                        <div>
+                      <p className="text-[47px]  leading-[40px] flex items-center">
+                        <div className="font-bold ">
                           {Number(displayBalance)
                             .toLocaleString("en-US", {
                               minimumFractionDigits: 2,
@@ -292,7 +292,7 @@ export default function Balance() {
             !isContactsOpen &&
             !showAll && (
               <button
-                className="flex absolute top-[22.5rem] right-[40%] z-[100]  items-center mx-auto px-2 gap-2 cursor-pointer py-1
+                className="flex absolute top-[22.5rem] left-[50%] z-[100]  transform -translate-x-1/2    items-center mx-auto px-2 gap-2 cursor-pointer py-1
       rounded-full bg-[#0A1D3E] opacity-90"
               >
                 <img src={bank_cards} alt="" />
@@ -319,14 +319,13 @@ export default function Balance() {
         {isSettingsOpen && !isContactsOpen && (
           <Settings setIsSettingsOpen={setIsSettingsOpen}></Settings>
         )}
-        {isContactsOpen && (
-          <Contacts
-            setIsSettingsOpen={setIsSettingsOpen}
-            setIsContactsOpen={setIsContactsOpen}
-          />
-        )}
       </div>
-
+      {isContactsOpen && (
+        <Contacts
+          setIsSettingsOpen={setIsSettingsOpen}
+          setIsContactsOpen={setIsContactsOpen}
+        />
+      )}
       {!isSettingsOpen && !isContactsOpen && !showAll && (
         <>
           <div className="flex justify-center  fixed bottom-6 z-[999]  gap-3 mt-3 mx-auto w-full items-center  ">

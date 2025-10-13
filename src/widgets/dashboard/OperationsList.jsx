@@ -123,19 +123,19 @@ const OperationsList = ({
             </div>
 
             {item.operation_type === "withdraw" ? (
-              <div className="flex">
-                <span className="text-[#E1E1E1] text-[16px] ">
+              <div className="flex items-start">
+                <span className="text-[#E1E1E1] text-[18px] ">
                   - {Math.abs(item.amount).toLocaleString("ru-RU")}
                 </span>
-                <span className="text-[16px] flex  h-full ">.00 &#8372;</span>
+                <span className="text-[18px] flex  h-full ">.00 &#8372;</span>
               </div>
             ) : (
-              <div className="flex">
-                <span className="text-[#00a500] text-[16px] ">
+              <div className="flex items-start">
+                <span className="text-[#00a500] text-[18px] ">
                   {Math.abs(item.amount).toLocaleString("ru-RU")}
                   {".00"} &#8372;
                 </span>
-                <span className="text-[16px] flex  h-full "></span>
+                <span className="text-[18px] flex  h-full "></span>
               </div>
             )}
           </li>
@@ -344,23 +344,22 @@ const OperationsList = ({
                           </div>
 
                           {item.operation_type === "withdraw" ? (
-                            <div className="flex">
-                              <span className="text-[#E1E1E1] text-[16px] ">
+                            <div className="flex items-center">
+                              <span className="text-[#E1E1E1] text-[18px] ">
                                 -{" "}
                                 {Math.abs(item.amount).toLocaleString("ru-RU")}
                               </span>
-                              <span className="text-[16px] flex  h-full ">
+                              <span className="text-[18px] flex  h-full ">
                                 .00 &#8372;
                               </span>
                             </div>
                           ) : (
-                            <div className="flex">
-                              <span className="text-[#00a500] text-[16px] ">
+                            <div className="flex items-center">
+                              <span className="text-[#00a500] text-[18px] ">
                                 {Math.abs(item.amount).toLocaleString("ru-RU")}
                                 {".00"}
                                 &#8372;
                               </span>
-                              <span className="text-[16px] flex  h-full "></span>
                             </div>
                           )}
                         </li>

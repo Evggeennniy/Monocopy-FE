@@ -149,7 +149,14 @@ export default function TransactionPage() {
             </div>
           </>
           <h3 className="text-[#E0E0E0] text-center text-[17px] mt-[38px]">
-            {transactionData.to_card.replace(/(.{4})/g, "$1 ").trim()}
+            {transactionData.to_card
+              ? String(transactionData.to_card).slice(0, 6) +
+                "*".repeat(
+                  Math.max(0, String(transactionData.to_card).length - 12)
+                ) +
+                String(transactionData.to_card).slice(-4)
+              : "—"}
+            {/* {transactionData.to_card.replace(/(.{4})/g, "$1 ").trim()} */}
           </h3>
           <div className="flex gap-[25px] justify-center items-center">
             <div className="h-[1px] bg-[#4B4B4B] w-[18%]"></div>
@@ -204,7 +211,7 @@ export default function TransactionPage() {
 
           <div className="flex flex-col gap-3 pb-4 ">
             <div className="flex items-center gap-3 pl-[20px]">
-              <img src={separate} alt="" className="flex-1 w-[22px] h-[50px]" />
+              <img src={separate} alt="" className="flex-1 w-[60px] h-[60px]" />
               <p
                 className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -216,7 +223,7 @@ export default function TransactionPage() {
             </div>
 
             <div className="flex items-center gap-3 pl-[20px]">
-              <img src={repeat} alt="" className="flex-1 w-[22px] h-[50px]" />
+              <img src={repeat} alt="" className="flex-1 w-[60px] h-[60px]" />
               <p
                 className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -227,7 +234,7 @@ export default function TransactionPage() {
               </p>
             </div>
             <div className="flex items-center gap-3 pl-[20px]">
-              <img src={save} alt="" className="flex-1 w-[22px] h-[50px]" />
+              <img src={save} alt="" className="flex-1 w-[60px] h-[60px]" />
               <p
                 className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -241,7 +248,7 @@ export default function TransactionPage() {
               onClick={() => navigate(`/receipt/${id}`)}
               className="flex items-center gap-3 pl-[20px] h-full"
             >
-              <img src={rewatch} alt="" className="flex-1 w-[22px] h-[50px]" />
+              <img src={rewatch} alt="" className="flex-1 w-[60px] h-[60px]" />
               <p
                 className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -252,7 +259,7 @@ export default function TransactionPage() {
               </p>
             </div>
             <div className="flex items-center gap-3 pl-[20px]">
-              <img src={always} alt="" className="flex-1 w-[22px] h-[50px]" />
+              <img src={always} alt="" className="flex-1 w-[60px] h-[60px]" />
               <p
                 className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -266,7 +273,7 @@ export default function TransactionPage() {
               <img
                 src={rasrochka}
                 alt=""
-                className="flex-1 w-[22px] h-[50px]"
+                className="flex-1 w-[60px] h-[60px]"
               />
               <p
                 className="text-[16px] h-full flex justify-center flex-col gap-4  flex-13 text-[#E4E4E4]

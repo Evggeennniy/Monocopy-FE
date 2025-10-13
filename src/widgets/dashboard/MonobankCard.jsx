@@ -20,20 +20,12 @@ export default function MonobankCard({
   return (
     <div className="flex justify-center items-center relative">
       {/* Темный синий туман/тень */}
-      {!isOpen && (
-        <div
-          className="absolute z-[1001] top-2 left-10  w-[50px] sm:w-[420px] h-[50px] rounded-full blur-[30px] pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, rgba(13, 36, 78, 0.8) 0%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,0) 100%)",
-          }}
-        ></div>
-      )}
+
       {!isOpen && (
         <div
           className="absolute z-[1001] top-6  w-[420px] sm:w-[360px] h-[80px] rounded-full blur-[20px] pointer-events-none"
           style={{
-            background: "rgba(0,20,60,0.6)",
+            background: "rgba(0,20,80,0.6)",
             // "radial-gradient(ellipse at center, rgba(0,30,60,0.6) 0%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%)",
           }}
         ></div>

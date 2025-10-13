@@ -234,7 +234,7 @@ export default function Balance() {
 
                 {!isContactsOpen && !showAll && (
                   <div
-                    className="relative transition-all px-4 duration-600 ease-in-out"
+                    className="relative mx-auto transition-all px-4 duration-600 ease-in-out"
                     style={{
                       right:
                         activeIndex !== index && !isSettingsOpen
@@ -247,7 +247,7 @@ export default function Balance() {
                             : window.innerWidth <= 430
                             ? "4rem" // 401–430px
                             : "5rem" // больше 430px
-                          : "12px",
+                          : "",
                     }}
                   >
                     <MonobankCard

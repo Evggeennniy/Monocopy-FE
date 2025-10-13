@@ -91,7 +91,7 @@ export default function TransactionPage() {
               style={{ background: "#293B60" }}
               className="w-[64px]  absolute left-[50%] flex justify-center items-center rounded-full  transform -translate-x-1/2 -translate-y-1/2 h-[64px]"
             >
-              <img src={download} className="w-7" />
+              <img src={download} className="w-9" />
             </div>
           ) : (
             <img
@@ -190,11 +190,11 @@ export default function TransactionPage() {
               <div className="flex flex-col ">
                 <p className="text-[#91A2B1] text-[13px]">Залишок</p>
                 <p className="text-[#E0E0E0] text-[15px]">
-                  <div className="text-[#FDFDFD]  flex items-center justify-center">
+                  <div className="text-[#FDFDFD]  flex items-center gap-1 justify-center">
                     {Math.abs(transactionData.balance_after).toLocaleString(
                       "ru-RU"
                     )}
-                    <span className=" flex items-center   ">.00 &#8372;</span>
+                    <span className=" flex items-center "> &#8372;</span>
                   </div>
                 </p>
               </div>

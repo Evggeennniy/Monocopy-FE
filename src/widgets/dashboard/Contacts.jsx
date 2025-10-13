@@ -284,7 +284,7 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
         </div>
       </div>
 
-      <div className="bg-[#121212] min-h-screen min-w-[430px] pt-[195px]  items-stretch  space-y-4">
+      <div className="bg-[#121212] min-h-screen min-w-[430px] pt-[165px]  items-stretch  space-y-4">
         {!foundCard ? (
           <>
             <div className="px-4 ">
@@ -299,7 +299,7 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
             </div>
             <div className="h-[1px] w-full bg-[#4B4B4B] my-2"></div>
 
-            <div className="w-full relative pl-4 ">
+            {/* <div className="w-full relative pl-4 ">
               <Swiper
                 spaceBetween={10}
                 slidesPerView="auto"
@@ -320,7 +320,7 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                   </SwiperSlide>
                 ))}
               </Swiper>
-            </div>
+            </div> */}
             <div className="px-4 ">
               <div className=" bg-[#1E1E1E] rounded-3xl p-4">
                 <h1 className="text-2xl font-bold mb-2">Контакти</h1>

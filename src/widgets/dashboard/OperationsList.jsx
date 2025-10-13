@@ -96,7 +96,7 @@ const OperationsList = ({
                       )}
                     </div>
                   </div>
-                  <span className="text-[15px]">
+                  <span className="text-[17px]">
                     {item.to_card
                       ? String(item.to_card).slice(0, 6) +
                         "*".repeat(
@@ -114,7 +114,7 @@ const OperationsList = ({
                   >
                     <img src={download} className="w-7" />
                   </div>
-                  <span className="text-[15px]">
+                  <span className="text-[17px]">
                     Від:{" "}
                     <span className="font-medium">{item.cardholder_name}</span>
                   </span>
@@ -312,7 +312,7 @@ const OperationsList = ({
                                   </div>
                                 </div>
 
-                                <span className="text-[15px]">
+                                <span className="text-[17px]">
                                   {item.to_card
                                     ? String(item.to_card).slice(0, 6) +
                                       "*".repeat(
@@ -333,7 +333,7 @@ const OperationsList = ({
                                 >
                                   <img src={download} className="w-7" />
                                 </div>
-                                <span className="text-[15px]">
+                                <span className="text-[17px]">
                                   Від:{" "}
                                   <span className="font-medium">
                                     {item.cardholder_name}

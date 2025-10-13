@@ -59,7 +59,7 @@ export default function MonobankCard({
               transition: "all 0.7s ease",
             }}
           ></div>
-        )}{" "}
+        )}
         <div
           onClick={() => setIsOpen(!isOpen)}
           className="main-card relative w-full h-full text-white p-6 rounded-2xl cursor-pointer transition-transform duration-700 ease-out"

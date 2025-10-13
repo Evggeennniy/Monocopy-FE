@@ -169,17 +169,17 @@ export default function Balance() {
     >
       {!isSettingsOpen && !isContactsOpen && !showAll && (
         <div className="flex justify-between  w-full items-center p-3 pr-2">
-          <div className="flex gap-3 items-center">
-            <div className="w-[33px] h-[33px] rounded-full bg-[#315cc0] flex justify-center items-center">
+          <div className="flex gap-3  items-center">
+            <div className="w-[27px] h-[27px] rounded-full bg-[#315cc0] flex justify-center items-center">
               {cards[0]?.user.first_name.charAt(0).toUpperCase()}
             </div>
 
-            <img src={message} alt="" className="w-[32px] h-[33px]" />
+            <img src={message} alt="" className="w-[27px] h-[27px]" />
           </div>
-          <div className="flex  items-center gap-3">
-            <div className="flex gap-2 items-center">
-              <img src={price} alt="" className="w-[27px] h-[33px]" />
-              <div className="text-[#E1E1E1]">Кешбек</div>
+          <div className="flex justify-center items-center gap-3">
+            <div className="flex gap-2 justify-center items-center">
+              <img src={price} alt="" className="w-[27px] h-[27px] pb-1" />
+              <div className="text-[#E1E1E1]">7.73 &#8372;</div>
             </div>
             <div className="h-[24px] w-[1px] bg-[#3F497A]"></div>
             <div className="flex gap-2 items-center">
@@ -234,10 +234,20 @@ export default function Balance() {
 
                 {!isContactsOpen && !showAll && (
                   <div
-                    className={` relative transition-all px-4 duration-600 ease-in-out`}
+                    className="relative transition-all px-4 duration-600 ease-in-out"
                     style={{
                       right:
-                        activeIndex !== index && !isSettingsOpen ? "4rem" : "",
+                        activeIndex !== index && !isSettingsOpen
+                          ? window.innerWidth <= 380
+                            ? "1rem" // до 380px
+                            : window.innerWidth <= 390
+                            ? "2rem" // 381–390px
+                            : window.innerWidth <= 400
+                            ? "3rem" // 391–400px
+                            : window.innerWidth <= 430
+                            ? "4rem" // 401–430px
+                            : "5rem" // больше 430px
+                          : "12px",
                     }}
                   >
                     <MonobankCard
@@ -292,7 +302,7 @@ export default function Balance() {
             !isContactsOpen &&
             !showAll && (
               <button
-                className="flex absolute top-[22.5rem] left-[50%] z-[100]  transform -translate-x-1/2    items-center mx-auto px-2 gap-2 cursor-pointer py-1
+                className="flex absolute top-[21.5rem] left-[50%] z-[100]  transform -translate-x-1/2    items-center mx-auto px-4 gap-2 cursor-pointer py-[2px]
       rounded-full bg-[#0A1D3E] opacity-90"
               >
                 <img src={bank_cards} alt="" />

@@ -160,7 +160,7 @@ export default function Balance() {
     <div
       style={{
         background: !isSettingsOpen
-          ? "linear-gradient(179.99deg, #0B0D40 0%,#0D1D51 30.57%,    #121212 40.07%, #121212 98.97%)"
+          ? "linear-gradient(to bottom, #0B0D3F 1%,#112658 18%, #0D244E 28%, #111111 40%)"
           : "linear-gradient(180deg, #060622 0%, #181C2A 16.21%, #0D1D41 31.61%, #0E2652 48.57%, #132646 100%)",
       }}
       className={`min-h-screen text-white flex flex-col items-center ${

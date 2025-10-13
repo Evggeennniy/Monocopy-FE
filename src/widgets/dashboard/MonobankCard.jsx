@@ -25,15 +25,15 @@ export default function MonobankCard({
           className="absolute z-[1001] top-2 left-10  w-[50px] sm:w-[420px] h-[50px] rounded-full blur-[30px] pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse at center, rgba(0,30,60,0.8) 0%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,0) 100%)",
+              "radial-gradient(ellipse at center, rgba(13, 36, 78, 0.8) 0%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,0) 100%)",
           }}
         ></div>
       )}
       {!isOpen && (
         <div
-          className="absolute z-[1001] top-2   w-[300px] sm:w-[360px] h-[80px] rounded-full blur-[40px] pointer-events-none"
+          className="absolute z-[1001] top-6  w-[420px] sm:w-[360px] h-[80px] rounded-full blur-[20px] pointer-events-none"
           style={{
-            background: "rgba(0,30,60,0.6)",
+            background: "rgba(0,20,60,0.6)",
             // "radial-gradient(ellipse at center, rgba(0,30,60,0.6) 0%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%)",
           }}
         ></div>
@@ -74,7 +74,7 @@ export default function MonobankCard({
           style={{
             transform: isOpen
               ? "translateY(0px) rotateX(0deg)"
-              : "translateY(-10px) rotateX(61deg)",
+              : "translateY(-10px) rotateX(66deg)",
             transformStyle: "preserve-3d",
             background: "linear-gradient(to bottom, #0F0E0C, #2B2B2B)",
             borderBottom: isOpen
@@ -82,7 +82,7 @@ export default function MonobankCard({
               : `7px solid ${borderColor}`,
             boxShadow: isOpen
               ? "0 10px 15px rgba(0,0,0,0.5) inset"
-              : "0 30px 40px rgba(0,0,0,0.6), 0 0 50px rgba(0,0,0,0.1) inset",
+              : "0 20px 20px rgba(0,0,0,0.5), 0 0 50px rgba(0,0,0,0.1) inset",
           }}
         >
           {/* Контент карты */}

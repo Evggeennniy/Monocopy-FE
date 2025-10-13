@@ -57,7 +57,6 @@ function Receipt(props) {
   }, [id]);
   const date = new Date(transactionData?.timestamp);
 
-  console.log(transactionData.to_card);
   return (
     <div className="h-dvh flex flex-col  leading-[1.2] justify-between bg-[#1E1E1E] p-2">
       <div className="h-[90px] flex flex-col p-3 gap-1 border-b-1 border-[#333333]">
@@ -126,7 +125,7 @@ function Receipt(props) {
                 <Row label="Платіжна система" value="VISA" />
                 <Row
                   label="Платіжний інструмент"
-                  value={transactionData.from_card}
+                  value={transactionData?.from_card || ""}
                 />
               </div>
             </section>
@@ -138,7 +137,7 @@ function Receipt(props) {
                 <Row label="Платіжна система" value="-" />
                 <Row
                   label="Платіжний інструмент"
-                  value={transactionData.to_card}
+                  value={transactionData?.to_card || ""}
                 />
               </div>
             </section>

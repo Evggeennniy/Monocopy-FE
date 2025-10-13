@@ -17,6 +17,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
+import download from "../../assets/download.svg";
+import abank from "../../assets/abank.jpg";
+import pumb from "../../assets/pumb.jpg";
+import privat from "../../assets/privat.jpg";
+import bank from "../../assets/bank-svgrepo.svg";
 function formatUADate(isoString) {
   const date = new Date(isoString);
 
@@ -81,13 +86,70 @@ export default function TransactionPage() {
         </div>
 
         <div className="bg-[#272727] absolute top-[100px] w-full z-10 min-h-screen    rounded-t-2xl flex flex-col gap-[15px]">
-          <img
-            src={transaction}
-            alt=""
-            className="absolute left-[50%]  transform -translate-x-1/2 -translate-y-1/2 h-[64px]"
-          />
+          {transactionData.operation_type === "deposit" ? (
+            <div
+              style={{ background: "#293B60" }}
+              className="w-[64px]  absolute left-[50%] flex justify-center items-center rounded-full  transform -translate-x-1/2 -translate-y-1/2 h-[64px]"
+            >
+              <img src={download} className="w-7" />
+            </div>
+          ) : (
+            <img
+              src={transaction}
+              alt=""
+              className="absolute left-[50%]  transform -translate-x-1/2 -translate-y-1/2 h-[64px]"
+            />
+          )}
+          <>
+            <div className=" rounded-full relative flex justify-center items-center">
+              {/* <img src={transaction} alt="" /> */}
+              <div className="">
+                {transactionData.to_card &&
+                ["4441", "5375", "4899", "4042"].includes(
+                  transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
+                ) ? (
+                  // Монобанк — буква M
+                  <>
+                    {/* {item.to_card?.charAt(0).toUpperCase()} */}
+
+                    <div className="w-5 h-5 -translate-x-1/2 left-61 top-3 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white pb-[2px]">
+                      <p>m</p>
+                    </div>
+                  </>
+                ) : ["5168", "4341", "4405", "4581"].includes(
+                    transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
+                  ) ? (
+                  <img
+                    src={privat}
+                    alt="Privat"
+                    className="w-5 h-5 -translate-x-1/2 left-61 top-3 rounded-full absolute"
+                  />
+                ) : ["5355", "5374", "5358", "5440"].includes(
+                    transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
+                  ) ? (
+                  <img
+                    src={pumb}
+                    alt="PUMB"
+                    className="w-5 h-5  rounded-full -translate-x-1/2 left-61 top-3 absolute"
+                  />
+                ) : ["4349", "5169"].includes(
+                    transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
+                  ) ? (
+                  <img
+                    src={abank}
+                    alt="ABank"
+                    className="w-5 h-5 -translate-x-1/2 left-61 top-3 rounded-full  absolute"
+                  />
+                ) : (
+                  <div className="w-6 h-6 flex items-center -translate-x-1/2 left-61  justify-center bg-gray-600 rounded-full top-3 absolute">
+                    <img src={bank} alt="bank" className="w-3 h-3" />
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
           <h3 className="text-[#E0E0E0] text-center text-[17px] mt-[38px]">
-            {transactionData.cardholder_name}
+            {transactionData.to_card.replace(/(.{4})/g, "$1 ").trim()}
           </h3>
           <div className="flex gap-[25px] justify-center items-center">
             <div className="h-[1px] bg-[#4B4B4B] w-[18%]"></div>
@@ -127,7 +189,14 @@ export default function TransactionPage() {
               <img src={rest} className="h-[25px]" />
               <div className="flex flex-col ">
                 <p className="text-[#91A2B1] text-[13px]">Залишок</p>
-                <p className="text-[#E0E0E0] text-[15px]">2 345 786 ₴</p>
+                <p className="text-[#E0E0E0] text-[15px]">
+                  <div className="text-[#FDFDFD]  flex items-center justify-center">
+                    {Math.abs(transactionData.balance_after).toLocaleString(
+                      "ru-RU"
+                    )}
+                    <span className=" flex items-center   ">.00 &#8372;</span>
+                  </div>
+                </p>
               </div>
             </div>
             <img src={grafic} alt="" className="mt-1" />

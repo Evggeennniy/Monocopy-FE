@@ -24,13 +24,13 @@ function Settings({ setIsSettingsOpen }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.1 }}
-      className="w-full mt-4 flex p-4 flex-col gap-4"
+      className="w-full mt-4 flex flex-col gap-4"
     >
       {/* Детали карты */}
       <div className="absolute top-5 left-4 cursor-pointer">
         <X onClick={() => setIsSettingsOpen(false)} />
       </div>
-      <div className="flex gap-3 px-5 pb-5 pt-3 items-center ">
+      <div className="flex gap-3 px-5 pb-3 pt-3 items-center  bg-[#0f1e40]  rounded-full">
         <div className="w-[31px] h-[31px] flex justify-center items-center">
           <img src={icons_setting} alt="" />
         </div>

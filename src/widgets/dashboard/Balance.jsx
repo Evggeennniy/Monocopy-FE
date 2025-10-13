@@ -302,7 +302,7 @@ export default function Balance() {
           ))}
       </div>
       {/* Нижние блоки */}
-      <div mode="popLayout">
+      <div className="w-full max-w-[430px] p-5" mode="popLayout">
         {/* {!isSettingsOpen && !isContactsOpen && (
           <>
             <div className="h-[80px] w-full"></div>

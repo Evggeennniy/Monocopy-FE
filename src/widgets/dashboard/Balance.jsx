@@ -232,7 +232,11 @@ export default function Balance() {
                     <img src={plus} alt="plus" />
                     <p className="text-[47px] leading-[40px] flex items-center">
                       <span className="font-bold">{formattedBalance}</span>
-                      <img src={grivna} alt="₴" className="h-[30px]" />
+                      <img
+                        src={grivna}
+                        alt="₴"
+                        className="h-[35px] text-[#E1E1E1]"
+                      />
                     </p>
                   </div>
                 </>

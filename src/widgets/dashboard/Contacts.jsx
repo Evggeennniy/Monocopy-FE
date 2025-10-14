@@ -257,7 +257,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
           </button>
 
           <button>
-            <img src={archive} alt="archive" className="w-6 h-6" />
+            <img src={archive} alt="" className="w-6 h-6" />
           </button>
         </div>
 
@@ -349,15 +349,15 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                     className="flex justify-between items-center cursor-pointer"
                   >
                     <div className="flex items-center gap-4 w-full rounded-xl">
-                      <div
-                        className="relative w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0"
-                        style={{ backgroundColor: color }}
-                      >
-                        <img
-                          src={transaction}
-                          alt="transaction"
-                          className="w-[42px] h-[42px] rounded-full"
-                        />
+                      <div className="relative bg-blue-600 w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="white"
+                          viewBox="0 0 24 24"
+                          className="w-5 h-5"
+                        >
+                          <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
+                        </svg>
                         <div>
                           {(() => {
                             const prefix = foundCard

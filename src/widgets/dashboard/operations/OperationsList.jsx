@@ -34,8 +34,8 @@ const OperationsList = ({
 
   return (
     <div className="mt-8 bg-[#272727] py-4 px-3 rounded-2xl relative z-[1000]">
-      <div className="flex justify-between items-center">
-        <h3 className="text-[17px] font-semibold mb-4">Операції</h3>
+      <div className="flex justify-between items-center mb-3">
+        <h3 className="text-[17px] font-semibold ">Операції</h3>
 
         <button
           onClick={() => setShowAll(true)}
@@ -73,63 +73,70 @@ const OperationsList = ({
               exit={{ y: "100%" }}
               transition={{ duration: 0.45, ease: [0.25, 0.8, 0.25, 1] }}
             >
-              {/* Верхняя панель */}
-              <div className="flex justify-between items-start mb-5 sticky pt-5 top-0 bg-[#272727] pb-3 z-10">
-                <button
-                  onClick={() => setShowAll(false)}
-                  className="text-[#E1E1E1] text-xl flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#2F3239] transition-colors"
-                >
-                  ✕
-                </button>
+              {/* Верхняя панель — теперь НЕ фиксирована */}
 
-                <div className="flex flex-col items-center justify-center gap-1">
-                  <img src={card_image} alt="user" className="w-15 h-10" />
-                  <div className="flex items-center gap-1 text-[#E1E1E1] text-sm font-medium">
-                    {balance}
-                    <span className="text-[13px]">₴</span>
+              <div className="flex flex-col h-full">
+                {/* Верхняя панель — часть контента */}
+                <div className="flex justify-between items-start mb-3 pt-5 pb-3 bg-[#272727] z-10 ">
+                  <button
+                    onClick={() => setShowAll(false)}
+                    className="text-[#E1E1E1] text-xl flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#2F3239] transition-colors"
+                  >
+                    ✕
+                  </button>
+
+                  <div className="flex flex-col items-center justify-center gap-1">
+                    <img src={card_image} alt="user" className="w-15 h-10" />
+                    <div className="flex items-center gap-1 text-[#E1E1E1] text-sm font-medium">
+                      {balance}
+                      <span className="text-[13px]">₴</span>
+                    </div>
                   </div>
+
+                  <button
+                    onClick={() => console.log("search clicked")}
+                    className="text-[#6386BD] text-xl flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#2F3239]"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-search text-[#E1E1E1]"
+                    >
+                      <circle cx="11" cy="11" r="8" />
+                      <path d="m21 21-4.3-4.3" />
+                    </svg>
+                  </button>
                 </div>
 
-                <button
-                  onClick={() => console.log("search clicked")}
-                  className="text-[#6386BD] text-xl flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#2F3239]"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-search text-[#E1E1E1]"
-                  >
-                    <circle cx="11" cy="11" r="8" />
-                    <path d="m21 21-4.3-4.3" />
-                  </svg>
-                </button>
+                {/* Скролл-зона для списка */}
+                <div className="flex-1 overflow-y-auto pb-10 scrollbar-none">
+                  <ul className="flex flex-col gap-8">
+                    {Object.entries(groupedOperations).map(([date, items]) => (
+                      <li key={date} className="flex flex-col gap-3">
+                        {/* Sticky дата внутри скролл-зоны */}
+                        <div className="sticky top-0 bg-[#272727] text-center text-[#BEBEBE] text-sm font-medium z-20 py-2">
+                          {date}
+                        </div>
+                        <ul className="flex flex-col gap-4">
+                          {items.map((item) => (
+                            <OperationItem
+                              key={item.id}
+                              item={item}
+                              navigate={navigate}
+                            />
+                          ))}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-
-              {/* Группировка по дате */}
-              <ul className="flex flex-col gap-8 pb-10">
-                {Object.entries(groupedOperations).map(([date, items]) => (
-                  <li key={date} className="flex flex-col gap-3">
-                    <div className="text-center text-[#BEBEBE] text-sm font-medium">
-                      {date}
-                    </div>
-                    <ul className="flex flex-col gap-4">
-                      {items.map((item) => (
-                        <OperationItem
-                          key={item.id}
-                          item={item}
-                          navigate={navigate}
-                        />
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
             </motion.div>
           </>
         )}

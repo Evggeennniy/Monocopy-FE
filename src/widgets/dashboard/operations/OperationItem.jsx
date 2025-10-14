@@ -33,7 +33,7 @@ const OperationItem = ({ item }) => {
               <img src={download} className="w-7" alt="" />
             </div>
             <span className="text-[17px]">
-              Від: <span className="font-medium">{item.cardholder_name}</span>
+              Від: <span className="">{item.cardholder_name}</span>
             </span>
           </>
         )}

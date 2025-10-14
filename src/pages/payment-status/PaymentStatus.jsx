@@ -6,12 +6,13 @@ import si_copy from "../../assets/si_copy.png";
 import { motion } from "framer-motion";
 import share from "../../assets/share.png";
 import { useNavigate } from "react-router-dom";
-function formatCardNumber(card) {
-  return card
-    .replace(/\s+/g, "") // убираем все пробелы
-    .replace(/(\d{4})(?=\d)/g, "$1 ") // добавляем пробел после каждых 4 цифр
-    .trim();
-}
+import { formatCardNumber } from "../../util/balanceUtils";
+// function formatCardNumber(card) {
+//   return card
+//     .replace(/\s+/g, "") // убираем все пробелы
+//     .replace(/(\d{4})(?=\d)/g, "$1 ") // добавляем пробел после каждых 4 цифр
+//     .trim();
+// }
 function PaymentStatus() {
   const navigate = useNavigate();
   const [finished, setFinished] = useState(false);

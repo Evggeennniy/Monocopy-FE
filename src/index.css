@@ -35,7 +35,23 @@ body {
     sans-serif;
   background-color: #16265a;
 }
+body::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* делаем прозрачным */
+}
 
+/* Firefox */
+body {
+  scrollbar-width: none; /* скрывает полосу прокрутки */
+  -ms-overflow-style: none; /* для IE и Edge */
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+.scrollbar-none {
+  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none; /* Firefox */
+}
 p,
 h1,
 h2,

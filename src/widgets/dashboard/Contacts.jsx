@@ -208,10 +208,11 @@ const cards = [
   },
 ];
 
-function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
+export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
   const [foundCard, setFoundCard] = useState(null);
+
   const color = useMemo(
     () =>
       `#${Math.floor(Math.random() * 16777215)
@@ -219,6 +220,7 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
         .padStart(6, "0")}`,
     [foundCard?.id]
   );
+
   useEffect(() => {
     const clean = inputValue.replace(/\s+/g, "");
     if (clean.length === 16) {
@@ -227,125 +229,106 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       setFoundCard(null);
     }
   }, [inputValue]);
-  console.log(foundCard, "foundCard");
+
   return (
     <motion.div
       initial={{ x: "100%", opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: "-100%", opacity: 0 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className=" w-full h- full flex flex-col gap-3"
+      className="w-full min-h-screen flex flex-col bg-[#121212] text-white"
     >
+      {/* HEADER */}
       <div
-        className=" fixed flex flex-col gap-3 top-0 left-0 w-full h-[180px]  px-4 pt-6 text-white z-50"
+        className="fixed top-0 left-0 w-full h-[180px] px-4 pt-6 z-50 flex flex-col gap-3 sm:h-[150px]"
         style={{
           background:
             "linear-gradient(180deg, #361073 0%, #2C2199 33.72%, #3444B3 69.43%, #417BCA 100%)",
         }}
       >
-        <div className=" flex items-start justify-between">
+        <div className="flex items-start justify-between">
           <button
             onClick={() => {
               setIsContactsOpen(false);
               setIsSettingsOpen(false);
-              console.log("clicked");
             }}
           >
             <ArrowLeft size={24} />
           </button>
 
           <button>
-            <img src={archive} alt="" />
+            <img src={archive} alt="archive" className="w-6 h-6" />
           </button>
         </div>
-        <h1 className="text-[23px] ">Переказ на картку</h1>
 
-        <div className="relative w-full ">
+        <h1 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold">
+          Переказ на картку
+        </h1>
+
+        <div className="relative w-full">
           <input
             type="text"
             value={inputValue}
             maxLength={16}
-            onChange={(e) => {
-              const val = e.target.value.replace(/\D/g, "");
-
-              setInputValue(val);
-            }}
+            onChange={(e) => setInputValue(e.target.value.replace(/\D/g, ""))}
             placeholder="Уведіть ім’я, номер картки або телефону"
-            className="w-full  pr-10 pl-4 placeholder-[#91A2B1] opacity-80 py-3 rounded-2xl text-white  focus:outline-none"
+            className="w-full pr-10 pl-4 placeholder-[#91A2B1] opacity-80 py-3 rounded-2xl text-white focus:outline-none text-[14px] sm:text-[15px]"
             style={{
               background: "linear-gradient(180deg, #2E45A3 0%, #3964B3 100%)",
             }}
           />
           <img
             src={search}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-white w-5 h-5"
-            alt=""
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5"
+            alt="search"
           />
         </div>
       </div>
 
-      <div className="bg-[#121212] min-h-screen min-w-[430px] pt-[165px]  items-stretch  space-y-4">
+      {/* CONTENT */}
+      <div className="pt-[185px] sm:pt-[160px] px-3 sm:px-4 md:px-6 flex-1 space-y-4">
         {!foundCard ? (
           <>
-            <div className="px-4 ">
+            <div>
               <div className="p-4 flex gap-3 items-center bg-[#1E1E1E] rounded-2xl">
-                <div className="">
-                  <img src={group} alt="" />
-                </div>
-                <div className="text-[#E0E0E0] text-[16px]">
+                <img src={group} alt="group" className="w-6 sm:w-7 h-auto" />
+                <div className="text-[#E0E0E0] text-[15px] sm:text-[16px]">
                   Групові витрати
                 </div>
               </div>
             </div>
-            <div className="h-[1px] w-full bg-[#4B4B4B] my-2"></div>
 
-            {/* <div className="w-full relative pl-4 ">
-              <Swiper
-                spaceBetween={10}
-                slidesPerView="auto"
-                centeredSlides={false}
-                slidesOffsetBefore={0}
-                slidesOffsetAfter={20}
-              >
-                {cards.map((card) => (
-                  <SwiperSlide key={card.id} className="!w-[63%]">
-                    <div className="flex items-center gap-3 rounded-3xl p-2 bg-[#1E1E1E]">
-                      <img
-                        src={card.image}
-                        alt={card.name}
-                        className="w-[50px] h-[50px] rounded-full object-cover"
-                      />
-                      <p className="font-semibold text-[16px]">{card.name}</p>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div> */}
-            <div className="px-4 ">
-              <div className=" bg-[#1E1E1E] rounded-3xl p-4">
-                <h1 className="text-2xl font-bold mb-2">Контакти</h1>
+            <div className="h-[1px] w-full bg-[#4B4B4B]" />
+
+            <div>
+              <div className="bg-[#1E1E1E] rounded-3xl p-4">
+                <h1 className="text-xl sm:text-2xl font-bold mb-2">Контакти</h1>
                 <ul className="space-y-4">
                   {contacts.map((c) => {
                     const firstLetter = c.name.charAt(0).toUpperCase();
                     return (
                       <li
                         key={c.id}
-                        className="flex justify-between cursor-pointer"
+                        className="flex justify-between items-center cursor-pointer"
                       >
-                        <div className="flex items-center relative gap-4 w-full rounded-xl">
+                        <div className="flex items-center gap-4 w-full rounded-xl">
                           <div
-                            className="w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg"
+                            className="relative w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0"
                             style={{ backgroundColor: c.bgColor }}
                           >
                             {firstLetter}
-                            <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full  bg-black flex items-center justify-center text-white ">
+                            <div className="absolute w-5 h-5 left-7 top-6 rounded-full bg-black flex items-center justify-center text-[10px]">
                               <p>m</p>
                             </div>
                           </div>
-                          <div className="flex-1 text-[#E0E0E0] text-[16px]">
-                            <p>{c.name}</p>
-                          </div>
-                          <Star className="mt-2" size={20} color="#E1E1E1" />
+                          <p className="flex-1 text-[#E0E0E0] text-[15px] sm:text-[16px] truncate">
+                            {c.name}
+                          </p>
+                          <Star
+                            size={18}
+                            color="#E1E1E1"
+                            className="flex-shrink-0"
+                          />
                         </div>
                       </li>
                     );
@@ -355,87 +338,91 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
             </div>
           </>
         ) : (
-          <div className="w-full">
-            <div className="px-4 w-full">
-              <div className=" bg-[#1E1E1E] w-full rounded-3xl p-4">
-                <h1 className="text-2xl font-bold mb-2">Знайдено</h1>
-                <ul className="space-y-4 w-full">
-                  {foundCard && (
-                    <li
-                      key={foundCard}
-                      onClick={() => navigate("/transfer/" + foundCard)}
-                      className="flex justify-between cursor-pointer"
-                    >
-                      <div className="flex items-center relative gap-4 w-full rounded-xl">
-                        <div
-                          className="w-[42px] h-[42px] rounded-full text-center flex items-center justify-center text-white text-lg"
-                          style={{ backgroundColor: color }}
-                        >
-                          <p className="text-center">
-                            {" "}
-                            <img
-                              src={transaction}
-                              alt=""
-                              className="w-[42px] h-[42px]"
-                            />
-                          </p>
-                          <div className="">
-                            {foundCard &&
-                            ["4441", "5375", "4899", "4042"].includes(
-                              foundCard.replace(/\s+/g, "").slice(0, 4)
-                            ) ? (
-                              // Монобанк — буква M
-                              <>
-                                {/* {foundCard?.charAt(0).toUpperCase()} */}
-
-                                <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white">
+          <div>
+            <div className="bg-[#1E1E1E] rounded-3xl p-4">
+              <h1 className="text-xl sm:text-2xl font-bold mb-2">Знайдено</h1>
+              <ul className="space-y-4">
+                {foundCard && (
+                  <li
+                    key={foundCard}
+                    onClick={() => navigate("/transfer/" + foundCard)}
+                    className="flex justify-between items-center cursor-pointer"
+                  >
+                    <div className="flex items-center gap-4 w-full rounded-xl">
+                      <div
+                        className="relative w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0"
+                        style={{ backgroundColor: color }}
+                      >
+                        <img
+                          src={transaction}
+                          alt="transaction"
+                          className="w-[42px] h-[42px] rounded-full"
+                        />
+                        <div>
+                          {(() => {
+                            const prefix = foundCard
+                              .replace(/\s+/g, "")
+                              .slice(0, 4);
+                            if (
+                              ["4441", "5375", "4899", "4042"].includes(prefix)
+                            )
+                              return (
+                                <div className="absolute w-5 h-5 left-7 top-6 rounded-full bg-black flex items-center justify-center text-[10px]">
                                   <p>m</p>
                                 </div>
-                              </>
-                            ) : ["5168", "4341", "4405", "4581"].includes(
-                                foundCard.replace(/\s+/g, "").slice(0, 4)
-                              ) ? (
-                              <img
-                                src={privat}
-                                alt="Privat"
-                                className="w-5 h-5 left-7 rounded-full top-6 absolute"
-                              />
-                            ) : ["5355", "5374", "5358", "5440"].includes(
-                                foundCard.replace(/\s+/g, "").slice(0, 4)
-                              ) ? (
-                              <img
-                                src={pumb}
-                                alt="PUMB"
-                                className="w-5 h-5 left-7 rounded-full top-6 absolute"
-                              />
-                            ) : ["4349", "5169"].includes(
-                                foundCard.replace(/\s+/g, "").slice(0, 4)
-                              ) ? (
-                              <img
-                                src={abank}
-                                alt="ABank"
-                                className="w-5 h-5 left-7 rounded-full top-6 absolute"
-                              />
-                            ) : (
-                              <div className="w-6 h-6 flex items-center justify-center bg-gray-600 left-7 rounded-full top-6 absolute">
+                              );
+                            if (
+                              ["5168", "4341", "4405", "4581"].includes(prefix)
+                            )
+                              return (
+                                <img
+                                  src={privat}
+                                  alt="Privat"
+                                  className="absolute w-5 h-5 left-7 top-6 rounded-full"
+                                />
+                              );
+                            if (
+                              ["5355", "5374", "5358", "5440"].includes(prefix)
+                            )
+                              return (
+                                <img
+                                  src={pumb}
+                                  alt="PUMB"
+                                  className="absolute w-5 h-5 left-7 top-6 rounded-full"
+                                />
+                              );
+                            if (["4349", "5169"].includes(prefix))
+                              return (
+                                <img
+                                  src={abank}
+                                  alt="ABank"
+                                  className="absolute w-5 h-5 left-7 top-6 rounded-full"
+                                />
+                              );
+                            return (
+                              <div className="absolute w-6 h-6 left-7 top-6 rounded-full bg-gray-600 flex items-center justify-center">
                                 <img
                                   src={bank}
                                   alt="bank"
                                   className="w-3 h-3"
                                 />
                               </div>
-                            )}
-                          </div>
+                            );
+                          })()}
                         </div>
-                        <div className="flex-1 text-[#E0E0E0] text-[16px]">
-                          <p>{foundCard}</p>
-                        </div>
-                        <Star className="mt-2" size={20} color="#E1E1E1" />
                       </div>
-                    </li>
-                  )}
-                </ul>
-              </div>
+                      <p className="flex-1 text-[#E0E0E0] text-[15px] sm:text-[16px] break-all">
+                        {foundCard}
+                      </p>
+                      <Star
+                        size={18}
+                        color="#E1E1E1"
+                        className="flex-shrink-0"
+                      />
+                    </div>
+                  </li>
+                )}
+              </ul>
             </div>
           </div>
         )}
@@ -443,5 +430,3 @@ function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
     </motion.div>
   );
 }
-
-export default Contacts;

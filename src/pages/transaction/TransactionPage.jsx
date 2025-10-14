@@ -85,70 +85,72 @@ export default function TransactionPage() {
           </button>
         </div>
 
-        <div className="bg-[#272727] absolute top-[100px] w-full z-10 min-h-screen    rounded-t-2xl flex flex-col gap-[15px]">
-          {transactionData.operation_type === "deposit" ? (
-            <div
-              style={{ background: "#293B60" }}
-              className="w-[64px]  absolute left-[50%] flex justify-center items-center rounded-full  transform -translate-x-1/2 -translate-y-1/2 h-[64px]"
-            >
-              <img src={download} className="w-9" />
-            </div>
-          ) : (
-            <img
-              src={transaction}
-              alt=""
-              className="absolute left-[50%]  transform -translate-x-1/2 -translate-y-1/2 h-[64px]"
-            />
-          )}
-          <>
-            <div className=" rounded-full relative flex justify-center items-center">
-              {/* <img src={transaction} alt="" /> */}
-              <div className="">
-                {transactionData.to_card &&
-                ["4441", "5375", "4899", "4042"].includes(
-                  transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
-                ) ? (
-                  // Монобанк — буква M
-                  <>
-                    {/* {item.to_card?.charAt(0).toUpperCase()} */}
-
-                    <div className="w-5 h-5 -translate-x-1/2 left-61 top-3 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white pb-[2px]">
-                      <p>m</p>
-                    </div>
-                  </>
-                ) : ["5168", "4341", "4405", "4581"].includes(
-                    transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
-                  ) ? (
-                  <img
-                    src={privat}
-                    alt="Privat"
-                    className="w-5 h-5 -translate-x-1/2 left-61 top-3 rounded-full absolute"
-                  />
-                ) : ["5355", "5374", "5358", "5440"].includes(
-                    transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
-                  ) ? (
-                  <img
-                    src={pumb}
-                    alt="PUMB"
-                    className="w-5 h-5  rounded-full -translate-x-1/2 left-61 top-3 absolute"
-                  />
-                ) : ["4349", "5169"].includes(
-                    transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
-                  ) ? (
-                  <img
-                    src={abank}
-                    alt="ABank"
-                    className="w-5 h-5 -translate-x-1/2 left-61 top-3 rounded-full  absolute"
-                  />
-                ) : (
-                  <div className="w-6 h-6 flex items-center -translate-x-1/2 left-61  justify-center bg-gray-600 rounded-full top-3 absolute">
-                    <img src={bank} alt="bank" className="w-3 h-3" />
-                  </div>
-                )}
+        <div className="bg-[#272727] relative -top-3 w-full z-10 min-h-screen    rounded-t-2xl flex flex-col gap-[15px]">
+          <div className="relative w-[80px] h-[40px] mx-auto">
+            {transactionData.operation_type === "deposit" ? (
+              <div
+                style={{ background: "#293B60" }}
+                className="w-[64px]  absolute left-[50%] flex justify-center items-center rounded-full  transform -translate-x-1/2 -translate-y-1/2 h-[64px]"
+              >
+                <img src={download} className="w-9" />
               </div>
-            </div>
-          </>
-          <h3 className="text-[#E0E0E0] text-center text-[17px] mt-[38px]">
+            ) : (
+              <img
+                src={transaction}
+                alt=""
+                className="absolute left-[50%]  transform -translate-x-1/2 -translate-y-1/2 h-[64px]"
+              />
+            )}
+            <>
+              <div className=" rounded-full  flex justify-center items-center">
+                {/* <img src={transaction} alt="" /> */}
+                <div className="">
+                  {transactionData.to_card &&
+                  ["4441", "5375", "4899", "4042"].includes(
+                    transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
+                  ) ? (
+                    // Монобанк — буква M
+                    <>
+                      {/* {item.to_card?.charAt(0).toUpperCase()} */}
+
+                      <div className="w-5 h-5 -translate-x-1/2 left-16 top-3 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white pb-[2px]">
+                        <p>m</p>
+                      </div>
+                    </>
+                  ) : ["5168", "4341", "4405", "4581"].includes(
+                      transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
+                    ) ? (
+                    <img
+                      src={privat}
+                      alt="Privat"
+                      className="w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full absolute"
+                    />
+                  ) : ["5355", "5374", "5358", "5440"].includes(
+                      transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
+                    ) ? (
+                    <img
+                      src={pumb}
+                      alt="PUMB"
+                      className="w-5 h-5  rounded-full -translate-x-1/2 left-16 top-3 absolute"
+                    />
+                  ) : ["4349", "5169"].includes(
+                      transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
+                    ) ? (
+                    <img
+                      src={abank}
+                      alt="ABank"
+                      className="w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full  absolute"
+                    />
+                  ) : (
+                    <div className="w-6 h-6 flex items-center -translate-x-1/2 left-16  justify-center bg-gray-600 rounded-full top-3 absolute">
+                      <img src={bank} alt="bank" className="w-3 h-3" />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </>
+          </div>
+          <h3 className="text-[#E0E0E0] text-center text-[17px]">
             {transactionData.to_card
               ? String(transactionData.to_card).slice(0, 6) +
                 "*".repeat(

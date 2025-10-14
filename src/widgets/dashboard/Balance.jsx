@@ -292,7 +292,7 @@ export default function Balance() {
                 <button className="text-gray-500 pb-[1px] font-bold">+</button>
               </div>
             ) : (
-              <button className="flex absolute top-[20.5rem] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-4 gap-2 py-[2px] rounded-full bg-[#0A1D3E] opacity-90">
+              <button className="flex absolute top-[23rem] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-4 gap-2 py-[2px] rounded-full bg-[#0A1D3E] opacity-90">
                 <img src={bank_cards} alt="bank_cards" />
                 <p className="text-[12px] text-[#A0A6B9]">Усі картки</p>
               </button>

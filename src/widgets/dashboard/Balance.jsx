@@ -151,9 +151,14 @@ export default function Balance() {
   }, []);
 
   /** ======= Разметка ======= */
-  const gradientBg = !isSettingsOpen
-    ? "linear-gradient(to bottom, #0B0D3F 1%,#112658 9%,#112658 16%, #0D244E 25%, #111111 40%)"
-    : "linear-gradient(180deg, #060622 0%, #181C2A 16.21%, #0D1D41 31.61%, #0E2652 48.57%, #132646 100%)";
+  const gradientBg =
+    !isSettingsOpen && !isContactsOpen && !showAll
+      ? "linear-gradient(to bottom, #0B0D3F 1%,#112658 9%,#112658 16%, #0D244E 25%, #111111 40%)"
+      : isContactsOpen
+      ? "linear-gradient(180deg, #361073 0%, #2C2199 33.72%, #3444B3 69.43%, #417BCA 100%)"
+      : isSettingsOpen
+      ? "linear-gradient(#181C2A 16.21%, #0D1D41 31.61%, #0E2652 48.57%, #132646 100%)"
+      : "#272727";
 
   const firstCard = cards[0];
   const formattedBalance = Number(displayBalance)
@@ -176,27 +181,27 @@ export default function Balance() {
   return (
     <div
       style={{ background: gradientBg }}
-      className={`min-h-screen text-white flex flex-col items-center ${
+      className={`min-h-screen pt-[calc(env(safe-area-inset-top)+1.5rem)] text-white   flex flex-col items-center ${
         isContactsOpen ? "p-0" : "p-0"
       }`}
     >
       {/* ===== Верхняя панель ===== */}
       {!isSettingsOpen && !isContactsOpen && !showAll && firstCard && (
-        <div className="flex justify-between w-full items-center p-3 pr-2">
+        <div className="flex justify-between w-full items-end p-4 ">
           <div className="flex gap-3 items-center">
-            <div className="w-[27px] h-[27px] rounded-full bg-[#315cc0] flex justify-center items-center">
+            <div className="w-[33px] h-[33px] rounded-full bg-[#315cc0] flex justify-center items-center">
               {firstCard.user.first_name[0].toUpperCase()}
             </div>
             <img src={message} alt="message" className="w-[27px] h-[27px]" />
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <div className="flex gap-2 items-center">
               <img src={price} alt="price" className="w-[27px] h-[27px] pb-1" />
               <div className="text-[#E1E1E1]">7.73 ₴</div>
             </div>
             <div className="h-[24px] w-[1px] bg-[#3F497A]" />
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-5 items-center">
               <img
                 src={monobank}
                 alt="monobank"
@@ -227,8 +232,8 @@ export default function Balance() {
               {/* ===== Баланс ===== */}
               {!isSettingsOpen && !isContactsOpen && !showAll && (
                 <>
-                  <div className="h-[80px] w-full" />
-                  <div className="text-center flex justify-center items-center gap-2">
+                  <div className="h-[70px] w-full" />
+                  <div className="text-center mb-4 flex justify-center items-center gap-2">
                     <img src={plus} alt="plus" />
                     <p className="text-[47px] leading-[40px] flex items-center">
                       <span className="font-bold">{formattedBalance}</span>
@@ -287,7 +292,7 @@ export default function Balance() {
                 <button className="text-gray-500 pb-[1px] font-bold">+</button>
               </div>
             ) : (
-              <button className="flex absolute top-[21.5rem] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-4 gap-2 py-[2px] rounded-full bg-[#0A1D3E] opacity-90">
+              <button className="flex absolute top-[20.5rem] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-4 gap-2 py-[2px] rounded-full bg-[#0A1D3E] opacity-90">
                 <img src={bank_cards} alt="bank_cards" />
                 <p className="text-[12px] text-[#A0A6B9]">Усі картки</p>
               </button>
@@ -297,11 +302,11 @@ export default function Balance() {
       </div>
 
       {/* ===== Нижние блоки ===== */}
-      <div className="w-full max-w-[430px] p-5" mode="popLayout">
-        {isSettingsOpen && !isContactsOpen && (
+      {isSettingsOpen && !isContactsOpen && (
+        <div className="w-full max-w-[430px] p-5" mode="popLayout">
           <Settings setIsSettingsOpen={setIsSettingsOpen} />
-        )}
-      </div>
+        </div>
+      )}
 
       {isContactsOpen && (
         <Contacts
@@ -313,9 +318,9 @@ export default function Balance() {
       {/* ===== Нижнее меню ===== */}
       {!isSettingsOpen && !isContactsOpen && !showAll && (
         <>
-          <div className="flex justify-center fixed bottom-6 z-[999] gap-3 w-full items-center">
-            <div className="bg-[#292929] py-[12px] px-[30px] rounded-full">
-              <div className="flex gap-[20px]">
+          <div className="flex justify-center  fixed bottom-6 z-[999] gap-3 w-full items-center">
+            <div className="bg-[#292929] py-[12px] px-[25px] rounded-full">
+              <div className="flex justify-around gap-[20px]">
                 {[
                   { img: two_cards, label: "Картки", active: true },
                   { img: credits, label: "Кредити" },
@@ -347,7 +352,7 @@ export default function Balance() {
         </>
       )}
 
-      {!isSettingsOpen && !isContactsOpen && <div className="mt-[70px]" />}
+      {!isSettingsOpen && !isContactsOpen && <div className="mt-[90px]" />}
     </div>
   );
 }

@@ -94,7 +94,7 @@ export default function TransferPage() {
   };
 
   return (
-    <div className="bg-[#1E1E1E] text-white min-h-screen flex flex-col ">
+    <div className="bg-[#1E1E1E]  pt-[calc(env(safe-area-inset-top)+1.5rem)] text-white min-h-screen flex flex-col ">
       {/* Header */}
       <div className="p-4 sm:p-6">
         <button

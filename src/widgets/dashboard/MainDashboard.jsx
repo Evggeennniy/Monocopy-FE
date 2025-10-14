@@ -37,7 +37,7 @@ function MainDashboard({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
           transition={{ duration: 0.5 }}
-          className="w-full flex flex-col gap-3"
+          className="w-full flex flex-col gap-3 "
         >
           {/* Баланс */}
 

@@ -33,7 +33,7 @@ const OperationsList = ({
   }, [reversedAll]);
 
   return (
-    <div className="mt-8 bg-[#272727] py-4 px-3 rounded-2xl relative z-[1000]">
+    <div className="mt-8 bg-[#272727]  pb-3 pt-6 px-3 rounded-2xl relative z-[1000]">
       <div className="flex justify-between items-center mb-3">
         <h3 className="text-[17px] font-semibold ">Операції</h3>
 
@@ -67,7 +67,7 @@ const OperationsList = ({
 
             {/* Полный экран */}
             <motion.div
-              className="fixed inset-0 bg-[#272727] z-50 flex flex-col px-5 overflow-y-auto"
+              className="fixed inset-0 min-h-screen  bg-[#272727] z-50 flex flex-col px-5 overflow-y-auto"
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}

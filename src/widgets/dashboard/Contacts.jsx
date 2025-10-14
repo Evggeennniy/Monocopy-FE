@@ -19,6 +19,7 @@ import pumb from "../../assets/pumb.jpg";
 import privat from "../../assets/privat.jpg";
 import bank from "../../assets/bank-svgrepo.svg";
 import transaction from "../../assets/transaction.svg";
+import { getBankIcon } from "../../shared/getBankIcon";
 export const contacts = [
   {
     id: 1,
@@ -236,11 +237,15 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: "-100%", opacity: 0 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="w-full min-h-screen flex flex-col bg-[#121212] text-white"
+      style={{
+        background:
+          "linear-gradient(180deg, #361073 0%, #2C2199 33.72%, #3444B3 69.43%, #417BCA 100%)",
+      }}
+      className="w-full h-screen flex flex-col   text-white overflow-hidden"
     >
       {/* HEADER */}
       <div
-        className="fixed top-0 left-0 w-full h-[180px] px-4 pt-6 z-50 flex flex-col gap-3 sm:h-[150px]"
+        className=" w-full h-[180px]  px-4 pt-6 z-50 flex flex-col gap-3 sm:h-[150px]"
         style={{
           background:
             "linear-gradient(180deg, #361073 0%, #2C2199 33.72%, #3444B3 69.43%, #417BCA 100%)",
@@ -269,8 +274,19 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
           <input
             type="text"
             value={inputValue}
-            maxLength={16}
-            onChange={(e) => setInputValue(e.target.value.replace(/\D/g, ""))}
+            maxLength={19} // 16 цифр + 3 пробела, если вдруг пользователь попробует редактировать
+            onChange={(e) => {
+              let value = e.target.value.replace(/\D/g, ""); // убираем все нецифры
+
+              if (value.length > 16) value = value.slice(0, 16); // максимум 16 цифр
+
+              // если введено ровно 16 цифр — добавляем пробелы
+              if (value.length === 16) {
+                value = value.replace(/(.{4})/g, "$1 ").trim();
+              }
+
+              setInputValue(value);
+            }}
             placeholder="Уведіть ім’я, номер картки або телефону"
             className="w-full pr-10 pl-4 placeholder-[#91A2B1] opacity-80 py-3 rounded-2xl text-white focus:outline-none text-[14px] sm:text-[15px]"
             style={{
@@ -286,7 +302,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       </div>
 
       {/* CONTENT */}
-      <div className="pt-[185px] sm:pt-[160px] px-3 sm:px-4 md:px-6 flex-1 space-y-4">
+      <div className="pt-4 bg-[#121212] overflow-y-auto px-3 sm:px-4 md:px-6 flex-1 space-y-4 scroll-hidden">
         {!foundCard ? (
           <>
             <div>
@@ -358,58 +374,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                         >
                           <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
                         </svg>
-                        <div>
-                          {(() => {
-                            const prefix = foundCard
-                              .replace(/\s+/g, "")
-                              .slice(0, 4);
-                            if (
-                              ["4441", "5375", "4899", "4042"].includes(prefix)
-                            )
-                              return (
-                                <div className="absolute w-5 h-5 left-7 top-6 rounded-full bg-black flex items-center justify-center text-[10px]">
-                                  <p>m</p>
-                                </div>
-                              );
-                            if (
-                              ["5168", "4341", "4405", "4581"].includes(prefix)
-                            )
-                              return (
-                                <img
-                                  src={privat}
-                                  alt="Privat"
-                                  className="absolute w-5 h-5 left-7 top-6 rounded-full"
-                                />
-                              );
-                            if (
-                              ["5355", "5374", "5358", "5440"].includes(prefix)
-                            )
-                              return (
-                                <img
-                                  src={pumb}
-                                  alt="PUMB"
-                                  className="absolute w-5 h-5 left-7 top-6 rounded-full"
-                                />
-                              );
-                            if (["4349", "5169"].includes(prefix))
-                              return (
-                                <img
-                                  src={abank}
-                                  alt="ABank"
-                                  className="absolute w-5 h-5 left-7 top-6 rounded-full"
-                                />
-                              );
-                            return (
-                              <div className="absolute w-6 h-6 left-7 top-6 rounded-full bg-gray-600 flex items-center justify-center">
-                                <img
-                                  src={bank}
-                                  alt="bank"
-                                  className="w-3 h-3"
-                                />
-                              </div>
-                            );
-                          })()}
-                        </div>
+                        <div>{getBankIcon(foundCard)}</div>
                       </div>
                       <p className="flex-1 text-[#E0E0E0] text-[15px] sm:text-[16px] break-all">
                         {foundCard}

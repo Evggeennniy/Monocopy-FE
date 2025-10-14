@@ -11,7 +11,7 @@ const OperationItem = ({ item }) => {
     <li
       key={item.id}
       onClick={() => navigate("/transaction/" + item.id)}
-      className="flex justify-between items-center rounded-xl cursor-pointer hover:bg-[#2f2f2f] p-2 transition-colors duration-200"
+      className="flex justify-between items-center rounded-xl py-[6px] cursor-pointer hover:bg-[#2f2f2f] transition-colors duration-200"
     >
       <div className="flex gap-4 items-center">
         {isWithdraw ? (

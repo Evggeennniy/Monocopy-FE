@@ -24,7 +24,7 @@ function Settings({ setIsSettingsOpen }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.1 }}
-      className="w-full mt-4 flex flex-col gap-4"
+      className="w-full mt-4 flex flex-col gap-4 "
     >
       {/* Детали карты */}
       <div className="absolute top-5 left-4 cursor-pointer">

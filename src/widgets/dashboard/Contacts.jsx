@@ -14,10 +14,9 @@ import "swiper/css";
 import { useNavigate } from "react-router-dom";
 import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
-import abank from "../../assets/abank.jpg";
-import pumb from "../../assets/pumb.jpg";
-import privat from "../../assets/privat.jpg";
-import bank from "../../assets/bank-svgrepo.svg";
+
+import mono from "../../assets/mono.jpg";
+
 import transaction from "../../assets/transaction.svg";
 import { getBankIcon } from "../../shared/getBankIcon";
 export const contacts = [
@@ -302,7 +301,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       </div>
 
       {/* CONTENT */}
-      <div className="pt-4 bg-[#121212] overflow-y-auto px-3 sm:px-4 md:px-6 flex-1 space-y-4 scroll-hidden">
+      <div className="pt-4 bg-[#121212] overflow-y-auto scrollbar-none px-3 sm:px-4 md:px-6 flex-1 space-y-4 scroll-hidden">
         {!foundCard ? (
           <>
             <div>
@@ -333,9 +332,11 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                             style={{ backgroundColor: c.bgColor }}
                           >
                             {firstLetter}
-                            <div className="absolute w-5 h-5 left-7 top-6 rounded-full bg-black flex items-center justify-center text-[10px]">
-                              <p>m</p>
-                            </div>
+                            <img
+                              src={mono}
+                              alt="mono"
+                              className="w-5 h-5 left-7 rounded-full top-6 absolute"
+                            />
                           </div>
                           <p className="flex-1 text-[#E0E0E0] text-[15px] sm:text-[16px] truncate">
                             {c.name}

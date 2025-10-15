@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useMemo } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import arrow_left from "../../../assets/arrow_left.svg";
 import card_image from "../../../assets/card_image.png";
@@ -13,6 +13,7 @@ const OperationsList = ({
   balance,
 }) => {
   const navigate = useNavigate();
+  const scrollRef = useRef(null); // 👈 создаём ref для скролла
 
   const reversedAll = useMemo(() => {
     if (!Array.isArray(allOperations)) return [];
@@ -31,6 +32,12 @@ const OperationsList = ({
       return groups;
     }, {});
   }, [reversedAll]);
+
+  useLayoutEffect(() => {
+    if (showAll && scrollRef.current) {
+      scrollRef.current.scrollTo({ top: 0, behavior: "instant" });
+    }
+  }, [showAll]);
 
   return (
     <div className="mt-8 bg-[#272727]  pb-3 pt-6 px-3 rounded-2xl relative z-[1000]">
@@ -56,7 +63,6 @@ const OperationsList = ({
       <AnimatePresence>
         {showAll && (
           <>
-            {/* Затемнение фона */}
             <motion.div
               className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
               initial={{ opacity: 0 }}
@@ -65,18 +71,15 @@ const OperationsList = ({
               onClick={() => setShowAll(false)}
             />
 
-            {/* Полный экран */}
             <motion.div
-              className="fixed inset-0 min-h-screen  bg-[#272727] z-50 flex flex-col px-5 overflow-y-auto"
+              className="fixed inset-0 min-h-screen bg-[#272727] z-50 flex flex-col px-5 overflow-y-auto"
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ duration: 0.45, ease: [0.25, 0.8, 0.25, 1] }}
             >
-              {/* Верхняя панель — теперь НЕ фиксирована */}
-
               <div className="flex flex-col h-full">
-                {/* Верхняя панель — часть контента */}
+                {/* Верхняя панель */}
                 <div className="flex justify-between items-start mb-3 pt-5 pb-3 bg-[#272727] z-10 ">
                   <button
                     onClick={() => setShowAll(false)}
@@ -114,12 +117,14 @@ const OperationsList = ({
                   </button>
                 </div>
 
-                {/* Скролл-зона для списка */}
-                <div className="flex-1 overflow-y-auto pb-10 scrollbar-none">
+                {/* Скролл-зона */}
+                <div
+                  ref={scrollRef} // 👈 сюда реф
+                  className="flex-1 overflow-y-auto pb-10 scrollbar-none"
+                >
                   <ul className="flex flex-col gap-8">
                     {Object.entries(groupedOperations).map(([date, items]) => (
                       <li key={date} className="flex flex-col gap-3">
-                        {/* Sticky дата внутри скролл-зоны */}
                         <div className="sticky top-0 bg-[#272727] text-center text-[#BEBEBE] text-sm font-medium z-20 py-2">
                           {date}
                         </div>

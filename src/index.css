@@ -35,15 +35,28 @@ body {
     sans-serif;
   background-color: #16265a;
 }
-body::-webkit-scrollbar {
-  width: 0px;
-  background: transparent; /* делаем прозрачным */
+/* На элемент, который скроллится (прямо ему) */
+.scroll-area {
+  -ms-overflow-style: none; /* IE, Edge (legacy) */
+  scrollbar-width: none; /* Firefox */
 }
 
-/* Firefox */
+/* WebKit (Chrome, Safari) — делаем размер полосы 0 */
+.scroll-area::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Дополнительно: если хочешь скрыть для html/body тоже */
+html,
 body {
-  scrollbar-width: none; /* скрывает полосу прокрутки */
-  -ms-overflow-style: none; /* для IE и Edge */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 .scrollbar-none::-webkit-scrollbar {
   display: none; /* Chrome, Safari */

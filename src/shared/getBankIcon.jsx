@@ -2,7 +2,7 @@ import abank from "../assets/abank.jpg";
 import pumb from "../assets/pumb.jpg";
 import privat from "../assets/privat.jpg";
 import bank from "../assets/bank-svgrepo.svg";
-
+import mono from "../assets/mono.jpg";
 export const getBankIcon = (to_card) => {
   if (!to_card) return null;
 
@@ -17,9 +17,11 @@ export const getBankIcon = (to_card) => {
 
   if (bankMap.monobank.includes(prefix)) {
     return (
-      <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white">
-        <p>m</p>
-      </div>
+      <img
+        src={mono}
+        alt="mono"
+        className="w-5 h-5 left-7 rounded-full top-6 absolute"
+      />
     );
   }
   if (bankMap.privat.includes(prefix))

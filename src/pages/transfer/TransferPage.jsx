@@ -164,7 +164,7 @@ export default function TransferPage() {
       </div>
 
       {/* Amount */}
-      <div className="flex flex-col items-center justify-center flex-1 text-center">
+      <div className="flex flex-col items-center justify-center  text-center">
         <div className="flex gap-1 items-center border border-[#323232] text-[#E1E1E1] px-3 py-1 sm:px-4 sm:py-2 rounded-full text-[14px] mb-3 sm:mb-4">
           <img
             src={transfer_black_card}
@@ -206,7 +206,7 @@ export default function TransferPage() {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-[#323232]  sm:mt-8">
+      <div className="border-t border-[#323232] mt-auto  sm:mt-8">
         <div className="p-4 sm:p-6">
           <div className="flex justify-between items-center gap-3 mb-3 sm:mb-5">
             <div className="flex items-center gap-3 sm:gap-4 flex-1">

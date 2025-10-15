@@ -112,7 +112,7 @@ export default function TransferPage() {
   if (error) return <p className="text-red-500">{error}</p>;
   console.log(transactionData);
   return (
-    <div className="bg-[#1E1E1E]  text-white h-screen flex flex-col justify-between">
+    <div className="bg-[#1E1E1E]  text-white h-screen flex flex-col pb-[40px] justify-between">
       {/* Header */}
       <div className="p-4 sm:p-6">
         <button

@@ -19,7 +19,7 @@ function PaymentStatus() {
   const data = JSON.parse(localStorage.getItem("formData"));
   console.log(data);
   return (
-    <div className="bg-[#1E1E1E] pt-[calc(env(safe-area-inset-top)+1.5rem)] flex flex-col justify-around min-h-screen p-3">
+    <div className="bg-[#1E1E1E]  flex flex-col justify-around min-h-screen p-3">
       <div className="mt-[50px] flex flex-col items-center  mb-[44px]">
         <img src={cat_big} alt="" className="w-[221px] " />
       </div>

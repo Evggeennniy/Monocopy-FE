@@ -58,7 +58,7 @@ function Receipt(props) {
   const date = new Date(transactionData?.timestamp);
 
   return (
-    <div className="h-dvh flex flex-col  pt-[calc(env(safe-area-inset-top)+1.5rem)]  leading-[1.2] justify-between bg-[#1E1E1E] p-2">
+    <div className="h-dvh flex flex-col   leading-[1.2] justify-between bg-[#1E1E1E] p-2">
       <div className="h-[90px] flex flex-col p-3 gap-1 border-b-1 border-[#333333]">
         <ArrowLeft color="#FFFFFF" onClick={() => navigate("/dashboard")} />
         <div className="pl-1">

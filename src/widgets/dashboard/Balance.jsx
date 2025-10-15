@@ -181,7 +181,7 @@ export default function Balance() {
   return (
     <div
       style={{ background: gradientBg }}
-      className={`min-h-screen pt-[calc(env(safe-area-inset-top)+1.5rem)] text-white   flex flex-col items-center ${
+      className={`min-h-screen  text-white   flex flex-col items-center ${
         isContactsOpen ? "p-0" : "p-0"
       }`}
     >

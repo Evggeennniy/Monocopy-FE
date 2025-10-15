@@ -78,7 +78,7 @@ export default function TransactionPage() {
   if (!transactionData) return null;
   return (
     <>
-      <div className=" relative bg-[#5F5FD9]  pt-[calc(env(safe-area-inset-top)+1.5rem)]">
+      <div className=" relative bg-[#5F5FD9] ">
         <div className="  h-[120px] flex flex-col">
           <button onClick={() => navigate("/dashboard")}>
             <ArrowLeft className="w-6 h-6 text-white absolute top-5 left-3" />

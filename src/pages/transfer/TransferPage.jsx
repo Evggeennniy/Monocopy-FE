@@ -112,7 +112,7 @@ export default function TransferPage() {
   if (error) return <p className="text-red-500">{error}</p>;
   console.log(transactionData);
   return (
-    <div className="bg-[#1E1E1E]  text-white h-screen flex flex-col ">
+    <div className="bg-[#1E1E1E]  text-white h-screen flex flex-col justify-between">
       {/* Header */}
       <div className="p-4 sm:p-6">
         <button
@@ -206,132 +206,134 @@ export default function TransferPage() {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-[#323232] mt-auto  sm:mt-8">
-        <div className="p-4 sm:p-6">
-          <div className="flex justify-between items-center gap-3 mb-3 sm:mb-5">
-            <div className="flex items-center gap-3 sm:gap-4 flex-1">
-              <img
-                src={comment}
-                alt=""
-                className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px]"
-              />
-              <input
-                type="text"
-                placeholder="Коментар..."
-                className="flex-1 w-[100px] bg-transparent text-[#91A2B1] focus:outline-none text-[13px] sm:text-[14px]"
-              />
+      <div className="">
+        <div className="border-t border-[#323232]   sm:mt-8">
+          <div className="p-4 sm:p-6">
+            <div className="flex justify-between items-center gap-3 mb-3 sm:mb-5">
+              <div className="flex items-center gap-3 sm:gap-4 flex-1">
+                <img
+                  src={comment}
+                  alt=""
+                  className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px]"
+                />
+                <input
+                  type="text"
+                  placeholder="Коментар..."
+                  className="flex-1 w-[100px] bg-transparent text-[#91A2B1] focus:outline-none text-[13px] sm:text-[14px]"
+                />
+              </div>
+
+              <button className="w-[46px] shrink-0 sm:w-[56px] h-[26px] sm:h-[56px] rounded-full border border-[#323232] flex items-center justify-center hover:bg-[#2F2F2F] transition">
+                <img src={prize} alt="" className="w-[16px] h-[16px] " />
+              </button>
             </div>
 
-            <button className="w-[46px] shrink-0 sm:w-[56px] h-[26px] sm:h-[56px] rounded-full border border-[#323232] flex items-center justify-center hover:bg-[#2F2F2F] transition">
-              <img src={prize} alt="" className="w-[16px] h-[16px] " />
-            </button>
-          </div>
-
-          <div className="flex justify-between gap-3 sm:gap-4">
-            <button className="bg-[#2F2F2F] p-4 sm:p-5 rounded-2xl text-[#FFFFFF] hover:bg-[#3A3A3A] transition">
-              <Star className="w-5 h-5 inline-block" />
-            </button>
-            <button
-              onClick={submit}
-              className="w-full py-3 sm:py-4 bg-[#414141] rounded-2xl text-[#FFFFFF] text-[14px] sm:text-[15px] font-semibold hover:bg-[#4A4A4A] transition"
-            >
-              Надіслати
-            </button>
+            <div className="flex justify-between gap-3 sm:gap-4">
+              <button className="bg-[#2F2F2F] p-4 sm:p-5 rounded-2xl text-[#FFFFFF] hover:bg-[#3A3A3A] transition">
+                <Star className="w-5 h-5 inline-block" />
+              </button>
+              <button
+                onClick={submit}
+                className="w-full py-3 sm:py-4 bg-[#414141] rounded-2xl text-[#FFFFFF] text-[14px] sm:text-[15px] font-semibold hover:bg-[#4A4A4A] transition"
+              >
+                Надіслати
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        className={`bg-[#323232] flex flex-col items-center justify-center text-white 
+        <div
+          className={`bg-[#323232] flex flex-col items-center justify-center text-white 
     transform transition-transform duration-500 ease-out
     ${
       showKeyboard
         ? "translate-y-0 opacity-100 h-auto"
         : "translate-y-full h-0 opacity-0 "
     }`}
-      >
-        <div className="grid grid-cols-6 gap-1 bg-[#3a3a3c] w-full">
-          {["x", "/", "+", "-", "%", "="].map((op, i) => (
+        >
+          <div className="grid grid-cols-6 gap-1 bg-[#3a3a3c] w-full">
+            {["x", "/", "+", "-", "%", "="].map((op, i) => (
+              <button
+                key={i}
+                disabled={true}
+                onClick={() => handleClick(op)}
+                className="   py-3 text-xl rounded-lg  transition"
+              >
+                {op}
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-3 pt-2 pb-9 px-1 gap-2 w-full">
+            {/* Первый ряд: операции */}
+
+            {/* Второй ряд: 1,2(abc),3(def) */}
+            {[
+              { label: "1", sub: "" },
+              { label: "2", sub: "ABC" },
+              { label: "3", sub: "DEF" },
+            ].map((item, i) => (
+              <button
+                key={i}
+                onClick={() => handleClick(item.label)}
+                className="bg-[#6f6f6f] py-[3px] text-xl rounded-lg hover:bg-[#444] transition flex flex-col items-center"
+              >
+                <span>{item.label}</span>
+                <span className="text-[10px]">{item.sub}</span>
+              </button>
+            ))}
+
+            {/* Третий ряд: 4,5,6 */}
+            {[
+              { label: "4", sub: "GHI" },
+              { label: "5", sub: "JKL" },
+              { label: "6", sub: "MNO" },
+            ].map((item, i) => (
+              <button
+                key={i}
+                onClick={() => handleClick(item.label)}
+                className="bg-[#6f6f6f] py-[3px] text-xl rounded-lg hover:bg-[#444] transition flex flex-col items-center"
+              >
+                <span>{item.label}</span>
+                <span className="text-[10px]">{item.sub}</span>
+              </button>
+            ))}
+
+            {/* Четвёртый ряд: 7,8,9 */}
+            {[
+              { label: "7", sub: "PQRS" },
+              { label: "8", sub: "TUV" },
+              { label: "9", sub: "WXYZ" },
+            ].map((item, i) => (
+              <button
+                key={i}
+                onClick={() => handleClick(item.label)}
+                className="bg-[#6f6f6f] py-[3px] text-xl rounded-lg hover:bg-[#444] transition flex flex-col items-center"
+              >
+                <span>{item.label}</span>
+                <span className="text-[10px]">{item.sub}</span>
+              </button>
+            ))}
+
+            {/* Пятый ряд: , 0 назад */}
             <button
-              key={i}
-              disabled={true}
-              onClick={() => handleClick(op)}
-              className="   py-3 text-xl rounded-lg  transition"
+              onClick={() => handleClick(",")}
+              className=" py-1 text-xl rounded-lg  transition"
             >
-              {op}
+              ,
             </button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-3 pt-2 pb-9 px-1 gap-2 w-full">
-          {/* Первый ряд: операции */}
-
-          {/* Второй ряд: 1,2(abc),3(def) */}
-          {[
-            { label: "1", sub: "" },
-            { label: "2", sub: "ABC" },
-            { label: "3", sub: "DEF" },
-          ].map((item, i) => (
             <button
-              key={i}
-              onClick={() => handleClick(item.label)}
-              className="bg-[#6f6f6f] py-[3px] text-xl rounded-lg hover:bg-[#444] transition flex flex-col items-center"
+              onClick={() => handleClick("0")}
+              className="bg-[#6f6f6f] py-[6px] text-xl rounded-lg hover:bg-[#444] transition"
             >
-              <span>{item.label}</span>
-              <span className="text-[10px]">{item.sub}</span>
+              0
             </button>
-          ))}
-
-          {/* Третий ряд: 4,5,6 */}
-          {[
-            { label: "4", sub: "GHI" },
-            { label: "5", sub: "JKL" },
-            { label: "6", sub: "MNO" },
-          ].map((item, i) => (
             <button
-              key={i}
-              onClick={() => handleClick(item.label)}
-              className="bg-[#6f6f6f] py-[3px] text-xl rounded-lg hover:bg-[#444] transition flex flex-col items-center"
+              onClick={handleBackspace}
+              className=" py-1 text-xl rounded-lg hover:bg-[#666] transition"
             >
-              <span>{item.label}</span>
-              <span className="text-[10px]">{item.sub}</span>
+              ⌫
             </button>
-          ))}
-
-          {/* Четвёртый ряд: 7,8,9 */}
-          {[
-            { label: "7", sub: "PQRS" },
-            { label: "8", sub: "TUV" },
-            { label: "9", sub: "WXYZ" },
-          ].map((item, i) => (
-            <button
-              key={i}
-              onClick={() => handleClick(item.label)}
-              className="bg-[#6f6f6f] py-[3px] text-xl rounded-lg hover:bg-[#444] transition flex flex-col items-center"
-            >
-              <span>{item.label}</span>
-              <span className="text-[10px]">{item.sub}</span>
-            </button>
-          ))}
-
-          {/* Пятый ряд: , 0 назад */}
-          <button
-            onClick={() => handleClick(",")}
-            className=" py-1 text-xl rounded-lg  transition"
-          >
-            ,
-          </button>
-          <button
-            onClick={() => handleClick("0")}
-            className="bg-[#6f6f6f] py-[6px] text-xl rounded-lg hover:bg-[#444] transition"
-          >
-            0
-          </button>
-          <button
-            onClick={handleBackspace}
-            className=" py-1 text-xl rounded-lg hover:bg-[#666] transition"
-          >
-            ⌫
-          </button>
+          </div>
         </div>
       </div>
     </div>

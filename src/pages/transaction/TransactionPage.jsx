@@ -85,7 +85,7 @@ export default function TransactionPage() {
           </button>
         </div>
       </div>
-      <div className="bg-[#272727] relative -top-3 w-full z-10 h-full    rounded-t-2xl flex flex-col gap-[15px]">
+      <div className="bg-[#272727] relative -top-3 w-full z-10 rounded-t-2xl flex flex-col gap-[15px] min-h-screen">
         <div className="relative w-[80px] h-[40px] mx-auto">
           {transactionData.operation_type === "deposit" ? (
             <div
@@ -220,7 +220,10 @@ export default function TransactionPage() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 pl-[20px]">
+          <div
+            onClick={() => navigate(`/transfer/${transactionData.id}`)}
+            className="flex items-center gap-3 pl-[20px] "
+          >
             <img src={repeat} alt="" className="flex-1 w-[60px] h-[60px]" />
             <p
               className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]

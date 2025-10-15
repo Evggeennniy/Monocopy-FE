@@ -17,53 +17,66 @@ import CustomKeyboard from "../../shared/CustomKeyboard";
 export default function TransferPage() {
   const { id } = useParams();
   const [foundCard, setFoundCard] = useState(null);
+  const [transactionData, setTransactionData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const [value, setValue] = useState("");
   const navigate = useNavigate();
   const [cards, setCards] = useState([]);
-  const firstLetter = id?.charAt(0).toUpperCase();
+  const inputRef = useRef(null);
+  const [showKeyboard, setShowKeyboard] = useState(false);
 
+  // Fetch user cards
   useEffect(() => {
     async function fetchCards() {
       try {
         const res = await fetchWithAuth(`${API_URL}/cards/`);
-        if (!res.ok) {
-          throw new Error(`Ошибка: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`Ошибка: ${res.status}`);
         const data = await res.json();
         setCards(data);
       } catch (err) {
         console.log(err);
       }
     }
-
     fetchCards();
   }, []);
 
-  const color = useMemo(
-    () =>
-      `#${Math.floor(Math.random() * 16777215)
-        .toString(16)
-        .padStart(6, "0")}`,
-    [foundCard?.id]
-  );
-  const inputRef = useRef(null);
-  const [showKeyboard, setShowKeyboard] = useState(false);
-  // Фокус на input при загрузке
+  // Determine if id is a transaction or a card
+  useEffect(() => {
+    async function fetchTransactionOrSetCard() {
+      setLoading(true);
+      try {
+        // Simple heuristic: transaction ids are numeric (or shorter)
+        if (id.length < 16) {
+          const res = await fetchWithAuth(`${API_URL}/transactions/${id}/`);
+          if (!res.ok) throw new Error(`Ошибка: ${res.status}`);
+          const data = await res.json();
+          setTransactionData(data);
+
+          // Prefill transfer page from transaction
+          setValue(Math.abs(data.amount).toString());
+        } else {
+          // id is a card number
+          setTransactionData(null);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchTransactionOrSetCard();
+  }, [id]);
+
+  // Focus input on mount
   useEffect(() => {
     inputRef.current?.focus();
     setShowKeyboard(true);
   }, []);
 
-  const handleClick = (num) => {
-    setValue((prev) => prev + num);
-  };
-
-  const handleBackspace = () => {
-    setValue((prev) => prev.slice(0, -1));
-  };
+  const handleClick = (num) => setValue((prev) => prev + num);
+  const handleBackspace = () => setValue((prev) => prev.slice(0, -1));
 
   const submit = async (e) => {
     e.preventDefault();
@@ -72,7 +85,9 @@ export default function TransferPage() {
       cardholder_name:
         cards[0]?.user.first_name + " " + cards[0]?.user.last_name,
       from_card: cards[0]?.card_number,
-      to_card: id.replace(/\s+/g, "").trim(),
+      to_card: transactionData?.to_card
+        ? transactionData.to_card
+        : id.replace(/\s+/g, "").trim(),
       amount: +value,
     };
 
@@ -93,6 +108,9 @@ export default function TransferPage() {
     }
   };
 
+  if (loading) return <p className="text-white">Loading...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
+  console.log(transactionData);
   return (
     <div className="bg-[#1E1E1E]  pt-[calc(env(safe-area-inset-top)+1.5rem)] text-white min-h-screen flex flex-col ">
       {/* Header */}
@@ -117,11 +135,15 @@ export default function TransferPage() {
             </svg>
 
             {/* Иконка банка, если есть */}
-            {getBankIcon(id)}
+            {transactionData?.to_card
+              ? getBankIcon(transactionData.to_card)
+              : getBankIcon(id)}
           </div>
           <div>
             <h2 className="font-semibold text-base sm:text-lg text-[#E0E0E0]">
-              {formatCardNumber(id)}
+              {transactionData?.to_card
+                ? formatCardNumber(transactionData?.to_card)
+                : formatCardNumber(id)}
             </h2>
             {["4441", "5375", "4899", "4042"].includes(
               id.replace(/\s+/g, "").slice(0, 4)

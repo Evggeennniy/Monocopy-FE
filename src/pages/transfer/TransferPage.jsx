@@ -206,7 +206,7 @@ export default function TransferPage() {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-[#323232] mt-6 sm:mt-8">
+      <div className="border-t border-[#323232]  sm:mt-8">
         <div className="p-4 sm:p-6">
           <div className="flex justify-between items-center gap-3 mb-3 sm:mb-5">
             <div className="flex items-center gap-3 sm:gap-4 flex-1">
@@ -262,7 +262,7 @@ export default function TransferPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-3 mt-2 mb-9 px-1 gap-2 w-full">
+        <div className="grid grid-cols-3 pt-2 pb-9 px-1 gap-2 w-full">
           {/* Первый ряд: операции */}
 
           {/* Второй ряд: 1,2(abc),3(def) */}

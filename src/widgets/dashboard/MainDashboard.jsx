@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import abank from "../../assets/abank.jpg";
 import pumb from "../../assets/pumb.jpg";
 import privat from "../../assets/privat.jpg";
-import OperationsList from "./OperationsList.jsx";
+import OperationsList from "./operations/OperationsList.jsx";
 function MainDashboard({
   setIsContactsOpen,
   setIsOpen,
@@ -37,7 +37,7 @@ function MainDashboard({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
           transition={{ duration: 0.5 }}
-          className="w-full flex flex-col gap-3"
+          className="w-full flex flex-col gap-3 "
         >
           {/* Баланс */}
 
@@ -79,99 +79,6 @@ function MainDashboard({
           {/* Операции */}
 
           <>
-            {" "}
-            {/* <div className="mt-8 bg-[#272727] py-4 px-3 rounded-2xl">
-              <div className="flex justify-between">
-                <h3 className="text-lg font-semibold mb-4">Операції</h3>
-                <p className="bg-[#2F3239] rounded-full w-[54px] justify-center  gap-1 text-[11px] h-[25px] text-[#6386BD] flex items-center">
-                  Усі <img src={arrow_left} alt="" className="pt-[1px]" />
-                </p>
-              </div>
-
-              <ul className="flex flex-col gap-5">
-                {lastThreeReversed.map((item) => {
-                  return (
-                    <li
-                      onClick={() => navigate("/transaction/" + item.id)}
-                      className="flex justify-between items-center rounded-xl  "
-                    >
-                      <div className="flex gap-4 items-center">
-                        {item.operation_type === "withdraw" ? (
-                          <div className="w-[42px] h-[42px] rounded-full bg-[#315cc0] flex justify-center items-center">
-                            {item.cardholder_name.charAt(0).toUpperCase()}
-                          </div>
-                        ) : (
-                          <div
-                            style={{ background: "#293B60" }}
-                            className="w-[42px] h-[42px] rounded-full  relative flex justify-center items-center"
-                          >
-                            {" "}
-                            {item.cardholder_name.charAt(0).toUpperCase()}
-                            <div className="">
-                              {item.from_card &&
-                              ["4441", "5375", "4899", "4042"].includes(
-                                item.from_card.replace(/\s+/g, "").slice(0, 4)
-                              ) ? (
-                                // Монобанк — буква M
-                                <>
-                                  {item.name?.charAt(0).toUpperCase()}
-
-                                  <div className="w-5 h-5 left-7 top-6 absolute text-[10px] flex-items rounded-full bg-black flex items-center justify-center text-white">
-                                    <p>m</p>
-                                  </div>
-                                </>
-                              ) : ["5168", "4341", "4405", "4581"].includes(
-                                  item.from_card.replace(/\s+/g, "").slice(0, 4)
-                                ) ? (
-                                <img
-                                  src={privat}
-                                  alt="Privat"
-                                  className="w-5 h-5 left-7 rounded-full top-6 absolute"
-                                />
-                              ) : ["5355", "5374", "5358", "5440"].includes(
-                                  item.from_card.replace(/\s+/g, "").slice(0, 4)
-                                ) ? (
-                                <img
-                                  src={pumb}
-                                  alt="PUMB"
-                                  className="w-5 h-5 left-7 rounded-full top-6 absolute"
-                                />
-                              ) : ["4349", "5169"].includes(
-                                  item.from_card.replace(/\s+/g, "").slice(0, 4)
-                                ) ? (
-                                <img
-                                  src={abank}
-                                  alt="ABank"
-                                  className="w-5 h-5 left-7 rounded-full top-6 absolute"
-                                />
-                              ) : null}
-                            </div>
-                          </div>
-                        )}
-
-                        <span>{item.cardholder_name}</span>
-                      </div>
-                      {item.operation_type === "withdraw" ? (
-                        <>
-                          {" "}
-                          <span className="text-[#E1E1E1]">
-                            - {Number(item.amount).toLocaleString("uk-UA")}{" "}
-                            &#8372;
-                          </span>
-                        </>
-                      ) : (
-                        <>
-                          <span className="text-green-400">
-                            {Number(item.amount).toLocaleString("uk-UA")}{" "}
-                            &#8372;
-                          </span>
-                        </>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div> */}
             <OperationsList
               lastThreeReversed={lastThreeReversed}
               allOperations={operationsCards}

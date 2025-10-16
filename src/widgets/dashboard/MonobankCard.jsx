@@ -15,66 +15,47 @@ export default function MonobankCard({
   isOpen,
   isContactsOpen,
   borderColor = "#0F0E0C",
-  owner, // default color
+  owner,
 }) {
   return (
-    <div className="flex justify-center items-center relative">
+    <div className="flex justify-center items-center relative w-full">
       {/* Темный синий туман/тень */}
       {!isOpen && (
         <div
-          className="absolute z-[1001] top-2 left-10  w-[50px] sm:w-[420px] h-[50px] rounded-full blur-[30px] pointer-events-none"
+          className="absolute z-[1001] top-6 w-[90%] max-w-[420px] sm:w-[360px] h-[70px] sm:h-[80px] rounded-full blur-[20px] pointer-events-none"
           style={{
-            background:
-              "radial-gradient(ellipse at center, rgba(0,30,60,0.8) 0%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,0) 100%)",
+            background: "rgba(0,20,80,0.6)",
           }}
         ></div>
       )}
-      {!isOpen && (
-        <div
-          className="absolute z-[1001] top-2   w-[300px] sm:w-[360px] h-[80px] rounded-full blur-[40px] pointer-events-none"
-          style={{
-            background: "rgba(0,30,60,0.6)",
-            // "radial-gradient(ellipse at center, rgba(0,30,60,0.6) 0%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%)",
-          }}
-        ></div>
-      )}
-      {/* Дополнительный слой для глубины */}
-      {/* {!isOpen && (
-        <div
-          className="absolute z-[1001] top-2 left-1/2 -translate-x-1/2 w-[300px] sm:w-[360px] h-[80px] rounded-full blur-[80px] pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, rgba(0,30,60,0.6) 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0) 100%)",
-          }}
-        ></div>
-      )} */}
 
       {/* Карточка */}
       <div
         className={`${
-          !isOpen ? "w-[320px]" : "w-[340px]"
-        } sm:w-[384px] h-[196px]`}
+          !isOpen ? "w-[90%] max-w-[320px]" : "w-[92%] max-w-[340px]"
+        } sm:w-[384px] h-[180px] sm:h-[196px] transition-all duration-300`}
         style={{ perspective: "1200px" }}
       >
         {!isOpen && (
           <div
-            className="absolute top-2  inset-0 w-[300px] pointer-events-none rounded-2xl"
+            className="absolute top-2 inset-0 w-[85%] max-w-[300px] mx-auto pointer-events-none rounded-2xl"
             style={{
               background:
-                "radial-gradient(circle at 50% 40%, rgba(0,20,180,0.25) 0%, rgba(0,0,0,0) 50%)",
+                "radial-gradient(circle at 50% 40%, rgba(17, 38, 100, 0.6) 0%, rgba(0,0,0,0) 50%)",
               filter: "blur(40px)",
-              zIndex: 5, // над картой
+              zIndex: 5,
               transition: "all 0.7s ease",
             }}
           ></div>
-        )}{" "}
+        )}
+
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="main-card relative w-full h-full text-white p-6 rounded-2xl cursor-pointer transition-transform duration-700 ease-out"
+          className="main-card relative w-full h-full text-white p-5 sm:p-6 rounded-2xl cursor-pointer transition-transform duration-700 ease-out"
           style={{
             transform: isOpen
               ? "translateY(0px) rotateX(0deg)"
-              : "translateY(-10px) rotateX(61deg)",
+              : "translateY(-10px) rotateX(66deg)",
             transformStyle: "preserve-3d",
             background: "linear-gradient(to bottom, #0F0E0C, #2B2B2B)",
             borderBottom: isOpen
@@ -82,7 +63,7 @@ export default function MonobankCard({
               : `7px solid ${borderColor}`,
             boxShadow: isOpen
               ? "0 10px 15px rgba(0,0,0,0.5) inset"
-              : "0 30px 40px rgba(0,0,0,0.6), 0 0 50px rgba(0,0,0,0.1) inset",
+              : "0 20px 20px rgba(0,0,0,0.5), 0 0 50px rgba(0,0,0,0.1) inset",
           }}
         >
           {/* Контент карты */}
@@ -90,20 +71,22 @@ export default function MonobankCard({
             <div
               className={`${
                 !isOpen ? "opacity-55" : ""
-              } w-[100px] sm:w-[120px]`}
+              } w-[80px] sm:w-[100px] md:w-[120px]`}
             >
               <img src={monobankLogo} alt="Monobank" className="w-full" />
             </div>
 
-            <div className="relative mx-auto">
+            <div className="relative mx-auto text-center">
               <p
-                className={`tracking-widest sm:text-[28px] text-center`}
+                className="tracking-widest"
                 style={{
-                  fontWeight: 500, // Medium
-                  fontSize: isOpen ? "20px" : "19px",
-                  color: "rgba(245,245,245,1)", // мягкий белый
+                  fontWeight: 500,
+                  fontSize: isOpen
+                    ? "clamp(20px, 4vw, 20px)"
+                    : "clamp(19px, 3.8vw, 19px)",
+                  color: "rgba(245,245,245,1)",
                   fontVariantNumeric: "tabular-nums",
-                  textShadow: "0 1px 2px rgba(0,0,0,0.3)", // лёгкая тень для объёма
+                  textShadow: "0 1px 2px rgba(0,0,0,0.3)",
                   textRendering: "geometricPrecision",
                   WebkitFontSmoothing: "antialiased",
                   MozOsxFontSmoothing: "grayscale",
@@ -116,15 +99,16 @@ export default function MonobankCard({
             </div>
           </div>
 
+          {/* Владелец */}
           {isOpen && (
-            <p className="absolute bottom-6 left-6 uppercase text-[15px]">
+            <p className="absolute bottom-5 left-5 uppercase text-[13px] sm:text-[15px] truncate max-w-[70%]">
               {owner}
             </p>
           )}
 
           {/* Visa layer */}
           <div
-            className="absolute bottom-6 right-6 w-[60px] sm:w-[80px]"
+            className="absolute bottom-5 right-5 w-[50px] sm:w-[70px] md:w-[80px]"
             style={{ transform: "translateZ(1px)" }}
           >
             <img src={visa} alt="Visa" className="w-full" />

@@ -6,6 +6,7 @@ import qr_code from "../../assets/qr_code.png";
 import sing from "../../assets/sing.png";
 import mono_logo from "../../assets/mono_logo.jpg";
 import { ArrowLeft } from "lucide-react";
+import NumberToUkrCurrency from "../../shared/NumberToUkrCurrency";
 function formatKyivDate(utcString) {
   if (!utcString) return "—"; // если пусто
 
@@ -55,25 +56,26 @@ function Receipt(props) {
     fetchTransaction();
   }, [id]);
   const date = new Date(transactionData?.timestamp);
+
   return (
-    <div className="h-min-screen flex flex-col justify-between bg-[#1E1E1E] p-2">
+    <div className="h-dvh flex flex-col   leading-[1.2] justify-between bg-[#1E1E1E] p-2">
       <div className="h-[90px] flex flex-col p-3 gap-1 border-b-1 border-[#333333]">
         <ArrowLeft color="#FFFFFF" onClick={() => navigate("/dashboard")} />
         <div className="pl-1">
           {" "}
           <div className="text-[#FFFFFF]">Квитанція </div>
           <div className="text-[#767676] text-[13px]">
-            № R3GT-72NA-P8B9-64A7{" "}
+            s № R3GT-72NA-P8B9-64A7{" "}
           </div>
         </div>
       </div>
       <div className="  flex items-center justify-center ">
-        <div className="relative bg-white   p-10 w-full max-w-[840px]">
+        <div className="relative bg-white   px-5 pt-5 pb-15 w-full max-w-[840px]">
           {/* Header */}
           <header className="flex flex-col w-full sm:flex-row justify-between items-start sm:items-center gap-3">
             {/* Brand */}
             <div className="w-full">
-              <div className="flex items-center justify-between  w-full gap-3">
+              <div className="flex items-center justify-between  w-full gap-2">
                 {/* <div className="bg-gradient-to-r from-[#0D244E] to-[#091a35] text-white font-bold text-lg px-3 py-2 rounded-md">
                 monobank
               </div> */}
@@ -100,10 +102,10 @@ function Receipt(props) {
             {/* Title */}
           </header>
 
-          <hr className="my-6 border-gray-200" />
+          <hr className="my-2 border-gray-200" />
 
           {/* Main grid */}
-          <main className="grid sm:grid-cols-2 gap-6">
+          <main className="grid sm:grid-cols-2 gap-3">
             <div className="text-left">
               <h1 className="text-[11px] font-bold">
                 Квитанція № R3GT-72NA-P8B9-64A7 від{" "}
@@ -116,14 +118,14 @@ function Receipt(props) {
             {/* Sender */}
             <section className=" rounded-md ">
               <h3 className="font-semibold text-[9px] mb-2">Відправник</h3>
-              <div className="space-y-2 text-[9px]">
+              <div className=" text-[9px]">
                 <Row label="Ім'я" value="Романов Кирило Іванович" />
                 <Row label="Банк" value="Універсал Банк" />
                 <Row label="Код банку" value="322001" />
                 <Row label="Платіжна система" value="VISA" />
                 <Row
                   label="Платіжний інструмент"
-                  value="UA613220010000026200340086222, 432334******5079"
+                  value={transactionData?.from_card || ""}
                 />
               </div>
             </section>
@@ -131,11 +133,11 @@ function Receipt(props) {
             {/* Recipient */}
             <section className=" rounded-md  ">
               <h3 className="font-semibold text-[9px] mb-2">Одержувач</h3>
-              <div className="space-y-2 text-[9px]">
+              <div className=" text-[9px]">
                 <Row label="Платіжна система" value="-" />
                 <Row
                   label="Платіжний інструмент"
-                  value="UA613220010000026200340086222"
+                  value={transactionData?.to_card || ""}
                 />
               </div>
             </section>
@@ -145,7 +147,7 @@ function Receipt(props) {
               <h3 className="font-semibold text-[9px] mb-2">
                 Деталі транзакції
               </h3>
-              <div className="space-y-2 text-[9px]">
+              <div className=" text-[9px]">
                 <Row
                   label="Сума (грн)"
                   value={<span className="">{transactionData?.amount}</span>}
@@ -153,7 +155,9 @@ function Receipt(props) {
                 <Row label="Комісія (грн)" value="0.00" />
                 <Row
                   label="Сума літерами"
-                  value="чотириста п'ятдесят тисяч гривень 00 копійок"
+                  value={
+                    <NumberToUkrCurrency value={transactionData?.amount} />
+                  }
                 />
                 <Row label="Код авторизації" value="347245" />
                 <Row
@@ -173,11 +177,11 @@ function Receipt(props) {
           <footer className="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
             <div>
               <p className="text-[9px]">Заступник голови Правління</p>
-              <p className=" text-[9px] font-semibold">Акулиенко Ю.Ю.</p>
+              <p className=" text-[9px] ">Акулиенко Ю.Ю.</p>
             </div>
 
             <div className="flex items-center justify-between w-full gap-4">
-              <div className=" flex items-center gap-4 bg-[#f3f6fb] border border-gray-200 rounded-lg p-3 shadow-sm">
+              <div className=" flex items-center gap-4 bg-[#e5e6f8] border border-gray-200 rounded-lg p-3 shadow-sm">
                 <div>
                   <p className="text-[8px] font-semibold">
                     Отримайте картку <br /> monobank за QR-кодом

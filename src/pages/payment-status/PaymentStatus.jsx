@@ -6,20 +6,21 @@ import si_copy from "../../assets/si_copy.png";
 import { motion } from "framer-motion";
 import share from "../../assets/share.png";
 import { useNavigate } from "react-router-dom";
-function formatCardNumber(card) {
-  return card
-    .replace(/\s+/g, "") // убираем все пробелы
-    .replace(/(\d{4})(?=\d)/g, "$1 ") // добавляем пробел после каждых 4 цифр
-    .trim();
-}
+import { formatCardNumber } from "../../util/balanceUtils";
+// function formatCardNumber(card) {
+//   return card
+//     .replace(/\s+/g, "") // убираем все пробелы
+//     .replace(/(\d{4})(?=\d)/g, "$1 ") // добавляем пробел после каждых 4 цифр
+//     .trim();
+// }
 function PaymentStatus() {
   const navigate = useNavigate();
   const [finished, setFinished] = useState(false);
   const data = JSON.parse(localStorage.getItem("formData"));
   console.log(data);
   return (
-    <div className="bg-[#1E1E1E] flex flex-col justify-between min-h-screen  p-3">
-      <div className="mt-[70px] flex flex-col items-center  mb-[44px]">
+    <div className="bg-[#1E1E1E] pb-[40px] flex flex-col justify-around h-screen p-3">
+      <div className="mt-[50px] flex flex-col items-center  mb-[44px]">
         <img src={cat_big} alt="" className="w-[221px] " />
       </div>
       <h2 className="text-[22px] flex flex-col items-center mb-[35px] text-[#FFFFFF]">
@@ -72,7 +73,7 @@ function PaymentStatus() {
 
       <button
         onClick={() => navigate("/dashboard")}
-        className="w-full bg-[#EF5559] text-[14px] py-4 mt-auto rounded-xl text-white"
+        className="w-full bg-[#EF5559] text-[14px] mb-[30px] py-4 mt-auto rounded-xl text-white"
       >
         Готово
       </button>

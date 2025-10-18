@@ -19,6 +19,7 @@ import mono from "../../assets/mono.jpg";
 import { faker } from "@faker-js/faker";
 import transaction from "../../assets/transaction.svg";
 import { getBankIcon } from "../../shared/getBankIcon";
+import { getRandomRussianUser } from "../../util/users";
 export const contacts = [
   {
     id: 1,
@@ -229,12 +230,12 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       setFoundCard(inputValue);
 
       // Получаем рандомное реальное лицо через RandomUser.me
-      fetch("https://randomuser.me/api/?nat=ru")
-        .then((res) => res.json())
-        .then((data) => {
-          const user = data.results[0];
-          setRandomName(user.name.first + " " + user.name.last);
-          setAvatar(user.picture.large); // реальное фото человека
+      getRandomRussianUser()
+        .then((user) => {
+          if (user) {
+            setRandomName(user.name);
+            setAvatar(user.avatar);
+          }
         })
         .catch((err) => console.error(err));
     } else {
@@ -251,7 +252,11 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
     localStorage.setItem(
       "userData",
       JSON.stringify({
-        name: randomName,
+        name: ["4441", "5375", "4899", "4042"].includes(
+          foundCard.replace(/\s+/g, "").slice(0, 4)
+        )
+          ? randomName
+          : foundCard,
         avatar: ["4441", "5375", "4899", "4042"].includes(
           foundCard.replace(/\s+/g, "").slice(0, 4)
         )
@@ -422,7 +427,11 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                         <div>{getBankIcon(foundCard)}</div>
                       </div>
                       <p className="flex-1 text-[#E0E0E0] text-[15px] sm:text-[16px] break-all">
-                        {randomName}
+                        {["4441", "5375", "4899", "4042"].includes(
+                          foundCard.replace(/\s+/g, "").slice(0, 4)
+                        )
+                          ? randomName
+                          : foundCard}
                       </p>
                       <Star
                         size={18}

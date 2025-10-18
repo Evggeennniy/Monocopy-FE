@@ -11,7 +11,7 @@ import { API_URL } from "../../url";
 import Balance from "../../widgets/dashboard/Balance";
 import transaction from "../../assets/transaction.svg";
 import { getBankIcon } from "../../shared/getBankIcon";
-import { formatCardNumber } from "../../util/balanceUtils";
+import { formatCardNumber } from "../../util/formatCardNumber";
 import CustomKeyboard from "../../shared/CustomKeyboard";
 
 export default function TransferPage() {
@@ -91,6 +91,8 @@ export default function TransferPage() {
         to_card: transactionData.from_card ? transactionData.from_card : "",
         amount: +value,
         comment: commentValue,
+        image_withdraw:
+          transactionData.bank === "mono" ? transactionData.image_deposit : "",
         operation_type: "withdraw",
       };
     } else if (transactionData?.operation_type === "withdraw") {
@@ -162,6 +164,12 @@ export default function TransferPage() {
                 className="w-[45px] h-[45px]  rounded-full "
                 alt=""
               />
+            ) : transactionData?.image_deposit ? (
+              <img
+                src={transactionData?.image_deposit}
+                className="w-[45px] h-[45px]  rounded-full "
+                alt=""
+              />
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -198,14 +206,18 @@ export default function TransferPage() {
                 let card;
 
                 if (transactionData?.operation_type === "deposit") {
-                  return <>{transactionData?.cardholder_name}</>;
+                  return (
+                    <>{formatCardNumber(transactionData?.cardholder_name)}</>
+                  );
                 } else if (transactionData?.operation_type === "withdraw") {
-                  return <>{transactionData?.cardholder_name}</>;
+                  return (
+                    <>{formatCardNumber(transactionData?.cardholder_name)}</>
+                  );
                 } else {
-                  return <>{randomUser.name}</>;
+                  return <>{formatCardNumber(randomUser.name)}</>;
                 }
 
-                return <>{formatCardNumber(card)}</>;
+                // return <>{formatCardNumber(card)}</>;
               })()}
             </h2>
             {["4441", "5375", "4899", "4042"].includes(

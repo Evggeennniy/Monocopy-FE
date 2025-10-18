@@ -100,7 +100,15 @@ export default function TransactionPage() {
                 style={{ background: "#293B60" }}
                 className="w-[64px]  absolute left-[50%] flex justify-center items-center rounded-full  transform -translate-x-1/2 -translate-y-1/2 h-[64px]"
               >
-                <img src={download} className="w-9" />
+                {transactionData.image_deposit ? (
+                  <img
+                    src={transactionData.image_deposit}
+                    className="w-[64px] h-[64px]  rounded-full "
+                    alt=""
+                  />
+                ) : (
+                  <img src={download} className="w-9" />
+                )}
               </div>
 
               <>
@@ -238,8 +246,8 @@ export default function TransactionPage() {
               <>
                 <div className=" rounded-full  flex justify-center items-center">
                   {/* <img src={transaction} alt="" /> */}
-                  {/* <div className="">
-                    {transactionData.to_card &&
+                  <div className="">
+                    {transactionData?.to_card &&
                     ["4441", "5375", "4899", "4042"].includes(
                       transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
                     ) ? (
@@ -279,7 +287,7 @@ export default function TransactionPage() {
                         <img src={bank} alt="bank" className="w-3 h-3" />
                       </div>
                     )}
-                  </div> */}
+                  </div>
                 </div>
               </>
             </div>

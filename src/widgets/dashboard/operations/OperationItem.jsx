@@ -39,7 +39,15 @@ const OperationItem = ({ item }) => {
               style={{ background: "#293B60" }}
               className="w-[42px] h-[42px] rounded-full relative flex justify-center items-center"
             >
-              <img src={download} className="w-7" alt="" />
+              {item.image_deposit ? (
+                <img
+                  src={item.image_deposit}
+                  className="w-[42px] h-[42px]  rounded-full "
+                  alt=""
+                />
+              ) : (
+                <img src={download} className="w-7" alt="" />
+              )}
             </div>
             <span className="text-[17px]">
               Від: <span className="">{item.cardholder_name}</span>

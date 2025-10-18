@@ -49,8 +49,9 @@ export default function TransferPage() {
           if (!res.ok) throw new Error(`Ошибка: ${res.status}`);
           const data = await res.json();
           setTransactionData(data);
-
-          setValue(Math.abs(data.amount).toString());
+          if (data.operation_type !== "deposit") {
+            setValue(Math.abs(data.amount).toString());
+          }
         } else {
           setTransactionData(null);
         }
@@ -75,17 +76,49 @@ export default function TransferPage() {
 
   const submit = async (e) => {
     e.preventDefault();
+    let formData;
 
-    const formData = {
-      cardholder_name:
-        cards[0]?.user.first_name + " " + cards[0]?.user.last_name,
-      from_card: cards[0]?.card_number,
-      to_card: transactionData?.to_card
-        ? transactionData.to_card
-        : id.replace(/\s+/g, "").trim(),
-      amount: +value,
-      comment: commentValue,
-    };
+    if (transactionData?.operation_type === "deposit") {
+      formData = {
+        cardholder_name:
+          (cards[0]?.user.first_name ? cards[0].user.first_name : "") +
+          " " +
+          (cards[0]?.user.last_name ? cards[0].user.last_name : ""),
+        from_card: cards[0].card_number,
+        to_card: transactionData.from_card,
+        amount: +value,
+        comment: commentValue,
+        operation_type: "withdraw",
+      };
+    } else if (transactionData?.operation_type === "withdraw") {
+      formData = {
+        cardholder_name:
+          (cards[0]?.user.first_name ? cards[0].user.first_name : "") +
+          " " +
+          (cards[0]?.user.last_name ? cards[0].user.last_name : ""),
+        from_card: cards[0].card_number,
+        to_card: transactionData.to_card
+          ? transactionData.to_card
+          : id.replace(/\s+/g, "").trim(),
+        amount: +value,
+        comment: commentValue,
+      };
+    } else {
+      formData = {
+        cardholder_name:
+          (cards[0]?.user.first_name ? cards[0].user.first_name : "") +
+          " " +
+          (cards[0]?.user.last_name ? cards[0].user.last_name : ""),
+        from_card: cards[0].card_number,
+        to_card: transactionData?.to_card
+          ? transactionData.to_card
+          : id
+          ? id.replace(/\s+/g, "").trim()
+          : "",
+        amount: +value,
+        comment: commentValue,
+      };
+    }
     console.log(formData);
     try {
       const res = await fetchWithAuth(API_URL + "/transactions/", {
@@ -131,15 +164,39 @@ export default function TransferPage() {
             </svg>
 
             {/* Иконка банка, если есть */}
-            {transactionData?.to_card
-              ? getBankIcon(transactionData.to_card)
-              : getBankIcon(id)}
+            {(() => {
+              let card;
+
+              if (transactionData?.operation_type === "deposit") {
+                card = transactionData.from_card;
+              } else if (transactionData?.operation_type === "withdraw") {
+                card = transactionData.to_card;
+              } else {
+                card = id;
+              }
+
+              return (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  {getBankIcon(card)}
+                </div>
+              );
+            })()}
           </div>
           <div>
             <h2 className="font-semibold text-base sm:text-lg text-[#E0E0E0]">
-              {transactionData?.to_card
-                ? formatCardNumber(transactionData?.to_card)
-                : formatCardNumber(id)}
+              {(() => {
+                let card;
+
+                if (transactionData?.operation_type === "deposit") {
+                  card = transactionData.from_card;
+                } else if (transactionData?.operation_type === "withdraw") {
+                  card = transactionData.to_card;
+                } else {
+                  card = id;
+                }
+
+                return <>{formatCardNumber(card)}</>;
+              })()}
             </h2>
             {["4441", "5375", "4899", "4042"].includes(
               id.replace(/\s+/g, "").slice(0, 4)
@@ -203,7 +260,7 @@ export default function TransferPage() {
 
       {/* Footer */}
       <div className="">
-        <div className="border-t border-[#323232]   sm:mt-8">
+        <div className="border-t border-[#323232]  sm:mt-8">
           <div className="p-4 sm:p-6">
             <div className="flex justify-between items-center gap-3 mb-3 sm:mb-5">
               <div className="flex items-center gap-3 sm:gap-4 flex-1">
@@ -246,7 +303,7 @@ export default function TransferPage() {
     ${
       showKeyboard
         ? "translate-y-0 opacity-100 h-auto"
-        : "translate-y-full h-0 opacity-0 "
+        : "translate-y-full  opacity-0 "
     }`}
         >
           <div className="grid grid-cols-6 gap-1 bg-[#3a3a3c] w-full">

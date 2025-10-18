@@ -25,7 +25,8 @@ import bank from "../../assets/bank-svgrepo.svg";
 import mono from "../../assets/mono.jpg";
 import massage_icon from "../../assets/message-icon.svg";
 import response_icon from "../../assets/response-icon.png";
-
+import return_icon from "../../assets/return-icon.svg";
+import question_icon from "../../assets/question-icon.svg";
 function formatUADate(isoString) {
   const date = new Date(isoString);
 
@@ -107,13 +108,13 @@ export default function TransactionPage() {
               <>
                 <div className=" rounded-full  flex justify-center items-center">
                   <div className="">
-                    {transactionData.to_card &&
+                    {transactionData.from_card &&
                     ["4441", "5375", "4899", "4042"].includes(
-                      transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
+                      transactionData.from_card.replace(/\s+/g, "").slice(0, 4)
                     ) ? (
                       // Монобанк — буква M
                       <>
-                        {/* {item.to_card?.charAt(0).toUpperCase()} */}
+                        {/* {item.from_card?.charAt(0).toUpperCase()} */}
 
                         <img
                           src={mono}
@@ -122,7 +123,9 @@ export default function TransactionPage() {
                         />
                       </>
                     ) : ["5168", "4341", "4405", "4581"].includes(
-                        transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
+                        transactionData.from_card
+                          .replace(/\s+/g, "")
+                          .slice(0, 4)
                       ) ? (
                       <img
                         src={privat}
@@ -130,7 +133,9 @@ export default function TransactionPage() {
                         className="w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full absolute"
                       />
                     ) : ["5355", "5374", "5358", "5440"].includes(
-                        transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
+                        transactionData.from_card
+                          .replace(/\s+/g, "")
+                          .slice(0, 4)
                       ) ? (
                       <img
                         src={pumb}
@@ -138,7 +143,9 @@ export default function TransactionPage() {
                         className="w-5 h-5  rounded-full -translate-x-1/2 left-16 top-3 absolute"
                       />
                     ) : ["4349", "5169"].includes(
-                        transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
+                        transactionData.from_card
+                          .replace(/\s+/g, "")
+                          .slice(0, 4)
                       ) ? (
                       <img
                         src={abank}
@@ -155,12 +162,12 @@ export default function TransactionPage() {
               </>
             </div>
             <h3 className="text-[#E0E0E0] text-center text-[17px]">
-              {transactionData.to_card
-                ? String(transactionData.to_card).slice(0, 6) +
+              {transactionData.from_card
+                ? String(transactionData.from_card).slice(0, 6) +
                   "*".repeat(
-                    Math.max(0, String(transactionData.to_card).length - 12)
+                    Math.max(0, String(transactionData.from_card).length - 12)
                   ) +
-                  String(transactionData.to_card).slice(-4)
+                  String(transactionData.from_card).slice(-4)
                 : "—"}
             </h3>
             <div className="flex gap-[25px] justify-center items-center">
@@ -184,7 +191,22 @@ export default function TransactionPage() {
                 />
               </span>
             </div>
-
+            {transactionData.comment && (
+              <div className="w-[75%] mx-auto items-center flex flex-col">
+                <div className="flex justify-center w-full gap-2 mb-2">
+                  <img src={massage_icon} className="w-7 h-7" />
+                  <div className="bg-[#59677b] w-full p-2 rounded-xl text-[#FDFDFD]">
+                    {transactionData.comment}
+                  </div>
+                </div>
+                <div className="w-[80%] h-[50px] ml-auto">
+                  <img
+                    className="h-full w-full object-contain"
+                    src={response_icon}
+                  ></img>
+                </div>
+              </div>
+            )}
             <div className="bg-[#1E1E1E] px-5 pb-5 pt-4 flex w-full flex-col ">
               {!["4441"].includes(
                 transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
@@ -212,29 +234,33 @@ export default function TransactionPage() {
             <div className="flex flex-col gap-3 pb-4 ">
               <div
                 onClick={() => navigate(`/transfer/${transactionData.id}`)}
-                className="flex items-center gap-3 pl-[20px] "
+                className="flex items-center gap-4 pl-[20px] "
               >
-                <img src={repeat} alt="" className="flex-1 w-[60px] h-[60px]" />
-                <p
-                  className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
-              "
-                >
-                  <div className="">Повторити платiж</div>
-
-                  <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
-                </p>
-              </div>
-              <div className="flex items-center gap-3 pl-[20px]">
                 <img
-                  src={separate}
+                  src={return_icon}
                   alt=""
-                  className="flex-1 w-[60px] h-[60px]"
+                  className="flex-1 w-[25px] h-[60px]"
                 />
                 <p
                   className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
                 >
-                  <div className="">Розділити витрату</div>
+                  <div className="">Відповісти платижем</div>
+
+                  <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
+                </p>
+              </div>
+              <div className="flex items-center gap-3 h-[60px]  pl-[10px]">
+                <img
+                  src={question_icon}
+                  alt=""
+                  className="flex-1 w-[43px] h-[43px] object-cover "
+                />
+                <p
+                  className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
+              "
+                >
+                  <div className="">Поставити запитання</div>
 
                   <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
                 </p>

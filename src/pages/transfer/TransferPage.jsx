@@ -313,7 +313,7 @@ export default function TransferPage() {
     ${
       showKeyboard
         ? "translate-y-0 opacity-100 h-auto"
-        : "translate-y-full  opacity-0 "
+        : "translate-y-full h-[200px]  opacity-0 "
     }`}
         >
           <div className="grid grid-cols-6 gap-1 bg-[#3a3a3c] w-full">

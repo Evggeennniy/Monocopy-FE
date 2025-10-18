@@ -25,8 +25,7 @@ export default function TransferPage() {
   const [cards, setCards] = useState([]);
   const inputRef = useRef(null);
   const [showKeyboard, setShowKeyboard] = useState(false);
-
-  // Fetch user cards
+  const [commentValue, setCommentValue] = useState("");
   useEffect(() => {
     async function fetchCards() {
       try {
@@ -41,22 +40,18 @@ export default function TransferPage() {
     fetchCards();
   }, []);
 
-  // Determine if id is a transaction or a card
   useEffect(() => {
     async function fetchTransactionOrSetCard() {
       setLoading(true);
       try {
-        // Simple heuristic: transaction ids are numeric (or shorter)
         if (id.length < 16) {
           const res = await fetchWithAuth(`${API_URL}/transactions/${id}/`);
           if (!res.ok) throw new Error(`Ошибка: ${res.status}`);
           const data = await res.json();
           setTransactionData(data);
 
-          // Prefill transfer page from transaction
           setValue(Math.abs(data.amount).toString());
         } else {
-          // id is a card number
           setTransactionData(null);
         }
       } catch (err) {
@@ -89,8 +84,9 @@ export default function TransferPage() {
         ? transactionData.to_card
         : id.replace(/\s+/g, "").trim(),
       amount: +value,
+      comment: commentValue,
     };
-
+    console.log(formData);
     try {
       const res = await fetchWithAuth(API_URL + "/transactions/", {
         method: "POST",
@@ -220,6 +216,9 @@ export default function TransferPage() {
                   type="text"
                   placeholder="Коментар..."
                   className="flex-1 w-[100px] bg-transparent text-[#91A2B1] focus:outline-none text-[13px] sm:text-[14px]"
+                  onChange={(e) => setCommentValue(e.target.value)}
+                  onFocus={() => setShowKeyboard(false)}
+                  onBlur={() => setShowKeyboard(true)}
                 />
               </div>
 

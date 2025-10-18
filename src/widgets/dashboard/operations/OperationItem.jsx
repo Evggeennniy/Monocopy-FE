@@ -17,7 +17,16 @@ const OperationItem = ({ item }) => {
         {isWithdraw ? (
           <>
             <div className="w-[42px] h-[42px] relative rounded-full bg-[#315cc0] flex justify-center items-center">
-              <img src={transaction} alt="" />
+              {item.image_withdraw ? (
+                <img
+                  src={item.image_withdraw}
+                  className="w-[42px] h-[42px]  rounded-full "
+                  alt=""
+                />
+              ) : (
+                <img src={transaction} alt="" />
+              )}
+
               {getBankIcon(item.to_card)}
             </div>
             <span className="text-[17px]">

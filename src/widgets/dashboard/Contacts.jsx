@@ -16,7 +16,7 @@ import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
 
 import mono from "../../assets/mono.jpg";
-
+import { faker } from "@faker-js/faker";
 import transaction from "../../assets/transaction.svg";
 import { getBankIcon } from "../../shared/getBankIcon";
 export const contacts = [
@@ -212,7 +212,8 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
   const [foundCard, setFoundCard] = useState(null);
-
+  const [randomName, setRandomName] = useState("");
+  const [randomAvatar, setAvatar] = useState("");
   const color = useMemo(
     () =>
       `#${Math.floor(Math.random() * 16777215)
@@ -223,13 +224,45 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
 
   useEffect(() => {
     const clean = inputValue.replace(/\s+/g, "");
+
     if (clean.length === 16) {
       setFoundCard(inputValue);
+
+      // Получаем рандомное реальное лицо через RandomUser.me
+      fetch("https://randomuser.me/api/?nat=ru,us")
+        .then((res) => res.json())
+        .then((data) => {
+          const user = data.results[0];
+          setRandomName(user.name.first + " " + user.name.last);
+          setAvatar(user.picture.large); // реальное фото человека
+        })
+        .catch((err) => console.error(err));
     } else {
       setFoundCard(null);
+      setRandomName("");
+      setAvatar("");
     }
   }, [inputValue]);
 
+  const handleClick = () => {
+    if (!foundCard) return;
+
+    // Сохраняем данные в localStorage
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({
+        name: randomName,
+        avatar: ["4441", "5375", "4899", "4042"].includes(
+          foundCard.replace(/\s+/g, "").slice(0, 4)
+        )
+          ? randomAvatar
+          : "",
+      })
+    );
+
+    // Переходим на страницу перевода
+    navigate("/transfer/" + foundCard);
+  };
   return (
     <motion.div
       initial={{ x: "100%", opacity: 0 }}
@@ -362,23 +395,34 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                 {foundCard && (
                   <li
                     key={foundCard}
-                    onClick={() => navigate("/transfer/" + foundCard)}
+                    onClick={handleClick}
                     className="flex justify-between items-center cursor-pointer"
                   >
                     <div className="flex items-center gap-4 w-full rounded-xl">
-                      <div className="relative bg-blue-600 w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="white"
-                          viewBox="0 0 24 24"
-                          className="w-5 h-5"
-                        >
-                          <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
-                        </svg>
+                      <div className="relative bg-black/60 w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0">
+                        {["4441", "5375", "4899", "4042"].includes(
+                          foundCard.replace(/\s+/g, "").slice(0, 4)
+                        ) ? (
+                          <img
+                            src={randomAvatar}
+                            className="w-[42px] h-[42px] rounded-full"
+                            alt=""
+                          />
+                        ) : (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="white"
+                            viewBox="0 0 24 24"
+                            className="w-5 h-5"
+                          >
+                            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
+                          </svg>
+                        )}
+
                         <div>{getBankIcon(foundCard)}</div>
                       </div>
                       <p className="flex-1 text-[#E0E0E0] text-[15px] sm:text-[16px] break-all">
-                        {foundCard}
+                        {randomName}
                       </p>
                       <Star
                         size={18}

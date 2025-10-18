@@ -6,7 +6,7 @@ import si_copy from "../../assets/si_copy.png";
 import { motion } from "framer-motion";
 import share from "../../assets/share.png";
 import { useNavigate } from "react-router-dom";
-import { formatCardNumber } from "../../util/balanceUtils";
+import { formatCardNumber } from "../../util/formatCardNumber";
 // function formatCardNumber(card) {
 //   return card
 //     .replace(/\s+/g, "") // убираем все пробелы

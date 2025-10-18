@@ -26,6 +26,7 @@ export default function TransferPage() {
   const inputRef = useRef(null);
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [commentValue, setCommentValue] = useState("");
+  const [randomUser, setRandomUser] = useState("");
   useEffect(() => {
     async function fetchCards() {
       try {
@@ -54,6 +55,11 @@ export default function TransferPage() {
           }
         } else {
           setTransactionData(null);
+          const userData = localStorage.getItem("userData");
+          if (userData) {
+            const { name, avatar } = JSON.parse(userData);
+            setRandomUser({ name, avatar });
+          }
         }
       } catch (err) {
         setError(err.message);
@@ -82,27 +88,28 @@ export default function TransferPage() {
       formData = {
         cardholder_name: transactionData.cardholder_name,
         from_card: cards[0].card_number,
-        to_card: transactionData.from_card,
+        to_card: transactionData.from_card ? transactionData.from_card : "",
         amount: +value,
         comment: commentValue,
         operation_type: "withdraw",
       };
     } else if (transactionData?.operation_type === "withdraw") {
       formData = {
-        cardholder_name: transactionData.to_card,
+        cardholder_name: transactionData.cardholder_name,
         from_card: cards[0].card_number,
-        to_card: transactionData.to_card,
-
+        to_card: transactionData.to_card ? transactionData.to_card : "",
+        image_withdraw: transactionData.image_withdraw,
         amount: +value,
         comment: commentValue,
       };
     } else {
       formData = {
-        cardholder_name: id.replace(/\s+/g, "").trim(),
+        cardholder_name: randomUser.name,
         from_card: cards[0].card_number,
         to_card: id.replace(/\s+/g, "").trim(),
         amount: +value,
         comment: commentValue,
+        image_withdraw: randomUser.avatar,
       };
     }
     console.log(formData);
@@ -138,16 +145,33 @@ export default function TransferPage() {
         </button>
 
         <div className="flex relative items-center gap-3 sm:gap-4">
-          <div className="w-[45px] h-[45px] relative rounded-full flex items-center justify-center text-white text-lg bg-[#0B4ED9]">
+          <div className="w-[45px] h-[45px] relative rounded-full flex items-center justify-center text-white text-lg bg-black/60">
             {/* Дефолтный белый силуэт */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="white"
-              viewBox="0 0 24 24"
-              className="w-5 h-5"
-            >
-              <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
-            </svg>
+            {!transactionData && id && randomUser.avatar && (
+              <>
+                <img
+                  src={randomUser.avatar}
+                  className="w-[45px] h-[45px]  rounded-full "
+                  alt=""
+                />
+              </>
+            )}
+            {transactionData?.image_withdraw ? (
+              <img
+                src={transactionData?.image_withdraw}
+                className="w-[45px] h-[45px]  rounded-full "
+                alt=""
+              />
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="white"
+                viewBox="0 0 24 24"
+                className="w-5 h-5"
+              >
+                <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
+              </svg>
+            )}
 
             {/* Иконка банка, если есть */}
             {(() => {
@@ -176,9 +200,9 @@ export default function TransferPage() {
                 if (transactionData?.operation_type === "deposit") {
                   return <>{transactionData?.cardholder_name}</>;
                 } else if (transactionData?.operation_type === "withdraw") {
-                  card = transactionData.to_card;
+                  return <>{transactionData?.cardholder_name}</>;
                 } else {
-                  card = id;
+                  return <>{randomUser.name}</>;
                 }
 
                 return <>{formatCardNumber(card)}</>;

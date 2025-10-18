@@ -27,6 +27,8 @@ import massage_icon from "../../assets/message-icon.svg";
 import response_icon from "../../assets/response-icon.png";
 import return_icon from "../../assets/return-icon.svg";
 import question_icon from "../../assets/question-icon.svg";
+
+import { formatCardNumber } from "../../util/formatCardNumber";
 function formatUADate(isoString) {
   const date = new Date(isoString);
 
@@ -100,75 +102,21 @@ export default function TransactionPage() {
               >
                 <img src={download} className="w-9" />
               </div>
-              {/* {transactionData.comment && (
-                <div className="">
-                  <img src={response_icon}></img>
-                </div>
-              )} */}
+
               <>
                 <div className=" rounded-full  flex justify-center items-center">
                   <div className="">
-                    {transactionData.from_card &&
-                    ["4441", "5375", "4899", "4042"].includes(
-                      transactionData.from_card.replace(/\s+/g, "").slice(0, 4)
-                    ) ? (
-                      // Монобанк — буква M
-                      <>
-                        {/* {item.from_card?.charAt(0).toUpperCase()} */}
-
-                        <img
-                          src={mono}
-                          alt="mono"
-                          className="w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full absolute"
-                        />
-                      </>
-                    ) : ["5168", "4341", "4405", "4581"].includes(
-                        transactionData.from_card
-                          .replace(/\s+/g, "")
-                          .slice(0, 4)
-                      ) ? (
-                      <img
-                        src={privat}
-                        alt="Privat"
-                        className="w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full absolute"
-                      />
-                    ) : ["5355", "5374", "5358", "5440"].includes(
-                        transactionData.from_card
-                          .replace(/\s+/g, "")
-                          .slice(0, 4)
-                      ) ? (
-                      <img
-                        src={pumb}
-                        alt="PUMB"
-                        className="w-5 h-5  rounded-full -translate-x-1/2 left-16 top-3 absolute"
-                      />
-                    ) : ["4349", "5169"].includes(
-                        transactionData.from_card
-                          .replace(/\s+/g, "")
-                          .slice(0, 4)
-                      ) ? (
-                      <img
-                        src={abank}
-                        alt="ABank"
-                        className="w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full  absolute"
-                      />
-                    ) : (
-                      <div className="w-6 h-6 flex items-center -translate-x-1/2 left-16  justify-center bg-gray-600 rounded-full top-3 absolute">
-                        <img src={bank} alt="bank" className="w-3 h-3" />
-                      </div>
-                    )}
+                    <img
+                      src={mono}
+                      alt="mono"
+                      className="w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full absolute"
+                    />
                   </div>
                 </div>
               </>
             </div>
             <h3 className="text-[#E0E0E0] text-center text-[17px]">
-              {transactionData.from_card
-                ? String(transactionData.from_card).slice(0, 6) +
-                  "*".repeat(
-                    Math.max(0, String(transactionData.from_card).length - 12)
-                  ) +
-                  String(transactionData.from_card).slice(-4)
-                : "—"}
+              {transactionData.cardholder_name}
             </h3>
             <div className="flex gap-[25px] justify-center items-center">
               <div className="h-[1px] bg-[#4B4B4B] w-[18%]"></div>
@@ -328,13 +276,7 @@ export default function TransactionPage() {
             </div>
 
             <h3 className="text-[#E0E0E0] text-center text-[17px]">
-              {transactionData.to_card
-                ? String(transactionData.to_card).slice(0, 6) +
-                  "*".repeat(
-                    Math.max(0, String(transactionData.to_card).length - 12)
-                  ) +
-                  String(transactionData.to_card).slice(-4)
-                : "—"}
+              {formatCardNumber(transactionData.cardholder_name)}
             </h3>
             <div className="flex gap-[25px] justify-center items-center">
               <div className="h-[1px] bg-[#4B4B4B] w-[18%]"></div>

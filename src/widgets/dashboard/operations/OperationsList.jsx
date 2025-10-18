@@ -56,7 +56,7 @@ const OperationsList = ({
       {/* последние 3 операции */}
       <ul className="flex flex-col gap-5">
         {lastThreeReversed.map((item) => (
-          <OperationItem key={item.id} item={item} navigate={navigate} />
+          <OperationItem key={item.id} item={item} />
         ))}
       </ul>
 

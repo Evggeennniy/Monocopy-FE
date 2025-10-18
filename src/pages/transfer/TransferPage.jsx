@@ -80,10 +80,7 @@ export default function TransferPage() {
 
     if (transactionData?.operation_type === "deposit") {
       formData = {
-        cardholder_name:
-          (cards[0]?.user.first_name ? cards[0].user.first_name : "") +
-          " " +
-          (cards[0]?.user.last_name ? cards[0].user.last_name : ""),
+        cardholder_name: transactionData.cardholder_name,
         from_card: cards[0].card_number,
         to_card: transactionData.from_card,
         amount: +value,
@@ -92,29 +89,18 @@ export default function TransferPage() {
       };
     } else if (transactionData?.operation_type === "withdraw") {
       formData = {
-        cardholder_name:
-          (cards[0]?.user.first_name ? cards[0].user.first_name : "") +
-          " " +
-          (cards[0]?.user.last_name ? cards[0].user.last_name : ""),
+        cardholder_name: transactionData.to_card,
         from_card: cards[0].card_number,
-        to_card: transactionData.to_card
-          ? transactionData.to_card
-          : id.replace(/\s+/g, "").trim(),
+        to_card: transactionData.to_card,
+
         amount: +value,
         comment: commentValue,
       };
     } else {
       formData = {
-        cardholder_name:
-          (cards[0]?.user.first_name ? cards[0].user.first_name : "") +
-          " " +
-          (cards[0]?.user.last_name ? cards[0].user.last_name : ""),
+        cardholder_name: id.replace(/\s+/g, "").trim(),
         from_card: cards[0].card_number,
-        to_card: transactionData?.to_card
-          ? transactionData.to_card
-          : id
-          ? id.replace(/\s+/g, "").trim()
-          : "",
+        to_card: id.replace(/\s+/g, "").trim(),
         amount: +value,
         comment: commentValue,
       };
@@ -188,7 +174,7 @@ export default function TransferPage() {
                 let card;
 
                 if (transactionData?.operation_type === "deposit") {
-                  card = transactionData.from_card;
+                  return <>{transactionData?.cardholder_name}</>;
                 } else if (transactionData?.operation_type === "withdraw") {
                   card = transactionData.to_card;
                 } else {

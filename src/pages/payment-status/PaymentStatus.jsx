@@ -33,7 +33,7 @@ function PaymentStatus() {
             {Number(data.amount).toFixed(2)} ₴ на картку
           </div>
           <div className="font-bold text-[16px]">
-            {formatCardNumber(data.to_card)}
+            {formatCardNumber(data.cardholder_name)}
           </div>
         </div>
       </div>

@@ -21,7 +21,7 @@ const OperationItem = ({ item }) => {
               {getBankIcon(item.to_card)}
             </div>
             <span className="text-[17px]">
-              {formatCardNumber(item.to_card)}
+              {formatCardNumber(item.cardholder_name)}
             </span>
           </>
         ) : (

@@ -229,7 +229,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       setFoundCard(inputValue);
 
       // Получаем рандомное реальное лицо через RandomUser.me
-      fetch("https://randomuser.me/api/?nat=ru,us")
+      fetch("https://randomuser.me/api/?nat=ru")
         .then((res) => res.json())
         .then((data) => {
           const user = data.results[0];

@@ -391,7 +391,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                   >
                     <div className="flex items-center gap-4 w-full rounded-xl">
                       <div className="relative bg-black/60 w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0">
-                        {["4441", "5375", "4899", "4042"].includes(
+                        {["4441", "4899", "4042"].includes(
                           foundCard.replace(/\s+/g, "").slice(0, 4)
                         ) ? (
                           <img

@@ -10,7 +10,11 @@ import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
 import Balance from "../../widgets/dashboard/Balance";
 import transaction from "../../assets/transaction.svg";
-import { getBankIcon, getBankName } from "../../shared/getBankIcon";
+import {
+  getBankIcon,
+  getBankIconByName,
+  getBankName,
+} from "../../shared/getBankIcon";
 import { formatCardNumber } from "../../util/formatCardNumber";
 import CustomKeyboard from "../../shared/CustomKeyboard";
 
@@ -96,7 +100,7 @@ export default function TransferPage() {
         image_withdraw:
           transactionData.bank === "mono" ? transactionData.image_deposit : "",
         operation_type: "withdraw",
-        bank: getBankName(transactionData.cardholder_name),
+        bank: transactionData.bank,
       };
     } else if (transactionData?.operation_type === "withdraw") {
       formData = {
@@ -191,9 +195,18 @@ export default function TransferPage() {
               let card;
 
               if (transactionData?.operation_type === "deposit") {
-                card = transactionData.from_card;
+                // card = transactionData.from_card;
+                return (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    {getBankIconByName(transactionData?.bank)}
+                  </div>
+                );
               } else if (transactionData?.operation_type === "withdraw") {
-                card = transactionData.to_card;
+                return (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    {getBankIconByName(transactionData?.bank)}
+                  </div>
+                );
               } else {
                 card = id;
               }

@@ -10,7 +10,7 @@ import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
 import Balance from "../../widgets/dashboard/Balance";
 import transaction from "../../assets/transaction.svg";
-import { getBankIcon } from "../../shared/getBankIcon";
+import { getBankIcon, getBankName } from "../../shared/getBankIcon";
 import { formatCardNumber } from "../../util/formatCardNumber";
 import CustomKeyboard from "../../shared/CustomKeyboard";
 
@@ -79,7 +79,7 @@ export default function TransferPage() {
 
   const handleClick = (num) => setValue((prev) => prev + num);
   const handleBackspace = () => setValue((prev) => prev.slice(0, -1));
-
+  // const bankName = getBankName(foundCard);
   const submit = async (e) => {
     e.preventDefault();
     let formData;
@@ -88,12 +88,15 @@ export default function TransferPage() {
       formData = {
         cardholder_name: transactionData.cardholder_name,
         from_card: cards[0].card_number,
-        to_card: transactionData.from_card ? transactionData.from_card : "",
+        to_card: transactionData.cardholder_name
+          ? transactionData.cardholder_name
+          : "",
         amount: +value,
         comment: commentValue,
         image_withdraw:
           transactionData.bank === "mono" ? transactionData.image_deposit : "",
         operation_type: "withdraw",
+        bank: getBankName(transactionData.cardholder_name),
       };
     } else if (transactionData?.operation_type === "withdraw") {
       formData = {
@@ -103,6 +106,7 @@ export default function TransferPage() {
         image_withdraw: transactionData.image_withdraw,
         amount: +value,
         comment: commentValue,
+        bank: getBankName(transactionData.to_card),
       };
     } else {
       formData = {
@@ -112,6 +116,7 @@ export default function TransferPage() {
         amount: +value,
         comment: commentValue,
         image_withdraw: randomUser.avatar,
+        bank: getBankName(id.replace(/\s+/g, "").trim()),
       };
     }
     console.log(formData);

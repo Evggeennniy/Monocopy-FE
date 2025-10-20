@@ -29,6 +29,7 @@ import return_icon from "../../assets/return-icon.svg";
 import question_icon from "../../assets/question-icon.svg";
 
 import { formatCardNumber } from "../../util/formatCardNumber";
+import { getBankIconByName } from "../../shared/getBankIcon";
 function formatUADate(isoString) {
   const date = new Date(isoString);
 
@@ -113,13 +114,10 @@ export default function TransactionPage() {
 
               <>
                 <div className=" rounded-full  flex justify-center items-center">
-                  <div className="">
-                    <img
-                      src={mono}
-                      alt="mono"
-                      className="w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full absolute"
-                    />
-                  </div>
+                  {getBankIconByName(
+                    transactionData.bank,
+                    "w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full absolute"
+                  )}
                 </div>
               </>
             </div>
@@ -164,7 +162,7 @@ export default function TransactionPage() {
               </div>
             )}
             <div className="bg-[#1E1E1E] px-5 pb-5 pt-4 flex w-full flex-col ">
-              {!["4441"].includes(
+              {!["4441", "4899", "4042"].includes(
                 transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
               ) && <img src={keshbek} alt="" />}
               <div className="bg-[#272727] rounded-lg flex mt-3 items-center p-[15px] w-full gap-3 text-[#767676] text-[13px]">
@@ -246,48 +244,10 @@ export default function TransactionPage() {
               <>
                 <div className=" rounded-full  flex justify-center items-center">
                   {/* <img src={transaction} alt="" /> */}
-                  <div className="">
-                    {transactionData?.to_card &&
-                    ["4441", "5375", "4899", "4042"].includes(
-                      transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
-                    ) ? (
-                      <>
-                        <img
-                          src={mono}
-                          alt="mono"
-                          className="w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full absolute"
-                        />
-                      </>
-                    ) : ["5168", "4341", "4405", "4581"].includes(
-                        transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
-                      ) ? (
-                      <img
-                        src={privat}
-                        alt="Privat"
-                        className="w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full absolute"
-                      />
-                    ) : ["5355", "5374", "5358", "5440"].includes(
-                        transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
-                      ) ? (
-                      <img
-                        src={pumb}
-                        alt="PUMB"
-                        className="w-5 h-5  rounded-full -translate-x-1/2 left-16 top-3 absolute"
-                      />
-                    ) : ["4349", "5169"].includes(
-                        transactionData.to_card.replace(/\s+/g, "").slice(0, 4)
-                      ) ? (
-                      <img
-                        src={abank}
-                        alt="ABank"
-                        className="w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full  absolute"
-                      />
-                    ) : (
-                      <div className="w-6 h-6 flex items-center -translate-x-1/2 left-16  justify-center bg-gray-600 rounded-full top-3 absolute">
-                        <img src={bank} alt="bank" className="w-3 h-3" />
-                      </div>
-                    )}
-                  </div>
+                  {getBankIconByName(
+                    transactionData.bank,
+                    "w-5 h-5 -translate-x-1/2 left-16 top-3 rounded-full absolute"
+                  )}
                 </div>
               </>
             </div>

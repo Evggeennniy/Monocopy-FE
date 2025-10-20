@@ -18,7 +18,7 @@ import { API_URL } from "../../url";
 import mono from "../../assets/mono.jpg";
 import { faker } from "@faker-js/faker";
 import transaction from "../../assets/transaction.svg";
-import { getBankIcon } from "../../shared/getBankIcon";
+import { getBankIcon, getBankName } from "../../shared/getBankIcon";
 import { getRandomRussianUser } from "../../util/users";
 export const contacts = [
   {
@@ -215,14 +215,8 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
   const [foundCard, setFoundCard] = useState(null);
   const [randomName, setRandomName] = useState("");
   const [randomAvatar, setAvatar] = useState("");
-  const color = useMemo(
-    () =>
-      `#${Math.floor(Math.random() * 16777215)
-        .toString(16)
-        .padStart(6, "0")}`,
-    [foundCard?.id]
-  );
-
+  // const [bankName, setBankName] = useState("");
+  // const bankName = getBankName();
   useEffect(() => {
     const clean = inputValue.replace(/\s+/g, "");
 
@@ -247,21 +241,13 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
 
   const handleClick = () => {
     if (!foundCard) return;
-
+    const bankName = getBankName(foundCard);
     // Сохраняем данные в localStorage
     localStorage.setItem(
       "userData",
       JSON.stringify({
-        name: ["4441", "5375", "4899", "4042"].includes(
-          foundCard.replace(/\s+/g, "").slice(0, 4)
-        )
-          ? randomName
-          : foundCard,
-        avatar: ["4441", "5375", "4899", "4042"].includes(
-          foundCard.replace(/\s+/g, "").slice(0, 4)
-        )
-          ? randomAvatar
-          : "",
+        name: bankName === "mono" ? randomName : foundCard,
+        avatar: bankName === "mono" ? randomAvatar : "",
       })
     );
 

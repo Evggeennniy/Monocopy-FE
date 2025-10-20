@@ -134,6 +134,7 @@ const OperationsList = ({
                               key={item.id}
                               item={item}
                               navigate={navigate}
+                              isOpen={true}
                             />
                           ))}
                         </ul>

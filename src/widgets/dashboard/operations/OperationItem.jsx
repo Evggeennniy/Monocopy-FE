@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { getBankIcon } from "../../../shared/getBankIcon";
+import { getBankIcon, getBankIconByName } from "../../../shared/getBankIcon";
 import transaction from "../../../assets/transaction.svg";
 import download from "../../../assets/download.svg";
 import { formatCardNumber } from "../../../util/formatCardNumber";
-
-const OperationItem = ({ item }) => {
+import massage_icon from "../../../assets/message-icon.svg";
+const OperationItem = ({ item, isOpen = false }) => {
   const navigate = useNavigate();
   const isWithdraw = item.operation_type === "withdraw";
   return (
@@ -27,11 +27,21 @@ const OperationItem = ({ item }) => {
                 <img src={transaction} alt="" />
               )}
 
-              {getBankIcon(item.to_card)}
+              {getBankIconByName(item.bank)}
             </div>
-            <span className="text-[17px]">
-              {formatCardNumber(item.cardholder_name)}
-            </span>
+            <div className="flex flex-col">
+              <span className="text-[17px]">
+                {formatCardNumber(item.cardholder_name)}
+              </span>
+              {item.comment && isOpen ? (
+                <div className="flex gap-2 items-center text-[#555555]">
+                  <img src={massage_icon} className="w-5 h-5" alt="" />
+                  {item.comment}
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
           </>
         ) : (
           <>
@@ -48,10 +58,21 @@ const OperationItem = ({ item }) => {
               ) : (
                 <img src={download} className="w-7" alt="" />
               )}
+              {getBankIconByName(item.bank)}
             </div>
 
-            <span className="text-[17px]">
-              Від: <span className="">{item.cardholder_name}</span>
+            <span className="text-[17px] flex flex-col">
+              <div className="">
+                Від: <span className="">{item.cardholder_name}</span>
+              </div>
+              {item.comment && isOpen ? (
+                <div className="flex gap-2 items-center text-[#555555]">
+                  <img src={massage_icon} className="w-5 h-5" alt="" />
+                  {item.comment}
+                </div>
+              ) : (
+                ""
+              )}
             </span>
           </>
         )}

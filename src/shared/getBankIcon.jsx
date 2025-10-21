@@ -9,15 +9,15 @@ import ukrsib from "../assets/ukrsib.png";
 import sense from "../assets/sense.png";
 import raiff from "../assets/raiff.jpg";
 const bankMap = {
-  mono: ["4441", "4899", "4042"],
+  mono: ["4441", "5375", "4899", "4042"],
   privat: ["5168", "4341", "4405", "4581"],
-  pumb: ["4041", "4066", "4127", "4193"],
-  abank: ["4323"],
+  pumb: ["5355", "5358", "5440"],
+  abank: ["4349", "5169"],
   oschad: ["4295", "4352", "4389", "4790"],
-  izibank: ["5375", "5374", "5371", "5366"],
-  ukrsib: ["5274", "5169", "5128", "5351"],
-  sense: ["5211", "4149", "5237"],
-  raiff: ["1111"],
+  izibank: ["5374", "5371", "5366"],
+  ukrsib: ["4429", "5377"],
+  sense: ["4041", "4066", "4127", "4193"],
+  raiff: ["4323"],
 };
 const bankIcons = {
   mono: mono,

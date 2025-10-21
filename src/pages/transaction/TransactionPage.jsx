@@ -63,7 +63,7 @@ export default function TransactionPage() {
   const [transactionData, setTransactionData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [bankName, setBankName] = useState();
   useEffect(() => {
     async function fetchTransaction() {
       setLoading(true);
@@ -72,6 +72,7 @@ export default function TransactionPage() {
         if (!res.ok) throw new Error(`Ошибка: ${res.status}`);
         const data = await res.json();
         setTransactionData(data);
+        setBankName(data.bank);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -82,17 +83,36 @@ export default function TransactionPage() {
     fetchTransaction();
   }, [id]);
   console.log(transactionData);
-
   if (!transactionData) return null;
   return (
     <>
-      <div className=" relative bg-[#5F5FD9] ">
-        <div className="  h-[120px] flex flex-col">
-          <button onClick={() => navigate("/dashboard")}>
-            <ArrowLeft className="w-6 h-6 text-white absolute top-5 left-3" />
-          </button>
+      {bankName !== "mono" && (
+        <div className=" relative bg-[#5F5FD9] ">
+          <div className="  h-[120px] flex flex-col">
+            <button onClick={() => navigate("/dashboard")}>
+              <ArrowLeft className="w-6 h-6 text-white absolute top-5 left-3" />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
+      {bankName === "mono" && (
+        <div className="relative">
+          {/* Размытый фон */}
+          <img
+            src={
+              transactionData.image_deposit || transactionData.image_withdraw
+            }
+            alt="mono background"
+            className="absolute inset-0 w-full h-full object-cover blur-sm brightness-75"
+          />
+          {/* Контент сверху */}
+          <div className="relative h-[120px] flex flex-col">
+            <button onClick={() => navigate("/dashboard")}>
+              <ArrowLeft className="w-6 h-6 text-white absolute top-5 left-3" />
+            </button>
+          </div>
+        </div>
+      )}
       {transactionData.operation_type === "deposit" && (
         <>
           <div className="bg-[#272727] relative -top-3 w-full z-10 rounded-t-2xl flex flex-col gap-[15px] min-h-screen">
@@ -146,18 +166,22 @@ export default function TransactionPage() {
               </span>
             </div>
             {transactionData.comment && (
-              <div className="w-[75%] mx-auto items-center flex flex-col">
-                <div className="flex justify-center w-full gap-2 mb-2">
-                  <img src={massage_icon} className="w-7 h-7" />
+              <div className="mx-auto flex flex-col items-center">
+                {/* Верхний блок */}
+                <div className="flex gap-2 mb-2 w-[90%] px-2 relative left-[-24px]">
+                  <img src={massage_icon} className="w-7 h-7 shrink-0" />
                   <div className="bg-[#59677b] w-full p-2 rounded-xl text-[#FDFDFD]">
                     {transactionData.comment}
                   </div>
                 </div>
-                <div className="w-[80%] h-[50px] ml-auto">
+
+                {/* Нижний блок */}
+                <div className="w-[70%] h-[50px] mx-auto">
                   <img
                     className="h-full w-full object-contain"
                     src={response_icon}
-                  ></img>
+                    alt="response"
+                  />
                 </div>
               </div>
             )}
@@ -193,7 +217,7 @@ export default function TransactionPage() {
                 <img
                   src={return_icon}
                   alt=""
-                  className="flex-1 w-[25px] h-[60px]"
+                  className="flex-1 w-[25px] h-[47px]"
                 />
                 <p
                   className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
@@ -204,7 +228,7 @@ export default function TransactionPage() {
                   <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
                 </p>
               </div>
-              <div className="flex items-center gap-3 h-[60px]  pl-[10px]">
+              <div className="flex items-center gap-3 h-[47px]  pl-[10px]">
                 <img
                   src={question_icon}
                   alt=""
@@ -320,11 +344,11 @@ export default function TransactionPage() {
             </div>
 
             <div className="flex flex-col gap-3 pb-4 ">
-              <div className="flex items-center gap-3 pl-[20px]">
+              <div className="flex items-center h-[60px] gap-3 pl-[20px]">
                 <img
                   src={separate}
                   alt=""
-                  className="flex-1 w-[60px] h-[60px]"
+                  className="flex-1 w-[43px] h-[43px] object-cover"
                 />
                 <p
                   className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
@@ -338,9 +362,13 @@ export default function TransactionPage() {
 
               <div
                 onClick={() => navigate(`/transfer/${transactionData.id}`)}
-                className="flex items-center gap-3 pl-[20px] "
+                className="flex items-center h-[47px] gap-3 pl-[20px]"
               >
-                <img src={repeat} alt="" className="flex-1 w-[60px] h-[60px]" />
+                <img
+                  src={repeat}
+                  alt=""
+                  className="flex-1 w-[43px] h-[43px] object-cover"
+                />
                 <p
                   className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -350,8 +378,12 @@ export default function TransactionPage() {
                   <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
                 </p>
               </div>
-              <div className="flex items-center gap-3 pl-[20px]">
-                <img src={save} alt="" className="flex-1 w-[60px] h-[60px]" />
+              <div className="flex items-center h-[47px] gap-3 pl-[20px]">
+                <img
+                  src={save}
+                  alt=""
+                  className="flex-1 w-[43px] h-[43px] object-cover"
+                />
                 <p
                   className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -363,12 +395,12 @@ export default function TransactionPage() {
               </div>
               <div
                 onClick={() => navigate(`/receipt/${id}`)}
-                className="flex items-center gap-3 pl-[20px] h-full"
+                className="flex items-center h-[47px] gap-3 pl-[20px]"
               >
                 <img
                   src={rewatch}
                   alt=""
-                  className="flex-1 w-[60px] h-[60px]"
+                  className="flex-1 w-[43px] h-[43px] object-cover"
                 />
                 <p
                   className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
@@ -379,8 +411,12 @@ export default function TransactionPage() {
                   <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
                 </p>
               </div>
-              <div className="flex items-center gap-3 pl-[20px]">
-                <img src={always} alt="" className="flex-1 w-[60px] h-[60px]" />
+              <div className="flex items-center h-[47px] gap-3 pl-[20px]">
+                <img
+                  src={always}
+                  alt=""
+                  className="flex-1 w-[43px] h-[43px] object-cover"
+                />
                 <p
                   className="text-[16px] h-full flex justify-center flex-col  flex-13 text-[#E4E4E4]
               "
@@ -390,11 +426,11 @@ export default function TransactionPage() {
                   <div className="h-[2px] mt-[11px]  bg-[#4B4B4B] w-full"></div>
                 </p>
               </div>
-              <div className="flex items-center gap-3 h-[60px]  items-between pl-[20px]">
+              <div className="flex items-center h-[47px] gap-3 pl-[20px]">
                 <img
                   src={rasrochka}
                   alt=""
-                  className="flex-1 w-[60px] h-[60px]"
+                  className="flex-1 w-[43px] h-[43px] object-cover"
                 />
                 <p
                   className="text-[16px] h-full flex justify-center flex-col gap-4  flex-13 text-[#E4E4E4]

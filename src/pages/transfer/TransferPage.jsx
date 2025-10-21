@@ -110,7 +110,9 @@ export default function TransferPage() {
         image_withdraw: transactionData.image_withdraw,
         amount: +value,
         comment: commentValue,
-        bank: getBankName(transactionData.to_card),
+        bank: transactionData.bank
+          ? transactionData.bank
+          : getBankName(transactionData.to_card),
       };
     } else {
       formData = {

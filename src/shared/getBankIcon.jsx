@@ -7,7 +7,7 @@ import izibank from "../assets/izi.jpg";
 import oschad from "../assets/oshad.png";
 import ukrsib from "../assets/ukrsib.png";
 import sense from "../assets/sense.png";
-
+import raiff from "../assets/raiff.jpg";
 const bankMap = {
   mono: ["4441", "4899", "4042"],
   privat: ["5168", "4341", "4405", "4581"],
@@ -16,7 +16,8 @@ const bankMap = {
   oschad: ["4295", "4352", "4389", "4790"],
   izibank: ["5375", "5374", "5371", "5366"],
   ukrsib: ["5274", "5169", "5128", "5351"],
-  sense: ["5211", "4149",  "5237"],
+  sense: ["5211", "4149", "5237"],
+  raiff: ["1111"],
 };
 const bankIcons = {
   mono: mono,
@@ -27,6 +28,7 @@ const bankIcons = {
   izibank: izibank,
   ukrsib: ukrsib,
   sense: sense,
+  raiff: raiff,
   others: bank,
 };
 export const getBankName = (to_card) => {
@@ -53,6 +55,8 @@ export const getBankName = (to_card) => {
           return "ukrsib";
         case "sense":
           return "sense";
+        case "raiff":
+          return "raiff";
         default:
           return "others";
       }
@@ -92,7 +96,14 @@ export const getBankIcon = (to_card) => {
         className="w-5 h-5 left-7 rounded-full top-6 absolute"
       />
     );
-
+  if (bankMap.raiff.includes(prefix))
+    return (
+      <img
+        src={raiff}
+        alt="raiff"
+        className="w-5 h-5 left-7 rounded-full top-6 absolute"
+      />
+    );
   if (bankMap.abank.includes(prefix))
     return (
       <img
@@ -147,7 +158,7 @@ export const getBankIcon = (to_card) => {
 export const getBankIconByName = (bankName, className) => {
   const icon = bankIcons[bankName];
 
-  if (icon)
+  if (icon && bankName !== "others")
     return (
       <img
         src={icon}

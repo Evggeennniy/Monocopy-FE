@@ -27,7 +27,7 @@ const OperationItem = ({ item, isOpen = false }) => {
                 <img src={transaction} alt="" />
               )}
 
-              {isOpen && getBankIconByName(item.bank)}
+              {item.bank !== "mono" && getBankIconByName(item.bank)}
             </div>
             <div className="flex flex-col">
               <span className="text-[17px]">

@@ -223,7 +223,6 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
     if (clean.length === 16) {
       setFoundCard(inputValue);
 
-      // Получаем рандомное реальное лицо через RandomUser.me
       getRandomRussianUser()
         .then((user) => {
           if (user) {

@@ -386,12 +386,9 @@ const maleLastNames = [
   "Ладов",
   "Люціанов",
 ];
-
 export async function getRandomRussianUser() {
-  // Случайно выбираем пол
   const gender = Math.random() > 0.5 ? "male" : "female";
 
-  // Выбираем имя по полу
   const first =
     gender === "male"
       ? maleFirstNames[Math.floor(Math.random() * maleFirstNames.length)]
@@ -401,17 +398,14 @@ export async function getRandomRussianUser() {
     gender === "male"
       ? maleLastNames[Math.floor(Math.random() * maleLastNames.length)]
       : femaleLastNames[Math.floor(Math.random() * femaleLastNames.length)];
-  const name = `${first} ${last}`;
 
-  // Берем фото из RandomUser API по полу
-  let avatar = "";
-  try {
-    const res = await fetch(`https://randomuser.me/api/?gender=${gender}`);
-    const data = await res.json();
-    avatar = data.results[0].picture.large;
-  } catch (err) {
-    console.error("Ошибка при получении аватара:", err);
-  }
+  const name = `${first} ${last}`;
+  const num =
+    gender === "male"
+      ? 101 + Math.floor(Math.random() * 26)
+      : 200 + Math.floor(Math.random() * 26);
+
+  const avatar = `https://shironenergy.com/media/transaction_imgs/${num}.png`;
 
   return { name, gender, avatar };
 }

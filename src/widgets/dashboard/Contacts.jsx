@@ -12,12 +12,9 @@ import search from "../../assets/search.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useNavigate } from "react-router-dom";
-import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
 
 import mono from "../../assets/mono.jpg";
-import { faker } from "@faker-js/faker";
-import transaction from "../../assets/transaction.svg";
 import { getBankIcon, getBankName } from "../../shared/getBankIcon";
 import { getRandomRussianUser } from "../../util/users";
 export const contacts = [

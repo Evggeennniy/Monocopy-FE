@@ -58,7 +58,7 @@ const OperationItem = ({ item, isOpen = false }) => {
               ) : (
                 <img src={download} className="w-7" alt="" />
               )}
-              {getBankIconByName(item.bank)}
+              {item.bank !== "mono" && getBankIconByName(item.bank)}
             </div>
 
             <span className="text-[17px] flex flex-col">

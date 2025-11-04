@@ -21,6 +21,9 @@ function MainDashboard({
   showAll,
   setShowAll,
   balance,
+  setHasFlown,
+  offsetY,
+  setOffsetY,
 }) {
   const navigate = useNavigate();
   console.log(operationsCards);
@@ -80,11 +83,14 @@ function MainDashboard({
 
           <>
             <OperationsList
+              offsetY={offsetY}
+              setOffsetY={setOffsetY}
               lastThreeReversed={lastThreeReversed}
               allOperations={operationsCards}
               setShowAll={setShowAll}
               showAll={showAll}
               balance={balance}
+              setHasFlown={setHasFlown}
             />
             <div className=" bg-[#272727] py-4 px-3 rounded-2xl">
               <h3 className="text-lg font-semibold mb-4">Інформація</h3>

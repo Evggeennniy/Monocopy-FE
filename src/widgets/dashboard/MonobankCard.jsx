@@ -16,6 +16,7 @@ export default function MonobankCard({
   isContactsOpen,
   borderColor = "#0F0E0C",
   owner,
+  offsetY,
 }) {
   return (
     <div className="flex justify-center items-center relative w-full">
@@ -55,7 +56,7 @@ export default function MonobankCard({
           style={{
             transform: isOpen
               ? "translateY(0px) rotateX(0deg)"
-              : "translateY(-10px) rotateX(66deg)",
+              : `translateY(-10px) rotateX(${offsetY > 10 ? 63 : 66}deg)`,
             transformStyle: "preserve-3d",
             background: "linear-gradient(to bottom, #0F0E0C, #2B2B2B)",
             borderBottom: isOpen

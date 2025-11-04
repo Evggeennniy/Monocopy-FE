@@ -13,6 +13,8 @@ const OperationsList = ({
   setShowAll,
   balance,
   setHasFlown,
+  offsetY,
+  setOffsetY,
 }) => {
   const navigate = useNavigate();
   const scrollRef = useRef(null); // 👈 создаём ref для скролла
@@ -42,7 +44,12 @@ const OperationsList = ({
   }, [showAll]);
 
   return (
-    <DraggableRocketBlock setHasFlown={setHasFlown}>
+    <DraggableRocketBlock
+      offsetY={offsetY}
+      setOffsetY={setOffsetY}
+      isOpen={showAll}
+      setHasFlown={setHasFlown}
+    >
       <div className="mt-8 bg-[#272727]  pb-3 pt-6 px-3 rounded-2xl relative z-[1000]">
         <div className="flex justify-between items-center mb-3">
           <h3 className="text-[17px] font-semibold ">Операції</h3>

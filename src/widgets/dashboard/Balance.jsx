@@ -21,74 +21,8 @@ import market from "../../assets/market.png";
 import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
 import bank_cards from "../../assets/bank-cards.svg";
+import loadingIcon from "../../assets/loading.svg";
 
-// export const cardsArray = [
-//   {
-//     id: 1,
-//     cardNumber: "4441 5555 5555 1931",
-//     owner: "Vasyl Petrenko",
-//     borderColor: "#0F0E0C",
-//     balance: "25,430.50",
-//     operationsCards: [
-//       {
-//         id: 1,
-//         name: "Starbucks",
-//         type: "expense",
-//         amount: 120.0,
-//         currency: "₴",
-//         color: "red",
-//       },
-//       {
-//         id: 2,
-//         name: "Зарплата",
-//         type: "income",
-//         amount: 15000.0,
-//         currency: "₴",
-//         color: "green",
-//       },
-//       {
-//         id: 3,
-//         name: "Starbucks",
-//         type: "expense",
-//         amount: 120.0,
-//         currency: "₴",
-//         color: "red",
-//       },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     cardNumber: "4441 5555 5555 1931",
-//     owner: "Vasyl Petrenko",
-//     borderColor: "#FB5255",
-//     operationsCards: [
-//       {
-//         id: 1,
-//         name: "Starbucks",
-//         type: "expense",
-//         amount: 120.0,
-//         currency: "₴",
-//         color: "red",
-//       },
-//       {
-//         id: 2,
-//         name: "Зарплата",
-//         type: "income",
-//         amount: 15000.0,
-//         currency: "₴",
-//         color: "green",
-//       },
-//       {
-//         id: 3,
-//         name: "Starbucks",
-//         type: "expense",
-//         amount: 120.0,
-//         currency: "₴",
-//         color: "red",
-//       },
-//     ],
-//   },
-// ];
 import { RefreshCw } from "lucide-react";
 export default function Balance() {
   const [isContactsOpen, setIsContactsOpen] = useState(false);
@@ -99,7 +33,7 @@ export default function Balance() {
   const [showAll, setShowAll] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [offsetY, setOffsetY] = useState(50);
   /** ===== Плавная анимация баланса ===== */
   const animateBalance = (from, to, duration = 500) => {
     const start = performance.now();
@@ -149,12 +83,7 @@ export default function Balance() {
 
     return () => clearInterval(intervalId);
   }, []);
-  const handleRefresh = async () => {
-    // mimic data reload
-    await new Promise((r) => setTimeout(r, 1200));
-    // or actually reload
-    // window.location.reload();
-  };
+
   /** ======= Разметка ======= */
   const gradientBg =
     !isSettingsOpen && !isContactsOpen && !showAll
@@ -187,54 +116,54 @@ export default function Balance() {
   return (
     <div
       style={{ background: gradientBg }}
-      className={`min-h-screen  text-white   flex flex-col items-center ${
+      className={`min-h-screen  text-white  relative  flex flex-col items-center ${
         isContactsOpen ? "p-0" : "p-0"
       }`}
     >
       {/* ===== Верхняя панель ===== */}
-      {hasFlown && (
-        <div className="flex items-center justify-center gap-2 text-sm h-[65px]  text-gray-400">
-          <RefreshCw
-            className={`w-4 h-4 ${
-              hasFlown ? "animate-spin" : ""
-            } text-gray-400 transition-transform`}
-          />
-        </div>
-      )}
-      {!isSettingsOpen &&
-        !isContactsOpen &&
-        !showAll &&
-        firstCard &&
-        !hasFlown && (
-          <div className="flex justify-between w-full items-end p-4 ">
-            <div className="flex gap-3 items-center">
-              <div className="w-[33px] h-[33px] rounded-full bg-[#315cc0] flex justify-center items-center">
-                {firstCard.user.first_name[0].toUpperCase()}
-              </div>
-              <img src={message} alt="message" className="w-[27px] h-[27px]" />
-            </div>
 
-            <div className="flex items-center gap-4">
-              <div className="flex gap-2 items-center">
-                <img
-                  src={price}
-                  alt="price"
-                  className="w-[27px] h-[27px] pb-1"
-                />
-                <div className="text-[#E1E1E1]">7.73 ₴</div>
-              </div>
-              <div className="h-[24px] w-[1px] bg-[#3F497A]" />
-              <div className="flex gap-5 items-center">
-                <img
-                  src={monobank}
-                  alt="monobank"
-                  className="w-[22px] h-[22px]"
-                />
-                <img src={rating} alt="rating" className="w-[22px] h-[22px]" />
-              </div>
+      <div
+        className={`flex items-center absolute justify-center gap-2 text-sm h-[65px] duration-300 text-gray-400 ${
+          !hasFlown ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <img
+          src={loadingIcon}
+          className={`w-6 h-6 ${
+            hasFlown ? "animate-spin" : ""
+          } bg-white p-1 rounded-full transition-transform`}
+        />
+      </div>
+      {!isSettingsOpen && !isContactsOpen && !showAll && firstCard && (
+        <div
+          className={`flex justify-between w-full items-end p-4 transition-opacity duration-300 ${
+            hasFlown ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <div className="flex gap-3 items-center">
+            <div className="w-[33px] h-[33px] rounded-full bg-[#315cc0] flex justify-center items-center">
+              {firstCard.user.first_name[0].toUpperCase()}
+            </div>
+            <img src={message} alt="message" className="w-[27px] h-[27px]" />
+          </div>
+
+          <div className="flex items-center gap-4">
+            <div className="flex gap-2 items-center">
+              <img src={price} alt="price" className="w-[27px] h-[27px] pb-1" />
+              <div className="text-[#E1E1E1]">7.73 ₴</div>
+            </div>
+            <div className="h-[24px] w-[1px] bg-[#3F497A]" />
+            <div className="flex gap-5 items-center">
+              <img
+                src={monobank}
+                alt="monobank"
+                className="w-[22px] h-[22px]"
+              />
+              <img src={rating} alt="rating" className="w-[22px] h-[22px]" />
             </div>
           </div>
-        )}
+        </div>
+      )}
 
       {isSettingsOpen && !isContactsOpen && <div className="h-[80px] w-full" />}
 
@@ -280,6 +209,7 @@ export default function Balance() {
                     cardNumber={card.card_number}
                     isOpen={isSettingsOpen}
                     setIsOpen={setIsSettingsOpen}
+                    offsetY={offsetY}
                     borderColor={index === 0 ? "#0F0E0C" : "#FB5255"}
                     owner={`${card.user.first_name} ${card.user.last_name}`}
                   />
@@ -293,6 +223,8 @@ export default function Balance() {
                     <MainDashboard
                       setHasFlown={setHasFlown}
                       showAll={showAll}
+                      offsetY={offsetY}
+                      setOffsetY={setOffsetY}
                       balance={formattedBalance}
                       setShowAll={setShowAll}
                       isContactsOpen={isContactsOpen}
@@ -311,12 +243,24 @@ export default function Balance() {
         {!isSettingsOpen && !isContactsOpen && !showAll && (
           <>
             {cards.length === 1 ? (
-              <div className="flex absolute top-[22.5rem] right-1/2 z-[100] w-[120px] bg-black/20 rounded-full justify-center items-center gap-2 transform translate-x-1/2">
+              <div
+                className="flex absolute top-[22.5rem] right-1/2 z-[100] w-[120px] bg-black/20 rounded-full justify-center items-center gap-2 transform translate-x-1/2 transition-opacity duration-300"
+                style={{
+                  opacity:
+                    offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1,
+                }}
+              >
                 <span className="w-2 h-2 bg-white rounded-full"></span>
                 <button className="text-gray-500 pb-[1px] font-bold">+</button>
               </div>
             ) : (
-              <button className="flex absolute top-[21.4rem] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-4 gap-2 py-[2px] rounded-full bg-[#0A1D3E] opacity-90">
+              <button
+                className="flex absolute top-[21.4rem] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-4 gap-2 py-[2px] rounded-full bg-[#0A1D3E] opacity-90 transition-opacity duration-300"
+                style={{
+                  opacity:
+                    offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1,
+                }}
+              >
                 <img src={bank_cards} alt="bank_cards" />
                 <p className="text-[12px] text-[#A0A6B9]">Усі картки</p>
               </button>

@@ -22,6 +22,8 @@ function MainDashboard({
   setShowAll,
   balance,
   setHasFlown,
+  offsetY,
+  setOffsetY,
 }) {
   const navigate = useNavigate();
   console.log(operationsCards);
@@ -81,6 +83,8 @@ function MainDashboard({
 
           <>
             <OperationsList
+              offsetY={offsetY}
+              setOffsetY={setOffsetY}
               lastThreeReversed={lastThreeReversed}
               allOperations={operationsCards}
               setShowAll={setShowAll}

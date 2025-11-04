@@ -9,10 +9,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import plus from "../../assets/plus.svg";
 import grivna from "../../assets/uah-icon.svg";
-import message from "../../assets/message.svg";
-import price from "../../assets/price.svg";
-import monobank from "../../assets/monobank.svg";
-import rating from "../../assets/rating.svg";
+import message from "../../assets/message.png";
+import prize from "../../assets/price.png";
+import monobank from "../../assets/monobank.png";
+import rating from "../../assets/stats-icon.png";
 import two_cards from "../../assets/two_cards.png";
 import credits from "../../assets/credits.png";
 import six from "../../assets/16.png";
@@ -33,7 +33,7 @@ export default function Balance() {
   const [showAll, setShowAll] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [offsetY, setOffsetY] = useState(50);
+  const [offsetY, setOffsetY] = useState(0);
   /** ===== Плавная анимация баланса ===== */
   const animateBalance = (from, to, duration = 500) => {
     const start = performance.now();
@@ -144,12 +144,12 @@ export default function Balance() {
             <div className="w-[33px] h-[33px] rounded-full bg-[#315cc0] flex justify-center items-center">
               {firstCard.user.first_name[0].toUpperCase()}
             </div>
-            <img src={message} alt="message" className="w-[27px] h-[27px]" />
+            <img src={message} alt="message" className="w-[22px] h-[20px]" />
           </div>
 
           <div className="flex items-center gap-4">
             <div className="flex gap-2 items-center">
-              <img src={price} alt="price" className="w-[27px] h-[27px] pb-1" />
+              <img src={prize} alt="price" className="w-[23px] h-[27px] pb-1" />
               <div className="text-[#E1E1E1]">7.73 ₴</div>
             </div>
             <div className="h-[24px] w-[1px] bg-[#3F497A]" />

@@ -89,7 +89,7 @@ import bank_cards from "../../assets/bank-cards.svg";
 //     ],
 //   },
 // ];
-
+import { RefreshCw } from "lucide-react";
 export default function Balance() {
   const [isContactsOpen, setIsContactsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -149,7 +149,12 @@ export default function Balance() {
 
     return () => clearInterval(intervalId);
   }, []);
-
+  const handleRefresh = async () => {
+    // mimic data reload
+    await new Promise((r) => setTimeout(r, 1200));
+    // or actually reload
+    // window.location.reload();
+  };
   /** ======= Разметка ======= */
   const gradientBg =
     !isSettingsOpen && !isContactsOpen && !showAll
@@ -177,6 +182,7 @@ export default function Balance() {
     if (width <= 430) return "4rem";
     return "5rem";
   };
+  const [hasFlown, setHasFlown] = useState(false);
 
   return (
     <div
@@ -186,32 +192,49 @@ export default function Balance() {
       }`}
     >
       {/* ===== Верхняя панель ===== */}
-      {!isSettingsOpen && !isContactsOpen && !showAll && firstCard && (
-        <div className="flex justify-between w-full items-end p-4 ">
-          <div className="flex gap-3 items-center">
-            <div className="w-[33px] h-[33px] rounded-full bg-[#315cc0] flex justify-center items-center">
-              {firstCard.user.first_name[0].toUpperCase()}
-            </div>
-            <img src={message} alt="message" className="w-[27px] h-[27px]" />
-          </div>
-
-          <div className="flex items-center gap-4">
-            <div className="flex gap-2 items-center">
-              <img src={price} alt="price" className="w-[27px] h-[27px] pb-1" />
-              <div className="text-[#E1E1E1]">7.73 ₴</div>
-            </div>
-            <div className="h-[24px] w-[1px] bg-[#3F497A]" />
-            <div className="flex gap-5 items-center">
-              <img
-                src={monobank}
-                alt="monobank"
-                className="w-[22px] h-[22px]"
-              />
-              <img src={rating} alt="rating" className="w-[22px] h-[22px]" />
-            </div>
-          </div>
+      {hasFlown && (
+        <div className="flex items-center justify-center gap-2 text-sm h-[65px]  text-gray-400">
+          <RefreshCw
+            className={`w-4 h-4 ${
+              hasFlown ? "animate-spin" : ""
+            } text-gray-400 transition-transform`}
+          />
         </div>
       )}
+      {!isSettingsOpen &&
+        !isContactsOpen &&
+        !showAll &&
+        firstCard &&
+        !hasFlown && (
+          <div className="flex justify-between w-full items-end p-4 ">
+            <div className="flex gap-3 items-center">
+              <div className="w-[33px] h-[33px] rounded-full bg-[#315cc0] flex justify-center items-center">
+                {firstCard.user.first_name[0].toUpperCase()}
+              </div>
+              <img src={message} alt="message" className="w-[27px] h-[27px]" />
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="flex gap-2 items-center">
+                <img
+                  src={price}
+                  alt="price"
+                  className="w-[27px] h-[27px] pb-1"
+                />
+                <div className="text-[#E1E1E1]">7.73 ₴</div>
+              </div>
+              <div className="h-[24px] w-[1px] bg-[#3F497A]" />
+              <div className="flex gap-5 items-center">
+                <img
+                  src={monobank}
+                  alt="monobank"
+                  className="w-[22px] h-[22px]"
+                />
+                <img src={rating} alt="rating" className="w-[22px] h-[22px]" />
+              </div>
+            </div>
+          </div>
+        )}
 
       {isSettingsOpen && !isContactsOpen && <div className="h-[80px] w-full" />}
 
@@ -268,6 +291,7 @@ export default function Balance() {
                 {!isSettingsOpen && !isContactsOpen && (
                   <div className="p-3">
                     <MainDashboard
+                      setHasFlown={setHasFlown}
                       showAll={showAll}
                       balance={formattedBalance}
                       setShowAll={setShowAll}

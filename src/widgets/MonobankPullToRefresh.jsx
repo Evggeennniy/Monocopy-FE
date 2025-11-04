@@ -191,7 +191,7 @@ const DraggableDownWrapper = ({
             src={imageIcon}
             alt="Pull to refresh"
             style={{
-              width: 45,
+              width: 50,
               height: 70,
               transition: "transform 0.15s ease",
             }}
@@ -250,7 +250,7 @@ const FlyingAnimator = ({ flyRect, duration }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        zIndex: 9999,
+
         transform: "translateY(0)",
         transition: `transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1)`,
         pointerEvents: "none",

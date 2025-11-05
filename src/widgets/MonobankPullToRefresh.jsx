@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import imageIcon from "../assets/rocket.png";
 
 const DraggableDownWrapper = ({
@@ -18,7 +19,7 @@ const DraggableDownWrapper = ({
   const containerRef = useRef(null);
 
   const MAX_PULL = 50;
-  const FLY_DURATION = 700; // ms
+  const FLY_DURATION = 1200; // ms
 
   // --- MOUSE handlers (unchanged) ---
   const handleMouseDown = (e) => {
@@ -177,7 +178,7 @@ const DraggableDownWrapper = ({
             bottom: `${offsetY < 38 ? offsetY + 200 : 240}px`,
             left: 0,
             right: 0,
-            height: MAX_PULL,
+            height: MAX_PULL - 20,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -238,7 +239,7 @@ const FlyingAnimator = ({ flyRect, duration }) => {
     return () => {};
   }, [flyRect]);
 
-  return (
+  return createPortal(
     <div
       ref={elRef}
       style={{
@@ -250,18 +251,19 @@ const FlyingAnimator = ({ flyRect, duration }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-
         transform: "translateY(0)",
         transition: `transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1)`,
         pointerEvents: "none",
+        zIndex: 999999, // поверх всего
       }}
     >
       <img
         src={imageIcon}
         alt="Pull to refresh"
-        style={{ width: 30, height: 30 }}
+        style={{ width: 50, height: 70 }}
       />
-    </div>
+    </div>,
+    document.body
   );
 };
 

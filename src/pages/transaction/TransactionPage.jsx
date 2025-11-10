@@ -147,7 +147,7 @@ export default function TransactionPage() {
             <div className="flex gap-[25px] justify-center items-center">
               <div className="h-[1px] bg-[#4B4B4B] w-[18%]"></div>
               <button className="flex text-[#FFFFFF] rounded-full items-center text-[12px] gap-1 py-[2px] bg-[#3833A9] px-4">
-                <div className="">Переказ на картку</div>
+                <div className="">Поповнення картки</div>
               </button>
               <div className="h-[1px] bg-[#4B4B4B] w-[18%]"></div>
             </div>

@@ -31,6 +31,7 @@ export default function TransferPage() {
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [commentValue, setCommentValue] = useState("");
   const [randomUser, setRandomUser] = useState("");
+  const [canSubmit, setCanSubmit] = useState(false);
   useEffect(() => {
     async function fetchCards() {
       try {
@@ -81,8 +82,18 @@ export default function TransferPage() {
     setShowKeyboard(true);
   }, []);
 
-  const handleClick = (num) => setValue((prev) => prev + num);
-  const handleBackspace = () => setValue((prev) => prev.slice(0, -1));
+  const handleClick = (num) => {
+    const newValue = +value + num;
+    setValue((prev) => prev + num);
+    console.log(Boolean(newValue));
+    setCanSubmit(Boolean(newValue));
+  };
+  const handleBackspace = () => {
+    const newValue = value.slice(0, -1);
+    setValue((prev) => prev.slice(0, -1));
+    console.log(Boolean(newValue));
+    setCanSubmit(Boolean(newValue));
+  };
   // const bankName = getBankName(foundCard);
   const submit = async (e) => {
     e.preventDefault();
@@ -145,7 +156,7 @@ export default function TransferPage() {
 
   if (loading) return <p className="text-white">Loading...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
-  console.log(transactionData);
+  console.log(value);
   return (
     <div className="bg-[#1E1E1E]  text-white h-screen flex flex-col pb-[40px] justify-between">
       {/* Header */}
@@ -224,7 +235,6 @@ export default function TransferPage() {
             <h2 className="font-semibold text-base sm:text-lg text-[#E0E0E0]">
               {(() => {
                 let card;
-
                 if (transactionData?.operation_type === "deposit") {
                   return (
                     <>{formatCardNumber(transactionData?.cardholder_name)}</>
@@ -236,8 +246,6 @@ export default function TransferPage() {
                 } else {
                   return <>{formatCardNumber(randomUser.name)}</>;
                 }
-
-                // return <>{formatCardNumber(card)}</>;
               })()}
             </h2>
             {["4441", "5375", "4899", "4042"].includes(
@@ -327,12 +335,24 @@ export default function TransferPage() {
             </div>
 
             <div className="flex justify-between gap-3 sm:gap-4">
-              <button className="bg-[#2F2F2F] p-4 sm:p-5 rounded-2xl text-[#FFFFFF] hover:bg-[#3A3A3A] transition">
-                <Star className="w-5 h-5 inline-block" />
-              </button>
+              <div
+                className={`${
+                  canSubmit
+                    ? "p-[1px] bg-gradient-to-r from-[#E75F5B] to-[#DA3AB0] rounded-2xl"
+                    : "p-[1px]"
+                }`}
+              >
+                <button
+                  className={`bg-[#2F2F2F] p-4 sm:p-5 rounded-2xl text-white hover:bg-[#3A3A3A] transition w-full h-full`}
+                >
+                  <Star className="w-5 h-5 inline-block" />
+                </button>
+              </div>
               <button
                 onClick={submit}
-                className="w-full py-3 sm:py-4 bg-[#414141] rounded-2xl text-[#FFFFFF] text-[14px] sm:text-[15px] font-semibold hover:bg-[#4A4A4A] transition"
+                className={`${
+                  canSubmit ? "bg-[#E75F5B]" : "bg-[#414141] hover:bg-[#4A4A4A]"
+                } w-full py-3 sm:py-4 rounded-2xl text-[#FFFFFF] text-[14px] sm:text-[15px] font-semibold  transition`}
               >
                 Надіслати
               </button>
@@ -341,12 +361,8 @@ export default function TransferPage() {
         </div>
         <div
           className={`bg-[#323232] flex flex-col items-center justify-center text-white 
-    transform transition-transform duration-500 ease-out
-    ${
-      showKeyboard
-        ? "translate-y-0 opacity-100 h-auto"
-        : "translate-y-full h-[200px]  opacity-0 "
-    }`}
+    transform transition-transform
+    ${showKeyboard ? " opacity-100 h-auto" : " h-[200px]  opacity-0 "}`}
         >
           <div className="grid grid-cols-6 gap-1 bg-[#3a3a3c] w-full">
             {["x", "/", "+", "-", "%", "="].map((op, i) => (

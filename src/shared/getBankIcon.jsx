@@ -171,7 +171,11 @@ export const getBankIconByName = (bankName, className) => {
 
   // Если банка нет в списке, возвращаем дефолтную иконку
   return (
-    <div className="w-6 h-6 flex items-center justify-center bg-gray-600 left-7 rounded-full top-6 absolute">
+    <div
+      className={`w-6 h-6 flex items-center justify-center bg-gray-600 rounded-full  absolute ${
+        className ? className : "left-7 rounded-full top-6 absolute"
+      }`}
+    >
       <img src={bank} alt="bank" className="w-3 h-3" />
     </div>
   );

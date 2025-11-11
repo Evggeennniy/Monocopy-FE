@@ -129,14 +129,14 @@ export default function Balance() {
       >
         <img
           src={loadingIcon}
-          className={`w-6 h-6 ${
+          className={`w-7 h-7 ${
             hasFlown ? "animate-spin" : ""
           } bg-white p-1 rounded-full transition-transform`}
         />
       </div>
       {!isSettingsOpen && !isContactsOpen && !showAll && firstCard && (
         <div
-          className={`flex justify-between w-full items-end p-4 transition-opacity duration-300 ${
+          className={`flex justify-between w-full items-end p-4 transition-opacity duration-300 z-0 relative ${
             hasFlown ? "opacity-0" : "opacity-100"
           }`}
         >

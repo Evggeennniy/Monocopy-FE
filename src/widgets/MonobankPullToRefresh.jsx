@@ -129,20 +129,21 @@ const DraggableDownWrapper = ({
   useEffect(() => {
     if (!isFlying) return;
 
-    setHasFlown(false);
-    localStorage.setItem("finishedFlying", "false");
+    // setHasFlown(false);
+    // localStorage.setItem("finishedFlying", "false");
+    setHasFlown(true);
 
     const t = setTimeout(() => {
+      setHasFlown(true);
       setIsFlying(false);
       setFlyRect(null);
 
-      setHasFlown(true);
       localStorage.setItem("finishedFlying", "true");
 
       const resetT = setTimeout(() => {
         setHasFlown(false);
         localStorage.setItem("finishedFlying", "false");
-      }, 2000);
+      }, 800);
 
       // clear inner timeout when unmount/cleanup
       return () => clearTimeout(resetT);

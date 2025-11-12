@@ -48,11 +48,16 @@ function formatUADate(isoString) {
     "грудня",
   ];
 
-  const day = date.getUTCDate();
-  const month = months[date.getUTCMonth()];
-  const year = date.getUTCFullYear();
-  const hours = String(date.getUTCHours()).padStart(2, "0");
-  const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+  // Convert to Kyiv time
+  const kyivDate = new Date(
+    date.toLocaleString("en-US", { timeZone: "Europe/Kyiv" })
+  );
+
+  const day = kyivDate.getDate();
+  const month = months[kyivDate.getMonth()];
+  const year = kyivDate.getFullYear();
+  const hours = String(kyivDate.getHours()).padStart(2, "0");
+  const minutes = String(kyivDate.getMinutes()).padStart(2, "0");
 
   return `${day} ${month} ${year}, ${hours}:${minutes}`;
 }

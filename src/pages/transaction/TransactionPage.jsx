@@ -6,13 +6,14 @@ import rest from "../../assets/rest.svg";
 import Separate from "../../assets/icon.branching.svg?react";
 
 import Repeat from "../../assets/icon.revers.svg?react";
-import save from "../../assets/save.png";
+import Save from "../../assets/icon.add.card.svg?react";
 import Rewatch from "../../assets/icon.uplodad.svg?react";
 import Always from "../../assets/icon.clock.svg?react";
 import Rasrochka from "../../assets/icon.credit-border.svg?react";
 import transaction from "../../assets/transaction.svg";
 import keshbek from "../../assets/keshbek.jpg";
 import grafic from "../../assets/grafic.jpg";
+import grafic_white from "../../assets/grafic_white.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import fetchWithAuth from "../../util/fetchWithAuth";
@@ -30,9 +31,12 @@ import question_icon from "../../assets/question-icon.svg";
 
 import { formatCardNumber } from "../../util/formatCardNumber";
 import { getBankIconByName } from "../../shared/getBankIcon";
+import { useTheme } from "../../util/useTheme";
+// import { useTheme } from "../../util/useTheme";
 
 function formatUADate(isoString) {
   const date = new Date(isoString);
+
   const months = [
     "січня",
     "лютого",
@@ -59,6 +63,7 @@ function formatUADate(isoString) {
 }
 
 export default function TransactionPage() {
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const { id } = useParams();
   const [transactionData, setTransactionData] = useState(null);
@@ -348,7 +353,12 @@ export default function TransactionPage() {
                   </p>
                 </div>
               </div>
-              <img src={grafic} alt="" className="mt-1" />
+
+              <img
+                src={theme === "dark" ? grafic : grafic_white}
+                alt=""
+                className="mt-1"
+              />
             </div>
 
             <div className="flex flex-col gap-3 pb-4">
@@ -388,11 +398,11 @@ export default function TransactionPage() {
               </div>
 
               <div className="flex items-center h-[47px] gap-3 pl-[20px]">
-                <img
-                  src={save}
-                  alt=""
+                <Save
+                  color="var(--icon)"
                   className="flex-1 w-[43px] h-[43px] object-cover"
                 />
+
                 <p className="text-[16px] h-full flex justify-center flex-col flex-13 text-[var(--gray-8)]">
                   <div>Зберегти карту</div>
                   <div className="h-[2px] mt-[11px] bg-[var(--bg-divider)] w-full"></div>

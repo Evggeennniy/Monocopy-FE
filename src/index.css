@@ -33,55 +33,45 @@
   --bg-overlay: rgba(0, 0, 0, 0.6);
   --bg-blue-haze: rgba(0, 20, 80, 0.6);
 
-  /* ===== ГРАДИЕНТЫ ===== */
-  /* Основной градиент (по умолчанию) */
   --gradient-default-start: #0b0d3f;
   --gradient-default-middle1: #112658;
   --gradient-default-middle2: #0d244e;
   --gradient-default-end: #111111;
 
-  /* Градиент для контактов */
   --gradient-contacts-start: #361073;
   --gradient-contacts-middle1: #2c2199;
   --gradient-contacts-middle2: #3444b3;
   --gradient-contacts-end: #417bca;
 
-  /* Градиент для настроек */
   --gradient-settings-start: #181c2a;
   --gradient-settings-middle1: #0d1d41;
   --gradient-settings-middle2: #0e2652;
   --gradient-settings-end: #132646;
 
-  /* Градиент для футера */
   --gradient-footer: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.55) 20%,
     rgba(0, 0, 0, 0) 100%
   );
 
-  /* Градиент для поля ввода */
   --gradient-input-start: #2e45a3;
   --gradient-input-end: #3964b3;
 
-  /* Градиент для подписок */
   --gradient-subscriptions-start: #293b60;
   --gradient-subscriptions-mid1: #243a63;
   --gradient-subscriptions-mid2: #253b64;
   --gradient-subscriptions-mid3: #293b5f;
   --gradient-subscriptions-end: #283b5c;
 
-  /* Градиент для карты */
   --gradient-card-start: #0f0e0c;
   --gradient-card-end: #2b2b2b;
 
-  /* Радиальный градиент */
   --radial-card-glow: radial-gradient(
     circle at 50% 40%,
     rgba(17, 38, 100, 0.6) 0%,
     rgba(0, 0, 0, 0) 50%
   );
 
-  /* ===== СИНИЕ ОТТЕНКИ ===== */
   --blue-primary: #315cc0;
   --blue-secondary: #2e45a3;
   --blue-tertiary: #3964b3;
@@ -271,7 +261,7 @@
 
   /* ===== ФОНОВЫЕ ЦВЕТА ===== */
   --bg-primary: #f5f5f5; /* светло-серый фон */
-  --bg-secondary: #ffffff; /* белый для карточек */
+  --bg-secondary: #f4f4f4; /* белый для карточек */
   --bg-tertiary: #f0f0f0; /* чуть темнее для разделения */
   --bg-card-dark: #ffffff; /* белый для карт */
   --bg-avatar: #e6e6e6; /* светло-серый для аватаров */

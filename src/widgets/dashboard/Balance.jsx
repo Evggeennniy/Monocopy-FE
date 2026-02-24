@@ -23,6 +23,7 @@ import bank_cards from "../../assets/bank-cards.svg";
 import loadingIcon from "../../assets/loading.svg";
 import { RefreshCw } from "lucide-react";
 import { useTheme } from "../../util/useTheme";
+// import { useTheme } from "../../util/useTheme";
 
 export default function Balance() {
   const [isContactsOpen, setIsContactsOpen] = useState(false);

@@ -1,32 +1,45 @@
 import React, { useState } from "react";
+
 import cat_big from "../../assets/cat_big.png";
+import cat_big_white from "../../assets/cat_big_white.jpg";
 import white_card from "../../assets/white_card.png";
+import white_card_white from "../../assets/white_card_white.jpg";
 import link from "../../assets/link.png";
+import link_white from "../../assets/link_white.jpg";
 import si_copy from "../../assets/si_copy.png";
 import { motion } from "framer-motion";
 import share from "../../assets/share.png";
 import { useNavigate } from "react-router-dom";
 import { formatCardNumber } from "../../util/formatCardNumber";
+import { useTheme } from "../../util/useTheme";
 
 function PaymentStatus() {
   const navigate = useNavigate();
   const [finished, setFinished] = useState(false);
   const data = JSON.parse(localStorage.getItem("formData"));
   console.log(data);
-
+  const { theme, toggleTheme } = useTheme();
   return (
-    <div className="bg-[var(--bg-secondary)] pb-[40px] flex flex-col justify-around h-screen p-3">
+    <div className="bg-[var(--gray-1)] pb-[40px] flex flex-col justify-around h-screen p-3">
       <div className="mt-[50px] flex flex-col items-center mb-[44px]">
-        <img src={cat_big} alt="" className="w-[221px]" />
+        <img
+          src={theme == "light" ? cat_big_white : cat_big}
+          alt=""
+          className="w-[221px]"
+        />
       </div>
 
-      <h2 className="text-[22px] flex flex-col items-center mb-[35px] text-[var(--color-white)]">
+      <h2 className="text-[22px] flex flex-col items-center mb-[35px] text-[var(--gray-8)]">
         Платіж надіслано
       </h2>
 
       <div className="flex items-center gap-3 ml-6 mb-[35px]">
-        <img src={white_card} alt="" className="w-[41px]" />
-        <div className="flex flex-col text-[var(--color-white)]">
+        <img
+          src={theme == "light" ? white_card_white : white_card}
+          alt=""
+          className="w-[41px]"
+        />
+        <div className="flex flex-col text-[var(--gray-8)]">
           <div className="text-[17px]">
             {Number(data.amount).toFixed(2)} ₴ на картку
           </div>
@@ -36,9 +49,13 @@ function PaymentStatus() {
         </div>
       </div>
 
-      <div className="p-5 mb-[35px] bg-[var(--gray-1)] rounded-xl">
+      <div className="p-5 mb-[35px] bg-[var(--bg-secondary)] rounded-xl">
         <div className="flex items-center gap-3 mb-[20px]">
-          <img src={link} alt="" className="w-[57px]" />
+          <img
+            src={theme == "light" ? link_white : link}
+            alt=""
+            className="w-[57px]"
+          />
           <div className="flex flex-col gap-1">
             <div className="text-[15px] font-semibold text-[var(--gray-8)]">
               Посилання на квитанцію

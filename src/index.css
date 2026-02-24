@@ -1,6 +1,417 @@
 @import "tailwindcss";
 
-/* src/index.css or App.css */
+.dark-theme {
+  /* ===== ОСНОВНЫЕ ЦВЕТА ===== */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-black-rgb: 0, 0, 0;
+
+  /* ===== ТЕКСТ ===== */
+  --balance: #e1e1e1;
+  --text-settings: #e1e1e1;
+  --text-primary: #e1e1e1;
+  --text-secondary: #a0a6b9;
+  --text-tertiary: #91a2b1;
+  --text-muted: #bebebe;
+  --text-gray-400: #9ca3af;
+  --text-gray-500: #6b7280;
+  --text-placeholder: #91a2b1;
+
+  /* ===== ФОНОВЫЕ ЦВЕТА ===== */
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #272727;
+  --bg-card-dark: #2b2b2b;
+  --bg-avatar: #315cc0;
+  --bg-icon-dark: #04070e;
+  --bg-progress-bg: #1e1e1e;
+  --bg-progress-fill: #00a500;
+  --bg-divider: #4b4b4b;
+  --bg-hover: #2f2f2f;
+  --bg-black-transparent: rgba(0, 0, 0, 0.2);
+  --bg-black-transparent-55: rgba(0, 0, 0, 0.55);
+  --bg-overlay: rgba(0, 0, 0, 0.6);
+  --bg-blue-haze: rgba(0, 20, 80, 0.6);
+
+  /* ===== ГРАДИЕНТЫ ===== */
+  /* Основной градиент (по умолчанию) */
+  --gradient-default-start: #0b0d3f;
+  --gradient-default-middle1: #112658;
+  --gradient-default-middle2: #0d244e;
+  --gradient-default-end: #111111;
+
+  /* Градиент для контактов */
+  --gradient-contacts-start: #361073;
+  --gradient-contacts-middle1: #2c2199;
+  --gradient-contacts-middle2: #3444b3;
+  --gradient-contacts-end: #417bca;
+
+  /* Градиент для настроек */
+  --gradient-settings-start: #181c2a;
+  --gradient-settings-middle1: #0d1d41;
+  --gradient-settings-middle2: #0e2652;
+  --gradient-settings-end: #132646;
+
+  /* Градиент для футера */
+  --gradient-footer: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.55) 20%,
+    rgba(0, 0, 0, 0) 100%
+  );
+
+  /* Градиент для поля ввода */
+  --gradient-input-start: #2e45a3;
+  --gradient-input-end: #3964b3;
+
+  /* Градиент для подписок */
+  --gradient-subscriptions-start: #293b60;
+  --gradient-subscriptions-mid1: #243a63;
+  --gradient-subscriptions-mid2: #253b64;
+  --gradient-subscriptions-mid3: #293b5f;
+  --gradient-subscriptions-end: #283b5c;
+
+  /* Градиент для карты */
+  --gradient-card-start: #0f0e0c;
+  --gradient-card-end: #2b2b2b;
+
+  /* Радиальный градиент */
+  --radial-card-glow: radial-gradient(
+    circle at 50% 40%,
+    rgba(17, 38, 100, 0.6) 0%,
+    rgba(0, 0, 0, 0) 50%
+  );
+
+  /* ===== СИНИЕ ОТТЕНКИ ===== */
+  --blue-primary: #315cc0;
+  --blue-secondary: #2e45a3;
+  --blue-tertiary: #3964b3;
+  --blue-settings: #0f1e40;
+  --blue-dark-1: #0a1d3e;
+  --blue-dark-2: #293353;
+  --blue-medium: #2c3b5a;
+  --blue-deposit: #293b60;
+  --blue-link: #6386bd;
+
+  /* ===== КРАСНЫЕ ОТТЕНКИ ===== */
+  --icon: #ffffff;
+  --red-primary: #fb5255;
+  --red-secondary: #fb5257;
+  --red-card-border: #fb5255;
+
+  /* ===== ЗЕЛЕНЫЕ ОТТЕНКИ ===== */
+  --green-primary: #00a500;
+  --green-progress: #22c55e;
+
+  /* ===== СЕРЫЕ ОТТЕНКИ ===== */
+  --gray-1: #272727;
+  --gray-2: #292929;
+  --gray-3: #2f3239;
+  --gray-4: #343434;
+  --gray-5: #414141;
+  --gray-6: #4b4b4b;
+  --gray-7: #555555;
+  --gray-8: #e0e0e0;
+
+  /* ===== ГРАНИЦЫ ===== */
+  --border-divider: #3f497a;
+  --border-card-first: #0f0e0c;
+  --border-card-other: #fb5255;
+
+  /* ===== АВАТАРЫ КОНТАКТОВ (HSL) ===== */
+  --contact-avatar-1: hsl(210, 70%, 80%);
+  --contact-avatar-2: hsl(45, 70%, 80%);
+  --contact-avatar-3: hsl(320, 70%, 80%);
+  --contact-avatar-4: hsl(180, 70%, 80%);
+  --contact-avatar-5: hsl(90, 70%, 80%);
+  --contact-avatar-6: hsl(300, 70%, 80%);
+  --contact-avatar-7: hsl(15, 70%, 80%);
+  --contact-avatar-8: hsl(200, 70%, 80%);
+  --contact-avatar-9: hsl(350, 70%, 80%);
+  --contact-avatar-10: hsl(60, 70%, 80%);
+  --contact-avatar-11: hsl(270, 70%, 80%);
+  --contact-avatar-12: hsl(120, 70%, 80%);
+  --contact-avatar-13: hsl(30, 70%, 80%);
+  --contact-avatar-14: hsl(250, 70%, 80%);
+  --contact-avatar-15: hsl(10, 70%, 80%);
+  --contact-avatar-16: hsl(190, 70%, 80%);
+  --contact-avatar-17: hsl(330, 70%, 80%);
+  --contact-avatar-18: hsl(140, 70%, 80%);
+  --contact-avatar-19: hsl(70, 70%, 80%);
+  --contact-avatar-20: hsl(100, 70%, 80%);
+  --contact-avatar-21: hsl(280, 70%, 80%);
+  --contact-avatar-22: hsl(160, 70%, 80%);
+  --contact-avatar-23: hsl(230, 70%, 80%);
+  /* Основной градиент фона (динамический) */
+  --bg-gradient-default: linear-gradient(
+    to bottom,
+    var(--gradient-default-start) 1%,
+    var(--gradient-default-middle1) 9%,
+    var(--gradient-default-middle1) 16%,
+    var(--gradient-default-middle2) 25%,
+    var(--gradient-default-end) 40%
+  );
+
+  --bg-gradient-contacts: linear-gradient(
+    180deg,
+    var(--gradient-contacts-start) 0%,
+    var(--gradient-contacts-middle1) 33.72%,
+    var(--gradient-contacts-middle2) 69.43%,
+    var(--gradient-contacts-end) 100%
+  );
+
+  --bg-gradient-settings: linear-gradient(
+    var(--gradient-settings-start) 16.21%,
+    var(--gradient-settings-middle1) 31.61%,
+    var(--gradient-settings-middle2) 48.57%,
+    var(--gradient-settings-end) 100%
+  );
+
+  --bg-gradient-input: linear-gradient(
+    180deg,
+    var(--gradient-contacts-middle2) 0%,
+    var(--gradient-contacts-end) 100%
+  );
+
+  --bg-gradient-subscriptions: linear-gradient(
+    179.89deg,
+    var(--gradient-subscriptions-start) 9.21%,
+    var(--gradient-subscriptions-mid1) 29.49%,
+    var(--gradient-subscriptions-mid2) 49.89%,
+    var(--gradient-subscriptions-mid3) 68.16%,
+    var(--gradient-subscriptions-end) 90.08%
+  );
+
+  --bg-gradient-card: linear-gradient(
+    to bottom,
+    var(--gradient-card-start),
+    var(--gradient-card-end)
+  );
+  /* Основной фон */
+  --transfer-bg: #1e1e1e;
+
+  /* Текст */
+  --transfer-text-primary: #ffffff;
+  --transfer-text-secondary: #e0e0e0;
+  --transfer-text-tertiary: #91a2b1;
+  --transfer-text-amount: #e1e1e1;
+  --transfer-text-gray-300: #d1d5db;
+  --transfer-text-gray-400: #9ca3af;
+
+  /* Границы */
+  --transfer-border: #323232;
+
+  /* Фоны элементов */
+  --transfer-avatar-bg: rgba(0, 0, 0, 0.6);
+  --transfer-button-bg: #2f2f2f;
+  --transfer-button-disabled: #414141;
+  --transfer-button-hover: #3a3a3a;
+  --transfer-button-disabled-hover: #4a4a4a;
+  --transfer-keyboard-bg: #323232;
+  --transfer-keyboard-top-bg: #3a3a3c;
+  --transfer-keyboard-btn-bg: #6f6f6f;
+  --transfer-keyboard-btn-hover: #444444;
+  --transfer-keyboard-backspace-hover: #666666;
+
+  /* Акцентные цвета */
+  --transfer-gradient-start: #e75f5b;
+  --transfer-gradient-end: #da3ab0;
+  --transfer-button-active: #e75f5b;
+
+  /* Цвета ошибок */
+  --transfer-error: #ef4444;
+}
+.light-theme {
+  --transfer-bg: #f5f5f5;
+  --icon: #fb5255;
+  /* Текст */
+  --transfer-text-primary: #1a1a1a;
+  --transfer-text-secondary: #4a4a4a;
+  --transfer-text-tertiary: #6b6b6b;
+  --transfer-text-amount: #333333;
+  --transfer-text-gray-300: #4b5563;
+  --transfer-text-gray-400: #6b7280;
+
+  /* Границы */
+  --transfer-border: #e0e0e0;
+
+  /* Фоны элементов */
+  --transfer-avatar-bg: rgba(0, 0, 0, 0.1);
+  --transfer-button-bg: #ffffff;
+  --transfer-button-disabled: #cdcdcd;
+  --transfer-button-hover: #f0f0f0;
+  --transfer-button-disabled-hover: #d1d1d1;
+  --transfer-keyboard-bg: #d0d3da;
+  --transfer-keyboard-top-bg: #d2d1d7;
+  --transfer-keyboard-btn-bg: #ffffff;
+  --transfer-keyboard-btn-hover: #e0e0e0;
+  --transfer-keyboard-backspace-hover: #d1d1d1;
+
+  /* Акцентные цвета */
+  --transfer-gradient-start: #e75f5b;
+  --transfer-gradient-end: #da3ab0;
+  --transfer-button-active: #e75f5b;
+
+  /* Цвета ошибок */
+  --transfer-error: #dc2626;
+  /* ===== ОСНОВНЫЕ ЦВЕТА ===== */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-black-rgb: 0, 0, 0;
+
+  /* ===== ТЕКСТ ===== */
+  --balance: #e1e1e1;
+  --text-primary: #1a1a1a;
+  --text-settings: #e1e1e1; /* темно-серый для основного текста */
+  --text-secondary: #f5f5f5; /* серый для второстепенного текста */
+  --text-tertiary: #8a8a8a; /* светло-серый для вспомогательного текста */
+  --text-muted: #8a8a8a; /* muted текст */
+  --text-gray-400: #9ca3af; /* оставляем тот же */
+  --text-gray-500: #6b7280; /* оставляем тот же */
+  --text-placeholder: #a0a0a0; /* серый для placeholder */
+
+  /* ===== ФОНОВЫЕ ЦВЕТА ===== */
+  --bg-primary: #f5f5f5; /* светло-серый фон */
+  --bg-secondary: #ffffff; /* белый для карточек */
+  --bg-tertiary: #f0f0f0; /* чуть темнее для разделения */
+  --bg-card-dark: #ffffff; /* белый для карт */
+  --bg-avatar: #e6e6e6; /* светло-серый для аватаров */
+  --bg-icon-dark: #04070e; /* серый для иконок */
+  --bg-progress-bg: #e0e0e0; /* серый для прогресс-бара */
+  --bg-progress-fill: #00a500; /* зеленый оставляем */
+  --bg-divider: #d1d1d1; /* светло-серый для разделителей */
+  --bg-hover: #e8e8e8; /* серый для hover */
+  --bg-black-transparent: rgba(0, 0, 0, 0.05); /* полупрозрачный черный */
+  --bg-black-transparent-55: rgba(0, 0, 0, 0.1); /* полупрозрачный черный */
+  --bg-overlay: rgba(0, 0, 0, 0.6); /* белый полупрозрачный оверлей */
+  --bg-blue-haze: rgba(0, 20, 80, 0.6); /* светло-синий туман */
+
+  /* ===== ГРАДИЕНТЫ ===== */
+  /* Основной градиент (по умолчанию) */
+  --gradient-default-start: rgb(27, 32, 111);
+  --gradient-default-middle1: #273681;
+  --gradient-default-middle2: #334b92;
+  --gradient-default-end: #bac9e0;
+
+  /* Градиент для контактов */
+  --gradient-contacts-start: #361073;
+  --gradient-contacts-middle1: #2c2199;
+  --gradient-contacts-middle2: #3444b3;
+  --gradient-contacts-end: #417bca;
+
+  /* Градиент для настроек */
+  --gradient-settings-start: #0e1339;
+  --gradient-settings-middle1: #284a8a;
+  --gradient-settings-middle2: #3a5c9c;
+  --gradient-settings-end: #254787;
+
+  /* Градиент для футера */
+  --gradient-footer: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.9) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  /* Градиент для поля ввода */
+  --gradient-input-start: #e0e0ff;
+  --gradient-input-end: #f0f0ff;
+
+  /* Градиент для подписок */
+  --gradient-subscriptions-start: #5372a9;
+  --gradient-subscriptions-mid1: #5372a9;
+  --gradient-subscriptions-mid2: #5372a9;
+  --gradient-subscriptions-mid3: #5473aa;
+  --gradient-subscriptions-end: #3b5890;
+
+  /* Градиент для карты */
+  --gradient-card-start: #0f0e0c;
+  --gradient-card-end: #2b2b2b;
+  /* Радиальный градиент */
+  --radial-card-glow: radial-gradient(
+    circle at 50% 40%,
+    rgba(27, 32, 111, 0.6) 0%,
+    rgba(0, 0, 0, 0) 50%
+  );
+
+  /* ===== СИНИЕ ОТТЕНКИ ===== */
+  --blue-primary: #4a7bff; /* ярко-синий */
+  --blue-secondary: #6b8cff; /* светло-синий */
+  --blue-tertiary: #8ca5ff; /* очень светло-синий */
+  --blue-settings: #224074; /* светло-синий для настроек */
+  --blue-dark-1: #495d8b; /* светло-синий */
+  --blue-dark-2: #6381b5; /* очень светло-синий */
+  --blue-medium: #5372a9;
+  --bg-gradient-settings:  /* светло-синий */ --blue-deposit: #d9e4ff; /* светло-синий для депозитов */
+  --blue-link: #4a7bff; /* ярко-синий для ссылок */
+
+  /* ===== КРАСНЫЕ ОТТЕНКИ ===== */
+  --red-primary: #ff4a4a; /* ярко-красный */
+  --red-secondary: #ff6b6b; /* светло-красный */
+  --red-card-border: #ff6b6b; /* светло-красный для границ */
+
+  /* ===== ЗЕЛЕНЫЕ ОТТЕНКИ ===== */
+  --green-primary: #00a500; /* зеленый (оставляем) */
+  --green-progress: #22c55e; /* зеленый (оставляем) */
+
+  /* ===== СЕРЫЕ ОТТЕНКИ ===== */
+  --gray-1: #ffffff; /* белый */
+  --gray-2: #f8f8f8; /* очень светло-серый */
+  --gray-3: #f0f0f0; /* светло-серый */
+  --gray-4: #e8e8e8; /* светло-серый */
+  --gray-5: #e0e0e0; /* серый */
+  --gray-6: #d1d1d1; /* серый */
+  --gray-7: #c0c0c0; /* серый */
+  --gray-8: #1a1a1a; /* темно-серый для текста */
+
+  /* ===== ГРАНИЦЫ ===== */
+  --border-divider: #3f497a;
+  --border-card-first: #0f0e0c;
+  --border-card-other: #fb5255;
+
+  /* ===== ГРАДИЕНТЫ ФОНА ===== */
+  --bg-gradient-default: linear-gradient(
+    to bottom,
+    var(--gradient-default-start) 1%,
+    var(--gradient-default-middle1) 9%,
+    var(--gradient-default-middle1) 16%,
+    var(--gradient-default-middle2) 25%,
+    var(--gradient-default-end) 40%
+  );
+
+  --bg-gradient-contacts: linear-gradient(
+    180deg,
+    var(--gradient-contacts-start) 0%,
+    var(--gradient-contacts-middle1) 33.72%,
+    var(--gradient-contacts-middle2) 69.43%,
+    var(--gradient-contacts-end) 100%
+  );
+
+  --bg-gradient-settings: linear-gradient(
+    var(--gradient-settings-start) 16.21%,
+    var(--gradient-settings-middle1) 31.61%,
+    var(--gradient-settings-middle2) 48.57%,
+    var(--gradient-settings-end) 100%
+  );
+
+  --bg-gradient-input: linear-gradient(
+    180deg,
+    var(--gradient-contacts-middle2) 0%,
+    var(--gradient-contacts-end) 100%
+  );
+  --bg-gradient-subscriptions: linear-gradient(
+    179.89deg,
+    var(--gradient-subscriptions-start) 9.21%,
+    var(--gradient-subscriptions-mid1) 29.49%,
+    var(--gradient-subscriptions-mid2) 49.89%,
+    var(--gradient-subscriptions-mid3) 68.16%,
+    var(--gradient-subscriptions-end) 90.08%
+  );
+
+  --bg-gradient-card: linear-gradient(
+    to bottom,
+    var(--gradient-card-start),
+    var(--gradient-card-end)
+  );
+}
 
 @font-face {
   font-family: "SF Pro Rounded";
@@ -31,9 +442,13 @@
 
 /* Пример применения */
 body {
-  font-family: "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Inter",
+  font-family:
+    "SF Pro Rounded",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Inter",
     sans-serif;
-  background-color: #272727;
+  /* background-color: #272727; */
 }
 /* На элемент, который скроллится (прямо ему) */
 .scroll-area {

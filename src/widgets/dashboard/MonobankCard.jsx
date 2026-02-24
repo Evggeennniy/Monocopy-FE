@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import monobankLogo from "../../assets/logo_card.png";
 import visa from "../../assets/visa.svg";
 import { maskCardNumber } from "../../util/maskCardNumber";
+
 function formatCardNumber(str) {
   if (!str) return "";
-  // оставим только символы (например цифры), если нужно — убрать все нецифры:
   const cleaned = str.replace(/\s+/g, "");
-  // вставляем пробел после каждых 4 символов
   return cleaned.replace(/(.{4})/g, "$1 ").trim();
 }
+
 export default function MonobankCard({
   cardNumber = "4441 **** **** 1931",
   setIsOpen,
@@ -19,18 +19,16 @@ export default function MonobankCard({
   offsetY,
 }) {
   return (
-    <div className="flex justify-center items-center relative w-full">
-      {/* Темный синий туман/тень */}
+    <div className="flex justify-center items-center relative w-full ">
       {!isOpen && (
         <div
           className="absolute z-[1001] top-6 w-[90%] max-w-[420px] sm:w-[360px] h-[70px] sm:h-[80px] rounded-full blur-[20px] pointer-events-none"
           style={{
-            background: "rgba(0,20,80,0.6)",
+            background: "var(--bg-blue-haze)",
           }}
         ></div>
       )}
 
-      {/* Карточка */}
       <div
         className={`${
           !isOpen ? "w-[90%] max-w-[320px]" : "w-[92%] max-w-[340px]"
@@ -41,8 +39,7 @@ export default function MonobankCard({
           <div
             className="absolute top-2 inset-0 w-[85%] max-w-[300px] mx-auto pointer-events-none rounded-2xl"
             style={{
-              background:
-                "radial-gradient(circle at 50% 40%, rgba(17, 38, 100, 0.6) 0%, rgba(0,0,0,0) 50%)",
+              background: "var(--radial-card-glow)",
               filter: "blur(40px)",
               zIndex: 5,
               transition: "all 0.7s ease",
@@ -58,13 +55,13 @@ export default function MonobankCard({
               ? "translateY(0px) rotateX(0deg)"
               : `translateY(-10px) rotateX(${offsetY > 10 ? 63 : 66}deg)`,
             transformStyle: "preserve-3d",
-            background: "linear-gradient(to bottom, #0F0E0C, #2B2B2B)",
+            background: "var(--bg-gradient-card)",
             borderBottom: isOpen
               ? `3px solid ${borderColor}`
               : `7px solid ${borderColor}`,
             boxShadow: isOpen
-              ? "0 10px 15px rgba(0,0,0,0.5) inset"
-              : "0 20px 20px rgba(0,0,0,0.5), 0 0 50px rgba(0,0,0,0.1) inset",
+              ? "0 10px 15px rgba(var(--color-black-rgb), 0.5) inset"
+              : "0 20px 20px rgba(var(--color-black-rgb), 0.5), 0 0 50px rgba(var(--color-black-rgb), 0.1) inset",
           }}
         >
           {/* Контент карты */}
@@ -85,9 +82,9 @@ export default function MonobankCard({
                   fontSize: isOpen
                     ? "clamp(20px, 4vw, 20px)"
                     : "clamp(19px, 3.8vw, 19px)",
-                  color: "rgba(245,245,245,1)",
+                  color: "rgba(245, 245, 245, 1)",
                   fontVariantNumeric: "tabular-nums",
-                  textShadow: "0 1px 2px rgba(0,0,0,0.3)",
+                  textShadow: "0 1px 2px rgba(var(--color-black-rgb), 0.3)",
                   textRendering: "geometricPrecision",
                   WebkitFontSmoothing: "antialiased",
                   MozOsxFontSmoothing: "grayscale",
@@ -102,7 +99,7 @@ export default function MonobankCard({
 
           {/* Владелец */}
           {isOpen && (
-            <p className="absolute bottom-5 left-5 uppercase text-[13px] sm:text-[15px] truncate max-w-[70%]">
+            <p className="absolute bottom-5 left-5 uppercase text-[13px] sm:text-[15px] truncate max-w-[70%] text-[var(--balance)]">
               {owner}
             </p>
           )}

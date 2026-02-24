@@ -212,8 +212,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
   const [foundCard, setFoundCard] = useState(null);
   const [randomName, setRandomName] = useState("");
   const [randomAvatar, setAvatar] = useState("");
-  // const [bankName, setBankName] = useState("");
-  // const bankName = getBankName();
+
   useEffect(() => {
     const clean = inputValue.replace(/\s+/g, "");
 
@@ -238,18 +237,16 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
   const handleClick = () => {
     if (!foundCard) return;
     const bankName = getBankName(foundCard);
-    // Сохраняем данные в localStorage
     localStorage.setItem(
       "userData",
       JSON.stringify({
         name: bankName === "mono" ? randomName : foundCard,
         avatar: bankName === "mono" ? randomAvatar : "",
-      })
+      }),
     );
-
-    // Переходим на страницу перевода
     navigate("/transfer/" + foundCard);
   };
+
   return (
     <motion.div
       initial={{ x: "100%", opacity: 0 }}
@@ -257,17 +254,15 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       exit={{ x: "-100%", opacity: 0 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       style={{
-        background:
-          "linear-gradient(180deg, #361073 0%, #2C2199 33.72%, #3444B3 69.43%, #417BCA 100%)",
+        background: "var(--bg-gradient-contacts)",
       }}
-      className="w-full h-screen flex flex-col   text-white overflow-hidden"
+      className="w-full h-screen flex flex-col text-white overflow-hidden "
     >
       {/* HEADER */}
       <div
-        className=" w-full h-[180px]  px-4 pt-6 z-50 flex flex-col gap-3 sm:h-[150px]"
+        className="w-full h-[180px] px-4 pt-6 z-50 flex flex-col gap-3 sm:h-[150px]"
         style={{
-          background:
-            "linear-gradient(180deg, #361073 0%, #2C2199 33.72%, #3444B3 69.43%, #417BCA 100%)",
+          background: "var(--bg-gradient-contacts)",
         }}
       >
         <div className="flex items-start justify-between">
@@ -276,6 +271,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
               setIsContactsOpen(false);
               setIsSettingsOpen(false);
             }}
+            className="text-[var(--balance)]"
           >
             <ArrowLeft size={24} />
           </button>
@@ -285,31 +281,27 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
           </button>
         </div>
 
-        <h1 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold">
+        <h1 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[var(--balance)]">
           Переказ на картку
         </h1>
 
         <div className="relative w-full">
           <input
-            type="text"
+            type="tel"
             value={inputValue}
-            maxLength={19} // 16 цифр + 3 пробела, если вдруг пользователь попробует редактировать
+            maxLength={19}
             onChange={(e) => {
-              let value = e.target.value.replace(/\D/g, ""); // убираем все нецифры
-
-              if (value.length > 16) value = value.slice(0, 16); // максимум 16 цифр
-
-              // если введено ровно 16 цифр — добавляем пробелы
+              let value = e.target.value.replace(/\D/g, "");
+              if (value.length > 16) value = value.slice(0, 16);
               if (value.length === 16) {
                 value = value.replace(/(.{4})/g, "$1 ").trim();
               }
-
               setInputValue(value);
             }}
             placeholder="Уведіть ім’я, номер картки або телефону"
-            className="w-full pr-10 pl-4 placeholder-[#91A2B1] opacity-80 py-3 rounded-2xl text-white focus:outline-none text-[14px] sm:text-[15px]"
+            className="w-full pr-10 pl-4 placeholder-[var(--text-placeholder)] opacity-80 py-3 rounded-2xl text-white focus:outline-none text-[14px] sm:text-[15px]"
             style={{
-              background: "linear-gradient(180deg, #2E45A3 0%, #3964B3 100%)",
+              background: "var(--bg-gradient-input)",
             }}
           />
           <img
@@ -321,23 +313,25 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       </div>
 
       {/* CONTENT */}
-      <div className="pt-4 bg-[#121212] overflow-y-auto scrollbar-none px-3 sm:px-4 md:px-6 flex-1 space-y-4 scroll-hidden">
+      <div className="pt-4 bg-[var(--bg-primary)] overflow-y-auto scrollbar-none px-3 sm:px-4 md:px-6 flex-1 space-y-4 scroll-hidden">
         {!foundCard ? (
           <>
             <div>
-              <div className="p-4 flex gap-3 items-center bg-[#1E1E1E] rounded-2xl">
+              <div className="p-4 flex gap-3 items-center bg-[var(--bg-secondary)] rounded-2xl">
                 <img src={group} alt="group" className="w-6 sm:w-7 h-auto" />
-                <div className="text-[#E0E0E0] text-[15px] sm:text-[16px]">
+                <div className="text-[var(--gray-8)] text-[15px] sm:text-[16px]">
                   Групові витрати
                 </div>
               </div>
             </div>
 
-            <div className="h-[1px] w-full bg-[#4B4B4B]" />
+            <div className="h-[1px] w-full bg-[var(--bg-divider)]" />
 
             <div>
-              <div className="bg-[#1E1E1E] rounded-3xl p-4">
-                <h1 className="text-xl sm:text-2xl font-bold mb-2">Контакти</h1>
+              <div className="bg-[var(--bg-secondary)] rounded-3xl p-4">
+                <h1 className="text-xl sm:text-2xl font-bold mb-2 text-[var(--text-primary)]">
+                  Контакти
+                </h1>
                 <ul className="space-y-4">
                   {contacts.map((c) => {
                     const firstLetter = c.name.charAt(0).toUpperCase();
@@ -358,12 +352,12 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                               className="w-5 h-5 left-7 rounded-full top-6 absolute"
                             />
                           </div>
-                          <p className="flex-1 text-[#E0E0E0] text-[15px] sm:text-[16px] truncate">
+                          <p className="flex-1 text-[var(--gray-8)] text-[15px] sm:text-[16px] truncate">
                             {c.name}
                           </p>
                           <Star
                             size={18}
-                            color="#E1E1E1"
+                            color="var(--text-primary)"
                             className="flex-shrink-0"
                           />
                         </div>
@@ -376,8 +370,10 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
           </>
         ) : (
           <div>
-            <div className="bg-[#1E1E1E] rounded-3xl p-4">
-              <h1 className="text-xl sm:text-2xl font-bold mb-2">Знайдено</h1>
+            <div className="bg-[var(--bg-secondary)] rounded-3xl p-4">
+              <h1 className="text-xl sm:text-2xl font-bold mb-2 text-[var(--text-primary)]">
+                Знайдено
+              </h1>
               <ul className="space-y-4">
                 {foundCard && (
                   <li
@@ -386,9 +382,9 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                     className="flex justify-between items-center cursor-pointer"
                   >
                     <div className="flex items-center gap-4 w-full rounded-xl">
-                      <div className="relative bg-black/60 w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0">
+                      <div className="relative bg-[var(--bg-overlay)] w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0">
                         {["4441", "4899", "4042"].includes(
-                          foundCard.replace(/\s+/g, "").slice(0, 4)
+                          foundCard.replace(/\s+/g, "").slice(0, 4),
                         ) ? (
                           <img
                             src={randomAvatar}
@@ -405,19 +401,18 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                             <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
                           </svg>
                         )}
-
                         <div>{getBankIcon(foundCard)}</div>
                       </div>
-                      <p className="flex-1 text-[#E0E0E0] text-[15px] sm:text-[16px] break-all">
+                      <p className="flex-1 text-[var(--gray-8)] text-[15px] sm:text-[16px] break-all">
                         {["4441", "5375", "4899", "4042"].includes(
-                          foundCard.replace(/\s+/g, "").slice(0, 4)
+                          foundCard.replace(/\s+/g, "").slice(0, 4),
                         )
                           ? randomName
                           : foundCard}
                       </p>
                       <Star
                         size={18}
-                        color="#E1E1E1"
+                        color="var(--text-primary)"
                         className="flex-shrink-0"
                       />
                     </div>

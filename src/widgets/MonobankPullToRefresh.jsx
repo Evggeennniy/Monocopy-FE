@@ -19,9 +19,8 @@ const DraggableDownWrapper = ({
   const containerRef = useRef(null);
 
   const MAX_PULL = 50;
-  const FLY_DURATION = 1200; // ms
+  const FLY_DURATION = 1200;
 
-  // --- MOUSE handlers (unchanged) ---
   const handleMouseDown = (e) => {
     startY.current = e.clientY;
     isDragging.current = true;
@@ -52,15 +51,12 @@ const DraggableDownWrapper = ({
     document.body.style.userSelect = "";
   };
 
-  // --- Touch: use native listeners so we can preventDefault selectively ---
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
     const onTouchStart = (e) => {
-      // начальная координата (не начинаем drag сразу — только запомним старт)
       startY.current = e.touches[0].clientY;
-      // don't set isDragging yet — решим в move, чтобы не блокировать scroll
       isDragging.current = false;
       setIsFlying(false);
       setFlyRect(null);
@@ -73,11 +69,8 @@ const DraggableDownWrapper = ({
       const delta = currentY - (startY.current ?? currentY);
       lastDelta = delta;
 
-      // Если тянем вниз (delta > 0) и страница вверху — перехватываем (preventDefault) и начинаем drag
       if (delta > 0 && window.scrollY === 0) {
-        // отменяем нативный скролл только в этом конкретном случае
         e.preventDefault();
-        // включаем режим drag (если ещё не включён)
         if (!isDragging.current) {
           isDragging.current = true;
         }
@@ -90,7 +83,6 @@ const DraggableDownWrapper = ({
     };
 
     const onTouchEnd = () => {
-      // если мы были в dragging — завершаем с логикой взлёта
       if (isDragging.current) {
         isDragging.current = false;
         if (lastDelta > 0) {
@@ -111,7 +103,6 @@ const DraggableDownWrapper = ({
       lastDelta = 0;
     };
 
-    // Passive false — чтобы можно было preventDefault()
     el.addEventListener("touchstart", onTouchStart, { passive: true });
     el.addEventListener("touchmove", onTouchMove, { passive: false });
     el.addEventListener("touchend", onTouchEnd, { passive: true });
@@ -125,12 +116,9 @@ const DraggableDownWrapper = ({
     };
   }, [setOffsetY]);
 
-  // скрываем клона после анимации
   useEffect(() => {
     if (!isFlying) return;
 
-    // setHasFlown(false);
-    // localStorage.setItem("finishedFlying", "false");
     setHasFlown(true);
 
     const t = setTimeout(() => {
@@ -145,7 +133,6 @@ const DraggableDownWrapper = ({
         localStorage.setItem("finishedFlying", "false");
       }, 800);
 
-      // clear inner timeout when unmount/cleanup
       return () => clearTimeout(resetT);
     }, FLY_DURATION);
 
@@ -162,7 +149,6 @@ const DraggableDownWrapper = ({
         ...style,
         position: "relative",
         overflow: "visible",
-        // НЕ ставим touchAction: "none" — чтобы не блокировать нативный скролл
         touchAction: "auto",
       }}
       onMouseDown={handleMouseDown}
@@ -170,7 +156,6 @@ const DraggableDownWrapper = ({
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      {/* Абсолютный блок — вылезает из-под компонента при таче */}
       {(offsetY > 0 || (!isFlying && flyRect)) && (
         <div
           ref={blockRef}
@@ -219,24 +204,17 @@ const DraggableDownWrapper = ({
   );
 };
 
-/**
- * FlyingAnimator — компонент, который рендерит fixed-клон и запускает анимацию
- * отдельно, чтобы transition корректно сработал (от 0 -> -100vh).
- */
 const FlyingAnimator = ({ flyRect, duration }) => {
   const elRef = useRef(null);
   useEffect(() => {
-    // через RAF ставим transform чтобы transition сработал
     const el = elRef.current;
     if (!el) return;
-    // первоначально мы рендерим transform(0) (в inline-стиле ниже).
-    // в следующем тикe заставим его лететь.
+
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         el.style.transform = "translateY(-100vh)";
       });
     });
-    // очистка — опционально
     return () => {};
   }, [flyRect]);
 
@@ -264,7 +242,7 @@ const FlyingAnimator = ({ flyRect, duration }) => {
         style={{ width: 50, height: 70 }}
       />
     </div>,
-    document.body
+    document.body,
   );
 };
 

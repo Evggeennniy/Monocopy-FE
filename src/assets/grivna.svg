@@ -3,7 +3,7 @@
 <rect x="0.101562" y="0.5" width="33" height="33" fill="url(#pattern0_54_143)"/>
 </mask>
 <g mask="url(#mask0_54_143)">
-<rect x="0.101562" y="0.5" width="33" height="33" fill="#E1E1E1"/>
+<rect x="0.101562" y="0.5" width="33" height="33" fill="currentColor"/>
 <path d="M2.60156 16H31.1016V18H2.60156V16Z" fill="#16265A"/>
 </g>
 <defs>

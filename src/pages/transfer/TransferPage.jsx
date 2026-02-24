@@ -4,7 +4,8 @@ import { contacts } from "../../widgets/dashboard/Contacts";
 import { ArrowLeft, MessageCircle, Star } from "lucide-react";
 import transfer_black_card from "../../assets/transfer_black_card.svg";
 import comment from "../../assets/comment.svg";
-import grivna from "../../assets/grivna.svg";
+// import grivna from "../../assets/uah-icon.svg";
+import Grivna from "../../assets/grivna.svg?react";
 import prize from "../../assets/prize.svg";
 import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
@@ -32,6 +33,7 @@ export default function TransferPage() {
   const [commentValue, setCommentValue] = useState("");
   const [randomUser, setRandomUser] = useState("");
   const [canSubmit, setCanSubmit] = useState(false);
+
   useEffect(() => {
     async function fetchCards() {
       try {
@@ -88,13 +90,14 @@ export default function TransferPage() {
     console.log(Boolean(newValue));
     setCanSubmit(Boolean(newValue));
   };
+
   const handleBackspace = () => {
     const newValue = value.slice(0, -1);
     setValue((prev) => prev.slice(0, -1));
     console.log(Boolean(newValue));
     setCanSubmit(Boolean(newValue));
   };
-  // const bankName = getBankName(foundCard);
+
   const submit = async (e) => {
     e.preventDefault();
     let formData;
@@ -154,28 +157,33 @@ export default function TransferPage() {
     }
   };
 
-  if (loading) return <p className="text-white">Loading...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+  if (loading)
+    return <p className="text-[var(--transfer-text-primary)]">Loading...</p>;
+  if (error) return <p className="text-[var(--transfer-error)]">{error}</p>;
+
   console.log(value);
+
   return (
-    <div className="bg-[#1E1E1E]  text-white h-screen flex flex-col pb-[40px] justify-between">
+    <div
+      className={` bg-[var(--transfer-bg)] text-[var(--transfer-text-primary)] h-screen flex flex-col pb-[40px] justify-between`}
+    >
       {/* Header */}
       <div className="p-4 sm:p-6">
         <button
           onClick={() => navigate("/dashboard")}
           className="mb-4 sm:mb-6 hover:opacity-80 transition"
         >
-          <ArrowLeft className="w-6 h-6 sm:w-7 sm:h-7 text-gray-300" />
+          <ArrowLeft className="w-6 h-6 sm:w-7 sm:h-7 text-[var(--transfer-text-gray-300)]" />
         </button>
 
         <div className="flex relative items-center gap-3 sm:gap-4">
-          <div className="w-[45px] h-[45px] relative rounded-full flex items-center justify-center text-white text-lg bg-black/60">
+          <div className="w-[45px] h-[45px] relative rounded-full flex items-center justify-center text-[var(--transfer-text-primary)] text-lg bg-[var(--transfer-avatar-bg)]">
             {/* Дефолтный белый силуэт */}
             {!transactionData && id && randomUser.avatar && (
               <>
                 <img
                   src={randomUser.avatar}
-                  className="w-[45px] h-[45px]  rounded-full "
+                  className="w-[45px] h-[45px] rounded-full"
                   alt=""
                 />
               </>
@@ -183,13 +191,13 @@ export default function TransferPage() {
             {transactionData?.image_withdraw ? (
               <img
                 src={transactionData?.image_withdraw}
-                className="w-[45px] h-[45px]  rounded-full "
+                className="w-[45px] h-[45px] rounded-full"
                 alt=""
               />
             ) : transactionData?.image_deposit ? (
               <img
                 src={transactionData?.image_deposit}
-                className="w-[45px] h-[45px]  rounded-full "
+                className="w-[45px] h-[45px] rounded-full"
                 alt=""
               />
             ) : (
@@ -208,7 +216,6 @@ export default function TransferPage() {
               let card;
 
               if (transactionData?.operation_type === "deposit") {
-                // card = transactionData.from_card;
                 return (
                   <div className="absolute inset-0 flex items-center justify-center">
                     {getBankIconByName(transactionData?.bank)}
@@ -231,8 +238,9 @@ export default function TransferPage() {
               );
             })()}
           </div>
+
           <div>
-            <h2 className="font-semibold text-base sm:text-lg text-[#E0E0E0]">
+            <h2 className="font-semibold text-base sm:text-lg text-[var(--transfer-text-secondary)]">
               {(() => {
                 let card;
                 if (transactionData?.operation_type === "deposit") {
@@ -248,8 +256,9 @@ export default function TransferPage() {
                 }
               })()}
             </h2>
+
             {["4441", "5375", "4899", "4042"].includes(
-              id.replace(/\s+/g, "").slice(0, 4)
+              id.replace(/\s+/g, "").slice(0, 4),
             ) && (
               <div className="flex items-center gap-1 sm:gap-2">
                 <img
@@ -257,7 +266,7 @@ export default function TransferPage() {
                   alt=""
                   className="w-[14px] sm:w-[18px]"
                 />
-                <p className="text-[12px] sm:text-[14px] text-[#91A2B1]">
+                <p className="text-[12px] sm:text-[14px] text-[var(--transfer-text-tertiary)]">
                   На чорну картку
                 </p>
               </div>
@@ -267,15 +276,15 @@ export default function TransferPage() {
       </div>
 
       {/* Amount */}
-      <div className="flex flex-col items-center justify-center  text-center">
-        <div className="flex gap-1 items-center border border-[#323232] text-[#E1E1E1] px-3 py-1 sm:px-4 sm:py-2 rounded-full text-[14px] mb-3 sm:mb-4">
+      <div className="flex flex-col items-center justify-center text-center">
+        <div className="flex gap-1 items-center border border-[var(--transfer-border)] text-[var(--transfer-text-amount)] px-3 py-1 sm:px-4 sm:py-2 rounded-full text-[14px] mb-3 sm:mb-4">
           <img
             src={transfer_black_card}
             alt=""
             className="w-[18px] h-[14px] sm:w-[20px] sm:h-[16px]"
           />
           <p className="text-sm sm:text-base">{cards[0]?.balance}</p>
-          <img src={grivna} alt="₴" className="w-3 h-3 object-contain" />
+          <Grivna className="w-3 h-3 text-[var(--transfer-text-primary)] object-contain" />
         </div>
 
         <div className="flex justify-center mt-4 sm:mt-6">
@@ -283,34 +292,36 @@ export default function TransferPage() {
             <input
               type="text"
               readOnly
+              ref={inputRef}
               value={value}
               onChange={(e) => setValue(e.target.value)}
               placeholder="0"
-              className="text-4xl sm:text-5xl md:text-6xl text-right font-semibold bg-transparent outline-none text-[#E1E1E1]
+              className="text-4xl sm:text-5xl md:text-6xl text-right font-semibold bg-transparent outline-none text-[var(--transfer-text-amount)]
                [appearance:textfield]
                [&::-webkit-outer-spin-button]:appearance-none
                [&::-webkit-inner-spin-button]:appearance-none
-               placeholder-[#E1E1E1]"
+               placeholder-[var(--transfer-text-amount)]"
               style={{
                 width: `${(value.length || 1) + 1}ch`,
               }}
             />
-            <img
+            <Grivna className="w-8 h-8 text-[var(--transfer-text-primary)] sm:w-10 sm:h-10 object-contain mt-1" />
+            {/* <img
               src={grivna}
               alt="₴"
               className="w-8 h-8 sm:w-10 sm:h-10 object-contain mt-1"
-            />
+            /> */}
           </div>
         </div>
 
-        <p className="text-gray-400 text-[13px] sm:text-[14px] mt-2">
+        <p className="text-[var(--transfer-text-gray-400)] text-[13px] sm:text-[14px] mt-2">
           Немає комісії
         </p>
       </div>
 
       {/* Footer */}
       <div className="">
-        <div className="border-t border-[#323232]  sm:mt-8">
+        <div className="border-t border-[var(--transfer-border)] sm:mt-8">
           <div className="p-4 sm:p-6">
             <div className="flex justify-between items-center gap-3 mb-3 sm:mb-5">
               <div className="flex items-center gap-3 sm:gap-4 flex-1">
@@ -322,15 +333,15 @@ export default function TransferPage() {
                 <input
                   type="text"
                   placeholder="Коментар..."
-                  className="flex-1 w-[100px] bg-transparent text-[#91A2B1] focus:outline-none text-[13px] sm:text-[14px]"
+                  className="flex-1 w-[100px] bg-transparent text-[var(--transfer-text-tertiary)] focus:outline-none text-[13px] sm:text-[14px]"
                   onChange={(e) => setCommentValue(e.target.value)}
                   onFocus={() => setShowKeyboard(false)}
                   onBlur={() => setShowKeyboard(true)}
                 />
               </div>
 
-              <button className="w-[46px] shrink-0 sm:w-[56px] h-[26px] sm:h-[56px] rounded-full border border-[#323232] flex items-center justify-center hover:bg-[#2F2F2F] transition">
-                <img src={prize} alt="" className="w-[16px] h-[16px] " />
+              <button className="w-[46px] shrink-0 sm:w-[56px] h-[26px] sm:h-[56px] rounded-full border border-[var(--transfer-border)] flex items-center justify-center hover:bg-[var(--transfer-button-hover)] transition">
+                <img src={prize} alt="" className="w-[16px] h-[16px]" />
               </button>
             </div>
 
@@ -338,39 +349,43 @@ export default function TransferPage() {
               <div
                 className={`${
                   canSubmit
-                    ? "p-[1px] bg-gradient-to-r from-[#E75F5B] to-[#DA3AB0] rounded-2xl"
+                    ? "p-[1px] bg-gradient-to-r from-[var(--transfer-gradient-start)] to-[var(--transfer-gradient-end)] rounded-2xl"
                     : "p-[1px]"
                 }`}
               >
                 <button
-                  className={`bg-[#2F2F2F] p-4 sm:p-5 rounded-2xl text-white hover:bg-[#3A3A3A] transition w-full h-full`}
+                  className={`bg-[var(--transfer-button-bg)] p-4 sm:p-5 rounded-2xl text-[var(--transfer-text-primary)] hover:bg-[var(--transfer-button-hover)] transition w-full h-full`}
                 >
                   <Star className="w-5 h-5 inline-block" />
                 </button>
               </div>
+
               <button
                 onClick={submit}
                 className={`${
-                  canSubmit ? "bg-[#E75F5B]" : "bg-[#414141] hover:bg-[#4A4A4A]"
-                } w-full py-3 sm:py-4 rounded-2xl text-[#FFFFFF] text-[14px] sm:text-[15px] font-semibold  transition`}
+                  canSubmit
+                    ? "bg-[var(--transfer-button-active)]"
+                    : "bg-[var(--transfer-button-disabled)] hover:bg-[var(--transfer-button-disabled-hover)]"
+                } w-full py-3 sm:py-4 rounded-2xl text-[var(--transfer-text-primary)] text-[14px] sm:text-[15px] font-semibold transition`}
               >
                 Надіслати
               </button>
             </div>
           </div>
         </div>
+
         <div
-          className={`bg-[#323232] flex flex-col items-center justify-center text-white 
+          className={`bg-[var(--transfer-keyboard-bg)] flex flex-col items-center justify-center text-[var(--transfer-text-primary)] 
     transform transition-transform
-    ${showKeyboard ? " opacity-100 h-auto" : " h-[200px]  opacity-0 "}`}
+    ${showKeyboard ? "opacity-100 h-auto" : "h-[200px] opacity-0"}`}
         >
-          <div className="grid grid-cols-6 gap-1 bg-[#3a3a3c] w-full">
+          <div className="grid grid-cols-6 gap-1 bg-[var(--transfer-keyboard-top-bg)] w-full">
             {["x", "/", "+", "-", "%", "="].map((op, i) => (
               <button
                 key={i}
                 disabled={true}
                 onClick={() => handleClick(op)}
-                className="   py-3 text-xl rounded-lg  transition"
+                className="py-3 text-xl rounded-lg transition text-[var(--transfer-text-primary)]"
               >
                 {op}
               </button>
@@ -378,8 +393,6 @@ export default function TransferPage() {
           </div>
 
           <div className="grid grid-cols-3 pt-2 pb-9 px-1 gap-2 w-full">
-            {/* Первый ряд: операции */}
-
             {/* Второй ряд: 1,2(abc),3(def) */}
             {[
               { label: "1", sub: "" },
@@ -389,10 +402,12 @@ export default function TransferPage() {
               <button
                 key={i}
                 onClick={() => handleClick(item.label)}
-                className="bg-[#6f6f6f] py-[3px] text-xl rounded-lg hover:bg-[#444] transition flex flex-col items-center"
+                className="bg-[var(--transfer-keyboard-btn-bg)] py-[3px] text-xl rounded-lg hover:bg-[var(--transfer-keyboard-btn-hover)] transition flex flex-col items-center text-[var(--transfer-text-primary)]"
               >
                 <span>{item.label}</span>
-                <span className="text-[10px]">{item.sub}</span>
+                <span className="text-[10px] text-[var(--transfer-text-tertiary)]">
+                  {item.sub}
+                </span>
               </button>
             ))}
 
@@ -405,10 +420,12 @@ export default function TransferPage() {
               <button
                 key={i}
                 onClick={() => handleClick(item.label)}
-                className="bg-[#6f6f6f] py-[3px] text-xl rounded-lg hover:bg-[#444] transition flex flex-col items-center"
+                className="bg-[var(--transfer-keyboard-btn-bg)] py-[3px] text-xl rounded-lg hover:bg-[var(--transfer-keyboard-btn-hover)] transition flex flex-col items-center text-[var(--transfer-text-primary)]"
               >
                 <span>{item.label}</span>
-                <span className="text-[10px]">{item.sub}</span>
+                <span className="text-[10px] text-[var(--transfer-text-tertiary)]">
+                  {item.sub}
+                </span>
               </button>
             ))}
 
@@ -421,29 +438,31 @@ export default function TransferPage() {
               <button
                 key={i}
                 onClick={() => handleClick(item.label)}
-                className="bg-[#6f6f6f] py-[3px] text-xl rounded-lg hover:bg-[#444] transition flex flex-col items-center"
+                className="bg-[var(--transfer-keyboard-btn-bg)] py-[3px] text-xl rounded-lg hover:bg-[var(--transfer-keyboard-btn-hover)] transition flex flex-col items-center text-[var(--transfer-text-primary)]"
               >
                 <span>{item.label}</span>
-                <span className="text-[10px]">{item.sub}</span>
+                <span className="text-[10px] text-[var(--transfer-text-tertiary)]">
+                  {item.sub}
+                </span>
               </button>
             ))}
 
             {/* Пятый ряд: , 0 назад */}
             <button
               onClick={() => handleClick(",")}
-              className=" py-1 text-xl rounded-lg  transition"
+              className="py-1 text-xl rounded-lg transition text-[var(--transfer-text-primary)]"
             >
               ,
             </button>
             <button
               onClick={() => handleClick("0")}
-              className="bg-[#6f6f6f] py-[6px] text-xl rounded-lg hover:bg-[#444] transition"
+              className="bg-[var(--transfer-keyboard-btn-bg)] py-[6px] text-xl rounded-lg hover:bg-[var(--transfer-keyboard-btn-hover)] transition text-[var(--transfer-text-primary)]"
             >
               0
             </button>
             <button
               onClick={handleBackspace}
-              className=" py-1 text-xl rounded-lg hover:bg-[#666] transition"
+              className="py-1 text-xl rounded-lg hover:bg-[var(--transfer-keyboard-backspace-hover)] transition text-[var(--transfer-text-primary)]"
             >
               ⌫
             </button>

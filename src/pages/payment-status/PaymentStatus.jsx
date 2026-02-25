@@ -20,7 +20,9 @@ function PaymentStatus() {
   console.log(data);
   const { theme, toggleTheme } = useTheme();
   return (
-    <div className="bg-[var(--gray-1)] pb-[40px] flex flex-col justify-around h-screen p-3">
+    <div
+      className={` ${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "}pb-[40px] flex flex-col justify-around h-screen p-3`}
+    >
       <div className="mt-[50px] flex flex-col items-center mb-[44px]">
         <img
           src={theme == "light" ? cat_big_white : cat_big}
@@ -49,7 +51,9 @@ function PaymentStatus() {
         </div>
       </div>
 
-      <div className="p-5 mb-[35px] bg-[var(--bg-secondary)] rounded-xl">
+      <div
+        className={`  ${theme == "light" ? "bg-[var(--bg-secondary)] " : "bg-[var(--gray-1)]"} p-5 mb-[35px] ] rounded-xl`}
+      >
         <div className="flex items-center gap-3 mb-[20px]">
           <img
             src={theme == "light" ? link_white : link}

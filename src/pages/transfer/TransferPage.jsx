@@ -392,7 +392,7 @@ export default function TransferPage() {
             ))}
           </div>
 
-          <div className="grid grid-cols-3 pt-2 pb-9 px-1 gap-2 w-full">
+          <div className="grid grid-cols-3 pt-2 pb-15 px-1 gap-2 w-full">
             {/* Второй ряд: 1,2(abc),3(def) */}
             {[
               { label: "1", sub: "" },

@@ -17,6 +17,7 @@ import { API_URL } from "../../url";
 import mono from "../../assets/mono.jpg";
 import { getBankIcon, getBankName } from "../../shared/getBankIcon";
 import { getRandomRussianUser } from "../../util/users";
+import { useTheme } from "../../util/useTheme";
 export const contacts = [
   {
     id: 1,
@@ -212,7 +213,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
   const [foundCard, setFoundCard] = useState(null);
   const [randomName, setRandomName] = useState("");
   const [randomAvatar, setAvatar] = useState("");
-
+  const { theme, toggleTheme } = useTheme();
   useEffect(() => {
     const clean = inputValue.replace(/\s+/g, "");
 
@@ -317,7 +318,9 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
         {!foundCard ? (
           <>
             <div>
-              <div className="p-4 flex gap-3 items-center bg-[var(--bg-secondary)] rounded-2xl">
+              <div
+                className={`${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "} p-4 flex gap-3 items-center  rounded-2xl `}
+              >
                 <img src={group} alt="group" className="w-6 sm:w-7 h-auto" />
                 <div className="text-[var(--gray-8)] text-[15px] sm:text-[16px]">
                   Групові витрати
@@ -328,7 +331,9 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
             <div className="h-[1px] w-full bg-[var(--bg-divider)]" />
 
             <div>
-              <div className="bg-[var(--bg-secondary)] rounded-3xl p-4">
+              <div
+                className={`${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "} rounded-3xl p-4`}
+              >
                 <h1 className="text-xl sm:text-2xl font-bold mb-2 text-[var(--text-primary)]">
                   Контакти
                 </h1>

@@ -239,7 +239,7 @@
   /* Акцентные цвета */
   --transfer-gradient-start: #e75f5b;
   --transfer-gradient-end: #da3ab0;
-  --transfer-button-active: #e75f5b;
+  --transfer-button-active: #ef4444;
 
   /* Цвета ошибок */
   --transfer-error: #dc2626;

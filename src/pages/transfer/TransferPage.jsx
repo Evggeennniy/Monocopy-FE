@@ -366,7 +366,7 @@ export default function TransferPage() {
                   canSubmit
                     ? "bg-[var(--transfer-button-active)]"
                     : "bg-[var(--transfer-button-disabled)] hover:bg-[var(--transfer-button-disabled-hover)]"
-                } w-full py-3 sm:py-4 rounded-2xl text-[var(--transfer-text-primary)] text-[14px] sm:text-[15px] font-semibold transition`}
+                } w-full py-3 sm:py-4 rounded-2xl text-[var(--balance)] text-[14px] sm:text-[15px] font-semibold transition`}
               >
                 Надіслати
               </button>

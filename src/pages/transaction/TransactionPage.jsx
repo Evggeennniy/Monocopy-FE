@@ -188,13 +188,13 @@ export default function TransactionPage() {
                     {transactionData.comment}
                   </div>
                 </div>
-                <div className="w-[70%] h-[50px] mx-auto">
+                {/* <div className="w-[70%] h-[50px] mx-auto">
                   <img
                     className="h-full w-full object-contain"
                     src={response_icon}
                     alt="response"
                   />
-                </div>
+                </div> */}
               </div>
             )}
 
@@ -321,13 +321,13 @@ export default function TransactionPage() {
                     {transactionData.comment}
                   </div>
                 </div>
-                <div className="w-[80%] h-[50px] ml-auto">
+                {/* <div className="w-[80%] h-[50px] ml-auto">
                   <img
                     className="h-full w-full object-contain"
                     src={response_icon}
                     alt=""
                   />
-                </div>
+                </div> */}
               </div>
             )}
 

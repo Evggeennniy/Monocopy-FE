@@ -21,7 +21,7 @@ function PaymentStatus() {
   const { theme, toggleTheme } = useTheme();
   return (
     <div
-      className={` ${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "}pb-[40px] flex flex-col justify-around h-screen p-3`}
+      className={` ${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "} pb-[40px] flex flex-col justify-around h-screen p-3`}
     >
       <div className="mt-[50px] flex flex-col items-center mb-[44px]">
         <img

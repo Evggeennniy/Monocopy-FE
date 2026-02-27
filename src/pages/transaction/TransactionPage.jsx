@@ -26,8 +26,8 @@ import bank from "../../assets/bank-svgrepo.svg";
 import mono from "../../assets/mono.jpg";
 import massage_icon from "../../assets/message-icon.svg";
 import response_icon from "../../assets/response-icon.png";
-import return_icon from "../../assets/return-icon.svg";
-import question_icon from "../../assets/question-icon.svg";
+import Return_icon from "../../assets/return-icon.svg?react";
+import Question_icon from "../../assets/question-icon.svg?react";
 
 import { formatCardNumber } from "../../util/formatCardNumber";
 import { getBankIconByName } from "../../shared/getBankIcon";
@@ -231,11 +231,15 @@ export default function TransactionPage() {
                 onClick={() => navigate(`/transfer/${transactionData.id}`)}
                 className="flex items-center gap-4 pl-[20px] cursor-pointer"
               >
-                <img
+                <Return_icon
+                  className=" w-[25px] h-[47px]"
+                  color="var(--icon)"
+                />
+                {/* <img
                   src={return_icon}
                   alt=""
                   className="flex-1 w-[25px] h-[47px]"
-                />
+                /> */}
                 <p className="text-[16px] h-full flex justify-center flex-col flex-13 text-[var(--gray-8)]">
                   <div>Відповісти платижем</div>
                   <div className="h-[2px] mt-[11px] bg-[var(--bg-divider)] w-full"></div>
@@ -243,11 +247,15 @@ export default function TransactionPage() {
               </div>
 
               <div className="flex items-center gap-3 h-[47px] pl-[10px]">
-                <img
+                <Question_icon
+                  className=" w-[43px] h-[43px] object-cover shrink-0"
+                  color="var(--icon)"
+                />
+                {/* <img
                   src={question_icon}
                   alt=""
                   className="flex-1 w-[43px] h-[43px] object-cover"
-                />
+                /> */}
                 <p className="text-[16px] h-full flex justify-center flex-col flex-13 text-[var(--gray-8)]">
                   <div>Поставити запитання</div>
                   <div className="h-[2px] mt-[11px] bg-[var(--bg-divider)] w-full"></div>

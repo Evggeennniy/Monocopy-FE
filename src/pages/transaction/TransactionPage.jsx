@@ -32,6 +32,7 @@ import Question_icon from "../../assets/question-icon.svg?react";
 import { formatCardNumber } from "../../util/formatCardNumber";
 import { getBankIconByName } from "../../shared/getBankIcon";
 import { useTheme } from "../../util/useTheme";
+import setThemeColor from "../../util/setThemeColor";
 // import { useTheme } from "../../util/useTheme";
 
 function formatUADate(isoString) {
@@ -88,7 +89,9 @@ export default function TransactionPage() {
     }
     fetchTransaction();
   }, [id]);
-
+  useEffect(() => {
+    setThemeColor("var(--blue-primary)");
+  }, []);
   console.log(transactionData);
   if (!transactionData) return null;
 

@@ -15,7 +15,7 @@ const onRefreshed = (newAccessToken) => {
 const logout = () => {
   Cookies.remove("access");
   Cookies.remove("refresh");
-  window.location.href = "/";
+  // window.location.href = "/";
 };
 
 const fetchWithAuth = async (url, options = {}, { onTokenUpdate } = {}) => {

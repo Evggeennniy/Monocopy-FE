@@ -23,6 +23,7 @@ import bank_cards from "../../assets/bank-cards.svg";
 import loadingIcon from "../../assets/loading.svg";
 import { RefreshCw } from "lucide-react";
 import { useTheme } from "../../util/useTheme";
+import setThemeColor from "../../util/setThemeColor";
 // import { useTheme } from "../../util/useTheme";
 
 export default function Balance() {
@@ -79,6 +80,11 @@ export default function Balance() {
     intervalId = setInterval(fetchCards, 5000);
     return () => clearInterval(intervalId);
   }, []);
+  useEffect(() => {
+    if (!theme) return;
+
+    setThemeColor("var(--gradient-default-start)");
+  }, [theme]);
 
   const gradientBg =
     !isSettingsOpen && !isContactsOpen && !showAll

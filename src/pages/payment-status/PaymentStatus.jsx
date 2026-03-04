@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import cat_big from "../../assets/cat_big.png";
 import cat_big_white from "../../assets/cat_big_white.jpg";
@@ -12,6 +12,7 @@ import share from "../../assets/share.png";
 import { useNavigate } from "react-router-dom";
 import { formatCardNumber } from "../../util/formatCardNumber";
 import { useTheme } from "../../util/useTheme";
+import setThemeColor from "../../util/setThemeColor";
 
 function PaymentStatus() {
   const navigate = useNavigate();
@@ -19,6 +20,9 @@ function PaymentStatus() {
   const data = JSON.parse(localStorage.getItem("formData"));
   console.log(data);
   const { theme, toggleTheme } = useTheme();
+  useEffect(() => {
+    setThemeColor(theme == "light" ? "var(--gray-1)" : "var(--bg-secondary)");
+  }, [theme]);
   return (
     <div
       className={` ${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "} pb-[40px] flex flex-col justify-around h-screen p-3`}

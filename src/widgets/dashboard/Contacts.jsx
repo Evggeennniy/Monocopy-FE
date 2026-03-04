@@ -18,6 +18,7 @@ import mono from "../../assets/mono.jpg";
 import { getBankIcon, getBankName } from "../../shared/getBankIcon";
 import { getRandomRussianUser } from "../../util/users";
 import { useTheme } from "../../util/useTheme";
+import setThemeColor from "../../util/setThemeColor";
 export const contacts = [
   {
     id: 1,
@@ -234,7 +235,9 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       setAvatar("");
     }
   }, [inputValue]);
-
+  useEffect(() => {
+    setThemeColor("var(--gradient-contacts-start)");
+  }, [theme]);
   const handleClick = () => {
     if (!foundCard) return;
     const bankName = getBankName(foundCard);

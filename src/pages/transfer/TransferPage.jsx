@@ -18,6 +18,7 @@ import {
 } from "../../shared/getBankIcon";
 import { formatCardNumber } from "../../util/formatCardNumber";
 import CustomKeyboard from "../../shared/CustomKeyboard";
+import setThemeColor from "../../util/setThemeColor";
 
 export default function TransferPage() {
   const { id } = useParams();
@@ -156,6 +157,9 @@ export default function TransferPage() {
       console.error("Ошибка при отправке:", err);
     }
   };
+  useEffect(() => {
+    setThemeColor("var(--transfer-bg)");
+  }, []);
 
   if (loading)
     return <p className="text-[var(--transfer-text-primary)]">Loading...</p>;

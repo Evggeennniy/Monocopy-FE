@@ -207,15 +207,13 @@ export default function Balance() {
                           onClick={handleGrivnaClick}
                         />
                       </p>
-
-                      {/* Перекрывающий блок */}
                       {isBalanceCovered && (
                         <div
-                          className="absolute top-0 left-0 h-full bg-[var(--transfer-button-active)]/10 rounded"
+                          className="absolute top-0 right-0 h-full bg-[var(--transfer-button-active)]/10 rounded"
                           style={{
-                            width: "40%", // Перекрывает примерно первые 60% цифр
+                            width: "13%", // Блок занимает правую часть контейнера
                             backdropFilter: "blur(8px)",
-                            pointerEvents: "none", // Чтобы блок не мешал кликам
+                            pointerEvents: "none",
                           }}
                         />
                       )}

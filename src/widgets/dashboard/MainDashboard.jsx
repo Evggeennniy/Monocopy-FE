@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import card_icon from "../../assets/card_icon.png";
+import car_icon from "../../assets/car.svg";
 import pdf_icon from "../../assets/pdf_icon.png";
 import slices_icon from "../../assets/slices.png";
 import blue_smile from "../../assets/icon.smile.svg";
@@ -68,10 +69,10 @@ function MainDashboard({
             </div>
             <div className="flex flex-col items-center gap-2 w-[77px] text-center cursor-pointer">
               <div className="w-[57px] h-[57px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
-                <img src={pdf_icon} alt="" className="w-[30px] h-[30px]" />
+                <img src={car_icon} alt="" className="w-[25px] h-[25px]" />
               </div>
               <p className="text-[13.5px] leading-[15px] font-medium text-[var(--text-primary)]">
-                Платіж <br /> за IBAN
+                Штрафы <br /> ПДР
               </p>
             </div>
             <div className="flex flex-col items-center gap-2 w-[77px] text-center cursor-pointer">

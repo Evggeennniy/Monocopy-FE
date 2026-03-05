@@ -322,7 +322,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
             />
 
             {/* Перекрывающий блок для инпута (только для полного номера) */}
-            {foundCard && isCardNumberCovered && (
+            {isCardNumberCovered && (
               <div
                 className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full bg-[var(--transfer-button-active)]/10 rounded-2xl"
                 style={{
@@ -452,19 +452,6 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                             ? randomName
                             : foundCard}
                         </p>
-
-                        {/* Перекрывающий блок для номера карты - центрированный */}
-                        {isCardNumberCovered && (
-                          <div
-                            className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full bg-[var(--transfer-button-active)]/10 rounded"
-                            style={{
-                              width: "40%", // Меньший блок для середины
-                              backdropFilter: "blur(8px)",
-                              pointerEvents: "none",
-                              left: "30%", // Центрирование (100% - 40% = 60% / 2 = 30%)
-                            }}
-                          />
-                        )}
                       </div>
 
                       <Star

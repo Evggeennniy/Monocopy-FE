@@ -72,7 +72,7 @@ function MainDashboard({
                 <img src={car_icon} alt="" className="w-[25px] h-[25px]" />
               </div>
               <p className="text-[13.5px] leading-[15px] font-medium text-[var(--text-primary)]">
-                Штрафы <br /> ПДР
+                Штрафи <br /> ПДР
               </p>
             </div>
             <div className="flex flex-col items-center gap-2 w-[77px] text-center cursor-pointer">

@@ -84,10 +84,23 @@ export default function Balance() {
     return () => clearInterval(intervalId);
   }, []);
 
+  // ✅ ИСПРАВЛЕНО: Устанавливаем цвет статус-бара при каждом заходе на страницу
   useEffect(() => {
-    if (!theme) return;
+    // Всегда устанавливаем цвет для этой страницы, независимо от темы
     setThemeColor("var(--gradient-default-start)");
-  }, [theme]);
+
+    // Опционально: можно вернуть цвет по умолчанию при уходе со страницы
+    return () => {
+      // Если нужно возвращать стандартный цвет при навигации
+      // setThemeColor("var(--default-color)");
+    };
+  }, []); // Пустой массив = выполняется только при монтировании
+
+  // Этот эффект теперь не нужен, но оставим если нужно обновлять цвет при смене темы
+  // useEffect(() => {
+  //   if (!theme) return;
+  //   setThemeColor("var(--gradient-default-start)");
+  // }, [theme]);
 
   const gradientBg =
     !isSettingsOpen && !isContactsOpen && !showAll
@@ -158,7 +171,9 @@ export default function Balance() {
           <div className="flex items-center gap-4">
             <div className="flex gap-2 items-center">
               <img src={prize} alt="price" className="w-[23px] h-[27px] pb-1" />
-              <div className="text-[var(--balance)]">7.73 ₴</div>
+              <div className="text-[var(--balance)] fira-sans-normal">
+                7.73 ₴
+              </div>
             </div>
             <div className="h-[24px] w-[1px] bg-[var(--border-divider)]" />
             <div className="flex gap-5 items-center">

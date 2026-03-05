@@ -1,5 +1,58 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Mono Sans";
+  src: url("https://fonts.monobank.ua/MonoSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mono Sans";
+  src: url("https://fonts.monobank.ua/MonoSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mono Sans";
+  src: url("https://fonts.monobank.ua/MonoSans-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mono Sans";
+  src: url("https://fonts.monobank.ua/MonoSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+.fira-sans-semibold {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+/* @font-face {
+  font-family: "Mono Sans";
+  src: url("/path-to-font/MonoSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mono Sans";
+  src: url("/path-to-font/MonoSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.font-mono {
+  font-family: "Mono Sans", "Roboto Mono", monospace !important;
+} */
 .dark-theme {
   /* ===== ОСНОВНЫЕ ЦВЕТА ===== */
   --color-white: #ffffff;
@@ -217,7 +270,7 @@
   --transfer-text-primary: #1a1a1a;
   --transfer-text-secondary: #4a4a4a;
   --transfer-text-tertiary: #6b6b6b;
-  --transfer-text-amount: #333333;
+  --transfer-text-amount: #1a1a1a;
   --transfer-text-gray-300: #4b5563;
   --transfer-text-gray-400: #6b7280;
 

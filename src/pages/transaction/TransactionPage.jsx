@@ -99,11 +99,17 @@ export default function TransactionPage() {
     <>
       {bankName !== "mono" && (
         <div className="relative bg-[var(--blue-primary)]">
+          {/* Градиент только для статус-бара - очень маленькая высота */}
+          <div className="absolute top-0 left-0 w-full h-7 bg-gradient-to-b from-[var(--blue-primary)] to-transparent pointer-events-none z-20" />
+
           <div className="h-[120px] flex flex-col">
             <button onClick={() => navigate("/dashboard")}>
               <ArrowLeft className="w-6 h-6 text-[var(--color-white)] absolute top-5 left-3" />
             </button>
           </div>
+
+          {/* Градиент для нижнего перехода */}
+          <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-b from-transparent to-[var(--gray-1)] pointer-events-none" />
         </div>
       )}
 
@@ -116,17 +122,26 @@ export default function TransactionPage() {
             alt="mono background"
             className="absolute inset-0 w-full h-full object-cover blur-sm brightness-75"
           />
+
+          {/* Градиент только для статус-бара - очень маленькая высота */}
+          <div className="absolute top-0 left-0 w-full h-7 bg-gradient-to-b from-black/40 to-transparent pointer-events-none z-20" />
+
           <div className="relative h-[120px] flex flex-col">
             <button onClick={() => navigate("/dashboard")}>
               <ArrowLeft className="w-6 h-6 text-[var(--color-white)] absolute top-5 left-3" />
             </button>
           </div>
+
+          {/* Градиент для нижнего перехода */}
+          <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-b from-transparent to-[var(--gray-1)] pointer-events-none z-10" />
         </div>
       )}
 
       {transactionData.operation_type === "deposit" && (
         <>
           <div className="bg-[var(--gray-1)] relative -top-3 w-full z-10 rounded-t-2xl flex flex-col gap-[15px] min-h-screen">
+            {/* Убираем верхний градиент из контента, оставляем только в хедере */}
+
             <div className="relative w-[80px] h-[40px] mx-auto">
               <div
                 style={{ background: "var(--blue-deposit)" }}
@@ -272,6 +287,8 @@ export default function TransactionPage() {
       {transactionData.operation_type !== "deposit" && (
         <>
           <div className="bg-[var(--gray-1)] relative -top-3 w-full z-10 rounded-t-2xl flex flex-col gap-[15px] min-h-screen">
+            {/* Убираем верхний градиент из контента, оставляем только в хедере */}
+
             <div className="relative w-[80px] h-[40px] mx-auto">
               {transactionData.image_withdraw ? (
                 <img

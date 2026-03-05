@@ -68,6 +68,14 @@ function MainDashboard({
             </div>
             <div className="flex flex-col items-center gap-2 w-[77px] text-center cursor-pointer">
               <div className="w-[57px] h-[57px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
+                <img src={pdf_icon} alt="" className="w-[30px] h-[30px]" />
+              </div>
+              <p className="text-[13.5px] leading-[15px] font-medium text-[var(--text-primary)]">
+                Платіж <br /> за IBAN
+              </p>
+            </div>
+            <div className="flex flex-col items-center gap-2 w-[77px] text-center cursor-pointer">
+              <div className="w-[57px] h-[57px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
                 <img src={slices_icon} alt="" className="w-[30px] h-[30px]" />
               </div>
               <p className="text-[13.5px] leading-[15px] font-medium text-[var(--text-primary)]">

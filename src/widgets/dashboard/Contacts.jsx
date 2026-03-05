@@ -1,9 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-
 import { motion } from "framer-motion";
-
 import { Archive, ArrowLeft, Search, Star } from "lucide-react";
-
 import archive from "../../assets/arhive.svg";
 import group from "../../assets/group.svg";
 import mono_green from "../../assets/mono_green.svg";
@@ -13,12 +10,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../url";
-
 import mono from "../../assets/mono.jpg";
 import { getBankIcon, getBankName } from "../../shared/getBankIcon";
 import { getRandomRussianUser } from "../../util/users";
 import { useTheme } from "../../util/useTheme";
 import setThemeColor from "../../util/setThemeColor";
+
 export const contacts = [
   {
     id: 1,
@@ -215,6 +212,10 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
   const [randomName, setRandomName] = useState("");
   const [randomAvatar, setAvatar] = useState("");
   const { theme, toggleTheme } = useTheme();
+
+  // ✅ Новое состояние для управления видимостью перекрывающего блока
+  const [isCardNumberCovered, setIsCardNumberCovered] = useState(false);
+
   useEffect(() => {
     const clean = inputValue.replace(/\s+/g, "");
 
@@ -235,9 +236,18 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       setAvatar("");
     }
   }, [inputValue]);
+
   useEffect(() => {
     setThemeColor("var(--gradient-contacts-start)");
   }, [theme]);
+
+  // Обработчик клика на иконку поиска
+  const handleSearchClick = () => {
+    if (foundCard) {
+      setIsCardNumberCovered(!isCardNumberCovered);
+    }
+  };
+
   const handleClick = () => {
     if (!foundCard) return;
     const bankName = getBankName(foundCard);
@@ -264,7 +274,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
     >
       {/* HEADER */}
       <div
-        className="w-full h-[180px] px-4 pt-6 z-50 flex flex-col gap-3 sm:h-[150px]"
+        className="w-full h-[160px] px-4 pt-6 z-50 flex flex-col gap-3 sm:h-[150px]"
         style={{
           background: "var(--bg-gradient-contacts)",
         }}
@@ -290,28 +300,49 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
         </h1>
 
         <div className="relative w-full">
-          <input
-            type="tel"
-            value={inputValue}
-            maxLength={19}
-            onChange={(e) => {
-              let value = e.target.value.replace(/\D/g, "");
-              if (value.length > 16) value = value.slice(0, 16);
-              if (value.length === 16) {
-                value = value.replace(/(.{4})/g, "$1 ").trim();
-              }
-              setInputValue(value);
-            }}
-            placeholder="Уведіть ім’я, номер картки або телефону"
-            className="w-full pr-10 pl-4 placeholder-[var(--text-placeholder)] opacity-80 py-3 rounded-2xl text-white focus:outline-none text-[14px] sm:text-[15px]"
-            style={{
-              background: "var(--bg-gradient-input)",
-            }}
-          />
+          {/* Контейнер для инпута с относительным позиционированием */}
+          <div className="relative">
+            <input
+              type="tel"
+              value={inputValue}
+              maxLength={19}
+              onChange={(e) => {
+                let value = e.target.value.replace(/\D/g, "");
+                if (value.length > 16) value = value.slice(0, 16);
+                if (value.length === 16) {
+                  value = value.replace(/(.{4})/g, "$1 ").trim();
+                }
+                setInputValue(value);
+              }}
+              placeholder="Уведіть ім’я, номер картки або телефону"
+              className="w-full pr-10 pl-4 placeholder-[var(--text-placeholder)] opacity-80 py-3 rounded-2xl text-white focus:outline-none text-[14px] sm:text-[15px]"
+              style={{
+                background: "var(--bg-gradient-input)",
+              }}
+            />
+
+            {/* Перекрывающий блок для инпута (только для полного номера) */}
+            {foundCard && isCardNumberCovered && (
+              <div
+                className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full bg-[var(--transfer-button-active)]/10 rounded-2xl"
+                style={{
+                  width: "28%",
+                  backdropFilter: "blur(8px)",
+                  pointerEvents: "none",
+                  left: "25%",
+                }}
+              />
+            )}
+          </div>
+
+          {/* Иконка поиска с обработчиком клика */}
           <img
             src={search}
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5"
+            className={`absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 cursor-pointer transition-opacity hover:opacity-80 active:opacity-60 ${
+              foundCard ? "opacity-100" : "opacity-50"
+            }`}
             alt="search"
+            onClick={handleSearchClick}
           />
         </div>
       </div>
@@ -365,8 +396,8 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                           </p>
                           <Star
                             size={18}
-                            color="var(--text-primary)"
-                            className="flex-shrink-0"
+                            color="var(--transfer-text-secondary) "
+                            className="flex-shrink-0 "
                           />
                         </div>
                       </li>
@@ -387,7 +418,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                   <li
                     key={foundCard}
                     onClick={handleClick}
-                    className="flex justify-between items-center cursor-pointer"
+                    className="flex justify-between items-center cursor-pointer relative"
                   >
                     <div className="flex items-center gap-4 w-full rounded-xl">
                       <div className="relative bg-[var(--bg-overlay)] w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0">
@@ -411,13 +442,31 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                         )}
                         <div>{getBankIcon(foundCard)}</div>
                       </div>
-                      <p className="flex-1 text-[var(--gray-8)] text-[15px] sm:text-[16px] break-all">
-                        {["4441", "5375", "4899", "4042"].includes(
-                          foundCard.replace(/\s+/g, "").slice(0, 4),
-                        )
-                          ? randomName
-                          : foundCard}
-                      </p>
+
+                      {/* Контейнер с относительным позиционированием для текста */}
+                      <div className="flex-1 relative">
+                        <p className="text-[var(--gray-8)] text-[15px] sm:text-[16px] break-all">
+                          {["4441", "5375", "4899", "4042"].includes(
+                            foundCard.replace(/\s+/g, "").slice(0, 4),
+                          )
+                            ? randomName
+                            : foundCard}
+                        </p>
+
+                        {/* Перекрывающий блок для номера карты - центрированный */}
+                        {isCardNumberCovered && (
+                          <div
+                            className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full bg-[var(--transfer-button-active)]/10 rounded"
+                            style={{
+                              width: "40%", // Меньший блок для середины
+                              backdropFilter: "blur(8px)",
+                              pointerEvents: "none",
+                              left: "30%", // Центрирование (100% - 40% = 60% / 2 = 30%)
+                            }}
+                          />
+                        )}
+                      </div>
+
                       <Star
                         size={18}
                         color="var(--text-primary)"

@@ -244,7 +244,7 @@ export default function TransferPage() {
           </div>
 
           <div>
-            <h2 className="font-semibold text-base sm:text-lg text-[var(--transfer-text-secondary)]">
+            <h2 className="font-semibold fira-sans-semibold  text-base sm:text-lg text-[var(--transfer-text-amount)]">
               {(() => {
                 let card;
                 if (transactionData?.operation_type === "deposit") {
@@ -300,7 +300,7 @@ export default function TransferPage() {
               value={value}
               onChange={(e) => setValue(e.target.value)}
               placeholder="0"
-              className="text-4xl sm:text-5xl md:text-6xl text-right font-semibold bg-transparent outline-none text-[var(--transfer-text-amount)]
+              className="text-4xl sm:text-5xl fira-sans-semibold md:text-6xl text-right font-semibold bg-transparent outline-none text-[var(--transfer-text-amount)]
                [appearance:textfield]
                [&::-webkit-outer-spin-button]:appearance-none
                [&::-webkit-inner-spin-button]:appearance-none
@@ -309,7 +309,7 @@ export default function TransferPage() {
                 width: `${(value.length || 1) + 1}ch`,
               }}
             />
-            <Grivna className="w-8 h-8 text-[var(--transfer-text-primary)] sm:w-10 sm:h-10 object-contain mt-1" />
+            <Grivna className="w-8 h-8 text-[var(--transfer-text-primary)] sm:w-10 sm:h-10 object-contain " />
             {/* <img
               src={grivna}
               alt="₴"

@@ -24,7 +24,6 @@ import loadingIcon from "../../assets/loading.svg";
 import { RefreshCw } from "lucide-react";
 import { useTheme } from "../../util/useTheme";
 import setThemeColor from "../../util/setThemeColor";
-// import { useTheme } from "../../util/useTheme";
 
 export default function Balance() {
   const [isContactsOpen, setIsContactsOpen] = useState(false);
@@ -38,6 +37,10 @@ export default function Balance() {
   const [offsetY, setOffsetY] = useState(0);
   const [hasFlown, setHasFlown] = useState(false);
   const { theme, toggleTheme } = useTheme();
+
+  // Новое состояние для управления видимостью перекрывающего блока
+  const [isBalanceCovered, setIsBalanceCovered] = useState(false);
+
   const animateBalance = (from, to, duration = 500) => {
     const start = performance.now();
     const step = (time) => {
@@ -80,9 +83,9 @@ export default function Balance() {
     intervalId = setInterval(fetchCards, 5000);
     return () => clearInterval(intervalId);
   }, []);
+
   useEffect(() => {
     if (!theme) return;
-
     setThemeColor("var(--gradient-default-start)");
   }, [theme]);
 
@@ -102,6 +105,11 @@ export default function Balance() {
       maximumFractionDigits: 2,
     })
     .replace(/,/g, " ");
+
+  // Обработчик нажатия на значок гривны
+  const handleGrivnaClick = () => {
+    setIsBalanceCovered(!isBalanceCovered);
+  };
 
   const calcRightOffset = (index) => {
     if (activeIndex === index || isSettingsOpen) return "";
@@ -187,12 +195,31 @@ export default function Balance() {
                   <div className="h-[70px] w-full" />
                   <div className="text-center mb-4 flex justify-center items-center gap-2">
                     <img src={plus} alt="plus" />
-                    <p className="text-[47px] leading-[40px] flex items-center">
-                      <span className="font-bold text-[var(--balance)]">
-                        {formattedBalance}
-                      </span>
-                      <img src={grivna} alt="₴" className="h-[35px]" />
-                    </p>
+                    <div className="relative">
+                      <p className="text-[47px] leading-[40px] flex items-center">
+                        <span className="fira-sans-semibold text-[var(--balance)] tracking-[-0.02em]">
+                          {formattedBalance}
+                        </span>
+                        <img
+                          src={grivna}
+                          alt="₴"
+                          className="h-[35px] cursor-pointer transition-opacity hover:opacity-80 active:opacity-60"
+                          onClick={handleGrivnaClick}
+                        />
+                      </p>
+
+                      {/* Перекрывающий блок */}
+                      {isBalanceCovered && (
+                        <div
+                          className="absolute top-0 left-0 h-full bg-[var(--transfer-button-active)]/10 rounded"
+                          style={{
+                            width: "40%", // Перекрывает примерно первые 60% цифр
+                            backdropFilter: "blur(8px)",
+                            pointerEvents: "none", // Чтобы блок не мешал кликам
+                          }}
+                        />
+                      )}
+                    </div>
                   </div>
                 </>
               )}
@@ -264,7 +291,7 @@ export default function Balance() {
                 }}
               >
                 <img src={bank_cards} alt="bank_cards" />
-                <p className="text-[12px] text-[var(--text-secondary)]">
+                <p className="text-[12px] text-[text-[var(--text-secondary)]]">
                   Усі картки
                 </p>
               </button>

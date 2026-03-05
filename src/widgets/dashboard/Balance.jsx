@@ -41,6 +41,19 @@ export default function Balance() {
   // Новое состояние для управления видимостью перекрывающего блока
   const [isBalanceCovered, setIsBalanceCovered] = useState(false);
 
+  // Загружаем состояние блюра из localStorage при монтировании
+  useEffect(() => {
+    const savedBalanceCovered = localStorage.getItem("balanceCovered");
+    if (savedBalanceCovered !== null) {
+      setIsBalanceCovered(JSON.parse(savedBalanceCovered));
+    }
+  }, []);
+
+  // Сохраняем состояние блюра в localStorage при изменении
+  useEffect(() => {
+    localStorage.setItem("balanceCovered", JSON.stringify(isBalanceCovered));
+  }, [isBalanceCovered]);
+
   const animateBalance = (from, to, duration = 500) => {
     const start = performance.now();
     const step = (time) => {
@@ -84,23 +97,10 @@ export default function Balance() {
     return () => clearInterval(intervalId);
   }, []);
 
-  // ✅ ИСПРАВЛЕНО: Устанавливаем цвет статус-бара при каждом заходе на страницу
+  // ✅ Устанавливаем цвет статус-бара при каждом заходе на страницу
   useEffect(() => {
-    // Всегда устанавливаем цвет для этой страницы, независимо от темы
     setThemeColor("var(--gradient-default-start)");
-
-    // Опционально: можно вернуть цвет по умолчанию при уходе со страницы
-    return () => {
-      // Если нужно возвращать стандартный цвет при навигации
-      // setThemeColor("var(--default-color)");
-    };
-  }, []); // Пустой массив = выполняется только при монтировании
-
-  // Этот эффект теперь не нужен, но оставим если нужно обновлять цвет при смене темы
-  // useEffect(() => {
-  //   if (!theme) return;
-  //   setThemeColor("var(--gradient-default-start)");
-  // }, [theme]);
+  }, []);
 
   const gradientBg =
     !isSettingsOpen && !isContactsOpen && !showAll
@@ -226,7 +226,7 @@ export default function Balance() {
                         <div
                           className="absolute top-0 right-0 h-full bg-[var(--transfer-button-active)]/10 rounded"
                           style={{
-                            width: "13%", // Блок занимает правую часть контейнера
+                            width: "13%",
                             backdropFilter: "blur(8px)",
                             pointerEvents: "none",
                           }}

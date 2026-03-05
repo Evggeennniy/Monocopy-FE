@@ -216,6 +216,22 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
   // ✅ Новое состояние для управления видимостью перекрывающего блока
   const [isCardNumberCovered, setIsCardNumberCovered] = useState(false);
 
+  // Загружаем состояние блюра из localStorage при монтировании
+  useEffect(() => {
+    const savedCardCovered = localStorage.getItem("cardNumberCovered");
+    if (savedCardCovered !== null) {
+      setIsCardNumberCovered(JSON.parse(savedCardCovered));
+    }
+  }, []);
+
+  // Сохраняем состояние блюра в localStorage при изменении
+  useEffect(() => {
+    localStorage.setItem(
+      "cardNumberCovered",
+      JSON.stringify(isCardNumberCovered),
+    );
+  }, [isCardNumberCovered]);
+
   useEffect(() => {
     const clean = inputValue.replace(/\s+/g, "");
 

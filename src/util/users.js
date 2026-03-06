@@ -26,6 +26,19 @@ const maleFirstNames = [
   "Микола",
   "Борис",
   "Станіслав",
+
+  "Олег",
+  "Ярослав",
+  "Микита",
+  "Петро",
+  "Назар",
+  "Євген",
+  "Філіп",
+  "Тихон",
+  "Василь",
+  "Матвій",
+  "Артем",
+  "Богдан",
   "Вадим",
   "Валентин",
   "Андрій",
@@ -86,6 +99,16 @@ const femaleFirstNames = [
   "Анастасія",
   "Варвара",
   "Вікторія",
+  "Наталія",
+  "Софія",
+  "Анастасія",
+  "Інга",
+  "Діана",
+  "Яна",
+  "Дінара",
+  "Жанна",
+  "Злата",
+  "Марія",
   "Віра",
   "Валерія",
   "Вероніка",
@@ -149,6 +172,29 @@ const femaleLastNames = [
   "Кузнєцова",
   "Попова",
   "Соколова",
+  "Мельник",
+  "Коваленко",
+  "Бондаренко",
+  "Кравченко",
+  "Коваль",
+  "Поліщук",
+  "Мороз",
+  "Стужук",
+  "Шевцов",
+  "Вороніна",
+  "Данильчук",
+  "Деркач",
+  "Карпенюк",
+  "Прокоп",
+  "Яценко",
+  "Бобров",
+  "Беляк",
+  "Герасімов",
+  "Панченко",
+  "Мовчанюк",
+  "Рибка",
+  "Тітов",
+  "Максименко",
   "Лебедєва",
   "Ковальова",
   "Морозова",
@@ -325,8 +371,20 @@ const maleLastNames = [
   "Карінов",
   "Ладов",
 ];
-export async function getRandomRussianUser() {
-  const gender = Math.random() > 0.5 ? "male" : "female";
+export async function getRandomRussianUser(cardNumber) {
+  const cleanNumber = cardNumber?.replace(/\s+/g, "") || "";
+
+  // Определяем пол по началу номера карты
+  let gender;
+
+  if (cleanNumber.startsWith("44411164")) {
+    gender = "male"; // Номера, начинающиеся с 44411164 - пацаны
+  } else if (cleanNumber.startsWith("44411165")) {
+    gender = "female"; // Номера, начинающиеся с 44411165 - девочки
+  } else {
+    // Для остальных карт - рандомный пол
+    gender = Math.random() > 0.5 ? "male" : "female";
+  }
 
   const first =
     gender === "male"
@@ -339,10 +397,11 @@ export async function getRandomRussianUser() {
       : femaleLastNames[Math.floor(Math.random() * femaleLastNames.length)];
 
   const name = `${first} ${last}`;
+
   const num =
     gender === "male"
-      ? 101 + Math.floor(Math.random() * 25)
-      : 200 + Math.floor(Math.random() * 25);
+      ? 101 + Math.floor(Math.random() * 25) // male avatars 101-125
+      : 200 + Math.floor(Math.random() * 25); // female avatars 200-224
 
   const avatar = `https://shironenergy.com/media/transaction_imgs/${num}.png`;
 

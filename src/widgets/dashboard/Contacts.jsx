@@ -238,7 +238,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
     if (clean.length === 16) {
       setFoundCard(inputValue);
 
-      getRandomRussianUser()
+      getRandomRussianUser(clean)
         .then((user) => {
           if (user) {
             setRandomName(user.name);
@@ -337,7 +337,6 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
               }}
             />
 
-            {/* Перекрывающий блок для инпута (только для полного номера) */}
             {isCardNumberCovered && (
               <div
                 className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full bg-[var(--transfer-button-active)]/10 rounded-2xl"
@@ -369,16 +368,16 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
           <>
             <div>
               <div
-                className={`${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "} p-4 flex gap-3 items-center  rounded-2xl `}
+                className={`${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "} p-4 py- flex gap-3 items-center  rounded-2xl `}
               >
-                <img src={group} alt="group" className="w-6 sm:w-7 h-auto" />
-                <div className="text-[var(--gray-8)] text-[15px] sm:text-[16px]">
+                <img src={group} alt="group" className="w-8 sm:w-7 h-auto" />
+                <div className="text-[var(--gray-8)]  font-semibold text-[18px] sm:text-[16px]">
                   Групові витрати
                 </div>
               </div>
             </div>
 
-            <div className="h-[1px] w-full bg-[var(--bg-divider)]" />
+            <div className={"h-[1px] w-full bg-[var(--gray-4)]"} />
 
             <div>
               <div
@@ -412,7 +411,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                           </p>
                           <Star
                             size={18}
-                            color="var(--transfer-text-secondary) "
+                            color={`${theme == "light" ? "var(--gray-8) " : "var(--balance) "}`}
                             className="flex-shrink-0 "
                           />
                         </div>

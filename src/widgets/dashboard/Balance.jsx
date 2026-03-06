@@ -212,7 +212,7 @@ export default function Balance() {
                     <img src={plus} alt="plus" />
                     <div className="relative">
                       <p className="text-[47px] leading-[40px] flex items-center">
-                        <span className="fira-sans-semibold text-[var(--balance)] tracking-[-0.02em]">
+                        <span className="fira-sans-semibold text-[var(--balance)] tracking-[2px]">
                           {formattedBalance}
                         </span>
                         <img

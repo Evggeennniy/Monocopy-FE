@@ -244,7 +244,7 @@ export default function TransferPage() {
           </div>
 
           <div>
-            <h2 className="font-semibold fira-sans-semibold  text-base sm:text-lg text-[var(--transfer-text-amount)]">
+            <h2 className="font-bold text-[19px]   sm:text-lg text-[var(--transfer-text-amount)]">
               {(() => {
                 let card;
                 if (transactionData?.operation_type === "deposit") {

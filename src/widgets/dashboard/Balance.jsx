@@ -38,7 +38,7 @@ export default function Balance() {
   const [offsetY, setOffsetY] = useState(0);
   const [hasFlown, setHasFlown] = useState(false);
   const { theme, toggleTheme } = useTheme();
-
+  console.log(cards);
   // Pre-fetched contacts data
   const [prefetchedContacts, setPrefetchedContacts] = useState([]);
   const [contactsLoading, setContactsLoading] = useState(true);
@@ -84,7 +84,9 @@ export default function Balance() {
     const start = performance.now();
     const step = (time) => {
       const progress = Math.min((time - start) / duration, 1);
-      setDisplayBalance(Math.round(from + (to - from) * progress));
+      // Use toFixed(2) to preserve 2 decimal places, then convert back to number
+      const currentBalance = from + (to - from) * progress;
+      setDisplayBalance(Number(currentBalance.toFixed(2)));
       if (progress < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);

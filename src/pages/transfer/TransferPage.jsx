@@ -36,6 +36,48 @@ export default function TransferPage() {
   const [randomUser, setRandomUser] = useState("");
   const [canSubmit, setCanSubmit] = useState(false);
   const { theme, toggleTheme } = useTheme();
+
+  // Функция для форматирования числа с округлением до двух знаков после запятой
+  const formatAmount = (inputValue) => {
+    // Если пусто, возвращаем как есть
+    if (inputValue === "" || inputValue === null || inputValue === undefined) {
+      return inputValue;
+    }
+
+    // Заменяем запятую на точку для единообразия
+    let normalizedValue = inputValue.replace(/,/g, ".");
+
+    // Проверяем, является ли введенное значение числом (включая частичный ввод типа "123.")
+    if (/^\d*\.?\d*$/.test(normalizedValue)) {
+      const parts = normalizedValue.split(".");
+
+      // Если есть десятичная часть и она длиннее 2 знаков
+      if (parts.length === 2 && parts[1].length > 2) {
+        // Округляем до двух знаков
+        const roundedValue =
+          Math.round(parseFloat(normalizedValue) * 100) / 100;
+
+        // Преобразуем обратно в строку с двумя знаками после запятой
+        // Но сохраняем форматирование в зависимости от того, был ли введен "."
+        if (parts[1].length > 0) {
+          // Если пользователь ввел десятичную часть, сохраняем точку и два знака
+          const [integerPart, decimalPart] = roundedValue.toString().split(".");
+          return decimalPart
+            ? `${integerPart}.${decimalPart.padEnd(2, "0")}`
+            : `${integerPart}.00`;
+        }
+
+        return roundedValue.toString();
+      }
+
+      // Если десятичная часть не превышает 2 знаков, возвращаем как есть
+      return inputValue;
+    }
+
+    // Если это не число, возвращаем как есть (например, пустая строка)
+    return inputValue;
+  };
+
   useEffect(() => {
     async function fetchCards() {
       try {
@@ -86,32 +128,68 @@ export default function TransferPage() {
     setShowKeyboard(true);
   }, []);
 
+  // Update canSubmit whenever value changes
+  useEffect(() => {
+    // Check if value is not empty and is a valid positive number
+    const numericValue = parseFloat(value.replace(/,/g, "."));
+    setCanSubmit(value !== "" && !isNaN(numericValue) && numericValue > 0);
+  }, [value]);
+
   const handleClick = (num) => {
-    const newValue = +value + num;
-    setValue((prev) => prev + num);
-    console.log(Boolean(newValue));
-    setCanSubmit(Boolean(newValue));
+    if (num === ",") {
+      // Handle decimal separator
+      if (!value.includes(".") && !value.includes(",")) {
+        // Если добавляем десятичный разделитель и перед ним нет цифр, добавляем "0."
+        if (value === "") {
+          setValue("0.");
+        } else {
+          setValue((prev) => prev + ".");
+        }
+      }
+    } else {
+      // Добавляем цифру и затем применяем форматирование
+      const newValue = value + num;
+      const formattedValue = formatAmount(newValue);
+      setValue(formattedValue);
+    }
   };
 
   const handleBackspace = () => {
     const newValue = value.slice(0, -1);
-    setValue((prev) => prev.slice(0, -1));
-    console.log(Boolean(newValue));
-    setCanSubmit(Boolean(newValue));
+    // Применяем форматирование после удаления символа
+    const formattedValue = formatAmount(newValue);
+    setValue(formattedValue);
+  };
+
+  // Функция для прямого изменения значения (если нужно)
+  const setFormattedValue = (newValue) => {
+    const formattedValue = formatAmount(newValue);
+    setValue(formattedValue);
   };
 
   const submit = async (e) => {
     e.preventDefault();
+
+    // Validate amount before submitting
+    const numericValue = parseFloat(value.replace(/,/g, "."));
+    if (!value || isNaN(numericValue) || numericValue <= 0) {
+      alert("Будь ласка, введіть суму переказу");
+      return;
+    }
+
+    // Округляем до двух знаков перед отправкой на сервер
+    const roundedAmount = Math.round(numericValue * 100) / 100;
+
     let formData;
 
     if (transactionData?.operation_type === "deposit") {
       formData = {
         cardholder_name: transactionData.cardholder_name,
-        from_card: cards[0].card_number,
+        from_card: cards[0]?.card_number,
         to_card: transactionData.cardholder_name
           ? transactionData.cardholder_name
           : "",
-        amount: +value,
+        amount: roundedAmount,
         comment: commentValue,
         image_withdraw:
           transactionData.bank === "mono" ? transactionData.image_deposit : "",
@@ -121,10 +199,10 @@ export default function TransferPage() {
     } else if (transactionData?.operation_type === "withdraw") {
       formData = {
         cardholder_name: transactionData.cardholder_name,
-        from_card: cards[0].card_number,
+        from_card: cards[0]?.card_number,
         to_card: transactionData.to_card ? transactionData.to_card : "",
         image_withdraw: transactionData.image_withdraw,
-        amount: +value,
+        amount: roundedAmount,
         comment: commentValue,
         bank: transactionData.bank
           ? transactionData.bank
@@ -133,15 +211,17 @@ export default function TransferPage() {
     } else {
       formData = {
         cardholder_name: randomUser.name,
-        from_card: cards[0].card_number,
+        from_card: cards[0]?.card_number,
         to_card: id.replace(/\s+/g, "").trim(),
-        amount: +value,
+        amount: roundedAmount,
         comment: commentValue,
         image_withdraw: randomUser.avatar,
         bank: getBankName(id.replace(/\s+/g, "").trim()),
       };
     }
-    console.log(formData);
+
+    console.log("Submitting formData:", formData);
+
     try {
       const res = await fetchWithAuth(API_URL + "/transactions/", {
         method: "POST",
@@ -149,15 +229,21 @@ export default function TransferPage() {
         body: JSON.stringify(formData),
       });
 
-      if (!res.ok) throw new Error(`Ошибка: ${res.status}`);
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error("Server error response:", errorData);
+        throw new Error(`Ошибка: ${res.status} - ${JSON.stringify(errorData)}`);
+      }
 
       const data = await res.json();
       localStorage.setItem("formData", JSON.stringify(formData));
       navigate("/payment-status");
     } catch (err) {
       console.error("Ошибка при отправке:", err);
+      alert("Помилка при відправці. Спробуйте ще раз.");
     }
   };
+
   useEffect(() => {
     setThemeColor("var(--transfer-bg)");
   }, []);
@@ -166,11 +252,9 @@ export default function TransferPage() {
     return <p className="text-[var(--transfer-text-primary)]">Loading...</p>;
   if (error) return <p className="text-[var(--transfer-error)]">{error}</p>;
 
-  console.log(value);
-
   return (
     <div
-      className={` bg-[var(--transfer-bg)] text-[var(--transfer-text-primary)] h-screen flex flex-col pb-[40px] justify-between`}
+      className={`bg-[var(--transfer-bg)] text-[var(--transfer-text-primary)] h-screen flex flex-col pb-[40px] justify-between`}
     >
       {/* Header */}
       <div className="p-4 sm:p-6">
@@ -245,7 +329,7 @@ export default function TransferPage() {
 
           <div>
             <h2
-              className={`font-bold text-[19px] fira-sans-semibold   sm:text-lg ${theme == "light" ? "text-black" : "text-[var(--transfer-text-amount)]"}`}
+              className={`font-bold text-[19px] fira-sans-semibold sm:text-lg ${theme == "light" ? "text-black" : "text-[var(--transfer-text-amount)]"}`}
             >
               {(() => {
                 let card;
@@ -263,22 +347,23 @@ export default function TransferPage() {
               })()}
             </h2>
 
-            {["4441", "5375", "4899", "4042"].includes(
-              id.replace(/\s+/g, "").slice(0, 4),
-            ) && (
-              <div className="flex items-center gap-1 sm:gap-2">
-                <img
-                  src={transfer_black_card}
-                  alt=""
-                  className="w-[14px] sm:w-[18px]"
-                />
-                <p className="text-[12px] sm:text-[14px] text-[var(--transfer-text-tertiary)]">
-                  На чорну картку
-                </p>
-              </div>
-            )}
+            {id &&
+              ["4441", "5375", "4899", "4042"].includes(
+                id.replace(/\s+/g, "").slice(0, 4),
+              ) && (
+                <div className="flex items-center gap-1 sm:gap-2">
+                  <img
+                    src={transfer_black_card}
+                    alt=""
+                    className="w-[14px] sm:w-[18px]"
+                  />
+                  <p className="text-[12px] sm:text-[14px] text-[var(--transfer-text-tertiary)]">
+                    На чорну картку
+                  </p>
+                </div>
+              )}
           </div>
-        </div>{" "}
+        </div>
       </div>
 
       {/* Amount */}
@@ -300,7 +385,6 @@ export default function TransferPage() {
               readOnly
               ref={inputRef}
               value={value}
-              onChange={(e) => setValue(e.target.value)}
               placeholder="0"
               className="text-4xl sm:text-5xl fira-sans-semibold md:text-6xl text-right font-semibold bg-transparent outline-none text-[var(--transfer-text-amount)]
                [appearance:textfield]
@@ -308,15 +392,10 @@ export default function TransferPage() {
                [&::-webkit-inner-spin-button]:appearance-none
                placeholder-[var(--transfer-text-amount)]"
               style={{
-                width: `${(value.length || 1) + 1}ch`,
+                width: `${Math.max(value.length || 1, 1) + 1}ch`,
               }}
             />
-            <Grivna className="w-8 h-8 text-[var(--transfer-text-primary)] sm:w-10 sm:h-10 object-contain " />
-            {/* <img
-              src={grivna}
-              alt="₴"
-              className="w-8 h-8 sm:w-10 sm:h-10 object-contain mt-1"
-            /> */}
+            <Grivna className="w-8 h-8 text-[var(--transfer-text-primary)] sm:w-10 sm:h-10 object-contain" />
           </div>
         </div>
 
@@ -368,11 +447,16 @@ export default function TransferPage() {
 
               <button
                 onClick={submit}
+                disabled={!canSubmit}
                 className={`${
                   canSubmit
-                    ? "bg-[var(--transfer-button-active)]"
-                    : "bg-[var(--transfer-button-disabled)] hover:bg-[var(--transfer-button-disabled-hover)]"
-                } w-full py-3 sm:py-4 rounded-2xl ${theme == "light" ? "text-[var(--gray-2)]" : "text-[var(--balance)]"} text-[18px] font-semibold transition`}
+                    ? "bg-[var(--transfer-button-active)] cursor-pointer"
+                    : "bg-[var(--transfer-button-disabled)] cursor-not-allowed opacity-50"
+                } w-full py-3 sm:py-4 rounded-2xl ${
+                  theme == "light"
+                    ? "text-[var(--gray-2)]"
+                    : "text-[var(--balance)]"
+                } text-[18px] font-semibold transition`}
               >
                 Надіслати
               </button>

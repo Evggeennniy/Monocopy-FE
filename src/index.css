@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@font-face {
+/* @font-face {
   font-family: "Mono Sans";
   src: url("https://fonts.monobank.ua/MonoSans-Regular.woff2") format("woff2");
   font-weight: 400;
@@ -30,7 +30,7 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-}
+} */
 .fira-sans-semibold {
   font-family: "Fira Sans", sans-serif;
   font-weight: 600;
@@ -285,7 +285,7 @@
   /* Фоны элементов */
   --transfer-avatar-bg: rgba(0, 0, 0, 0.1);
   --transfer-button-bg: #ffffff;
-  --transfer-button-disabled: #cdcdcd;
+  --transfer-button-disabled: #ffffff;
   --transfer-button-hover: #f0f0f0;
   --transfer-button-disabled-hover: #d1d1d1;
   --transfer-keyboard-bg: #d0d3da;

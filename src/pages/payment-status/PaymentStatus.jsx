@@ -8,12 +8,13 @@ import link from "../../assets/link.png";
 import link_white from "../../assets/link_white.jpg";
 import si_copy from "../../assets/si_copy.png";
 import { motion } from "framer-motion";
-import share from "../../assets/share.png";
+// import share from "../../assets/share.png";
 import { useNavigate } from "react-router-dom";
 import { formatCardNumber } from "../../util/formatCardNumber";
 import { useTheme } from "../../util/useTheme";
 import setThemeColor from "../../util/setThemeColor";
-
+import { IoShareOutline } from "react-icons/io5";
+import { MapPin } from "lucide-react";
 function PaymentStatus() {
   const navigate = useNavigate();
   const [finished, setFinished] = useState(false);
@@ -27,7 +28,7 @@ function PaymentStatus() {
     <div
       className={` ${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "} pb-[40px] flex flex-col justify-around h-screen p-3`}
     >
-      <div className="mt-[50px] flex flex-col items-center mb-[44px]">
+      <div className="mt-[50px] flex flex-col items-center mb-[35px]">
         <img
           src={theme == "light" ? cat_big_white : cat_big}
           alt=""
@@ -35,7 +36,7 @@ function PaymentStatus() {
         />
       </div>
 
-      <h2 className="text-[22px] flex flex-col items-center mb-[35px] text-[var(--gray-8)]">
+      <h2 className="text-[28px] font-extrabold flex flex-col items-center mb-[35px] text-[var(--gray-8)]">
         Платіж надіслано
       </h2>
 
@@ -47,7 +48,10 @@ function PaymentStatus() {
         />
         <div className="flex flex-col text-[var(--gray-8)]">
           <div className="text-[17px]">
-            {Number(data.amount).toFixed(2)} ₴ на картку
+            <span className="font-semibold">
+              {Number(data.amount).toFixed(2)} ₴
+            </span>{" "}
+            на картку
           </div>
           <div className="font-bold text-[16px]">
             {formatCardNumber(data.cardholder_name)}
@@ -58,14 +62,22 @@ function PaymentStatus() {
       <div
         className={`  ${theme == "light" ? "bg-[var(--bg-secondary)] " : "bg-[var(--gray-1)]"} p-5 mb-[35px] ] rounded-xl`}
       >
-        <div className="flex items-center gap-3 mb-[20px]">
-          <img
-            src={theme == "light" ? link_white : link}
-            alt=""
-            className="w-[57px]"
-          />
+        <div className="flex items-center gap-3 mb-[15px]">
+          {/* <div className="w-[87px] h-[57px] relative ">
+            {" "}
+            <img
+              src={theme == "light" ? link_white : link}
+              alt=""
+              className=" h-full absolute object-cover"
+            />
+          </div> */}
+          <div
+            className={`w-[57px]   ${theme == "light" ? "bg-[var(--color-white)] " : "bg-[var(--bg-secondary)]"} h-[57px] rounded-full flex items-center justify-center text-[30px] `}
+          >
+            🔗
+          </div>
           <div className="flex flex-col gap-1">
-            <div className="text-[15px] font-semibold text-[var(--gray-8)]">
+            <div className="text-[20px] font-semibold text-[var(--gray-8)]">
               Посилання на квитанцію
             </div>
             <div className="flex items-center gap-1">
@@ -77,8 +89,14 @@ function PaymentStatus() {
           </div>
         </div>
 
-        <button className="w-full bg-[var(--transfer-button-disabled)] cursor-pointer rounded-xl text-[var(--color-white)] py-3 flex justify-center items-center gap-3 hover:bg-[var(--transfer-button-disabled-hover)] transition">
-          <img src={share} alt="" className="w-[20px]" />
+        <button
+          className={`w-full bg-[var(--transfer-button-disabled)] font-bold cursor-pointer rounded-xl ${theme == "light" ? "text-[var(--color-black)]" : " text-[var(--color-white)]"} py-3 flex justify-center items-center gap-3 hover:bg-[var(--transfer-button-disabled-hover)] transition`}
+        >
+          <IoShareOutline
+            size={22}
+            color={`${theme == "light" ? "text-[var(--color-black)]" : " text-[var(--color-white)]"} h-[12px]`}
+          />
+          {/* <img src={share} alt="" className="w-[20px]" /> */}
           Поділитись
         </button>
       </div>

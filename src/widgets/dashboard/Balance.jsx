@@ -171,8 +171,8 @@ export default function Balance() {
           <div className="flex items-center gap-4">
             <div className="flex gap-2 items-center">
               <img src={prize} alt="price" className="w-[23px] h-[27px] pb-1" />
-              <div className="text-[var(--balance)] fira-sans-normal">
-                7.73 ₴
+              <div className="text-[var(--balance)] fira-sans-semibold text-[12px]">
+                50.00 ₴
               </div>
             </div>
             <div className="h-[24px] w-[1px] bg-[var(--border-divider)]" />

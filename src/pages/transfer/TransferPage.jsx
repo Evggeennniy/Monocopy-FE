@@ -19,6 +19,7 @@ import {
 import { formatCardNumber } from "../../util/formatCardNumber";
 import CustomKeyboard from "../../shared/CustomKeyboard";
 import setThemeColor from "../../util/setThemeColor";
+import { useTheme } from "../../util/useTheme";
 
 export default function TransferPage() {
   const { id } = useParams();
@@ -34,7 +35,7 @@ export default function TransferPage() {
   const [commentValue, setCommentValue] = useState("");
   const [randomUser, setRandomUser] = useState("");
   const [canSubmit, setCanSubmit] = useState(false);
-
+  const { theme, toggleTheme } = useTheme();
   useEffect(() => {
     async function fetchCards() {
       try {
@@ -179,7 +180,6 @@ export default function TransferPage() {
         >
           <ArrowLeft className="w-6 h-6 sm:w-7 sm:h-7 text-[var(--transfer-text-gray-300)]" />
         </button>
-
         <div className="flex relative items-center gap-3 sm:gap-4">
           <div className="w-[45px] h-[45px] relative rounded-full flex items-center justify-center text-[var(--transfer-text-primary)] text-lg bg-[var(--transfer-avatar-bg)]">
             {/* Дефолтный белый силуэт */}
@@ -244,7 +244,9 @@ export default function TransferPage() {
           </div>
 
           <div>
-            <h2 className="font-bold text-[19px]   sm:text-lg text-[var(--transfer-text-amount)]">
+            <h2
+              className={`font-bold text-[19px] fira-sans-semibold   sm:text-lg ${theme == "light" ? "text-black" : "text-[var(--transfer-text-amount)]"}`}
+            >
               {(() => {
                 let card;
                 if (transactionData?.operation_type === "deposit") {
@@ -276,7 +278,7 @@ export default function TransferPage() {
               </div>
             )}
           </div>
-        </div>
+        </div>{" "}
       </div>
 
       {/* Amount */}
@@ -370,7 +372,7 @@ export default function TransferPage() {
                   canSubmit
                     ? "bg-[var(--transfer-button-active)]"
                     : "bg-[var(--transfer-button-disabled)] hover:bg-[var(--transfer-button-disabled-hover)]"
-                } w-full py-3 sm:py-4 rounded-2xl text-[var(--balance)] text-[14px] sm:text-[15px] font-semibold transition`}
+                } w-full py-3 sm:py-4 rounded-2xl ${theme == "light" ? "text-[var(--gray-2)]" : "text-[var(--balance)]"} text-[18px] font-semibold transition`}
               >
                 Надіслати
               </button>

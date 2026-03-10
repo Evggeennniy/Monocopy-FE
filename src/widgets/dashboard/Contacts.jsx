@@ -332,7 +332,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
           </button>
         </div>
 
-        <h1 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[var(--balance)]">
+        <h1 className="text-[24px] font-semibold text-[var(--balance)]">
           Переказ на картку
         </h1>
 
@@ -404,7 +404,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
               <div
                 className={`${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "} rounded-3xl p-4`}
               >
-                <h1 className="text-xl sm:text-2xl font-bold mb-2 text-[var(--text-primary)]">
+                <h1 className="text-xl   font-extrabold mb-4 text-[var(--text-primary)]">
                   Контакти
                 </h1>
                 <ul className="space-y-4">
@@ -421,12 +421,14 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                           >
                             {getBankIconByName(c.bank)}
                           </div>
-                          <p className="flex-1 text-[var(--gray-8)] text-[15px] sm:text-[16px] truncate">
+                          <p
+                            className={` flex-1 font-bold   text-[18px] sm:text-[16px] truncate ${theme == "light" ? "text-[var(--gray-8)] " : "text-[var(--balance)] "}`}
+                          >
                             {c.name}
                           </p>
                           <Star
                             size={18}
-                            color={`${theme == "light" ? "var(--gray-8) " : "var(--balance) "}`}
+                            color={`${theme == "light" ? "var(--gray-5)  " : "var(--balance) "}`}
                             className="flex-shrink-0 "
                           />
                         </div>

@@ -207,16 +207,24 @@ const cards = [
   },
 ];
 
-export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
+export default function Contacts({
+  setIsContactsOpen,
+  setIsSettingsOpen,
+  prefetchedContacts = [],
+  contactsLoading = false,
+}) {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
   const [foundCard, setFoundCard] = useState(null);
   const [randomName, setRandomName] = useState("");
   const [randomAvatar, setAvatar] = useState("");
   const { theme, toggleTheme } = useTheme();
-  const [apiContacts, setApiContacts] = useState([]);
+  const [apiContacts, setApiContacts] = useState(prefetchedContacts);
   const [isCardNumberCovered, setIsCardNumberCovered] = useState(false);
+  const [localLoading, setLocalLoading] = useState(contactsLoading);
+
   console.log(apiContacts);
+
   useEffect(() => {
     const savedCardCovered = localStorage.getItem("cardNumberCovered");
     if (savedCardCovered !== null) {
@@ -230,6 +238,47 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       JSON.stringify(isCardNumberCovered),
     );
   }, [isCardNumberCovered]);
+
+  // Update local state when prefetched data changes
+  useEffect(() => {
+    if (prefetchedContacts.length > 0) {
+      setApiContacts(prefetchedContacts);
+      setLocalLoading(false);
+    }
+  }, [prefetchedContacts]);
+
+  // Only fetch if no prefetched data and not loading
+  useEffect(() => {
+    if (
+      prefetchedContacts.length === 0 &&
+      !contactsLoading &&
+      apiContacts.length === 0
+    ) {
+      const loadContacts = async () => {
+        setLocalLoading(true);
+        try {
+          const res = await fetchWithAuth(`${API_URL}/my-contacts/`);
+
+          if (!res.ok) throw new Error("Failed to fetch contacts");
+
+          const data = await res.json();
+
+          if (Array.isArray(data) && data.length > 0) {
+            setApiContacts(data);
+          } else {
+            setApiContacts(contacts);
+          }
+        } catch (err) {
+          console.error(err);
+          setApiContacts(contacts);
+        } finally {
+          setLocalLoading(false);
+        }
+      };
+
+      loadContacts();
+    }
+  }, [prefetchedContacts, contactsLoading, apiContacts.length]);
 
   useEffect(() => {
     const clean = inputValue.replace(/\s+/g, "");
@@ -251,29 +300,6 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       setAvatar("");
     }
   }, [inputValue]);
-
-  useEffect(() => {
-    const loadContacts = async () => {
-      try {
-        const res = await fetchWithAuth(`${API_URL}/my-contacts/`);
-
-        if (!res.ok) throw new Error("Failed to fetch contacts");
-
-        const data = await res.json();
-
-        if (Array.isArray(data) && data.length > 0) {
-          setApiContacts(data);
-        } else {
-          setApiContacts(contacts);
-        }
-      } catch (err) {
-        console.error(err);
-        setApiContacts(contacts);
-      }
-    };
-
-    loadContacts();
-  }, []);
 
   useEffect(() => {
     setThemeColor("var(--gradient-contacts-start)");
@@ -298,6 +324,21 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
     navigate("/transfer/" + foundCard);
   };
 
+  // Loading skeleton component
+  const LoadingSkeleton = () => (
+    <div className="space-y-4">
+      {[1, 2, 3, 4, 5].map((i) => (
+        <div key={i} className="flex justify-between items-center">
+          <div className="flex items-center gap-4 w-full">
+            <div className="w-[42px] h-[42px] rounded-full bg-[var(--gray-4)] animate-pulse" />
+            <div className="flex-1 h-5 bg-[var(--gray-4)] rounded animate-pulse" />
+            <div className="w-5 h-5 bg-[var(--gray-4)] rounded animate-pulse" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <motion.div
       initial={{ x: "100%", opacity: 0 }}
@@ -307,7 +348,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
       style={{
         background: "var(--bg-gradient-contacts)",
       }}
-      className="w-full h-screen flex flex-col text-white overflow-hidden "
+      className="w-full h-screen flex flex-col text-white overflow-hidden"
     >
       {/* HEADER */}
       <div
@@ -337,7 +378,6 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
         </h1>
 
         <div className="relative w-full">
-          {/* Контейнер для инпута с относительным позиционированием */}
           <div className="relative">
             <input
               type="tel"
@@ -371,7 +411,6 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
             )}
           </div>
 
-          {/* Иконка поиска с обработчиком клика */}
           <img
             src={search}
             className={`absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 cursor-pointer transition-opacity hover:opacity-80 active:opacity-60 ${
@@ -389,53 +428,66 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
           <>
             <div>
               <div
-                className={`${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "} p-4 py- flex gap-3 items-center  rounded-2xl `}
+                className={`${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)]"} p-4 py- flex gap-3 items-center rounded-2xl`}
               >
                 <img src={group} alt="group" className="w-8 sm:w-7 h-auto" />
-                <div className="text-[var(--gray-8)]  font-semibold text-[18px] sm:text-[16px]">
+                <div className="text-[var(--gray-8)] font-semibold text-[18px] sm:text-[16px]">
                   Групові витрати
                 </div>
               </div>
             </div>
 
-            <div className={"h-[1px] w-full bg-[var(--gray-4)]"} />
+            <div className="h-[1px] w-full bg-[var(--gray-4)]" />
 
             <div>
               <div
-                className={`${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "} rounded-3xl p-4`}
+                className={`${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)]"} rounded-3xl p-4`}
               >
-                <h1 className="text-xl   font-extrabold mb-4 text-[var(--text-primary)]">
+                <h1 className="text-xl font-extrabold mb-4 text-[var(--text-primary)]">
                   Контакти
                 </h1>
-                <ul className="space-y-4">
-                  {apiContacts.map((c) => {
-                    return (
-                      <li
-                        key={c.id}
-                        className="flex justify-between items-center cursor-pointer"
-                      >
-                        <div className="flex items-center gap-4 w-full rounded-xl">
-                          <div
-                            className="relative w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0 bg-cover bg-center"
-                            style={{ backgroundImage: `url(${c.avatar})` }}
-                          >
-                            {getBankIconByName(c.bank)}
+
+                {localLoading ? (
+                  <LoadingSkeleton />
+                ) : (
+                  <ul className="space-y-4">
+                    {apiContacts.map((c) => {
+                      return (
+                        <li
+                          key={c.id}
+                          className="flex justify-between items-center cursor-pointer"
+                        >
+                          <div className="flex items-center gap-4 w-full rounded-xl">
+                            <div
+                              className="relative w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0 bg-cover bg-center"
+                              style={{ backgroundImage: `url(${c.avatar})` }}
+                            >
+                              {getBankIconByName(c.bank)}
+                            </div>
+                            <p
+                              className={`flex-1 font-bold text-[18px] sm:text-[16px] truncate ${
+                                theme == "light"
+                                  ? "text-[var(--gray-8)]"
+                                  : "text-[var(--balance)]"
+                              }`}
+                            >
+                              {c.name}
+                            </p>
+                            <Star
+                              size={18}
+                              color={`${
+                                theme == "light"
+                                  ? "var(--gray-5)"
+                                  : "var(--balance)"
+                              }`}
+                              className="flex-shrink-0"
+                            />
                           </div>
-                          <p
-                            className={` flex-1 font-bold   text-[18px] sm:text-[16px] truncate ${theme == "light" ? "text-[var(--gray-8)] " : "text-[var(--balance)] "}`}
-                          >
-                            {c.name}
-                          </p>
-                          <Star
-                            size={18}
-                            color={`${theme == "light" ? "var(--gray-5)  " : "var(--balance) "}`}
-                            className="flex-shrink-0 "
-                          />
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </div>
             </div>
           </>
@@ -475,7 +527,6 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                         <div>{getBankIcon(foundCard)}</div>
                       </div>
 
-                      {/* Контейнер с относительным позиционированием для текста */}
                       <div className="flex-1 relative">
                         <p className="text-[var(--gray-8)] text-[15px] sm:text-[16px] break-all">
                           {["4441", "5375", "4899", "4042"].includes(

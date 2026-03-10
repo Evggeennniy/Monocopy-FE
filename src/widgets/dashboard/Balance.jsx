@@ -24,6 +24,7 @@ import loadingIcon from "../../assets/loading.svg";
 import { RefreshCw } from "lucide-react";
 import { useTheme } from "../../util/useTheme";
 import setThemeColor from "../../util/setThemeColor";
+import { contacts as fallbackContacts } from "./Contacts"; // Import fallback contacts
 
 export default function Balance() {
   const [isContactsOpen, setIsContactsOpen] = useState(false);
@@ -37,6 +38,10 @@ export default function Balance() {
   const [offsetY, setOffsetY] = useState(0);
   const [hasFlown, setHasFlown] = useState(false);
   const { theme, toggleTheme } = useTheme();
+
+  // Pre-fetched contacts data
+  const [prefetchedContacts, setPrefetchedContacts] = useState([]);
+  const [contactsLoading, setContactsLoading] = useState(true);
 
   // Новое состояние для управления видимостью перекрывающего блока
   const [isBalanceCovered, setIsBalanceCovered] = useState(false);
@@ -53,6 +58,27 @@ export default function Balance() {
   useEffect(() => {
     localStorage.setItem("balanceCovered", JSON.stringify(isBalanceCovered));
   }, [isBalanceCovered]);
+
+  // Pre-fetch contacts when component mounts
+  useEffect(() => {
+    const prefetchContacts = async () => {
+      try {
+        const res = await fetchWithAuth(`${API_URL}/my-contacts/`);
+        if (!res.ok) throw new Error("Failed to fetch contacts");
+        const data = await res.json();
+        setPrefetchedContacts(
+          Array.isArray(data) && data.length > 0 ? data : fallbackContacts,
+        );
+      } catch (err) {
+        console.error(err);
+        setPrefetchedContacts(fallbackContacts);
+      } finally {
+        setContactsLoading(false);
+      }
+    };
+
+    prefetchContacts();
+  }, []);
 
   const animateBalance = (from, to, duration = 500) => {
     const start = performance.now();
@@ -323,6 +349,8 @@ export default function Balance() {
         <Contacts
           setIsSettingsOpen={setIsSettingsOpen}
           setIsContactsOpen={setIsContactsOpen}
+          prefetchedContacts={prefetchedContacts}
+          contactsLoading={contactsLoading}
         />
       )}
 

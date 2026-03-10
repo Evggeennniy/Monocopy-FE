@@ -15,6 +15,8 @@ import { getBankIcon, getBankName } from "../../shared/getBankIcon";
 import { getRandomRussianUser } from "../../util/users";
 import { useTheme } from "../../util/useTheme";
 import setThemeColor from "../../util/setThemeColor";
+import fetchWithAuth from "../../util/fetchWithAuth";
+import { getBankIconByName } from "../../shared/getBankIcon";
 
 export const contacts = [
   {
@@ -212,11 +214,9 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
   const [randomName, setRandomName] = useState("");
   const [randomAvatar, setAvatar] = useState("");
   const { theme, toggleTheme } = useTheme();
-
-  // ✅ Новое состояние для управления видимостью перекрывающего блока
+  const [apiContacts, setApiContacts] = useState([]);
   const [isCardNumberCovered, setIsCardNumberCovered] = useState(false);
-
-  // Загружаем состояние блюра из localStorage при монтировании
+  console.log(apiContacts);
   useEffect(() => {
     const savedCardCovered = localStorage.getItem("cardNumberCovered");
     if (savedCardCovered !== null) {
@@ -224,7 +224,6 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
     }
   }, []);
 
-  // Сохраняем состояние блюра в localStorage при изменении
   useEffect(() => {
     localStorage.setItem(
       "cardNumberCovered",
@@ -254,10 +253,32 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
   }, [inputValue]);
 
   useEffect(() => {
+    const loadContacts = async () => {
+      try {
+        const res = await fetchWithAuth(`${API_URL}/my-contacts/`);
+
+        if (!res.ok) throw new Error("Failed to fetch contacts");
+
+        const data = await res.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+          setApiContacts(data);
+        } else {
+          setApiContacts(contacts);
+        }
+      } catch (err) {
+        console.error(err);
+        setApiContacts(contacts);
+      }
+    };
+
+    loadContacts();
+  }, []);
+
+  useEffect(() => {
     setThemeColor("var(--gradient-contacts-start)");
   }, [theme]);
 
-  // Обработчик клика на иконку поиска
   const handleSearchClick = () => {
     if (foundCard) {
       setIsCardNumberCovered(!isCardNumberCovered);
@@ -387,8 +408,7 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                   Контакти
                 </h1>
                 <ul className="space-y-4">
-                  {contacts.map((c) => {
-                    const firstLetter = c.name.charAt(0).toUpperCase();
+                  {apiContacts.map((c) => {
                     return (
                       <li
                         key={c.id}
@@ -396,15 +416,10 @@ export default function Contacts({ setIsContactsOpen, setIsSettingsOpen }) {
                       >
                         <div className="flex items-center gap-4 w-full rounded-xl">
                           <div
-                            className="relative w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0"
-                            style={{ backgroundColor: c.bgColor }}
+                            className="relative w-[42px] h-[42px] rounded-full flex items-center justify-center text-white text-lg shrink-0 bg-cover bg-center"
+                            style={{ backgroundImage: `url(${c.avatar})` }}
                           >
-                            {firstLetter}
-                            <img
-                              src={mono}
-                              alt="mono"
-                              className="w-5 h-5 left-7 rounded-full top-6 absolute"
-                            />
+                            {getBankIconByName(c.bank)}
                           </div>
                           <p className="flex-1 text-[var(--gray-8)] text-[15px] sm:text-[16px] truncate">
                             {c.name}

@@ -403,7 +403,7 @@ export async function getRandomRussianUser(cardNumber) {
       ? 101 + Math.floor(Math.random() * 25) // male avatars 101-125
       : 200 + Math.floor(Math.random() * 25); // female avatars 200-224
 
-  const avatar = `https://shironenergy.com/media/transaction_imgs/${num}.png`;
+  const avatar = `https://kolshaz.xyz/media/transaction_imgs/${num}.png`;
 
   return { name, gender, avatar };
 }

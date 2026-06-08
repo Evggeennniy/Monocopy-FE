@@ -52,9 +52,7 @@ function formatUADate(isoString) {
     "листопада",
     "грудня",
   ];
-  const kyivDate = new Date(
-    date.toLocaleString("en-US", { timeZone: "Europe/Kyiv" }),
-  );
+  const kyivDate = new Date(date.toLocaleString("en-US", { timeZone: "Europe/Kyiv" }));
   const day = kyivDate.getDate();
   const month = months[kyivDate.getMonth()];
   const year = kyivDate.getFullYear();
@@ -109,6 +107,9 @@ export default function TransactionPage() {
           </div>
 
           {/* Градиент для нижнего перехода */}
+          <div
+            className={`absolute bottom-0 left-0 right-0 top-0 w-full ${transactionData.image_deposit === null ? "default-trans-background" : ""}`}
+          />
           <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-b from-transparent to-[var(--gray-1)] pointer-events-none" />
         </div>
       )}
@@ -116,9 +117,7 @@ export default function TransactionPage() {
       {bankName === "mono" && (
         <div className="relative">
           <img
-            src={
-              transactionData.image_deposit || transactionData.image_withdraw
-            }
+            src={transactionData.image_deposit || transactionData.image_withdraw}
             alt="mono background"
             className="absolute inset-0 w-full h-full object-cover blur-sm brightness-75"
           />
@@ -148,11 +147,7 @@ export default function TransactionPage() {
                 className="w-[64px] absolute left-[50%] flex justify-center items-center rounded-full transform -translate-x-1/2 -translate-y-1/2 h-[64px]"
               >
                 {transactionData.image_deposit ? (
-                  <img
-                    src={transactionData.image_deposit}
-                    className="w-[64px] h-[64px] rounded-full"
-                    alt=""
-                  />
+                  <img src={transactionData.image_deposit} className="w-[64px] h-[64px] rounded-full" alt="" />
                 ) : (
                   <img src={download} className="w-9" alt="" />
                 )}
@@ -165,9 +160,7 @@ export default function TransactionPage() {
               </div>
             </div>
 
-            <h3 className="text-[var(--gray-8)] text-center text-[17px]">
-              {transactionData.cardholder_name}
-            </h3>
+            <h3 className="text-[var(--gray-8)] text-center text-[17px]">{transactionData.cardholder_name}</h3>
 
             <div className="flex gap-[25px] justify-center items-center">
               <div className="h-[1px] bg-[var(--bg-divider)] w-[18%]"></div>
@@ -197,11 +190,7 @@ export default function TransactionPage() {
             {transactionData.comment && (
               <div className="mx-auto flex flex-col items-center">
                 <div className="flex gap-2 mb-2 w-[90%] px-2 relative left-[-24px]">
-                  <img
-                    src={massage_icon}
-                    className="w-7 h-7  shrink-0"
-                    alt=""
-                  />
+                  <img src={massage_icon} className="w-7 h-7  shrink-0" alt="" />
                   <div className="bg-[#59677b] w-full p-2 rounded-xl text-[var(--text-primary)]">
                     {transactionData.comment}
                   </div>
@@ -217,9 +206,9 @@ export default function TransactionPage() {
             )}
 
             <div className="bg-[var(--bg-secondary)] px-5 pb-5 pt-4 flex w-full flex-col">
-              {!["4441", "4899", "4042"].includes(
-                transactionData.to_card?.replace(/\s+/g, "").slice(0, 4),
-              ) && <img src={keshbek} alt="" />}
+              {!["4441", "4899", "4042"].includes(transactionData.to_card?.replace(/\s+/g, "").slice(0, 4)) && (
+                <img src={keshbek} alt="" />
+              )}
 
               <div className="bg-[var(--gray-1)] rounded-lg flex mt-3 items-center p-[15px] w-full gap-3 text-[var(--text-muted)] text-[13px]">
                 <img src={tag} alt="" />
@@ -229,14 +218,10 @@ export default function TransactionPage() {
               <div className="bg-[var(--gray-1)] rounded-lg flex mt-3 items-center px-[15px] py-[13px] w-full gap-3 text-[var(--text-muted)] text-[13px]">
                 <img src={rest} className="h-[25px]" alt="" />
                 <div className="flex flex-col">
-                  <p className="text-[var(--text-tertiary)] text-[13px]">
-                    Залишок
-                  </p>
+                  <p className="text-[var(--text-tertiary)] text-[13px]">Залишок</p>
                   <p className="text-[var(--gray-8)] text-[15px]">
                     <div className="text-[var(--text-primary)] flex items-center gap-1 justify-center">
-                      {Math.abs(transactionData.balance_after).toLocaleString(
-                        "ru-RU",
-                      )}
+                      {Math.abs(transactionData.balance_after).toLocaleString("ru-RU")}
                       <span className="flex items-center">&#8372;</span>
                     </div>
                   </p>
@@ -249,10 +234,7 @@ export default function TransactionPage() {
                 onClick={() => navigate(`/transfer/${transactionData.id}`)}
                 className="flex items-center gap-4 pl-[20px] cursor-pointer"
               >
-                <Return_icon
-                  className=" w-[25px] h-[47px]"
-                  color="var(--icon)"
-                />
+                <Return_icon className=" w-[25px] h-[47px]" color="var(--icon)" />
                 {/* <img
                   src={return_icon}
                   alt=""
@@ -265,10 +247,7 @@ export default function TransactionPage() {
               </div>
 
               <div className="flex items-center gap-3 h-[47px] pl-[10px]">
-                <Question_icon
-                  className=" w-[43px] h-[43px] object-cover shrink-0"
-                  color="var(--icon)"
-                />
+                <Question_icon className=" w-[43px] h-[43px] object-cover shrink-0" color="var(--icon)" />
                 {/* <img
                   src={question_icon}
                   alt=""
@@ -368,33 +347,22 @@ export default function TransactionPage() {
               <div className="bg-[var(--gray-1)] rounded-lg flex mt-3 items-center px-[15px] py-[13px] w-full gap-3 text-[var(--text-muted)] text-[13px]">
                 <img src={rest} className="h-[25px]" alt="" />
                 <div className="flex flex-col">
-                  <p className="text-[var(--text-tertiary)] text-[13px]">
-                    Залишок
-                  </p>
+                  <p className="text-[var(--text-tertiary)] text-[13px]">Залишок</p>
                   <p className="text-[var(--gray-8)] text-[15px]">
                     <div className="text-[var(--text-primary)] flex items-center gap-1 justify-center">
-                      {Math.abs(transactionData.balance_after).toLocaleString(
-                        "ru-RU",
-                      )}
+                      {Math.abs(transactionData.balance_after).toLocaleString("ru-RU")}
                       <span className="flex items-center">&#8372;</span>
                     </div>
                   </p>
                 </div>
               </div>
 
-              <img
-                src={theme === "dark" ? grafic : grafic_white}
-                alt=""
-                className="mt-1"
-              />
+              <img src={theme === "dark" ? grafic : grafic_white} alt="" className="mt-1" />
             </div>
 
             <div className="flex flex-col gap-3 pb-4">
               <div className="flex items-center h-[60px] gap-3 pl-[20px]">
-                <Separate
-                  className="flex-1 w-[43px] h-[43px] object-cover"
-                  color="var(--icon)"
-                />
+                <Separate className="flex-1 w-[43px] h-[43px] object-cover" color="var(--icon)" />
                 {/* <img
                   src={separate}
                   alt=""
@@ -410,10 +378,7 @@ export default function TransactionPage() {
                 onClick={() => navigate(`/transfer/${transactionData.id}`)}
                 className="flex items-center h-[47px] gap-3 pl-[20px] cursor-pointer"
               >
-                <Repeat
-                  color="var(--icon)"
-                  className="flex-1 w-[43px] h-[43px] object-cover"
-                />
+                <Repeat color="var(--icon)" className="flex-1 w-[43px] h-[43px] object-cover" />
                 {/* <img
                   src={repeat}
                   alt=""
@@ -426,10 +391,7 @@ export default function TransactionPage() {
               </div>
 
               <div className="flex items-center h-[47px] gap-3 pl-[20px]">
-                <Save
-                  color="var(--icon)"
-                  className="flex-1 w-[43px] h-[43px] object-cover"
-                />
+                <Save color="var(--icon)" className="flex-1 w-[43px] h-[43px] object-cover" />
 
                 <p className="text-[16px] h-full flex justify-center flex-col flex-13 text-[var(--gray-8)]">
                   <div>Зберегти карту</div>
@@ -441,10 +403,7 @@ export default function TransactionPage() {
                 onClick={() => navigate(`/receipt/${id}`)}
                 className="flex items-center h-[47px] gap-3 pl-[20px] cursor-pointer"
               >
-                <Rewatch
-                  color="var(--icon)"
-                  className="flex-1 w-[43px] h-[43px] object-cover"
-                />
+                <Rewatch color="var(--icon)" className="flex-1 w-[43px] h-[43px] object-cover" />
                 {/* <img
                   src={rewatch}
                   alt=""
@@ -457,10 +416,7 @@ export default function TransactionPage() {
               </div>
 
               <div className="flex items-center h-[47px] gap-3 pl-[20px]">
-                <Always
-                  color="var(--icon)"
-                  className="flex-1 w-[43px] text-[var(--icon)] h-[43px] object-cover"
-                />
+                <Always color="var(--icon)" className="flex-1 w-[43px] text-[var(--icon)] h-[43px] object-cover" />
                 {/* <img
                   src={always}
                   alt=""
@@ -473,10 +429,7 @@ export default function TransactionPage() {
               </div>
 
               <div className="flex items-center h-[47px] gap-3 pl-[20px]">
-                <Rasrochka
-                  color="var(--icon)"
-                  className="flex-1 w-[43px] h-[43px] text-[var(--icon)] object-cover"
-                />
+                <Rasrochka color="var(--icon)" className="flex-1 w-[43px] h-[43px] text-[var(--icon)] object-cover" />
                 {/* <img
                   src={rasrochka}
                   alt=""

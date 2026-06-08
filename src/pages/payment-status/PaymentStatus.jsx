@@ -1,39 +1,57 @@
 import React, { useEffect, useState } from "react";
+import Lottie from "lottie-react";
 
-import cat_big from "../../assets/cat_big.png";
-import cat_big_white from "../../assets/cat_big_white.jpg";
 import white_card from "../../assets/white_card.png";
 import white_card_white from "../../assets/white_card_white.jpg";
-import link from "../../assets/link.png";
-import link_white from "../../assets/link_white.jpg";
 import si_copy from "../../assets/si_copy.png";
+import topupAnimation from "../../assets/animations/topup.json";
+
 import { motion } from "framer-motion";
-// import share from "../../assets/share.png";
 import { useNavigate } from "react-router-dom";
 import { formatCardNumber } from "../../util/formatCardNumber";
 import { useTheme } from "../../util/useTheme";
 import setThemeColor from "../../util/setThemeColor";
 import { IoShareOutline } from "react-icons/io5";
-import { MapPin } from "lucide-react";
+
 function PaymentStatus() {
   const navigate = useNavigate();
   const [finished, setFinished] = useState(false);
+
   const data = JSON.parse(localStorage.getItem("formData"));
-  console.log(data);
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
+
   useEffect(() => {
-    setThemeColor(theme == "light" ? "var(--gray-1)" : "var(--bg-secondary)");
+    setThemeColor(theme === "light" ? "var(--gray-1)" : "var(--bg-secondary)");
   }, [theme]);
+
   return (
     <div
-      className={` ${theme == "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)] "} pb-[40px] flex flex-col justify-around h-screen p-3`}
+      className={`${
+        theme === "light" ? "bg-[var(--gray-1)]" : "bg-[var(--bg-secondary)]"
+      } pb-[40px] flex flex-col justify-around h-screen p-3`}
     >
       <div className="mt-[50px] flex flex-col items-center mb-[35px]">
-        <img
-          src={theme == "light" ? cat_big_white : cat_big}
-          alt=""
-          className="w-[221px]"
-        />
+        <div className="relative w-[221px] h-[221px] flex items-center justify-center">
+          {/* Синий круг ТОЛЬКО под topup.json */}
+          <div className="absolute inset-[8px] rounded-full bg-[#3E8DF5]" />
+
+          {/* topup.json поверх синего круга */}
+          <div className="relative z-10 w-full h-full flex items-center justify-center overflow-visible">
+            <Lottie
+              animationData={topupAnimation}
+              loop={false}
+              autoplay={true}
+              style={{
+                width: "100%",
+                height: "100%",
+                overflow: "visible",
+              }}
+              rendererSettings={{
+                preserveAspectRatio: "xMidYMid meet",
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       <h2 className="text-[28px] font-extrabold flex flex-col items-center mb-[35px] text-[var(--gray-8)]">
@@ -41,62 +59,49 @@ function PaymentStatus() {
       </h2>
 
       <div className="flex items-center gap-3 ml-6 mb-[35px]">
-        <img
-          src={theme == "light" ? white_card_white : white_card}
-          alt=""
-          className="w-[41px]"
-        />
+        <img src={theme === "light" ? white_card_white : white_card} alt="" className="w-[41px]" />
+
         <div className="flex flex-col text-[var(--gray-8)]">
           <div className="text-[17px]">
-            <span className="font-semibold">
-              {Number(data.amount).toFixed(2)} ₴
-            </span>{" "}
-            на картку
+            <span className="font-semibold">{Number(data?.amount || 0).toFixed(2)} ₴</span> на картку
           </div>
-          <div className="font-bold text-[16px]">
-            {formatCardNumber(data.cardholder_name)}
-          </div>
+
+          <div className="font-bold text-[16px]">{formatCardNumber(data?.cardholder_name || "")}</div>
         </div>
       </div>
 
       <div
-        className={`  ${theme == "light" ? "bg-[var(--bg-secondary)] " : "bg-[var(--gray-1)]"} p-5 mb-[35px] ] rounded-xl`}
+        className={`${theme === "light" ? "bg-[var(--bg-secondary)]" : "bg-[var(--gray-1)]"} p-5 mb-[35px] rounded-xl`}
       >
         <div className="flex items-center gap-3 mb-[15px]">
-          {/* <div className="w-[87px] h-[57px] relative ">
-            {" "}
-            <img
-              src={theme == "light" ? link_white : link}
-              alt=""
-              className=" h-full absolute object-cover"
-            />
-          </div> */}
           <div
-            className={`w-[57px]   ${theme == "light" ? "bg-[var(--color-white)] " : "bg-[var(--bg-secondary)]"} h-[57px] rounded-full flex items-center justify-center text-[30px] `}
+            className={`w-[57px] ${
+              theme === "light" ? "bg-[var(--color-white)]" : "bg-[var(--bg-secondary)]"
+            } h-[57px] rounded-full flex items-center justify-center text-[30px]`}
           >
             🔗
           </div>
+
           <div className="flex flex-col gap-1">
-            <div className="text-[20px] font-semibold text-[var(--gray-8)]">
-              Посилання на квитанцію
-            </div>
+            <div className="text-[20px] font-semibold text-[var(--gray-8)]">Посилання на квитанцію</div>
+
             <div className="flex items-center gap-1">
               <img src={si_copy} alt="" className="w-[15px]" />
-              <div className="text-[13px] font-semibold text-[var(--text-tertiary)]">
-                check.monobank.ua/p/imfgSF...
-              </div>
+
+              <div className="text-[13px] font-semibold text-[var(--text-tertiary)]">check.monobank.ua/p/imfgSF...</div>
             </div>
           </div>
         </div>
 
         <button
-          className={`w-full bg-[var(--transfer-button-disabled)] font-bold cursor-pointer rounded-xl ${theme == "light" ? "text-[var(--color-black)]" : " text-[var(--color-white)]"} py-3 flex justify-center items-center gap-3 hover:bg-[var(--transfer-button-disabled-hover)] transition`}
+          className={`w-full bg-[var(--transfer-button-disabled)] font-bold cursor-pointer rounded-xl ${
+            theme === "light" ? "text-[var(--color-black)]" : "text-[var(--color-white)]"
+          } py-3 flex justify-center items-center gap-3 hover:bg-[var(--transfer-button-disabled-hover)] transition`}
         >
           <IoShareOutline
             size={22}
-            color={`${theme == "light" ? "text-[var(--color-black)]" : " text-[var(--color-white)]"} h-[12px]`}
+            className={theme === "light" ? "text-[var(--color-black)]" : "text-[var(--color-white)]"}
           />
-          {/* <img src={share} alt="" className="w-[20px]" /> */}
           Поділитись
         </button>
       </div>

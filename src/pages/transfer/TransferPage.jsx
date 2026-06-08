@@ -1,80 +1,115 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useNavigate, useParams } from "react-router-dom";
-import { contacts } from "../../widgets/dashboard/Contacts";
-import { ArrowLeft, MessageCircle, Star } from "lucide-react";
+import { ArrowLeft, Star } from "lucide-react";
+import Lottie from "lottie-react";
+
 import transfer_black_card from "../../assets/transfer_black_card.svg";
 import comment from "../../assets/comment.svg";
-// import grivna from "../../assets/uah-icon.svg";
 import Grivna from "../../assets/grivna.svg?react";
 import prize from "../../assets/prize.svg";
+import loaderAnimation from "../../assets/animations/loader.json";
+
 import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
-import Balance from "../../widgets/dashboard/Balance";
-import transaction from "../../assets/transaction.svg";
-import {
-  getBankIcon,
-  getBankIconByName,
-  getBankName,
-} from "../../shared/getBankIcon";
+
+import { getBankIcon, getBankIconByName, getBankName } from "../../shared/getBankIcon";
+
 import { formatCardNumber } from "../../util/formatCardNumber";
-import CustomKeyboard from "../../shared/CustomKeyboard";
 import setThemeColor from "../../util/setThemeColor";
 import { useTheme } from "../../util/useTheme";
 
+const SUBMIT_LOADER_FALLBACK_MS = 1600;
+
+function SubmitLoaderOverlay({ theme, onComplete }) {
+  const completedRef = useRef(false);
+
+  const completeOnce = () => {
+    if (completedRef.current) return;
+
+    completedRef.current = true;
+    onComplete();
+  };
+
+  useEffect(() => {
+    const fallbackTimer = setTimeout(() => {
+      completeOnce();
+    }, SUBMIT_LOADER_FALLBACK_MS);
+
+    return () => clearTimeout(fallbackTimer);
+  }, []);
+
+  const boxClass = theme === "light" ? "bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)]" : "bg-[rgba(255,255,255,0.08)]";
+
+  return createPortal(
+    <div className="fixed inset-0 z-[999999] pointer-events-auto flex items-center justify-center bg-transparent">
+      <div className={`w-[92px] h-[92px] rounded-[18px] flex items-center justify-center ${boxClass}`}>
+        <div className="w-[42px] h-[42px] flex items-center justify-center">
+          <Lottie
+            animationData={loaderAnimation}
+            loop={false}
+            autoplay={true}
+            onComplete={completeOnce}
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+            rendererSettings={{
+              preserveAspectRatio: "xMidYMid meet",
+            }}
+          />
+        </div>
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
 export default function TransferPage() {
   const { id } = useParams();
-  const [foundCard, setFoundCard] = useState(null);
+
   const [transactionData, setTransactionData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitRequestDone, setSubmitRequestDone] = useState(false);
+  const [submitAnimationDone, setSubmitAnimationDone] = useState(false);
   const [error, setError] = useState(null);
   const [value, setValue] = useState("");
-  const navigate = useNavigate();
   const [cards, setCards] = useState([]);
-  const inputRef = useRef(null);
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [commentValue, setCommentValue] = useState("");
   const [randomUser, setRandomUser] = useState("");
   const [canSubmit, setCanSubmit] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
-  // Функция для форматирования числа с округлением до двух знаков после запятой
+  const navigate = useNavigate();
+  const inputRef = useRef(null);
+  const { theme } = useTheme();
+
   const formatAmount = (inputValue) => {
-    // Если пусто, возвращаем как есть
     if (inputValue === "" || inputValue === null || inputValue === undefined) {
       return inputValue;
     }
 
-    // Заменяем запятую на точку для единообразия
-    let normalizedValue = inputValue.replace(/,/g, ".");
+    const normalizedValue = inputValue.replace(/,/g, ".");
 
-    // Проверяем, является ли введенное значение числом (включая частичный ввод типа "123.")
     if (/^\d*\.?\d*$/.test(normalizedValue)) {
       const parts = normalizedValue.split(".");
 
-      // Если есть десятичная часть и она длиннее 2 знаков
       if (parts.length === 2 && parts[1].length > 2) {
-        // Округляем до двух знаков
-        const roundedValue =
-          Math.round(parseFloat(normalizedValue) * 100) / 100;
+        const roundedValue = Math.round(parseFloat(normalizedValue) * 100) / 100;
 
-        // Преобразуем обратно в строку с двумя знаками после запятой
-        // Но сохраняем форматирование в зависимости от того, был ли введен "."
         if (parts[1].length > 0) {
-          // Если пользователь ввел десятичную часть, сохраняем точку и два знака
           const [integerPart, decimalPart] = roundedValue.toString().split(".");
-          return decimalPart
-            ? `${integerPart}.${decimalPart.padEnd(2, "0")}`
-            : `${integerPart}.00`;
+
+          return decimalPart ? `${integerPart}.${decimalPart.padEnd(2, "0")}` : `${integerPart}.00`;
         }
 
         return roundedValue.toString();
       }
 
-      // Если десятичная часть не превышает 2 знаков, возвращаем как есть
       return inputValue;
     }
 
-    // Если это не число, возвращаем как есть (например, пустая строка)
     return inputValue;
   };
 
@@ -82,31 +117,45 @@ export default function TransferPage() {
     async function fetchCards() {
       try {
         const res = await fetchWithAuth(`${API_URL}/cards/`);
-        if (!res.ok) throw new Error(`Ошибка: ${res.status}`);
+
+        if (!res.ok) {
+          throw new Error(`Ошибка: ${res.status}`);
+        }
+
         const data = await res.json();
         setCards(data);
       } catch (err) {
         console.log(err);
       }
     }
+
     fetchCards();
   }, []);
 
   useEffect(() => {
     async function fetchTransactionOrSetCard() {
       setLoading(true);
+
       try {
         if (id.length < 16) {
           const res = await fetchWithAuth(`${API_URL}/transactions/${id}/`);
-          if (!res.ok) throw new Error(`Ошибка: ${res.status}`);
+
+          if (!res.ok) {
+            throw new Error(`Ошибка: ${res.status}`);
+          }
+
           const data = await res.json();
+
           setTransactionData(data);
+
           if (data.operation_type !== "deposit") {
             setValue(Math.abs(data.amount).toString());
           }
         } else {
           setTransactionData(null);
+
           const userData = localStorage.getItem("userData");
+
           if (userData) {
             const { name, avatar } = JSON.parse(userData);
             setRandomUser({ name, avatar });
@@ -122,47 +171,49 @@ export default function TransferPage() {
     fetchTransactionOrSetCard();
   }, [id]);
 
-  // Focus input on mount
   useEffect(() => {
     inputRef.current?.focus();
     setShowKeyboard(true);
   }, []);
 
-  // Update canSubmit whenever value changes
   useEffect(() => {
-    // Check if value is not empty and is a valid positive number
     const numericValue = parseFloat(value.replace(/,/g, "."));
+
     setCanSubmit(value !== "" && !isNaN(numericValue) && numericValue > 0);
   }, [value]);
 
+  useEffect(() => {
+    setThemeColor("var(--transfer-bg)");
+  }, []);
+
+  useEffect(() => {
+    if (!submitLoading) return;
+    if (!submitRequestDone) return;
+    if (!submitAnimationDone) return;
+
+    navigate("/payment-status");
+  }, [submitLoading, submitRequestDone, submitAnimationDone, navigate]);
+
   const handleClick = (num) => {
     if (num === ",") {
-      // Handle decimal separator
       if (!value.includes(".") && !value.includes(",")) {
-        // Если добавляем десятичный разделитель и перед ним нет цифр, добавляем "0."
         if (value === "") {
           setValue("0.");
         } else {
           setValue((prev) => prev + ".");
         }
       }
-    } else {
-      // Добавляем цифру и затем применяем форматирование
-      const newValue = value + num;
-      const formattedValue = formatAmount(newValue);
-      setValue(formattedValue);
-    }
-  };
 
-  const handleBackspace = () => {
-    const newValue = value.slice(0, -1);
-    // Применяем форматирование после удаления символа
+      return;
+    }
+
+    const newValue = value + num;
     const formattedValue = formatAmount(newValue);
     setValue(formattedValue);
   };
 
-  // Функция для прямого изменения значения (если нужно)
-  const setFormattedValue = (newValue) => {
+  const handleBackspace = () => {
+    const newValue = value.slice(0, -1);
     const formattedValue = formatAmount(newValue);
     setValue(formattedValue);
   };
@@ -170,14 +221,15 @@ export default function TransferPage() {
   const submit = async (e) => {
     e.preventDefault();
 
-    // Validate amount before submitting
+    if (submitLoading) return;
+
     const numericValue = parseFloat(value.replace(/,/g, "."));
+
     if (!value || isNaN(numericValue) || numericValue <= 0) {
       alert("Будь ласка, введіть суму переказу");
       return;
     }
 
-    // Округляем до двух знаков перед отправкой на сервер
     const roundedAmount = Math.round(numericValue * 100) / 100;
 
     let formData;
@@ -186,13 +238,10 @@ export default function TransferPage() {
       formData = {
         cardholder_name: transactionData.cardholder_name,
         from_card: cards[0]?.card_number,
-        to_card: transactionData.cardholder_name
-          ? transactionData.cardholder_name
-          : "",
+        to_card: transactionData.cardholder_name ? transactionData.cardholder_name : "",
         amount: roundedAmount,
         comment: commentValue,
-        image_withdraw:
-          transactionData.bank === "mono" ? transactionData.image_deposit : "",
+        image_withdraw: transactionData.bank === "mono" ? transactionData.image_deposit : "",
         operation_type: "withdraw",
         bank: transactionData.bank,
       };
@@ -204,9 +253,7 @@ export default function TransferPage() {
         image_withdraw: transactionData.image_withdraw,
         amount: roundedAmount,
         comment: commentValue,
-        bank: transactionData.bank
-          ? transactionData.bank
-          : getBankName(transactionData.to_card),
+        bank: transactionData.bank ? transactionData.bank : getBankName(transactionData.to_card),
       };
     } else {
       formData = {
@@ -220,7 +267,9 @@ export default function TransferPage() {
       };
     }
 
-    console.log("Submitting formData:", formData);
+    setSubmitLoading(true);
+    setSubmitRequestDone(false);
+    setSubmitAnimationDone(false);
 
     try {
       const res = await fetchWithAuth(API_URL + "/transactions/", {
@@ -231,75 +280,64 @@ export default function TransferPage() {
 
       if (!res.ok) {
         const errorData = await res.json();
+
         console.error("Server error response:", errorData);
+
         throw new Error(`Ошибка: ${res.status} - ${JSON.stringify(errorData)}`);
       }
 
-      const data = await res.json();
+      await res.json();
+
       localStorage.setItem("formData", JSON.stringify(formData));
-      navigate("/payment-status");
+
+      setSubmitRequestDone(true);
     } catch (err) {
       console.error("Ошибка при отправке:", err);
+
+      setSubmitLoading(false);
+      setSubmitRequestDone(false);
+      setSubmitAnimationDone(false);
+
       alert("Помилка при відправці. Спробуйте ще раз.");
     }
   };
 
-  useEffect(() => {
-    setThemeColor("var(--transfer-bg)");
-  }, []);
-
-  if (loading)
+  if (loading) {
     return <p className="text-[var(--transfer-text-primary)]">Loading...</p>;
-  if (error) return <p className="text-[var(--transfer-error)]">{error}</p>;
+  }
+
+  if (error) {
+    return <p className="text-[var(--transfer-error)]">{error}</p>;
+  }
 
   return (
     <div
       className={`bg-[var(--transfer-bg)] text-[var(--transfer-text-primary)] h-screen flex flex-col pb-[40px] justify-between`}
     >
+      {submitLoading && <SubmitLoaderOverlay theme={theme} onComplete={() => setSubmitAnimationDone(true)} />}
+
       {/* Header */}
       <div className="p-4 sm:p-6">
-        <button
-          onClick={() => navigate("/dashboard")}
-          className="mb-4 sm:mb-6 hover:opacity-80 transition"
-        >
+        <button onClick={() => navigate("/dashboard")} className="mb-4 sm:mb-6 hover:opacity-80 transition">
           <ArrowLeft className="w-6 h-6 sm:w-7 sm:h-7 text-[var(--transfer-text-gray-300)]" />
         </button>
+
         <div className="flex relative items-center gap-3 sm:gap-4">
           <div className="w-[45px] h-[45px] relative rounded-full flex items-center justify-center text-[var(--transfer-text-primary)] text-lg bg-[var(--transfer-avatar-bg)]">
-            {/* Дефолтный белый силуэт */}
             {!transactionData && id && randomUser.avatar && (
-              <>
-                <img
-                  src={randomUser.avatar}
-                  className="w-[45px] h-[45px] rounded-full"
-                  alt=""
-                />
-              </>
+              <img src={randomUser.avatar} className="w-[45px] h-[45px] rounded-full" alt="" />
             )}
+
             {transactionData?.image_withdraw ? (
-              <img
-                src={transactionData?.image_withdraw}
-                className="w-[45px] h-[45px] rounded-full"
-                alt=""
-              />
+              <img src={transactionData?.image_withdraw} className="w-[45px] h-[45px] rounded-full" alt="" />
             ) : transactionData?.image_deposit ? (
-              <img
-                src={transactionData?.image_deposit}
-                className="w-[45px] h-[45px] rounded-full"
-                alt=""
-              />
+              <img src={transactionData?.image_deposit} className="w-[45px] h-[45px] rounded-full" alt="" />
             ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="white"
-                viewBox="0 0 24 24"
-                className="w-5 h-5"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" className="w-5 h-5">
                 <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
               </svg>
             )}
 
-            {/* Иконка банка, если есть */}
             {(() => {
               let card;
 
@@ -309,59 +347,48 @@ export default function TransferPage() {
                     {getBankIconByName(transactionData?.bank)}
                   </div>
                 );
-              } else if (transactionData?.operation_type === "withdraw") {
+              }
+
+              if (transactionData?.operation_type === "withdraw") {
                 return (
                   <div className="absolute inset-0 flex items-center justify-center">
                     {getBankIconByName(transactionData?.bank)}
                   </div>
                 );
-              } else {
-                card = id;
               }
 
-              return (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {getBankIcon(card)}
-                </div>
-              );
+              card = id;
+
+              return <div className="absolute inset-0 flex items-center justify-center">{getBankIcon(card)}</div>;
             })()}
           </div>
 
           <div>
             <h2
-              className={`font-bold text-[19px] fira-sans-semibold sm:text-lg ${theme == "light" ? "text-black" : "text-[var(--transfer-text-amount)]"}`}
+              className={`font-bold text-[19px] fira-sans-semibold sm:text-lg ${
+                theme === "light" ? "text-black" : "text-[var(--transfer-text-amount)]"
+              }`}
             >
               {(() => {
-                let card;
                 if (transactionData?.operation_type === "deposit") {
-                  return (
-                    <>{formatCardNumber(transactionData?.cardholder_name)}</>
-                  );
-                } else if (transactionData?.operation_type === "withdraw") {
-                  return (
-                    <>{formatCardNumber(transactionData?.cardholder_name)}</>
-                  );
-                } else {
-                  return <>{formatCardNumber(randomUser.name)}</>;
+                  return <>{formatCardNumber(transactionData?.cardholder_name)}</>;
                 }
+
+                if (transactionData?.operation_type === "withdraw") {
+                  return <>{formatCardNumber(transactionData?.cardholder_name)}</>;
+                }
+
+                return <>{formatCardNumber(randomUser.name)}</>;
               })()}
             </h2>
 
-            {id &&
-              ["4441", "5375", "4899", "4042"].includes(
-                id.replace(/\s+/g, "").slice(0, 4),
-              ) && (
-                <div className="flex items-center gap-1 sm:gap-2">
-                  <img
-                    src={transfer_black_card}
-                    alt=""
-                    className="w-[14px] sm:w-[18px]"
-                  />
-                  <p className="text-[12px] sm:text-[14px] text-[var(--transfer-text-tertiary)]">
-                    На чорну картку
-                  </p>
-                </div>
-              )}
+            {id && ["4441", "5375", "4899", "4042"].includes(id.replace(/\s+/g, "").slice(0, 4)) && (
+              <div className="flex items-center gap-1 sm:gap-2">
+                <img src={transfer_black_card} alt="" className="w-[14px] sm:w-[18px]" />
+
+                <p className="text-[12px] sm:text-[14px] text-[var(--transfer-text-tertiary)]">На чорну картку</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -369,12 +396,10 @@ export default function TransferPage() {
       {/* Amount */}
       <div className="flex flex-col items-center justify-center text-center">
         <div className="flex gap-1 items-center border border-[var(--transfer-border)] text-[var(--transfer-text-amount)] px-3 py-1 sm:px-4 sm:py-2 rounded-full text-[14px] mb-3 sm:mb-4">
-          <img
-            src={transfer_black_card}
-            alt=""
-            className="w-[18px] h-[14px] sm:w-[20px] sm:h-[16px]"
-          />
+          <img src={transfer_black_card} alt="" className="w-[18px] h-[14px] sm:w-[20px] sm:h-[16px]" />
+
           <p className="text-sm sm:text-base">{cards[0]?.balance}</p>
+
           <Grivna className="w-3 h-3 text-[var(--transfer-text-primary)] object-contain" />
         </div>
 
@@ -395,26 +420,22 @@ export default function TransferPage() {
                 width: `${Math.max(value.length || 1, 1) + 1}ch`,
               }}
             />
+
             <Grivna className="w-8 h-8 text-[var(--transfer-text-primary)] sm:w-10 sm:h-10 object-contain" />
           </div>
         </div>
 
-        <p className="text-[var(--transfer-text-gray-400)] text-[13px] sm:text-[14px] mt-2">
-          Немає комісії
-        </p>
+        <p className="text-[var(--transfer-text-gray-400)] text-[13px] sm:text-[14px] mt-2">Немає комісії</p>
       </div>
 
       {/* Footer */}
-      <div className="">
+      <div>
         <div className="border-t border-[var(--transfer-border)] sm:mt-8">
           <div className="p-4 sm:p-6">
             <div className="flex justify-between items-center gap-3 mb-3 sm:mb-5">
               <div className="flex items-center gap-3 sm:gap-4 flex-1">
-                <img
-                  src={comment}
-                  alt=""
-                  className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px]"
-                />
+                <img src={comment} alt="" className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px]" />
+
                 <input
                   type="text"
                   placeholder="Коментар..."
@@ -438,24 +459,28 @@ export default function TransferPage() {
                     : "p-[1px]"
                 }`}
               >
-                <button
-                  className={`bg-[var(--transfer-button-bg)] p-4 sm:p-5 rounded-2xl text-[var(--transfer-text-primary)] hover:bg-[var(--transfer-button-hover)] transition w-full h-full`}
-                >
+                <button className="bg-[var(--transfer-button-bg)] p-4 sm:p-5 rounded-2xl text-[var(--transfer-text-primary)] hover:bg-[var(--transfer-button-hover)] transition w-full h-full">
                   <Star className="w-5 h-5 inline-block" />
                 </button>
               </div>
 
               <button
                 onClick={submit}
-                disabled={!canSubmit}
+                disabled={!canSubmit || submitLoading}
                 className={`${
-                  canSubmit
+                  canSubmit && !submitLoading
                     ? "bg-[var(--transfer-button-active)] cursor-pointer"
-                    : "bg-[var(--transfer-button-disabled)] cursor-not-allowed opacity-50"
+                    : theme === "light"
+                      ? "bg-[#E5E5EA] cursor-not-allowed opacity-100"
+                      : "bg-[#2F3037] cursor-not-allowed opacity-100"
                 } w-full py-3 sm:py-4 rounded-2xl ${
-                  theme == "light"
-                    ? "text-[var(--gray-2)]"
-                    : "text-[var(--balance)]"
+                  canSubmit && !submitLoading
+                    ? theme === "light"
+                      ? "text-[var(--gray-2)]"
+                      : "text-[var(--balance)]"
+                    : theme === "light"
+                      ? "text-[#8E8E93]"
+                      : "text-[#8E8E93]"
                 } text-[18px] font-semibold transition`}
               >
                 Надіслати
@@ -483,7 +508,6 @@ export default function TransferPage() {
           </div>
 
           <div className="grid grid-cols-3 pt-2 pb-15 px-1 gap-2 w-full">
-            {/* Второй ряд: 1,2(abc),3(def) */}
             {[
               { label: "1", sub: "" },
               { label: "2", sub: "ABC" },
@@ -495,13 +519,11 @@ export default function TransferPage() {
                 className="bg-[var(--transfer-keyboard-btn-bg)] py-[3px] text-xl rounded-lg hover:bg-[var(--transfer-keyboard-btn-hover)] transition flex flex-col items-center text-[var(--transfer-text-primary)]"
               >
                 <span>{item.label}</span>
-                <span className="text-[10px] text-[var(--transfer-text-tertiary)]">
-                  {item.sub}
-                </span>
+
+                <span className="text-[10px] text-[var(--transfer-text-tertiary)]">{item.sub}</span>
               </button>
             ))}
 
-            {/* Третий ряд: 4,5,6 */}
             {[
               { label: "4", sub: "GHI" },
               { label: "5", sub: "JKL" },
@@ -513,13 +535,11 @@ export default function TransferPage() {
                 className="bg-[var(--transfer-keyboard-btn-bg)] py-[3px] text-xl rounded-lg hover:bg-[var(--transfer-keyboard-btn-hover)] transition flex flex-col items-center text-[var(--transfer-text-primary)]"
               >
                 <span>{item.label}</span>
-                <span className="text-[10px] text-[var(--transfer-text-tertiary)]">
-                  {item.sub}
-                </span>
+
+                <span className="text-[10px] text-[var(--transfer-text-tertiary)]">{item.sub}</span>
               </button>
             ))}
 
-            {/* Четвёртый ряд: 7,8,9 */}
             {[
               { label: "7", sub: "PQRS" },
               { label: "8", sub: "TUV" },
@@ -531,25 +551,25 @@ export default function TransferPage() {
                 className="bg-[var(--transfer-keyboard-btn-bg)] py-[3px] text-xl rounded-lg hover:bg-[var(--transfer-keyboard-btn-hover)] transition flex flex-col items-center text-[var(--transfer-text-primary)]"
               >
                 <span>{item.label}</span>
-                <span className="text-[10px] text-[var(--transfer-text-tertiary)]">
-                  {item.sub}
-                </span>
+
+                <span className="text-[10px] text-[var(--transfer-text-tertiary)]">{item.sub}</span>
               </button>
             ))}
 
-            {/* Пятый ряд: , 0 назад */}
             <button
               onClick={() => handleClick(",")}
               className="py-1 text-xl rounded-lg transition text-[var(--transfer-text-primary)]"
             >
               ,
             </button>
+
             <button
               onClick={() => handleClick("0")}
               className="bg-[var(--transfer-keyboard-btn-bg)] py-[6px] text-xl rounded-lg hover:bg-[var(--transfer-keyboard-btn-hover)] transition text-[var(--transfer-text-primary)]"
             >
               0
             </button>
+
             <button
               onClick={handleBackspace}
               className="py-1 text-xl rounded-lg hover:bg-[var(--transfer-keyboard-backspace-hover)] transition text-[var(--transfer-text-primary)]"

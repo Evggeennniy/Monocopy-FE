@@ -1,3 +1,4 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { getBankIcon, getBankIconByName } from "../../../shared/getBankIcon";
 import transaction from "../../../assets/transaction.svg";
@@ -104,4 +105,4 @@ const OperationItem = ({ item, isOpen = false }) => {
   );
 };
 
-export default OperationItem;
+export default React.memo(OperationItem);

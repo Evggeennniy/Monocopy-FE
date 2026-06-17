@@ -45,15 +45,16 @@ export default function LoginPage() {
       setSuccess("Вход выполнен успешно");
 
       // Сохраняем токены в куки (например на 7 дней)
-      Cookies.set("token", data.token, {
+      const isSecure = window.location.protocol === "https:";
+      Cookies.set("access", data.access, {
         expires: 7,
-        secure: true,
-        sameSite: "strict",
+        secure: isSecure,
+        sameSite: isSecure ? "strict" : "lax",
       });
       Cookies.set("refresh", data.refresh, {
         expires: 30,
-        secure: true,
-        sameSite: "strict",
+        secure: isSecure,
+        sameSite: isSecure ? "strict" : "lax",
       });
 
       console.log("login success", data);

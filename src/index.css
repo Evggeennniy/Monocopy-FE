@@ -41,6 +41,9 @@
   font-weight: 400;
   font-style: normal;
 }
+.pt-sans {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PT Sans", sans-serif;
+}
 /* @font-face {
   font-family: "Mono Sans";
   src: url("/path-to-font/MonoSans-Regular.woff2") format("woff2");
@@ -90,6 +93,7 @@
   --bg-black-transparent-55: rgba(0, 0, 0, 0.55);
   --bg-overlay: rgba(0, 0, 0, 0.6);
   --bg-blue-haze: rgba(0, 20, 80, 0.6);
+  --all-cards-btn-bg: #0b1b3a;
 
   --gradient-default-start: #0b0d3f;
   --gradient-default-middle1: #112658;
@@ -101,7 +105,7 @@
   --gradient-contacts-middle2: #3444b3;
   --gradient-contacts-end: #417bca;
 
-  --gradient-settings-start: #181c2a;
+  --gradient-settings-start: #060922;
   --gradient-settings-middle1: #0d1d41;
   --gradient-settings-middle2: #0e2652;
   --gradient-settings-end: #132646;
@@ -316,6 +320,7 @@
   --bg-black-transparent-55: rgba(0, 0, 0, 0.1); /* полупрозрачный черный */
   --bg-overlay: rgba(0, 0, 0, 0.6); /* белый полупрозрачный оверлей */
   --bg-blue-haze: rgba(0, 20, 80, 0.6); /* светло-синий туман */
+  --all-cards-btn-bg: rgba(255, 255, 255, 0.18);
 
   /* ===== ГРАДИЕНТЫ ===== */
   /* Основной градиент (по умолчанию) */

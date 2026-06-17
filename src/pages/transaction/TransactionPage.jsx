@@ -88,8 +88,28 @@ export default function TransactionPage() {
     fetchTransaction();
   }, [id]);
   useEffect(() => {
-    setThemeColor("var(--blue-primary)");
-  }, []);
+    if (!transactionData) return;
+    const imgSrc = transactionData.image_withdraw || transactionData.image_deposit;
+    if (!imgSrc) { setThemeColor("#0a1d3e"); return; }
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = 8; canvas.height = 2;
+        const ctx = canvas.getContext("2d");
+        // берём только верхнюю полосу изображения
+        ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight * 0.25, 0, 0, 8, 2);
+        const d = ctx.getImageData(0, 0, 8, 2).data;
+        let r = 0, g = 0, b = 0;
+        for (let i = 0; i < d.length; i += 4) { r += d[i]; g += d[i+1]; b += d[i+2]; }
+        const n = d.length / 4;
+        setThemeColor(`rgb(${Math.round(r/n*0.6)},${Math.round(g/n*0.6)},${Math.round(b/n*0.6)})`);
+      } catch { setThemeColor("#0a1d3e"); }
+    };
+    img.onerror = () => setThemeColor("#0a1d3e");
+    img.src = imgSrc + "?cors=" + Date.now();
+  }, [transactionData]);
   console.log(transactionData);
   if (!transactionData) return null;
 
@@ -97,20 +117,21 @@ export default function TransactionPage() {
     <>
       {bankName !== "mono" && (
         <div className="relative bg-[var(--blue-primary)]">
-          {/* Градиент только для статус-бара - очень маленькая высота */}
-          <div className="absolute top-0 left-0 w-full h-7 bg-gradient-to-b from-[var(--blue-primary)] to-transparent pointer-events-none z-20" />
-
-          <div className="h-[120px] flex flex-col">
+          {(transactionData.image_withdraw || transactionData.image_deposit) && (
+            <img
+              src={transactionData.image_withdraw || transactionData.image_deposit}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+              style={{ filter: "blur(18px) brightness(0.75) saturate(1.4)", transform: "scale(1.1)" }}
+            />
+          )}
+          <div className="absolute top-0 left-0 w-full h-7 bg-gradient-to-b from-black/30 to-transparent pointer-events-none z-20" />
+          <div className="relative h-[120px] flex flex-col" style={{ paddingTop: "env(safe-area-inset-top)" }}>
             <button onClick={() => navigate("/dashboard")}>
               <ArrowLeft className="w-6 h-6 text-[var(--color-white)] absolute top-5 left-3" />
             </button>
           </div>
-
-          {/* Градиент для нижнего перехода */}
-          <div
-            className={`absolute bottom-0 left-0 right-0 top-0 w-full ${transactionData.image_deposit === null ? "default-trans-background" : ""}`}
-          />
-          <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-b from-transparent to-[var(--gray-1)] pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-b from-transparent to-[var(--gray-1)] pointer-events-none z-10" />
         </div>
       )}
 
@@ -123,15 +144,14 @@ export default function TransactionPage() {
           />
 
           {/* Градиент только для статус-бара - очень маленькая высота */}
-          <div className="absolute top-0 left-0 w-full h-7 bg-gradient-to-b from-black/40 to-transparent pointer-events-none z-20" />
+          {/* <div className="absolute top-0 left-0 w-full h-7 bg-gradient-to-b from-black/40 to-transparent pointer-events-none z-20" /> */}
 
-          <div className="relative h-[120px] flex flex-col">
+          <div className="relative h-[120px] flex flex-col" style={{ paddingTop: "env(safe-area-inset-top)" }}>
             <button onClick={() => navigate("/dashboard")}>
               <ArrowLeft className="w-6 h-6 text-[var(--color-white)] absolute top-5 left-3" />
             </button>
           </div>
 
-          {/* Градиент для нижнего перехода */}
           <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-b from-transparent to-[var(--gray-1)] pointer-events-none z-10" />
         </div>
       )}

@@ -128,7 +128,22 @@ export default function Balance() {
   // ✅ Устанавливаем цвет статус-бара при каждом заходе на страницу
   useEffect(() => {
     setThemeColor("var(--gradient-default-start)");
+    const onVisible = () => {
+      if (!document.hidden) setThemeColor("var(--gradient-default-start)");
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
   }, []);
+
+  useEffect(() => {
+    if (showAll) {
+      setThemeColor("var(--gray-1)");
+    } else if (isSettingsOpen) {
+      setThemeColor("var(--gradient-settings-start)");
+    } else {
+      setThemeColor("var(--gradient-default-start)");
+    }
+  }, [showAll, isSettingsOpen]);
 
   const gradientBg =
     !isSettingsOpen && !isContactsOpen && !showAll
@@ -242,13 +257,13 @@ export default function Balance() {
                     />
                     <div className="relative">
                       <p className="text-[52px] leading-[45px] flex items-center">
-                        <span className="font-[-apple-system,system-ui,sans-serif] font-bold text-[var(--balance)] tracking-[2px] leading-none">
+                        <span className="font-[-apple-system,system-ui,sans-serif] font-bold text-white tracking-[2px] leading-none">
                           {formattedBalance}
                         </span>
                         <img
                           src={grivna}
                           alt="₴"
-                          className="h-[44px] cursor-pointer transition-opacity hover:opacity-80 active:opacity-60 relative top-[1.5px]"
+                          className="h-[44px] cursor-pointer transition-opacity hover:opacity-80 active:opacity-60 brightness-0 invert self-center"
                           onClick={handleGrivnaClick}
                         />
                       </p>
@@ -331,7 +346,7 @@ export default function Balance() {
                 style={{
                   opacity:
                     offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1,
-                  background: "#0b1b3a",
+                  background: "var(--all-cards-btn-bg)",
                 }}
               >
                 <img
@@ -349,7 +364,7 @@ export default function Balance() {
       </div>
 
       {isSettingsOpen && !isContactsOpen && (
-        <div className="w-full max-w-[430px] p-5" mode="popLayout">
+        <div className="w-full max-w-[430px] p-3" mode="popLayout">
           <Settings setIsSettingsOpen={setIsSettingsOpen} />
         </div>
       )}
@@ -366,8 +381,8 @@ export default function Balance() {
       {!isSettingsOpen && !isContactsOpen && !showAll && (
         <>
           <div className="flex justify-center fixed bottom-6 z-[999] gap-3 w-full items-center">
-            <div className="bg-[var(--gray-2)] py-[12px] px-[25px] rounded-full">
-              <div className="flex justify-around gap-[20px]">
+            <div className="bg-[var(--gray-2)] py-[12px] px-[34px] rounded-full">
+              <div className="flex justify-around gap-[26px]">
                 {[
                   { img: two_cards, label: "Картки", active: true },
                   { img: credits, label: "Кредити" },
@@ -378,7 +393,7 @@ export default function Balance() {
                     key={label}
                     className="flex flex-col justify-center items-center"
                   >
-                    <img src={img} alt={label} className="w-[32px] h-[32px]" />
+                    <img src={img} alt={label} className="w-[35px] h-[35px]" />
                     <p
                       className={`text-[10px] ${active ? "text-[var(--red-secondary)]" : "text-[var(--text-primary)]"}`}
                     >

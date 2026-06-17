@@ -6,6 +6,7 @@ import Lottie from "lottie-react";
 import fetchWithAuth from "../../util/fetchWithAuth";
 import { API_URL } from "../../url";
 import { useTheme } from "../../util/useTheme";
+import setThemeColor from "../../util/setThemeColor";
 
 import qr_code from "../../assets/qr_code.png";
 import sing from "../../assets/sing.png";
@@ -113,6 +114,10 @@ function Receipt() {
 
     fetchTransaction();
   }, [id]);
+
+  useEffect(() => {
+    setThemeColor(theme === "dark" ? "#1E1E1E" : "#F4F4F4");
+  }, [theme]);
 
   const showReceipt = loaderFinished && !loading && !error && Boolean(transactionData);
 

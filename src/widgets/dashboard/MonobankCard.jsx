@@ -32,7 +32,7 @@ export default function MonobankCard({
       <div
         className={`${
           !isOpen ? "w-[90%] max-w-[320px]" : "w-[96%] max-w-[385px]"
-        } sm:w-[384px] ${isOpen ? "h-[215px] sm:h-[230px]" : "h-[180px] sm:h-[196px]"} transition-all duration-300`}
+        } sm:w-[384px] ${isOpen ? "h-[255px] sm:h-[270px]" : "h-[180px] sm:h-[196px]"} transition-all duration-300`}
         style={{ perspective: "800px" }}
       >
         {!isOpen && (
@@ -56,7 +56,9 @@ export default function MonobankCard({
               ? "translateY(0px) rotateX(0deg)"
               : `translateY(-22px) rotateX(${offsetY > 10 ? 55 : 58}deg)`,
             transformStyle: "preserve-3d",
-            background: "var(--bg-gradient-card)",
+            background: isOpen
+              ? "linear-gradient(to bottom, var(--gradient-card-end), var(--gradient-card-start))"
+              : "var(--bg-gradient-card)",
             borderBottom: isOpen
               ? `3px solid ${borderColor}`
               : `7px solid ${borderColor}`,
@@ -80,7 +82,7 @@ export default function MonobankCard({
             <div
               className={`${
                 !isOpen ? "opacity-55" : ""
-              } w-[80px] sm:w-[100px] md:w-[120px]`}
+              } ${isOpen ? "w-[110px] sm:w-[130px]" : "w-[80px] sm:w-[100px] md:w-[120px]"}`}
             >
               <img src={monobankLogo} alt="Monobank" className="w-full" />
             </div>
@@ -97,9 +99,9 @@ export default function MonobankCard({
                 style={{
                   fontWeight: 500,
                   fontSize: isOpen
-                    ? "clamp(22px, 6vw, 24мpx)"
+                    ? "clamp(23px, 6vw, 23px)"
                     : "clamp(19px, 3.8vw, 19px)",
-                  color: "rgba(255, 255, 255, 1)",
+                  color: isOpen ? "rgba(210, 222, 240, 1)" : "rgba(255, 255, 255, 1)",
                   fontVariantNumeric: "tabular-nums",
                   textShadow: "0 1px 2px rgba(var(--color-black-rgb), 0.1)",
                   textRendering: "geometricPrecision",
@@ -116,14 +118,14 @@ export default function MonobankCard({
 
           {/* Владелец */}
           {isOpen && (
-            <p className="absolute bottom-5 left-5 uppercase text-[13px] sm:text-[15px] truncate max-w-[70%] text-[var(--balance)]">
+            <p className="absolute bottom-5 left-5 uppercase text-[16px] sm:text-[18px] truncate max-w-[70%] text-[var(--balance)]">
               {owner}
             </p>
           )}
 
           {/* Visa layer */}
           <div
-            className="absolute bottom-5 right-5 w-[50px] sm:w-[70px] md:w-[80px]"
+            className={`absolute bottom-5 right-5 ${isOpen ? "w-[70px] sm:w-[90px]" : "w-[50px] sm:w-[70px] md:w-[80px]"}`}
             style={{ transform: "translateZ(1px)" }}
           >
             <img src={visa} alt="Visa" className="w-full" />

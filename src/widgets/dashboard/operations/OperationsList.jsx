@@ -1,5 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  startTransition,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import arrow_left from "../../../assets/arrow_left.svg";
 import card_image from "../../../assets/card_image.png";
@@ -18,6 +25,7 @@ const OperationsList = ({
 }) => {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
+  const [listReady, setListReady] = useState(false);
 
   const reversedAll = useMemo(() => {
     if (!Array.isArray(allOperations)) return [];
@@ -41,6 +49,7 @@ const OperationsList = ({
     if (showAll && scrollRef.current) {
       scrollRef.current.scrollTo({ top: 0, behavior: "instant" });
     }
+    if (!showAll) setListReady(false);
   }, [showAll]);
 
   return (
@@ -50,14 +59,14 @@ const OperationsList = ({
       isOpen={showAll}
       setHasFlown={setHasFlown}
     >
-      <div className="mt-3 bg-[var(--gray-1)] pb-5 pt-6 px-5 rounded-[28px] relative z-[1000]">
-        <div className="flex justify-between items-center mb-5">
+      <div className="mt-2 bg-[var(--gray-1)] pb-5 pt-6 px-5 rounded-[28px] relative z-[1000]">
+        <div className="flex justify-between items-center mb-4">
           <h3 className="text-[20px] font-bold text-[var(--text-primary)]">
             Операції
           </h3>
 
           <button
-            onClick={() => setShowAll(true)}
+            onClick={() => startTransition(() => setShowAll(true))}
             className="bg-[var(--gray-3)] rounded-full w-[66px] justify-center gap-1 text-[15px] h-[29px] text-[#7ab0f0] flex items-center"
           >
             Усі
@@ -88,7 +97,9 @@ const OperationsList = ({
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
                 exit={{ y: "100%" }}
-                transition={{ duration: 0.45, ease: [0.25, 0.8, 0.25, 1] }}
+                transition={{ duration: 0.28, ease: [0.25, 0.8, 0.25, 1] }}
+                style={{ willChange: "transform" }}
+                onAnimationComplete={() => setListReady(true)}
               >
                 <div className="flex flex-col h-full">
                   {/* Верхняя панель */}
@@ -134,27 +145,29 @@ const OperationsList = ({
                     ref={scrollRef}
                     className="flex-1 overflow-y-auto pb-10 scrollbar-none"
                   >
-                    <ul className="flex flex-col gap-8">
-                      {Object.entries(groupedOperations).map(
-                        ([date, items]) => (
-                          <li key={date} className="flex flex-col gap-3">
-                            <div className="sticky top-0 bg-[var(--gray-1)] text-center text-[var(--text-muted)] text-sm font-medium z-20 py-2">
-                              {date}
-                            </div>
-                            <ul className="flex flex-col gap-4">
-                              {items.map((item) => (
-                                <OperationItem
-                                  key={item.id}
-                                  item={item}
-                                  navigate={navigate}
-                                  isOpen={true}
-                                />
-                              ))}
-                            </ul>
-                          </li>
-                        ),
-                      )}
-                    </ul>
+                    {listReady && (
+                      <ul className="flex flex-col gap-8">
+                        {Object.entries(groupedOperations).map(
+                          ([date, items]) => (
+                            <li key={date} className="flex flex-col gap-3">
+                              <div className="sticky top-0 bg-[var(--gray-1)] text-center text-[var(--text-muted)] text-sm font-medium z-20 py-2">
+                                {date}
+                              </div>
+                              <ul className="flex flex-col gap-4">
+                                {items.map((item) => (
+                                  <OperationItem
+                                    key={item.id}
+                                    item={item}
+                                    navigate={navigate}
+                                    isOpen={true}
+                                  />
+                                ))}
+                              </ul>
+                            </li>
+                          ),
+                        )}
+                      </ul>
+                    )}
                   </div>
                 </div>
               </motion.div>

@@ -34,14 +34,14 @@ function Settings({ setIsSettingsOpen }) {
       </div>
 
       <div className="flex gap-3 px-5 pb-3 pt-3 items-center bg-[var(--blue-settings)] rounded-full">
-        <div className="w-[31px] h-[31px] flex justify-center items-center">
+        <div className="w-[50px] h-[50px] flex justify-center items-center">
           <img src={icons_setting} alt="" />
         </div>
         <div className="flex flex-col">
-          <div className="text-[var(--text-settings)] text-[15px]">
+          <div className="text-[var(--text-settings)] text-[16px]">
             Налаштування оплат
           </div>
-          <div className="text-[var(--text-tertiary)] text-[13px]">
+          <div className="text-[var(--text-tertiary)] text-[14px]">
             Додаткові перевірки
           </div>
         </div>
@@ -51,60 +51,60 @@ function Settings({ setIsSettingsOpen }) {
         style={{
           background: "var(--blue-medium)",
         }}
-        className="rounded-2xl flex flex-col gap-5 p-5"
+        className="rounded-[22px] flex flex-col gap-7 px-4 py-6"
       >
-        <div className="flex gap-3 items-center">
-          <div className="w-[31px] h-[31px] flex justify-center items-center">
+        <div className="flex gap-4 items-center">
+          <div className="w-[50px] h-[50px] flex justify-center items-center">
             <img src={apple_icon} alt="" />
           </div>
           <div className="flex flex-col">
-            <div className="text-[var(--text-settings)] text-[15px]">
+            <div className="text-[var(--text-settings)] text-[16px]">
               Налаштування Apple Pay
             </div>
-            <div className="text-[var(--text-tertiary)] text-[13px]">
+            <div className="text-[var(--text-tertiary)] text-[14px]">
               Обрати скін картки - у нас їх багато
             </div>
           </div>
         </div>
 
-        <div className="flex gap-3 items-center">
-          <div className="w-[31px] h-[31px] flex justify-center items-center">
+        <div className="flex gap-4 items-center">
+          <div className="w-[50px] h-[50px] flex justify-center items-center">
             <img src={lock_icon} alt="" />
           </div>
           <div className="flex flex-col">
-            <div className="text-[var(--text-settings)] text-[15px]">
+            <div className="text-[var(--text-settings)] text-[16px]">
               Заблокувати картку
             </div>
-            <div className="text-[var(--text-tertiary)] text-[13px]">
+            <div className="text-[var(--text-tertiary)] text-[14px]">
               Ви завжди можете її розблокувати
             </div>
           </div>
         </div>
 
-        <div className="flex gap-3 items-center">
-          <div className="w-[31px] h-[31px] flex justify-center items-center">
+        <div className="flex gap-4 items-center">
+          <div className="w-[50px] h-[50px] flex justify-center items-center">
             <img src={credit_icon} alt="" />
           </div>
           <div className="flex flex-col">
-            <div className="text-[var(--text-settings)] text-[15px]">
+            <div className="text-[var(--text-settings)] text-[16px]">
               Змінити кредитний ліміт
             </div>
-            <div className="text-[var(--text-tertiary)] text-[13px]">
+            <div className="text-[var(--text-tertiary)] text-[14px]">
               Поточний ліміт 0
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex gap-3 bg-[var(--blue-dark-2)] p-5 rounded-2xl items-center">
-        <div className="w-[31px] h-[31px] flex justify-center items-center">
+      <div className="flex gap-4 bg-[var(--blue-dark-2)] px-4 py-6 rounded-[22px] items-center">
+        <div className="w-[50px] h-[50px] flex justify-center items-center">
           <img src={service_icon} alt="" />
         </div>
         <div className="flex flex-col">
-          <div className="text-[var(--text-settings)] text-[15px]">
+          <div className="text-[var(--text-settings)] text-[16px]">
             Підписки та сервіси
           </div>
-          <div className="text-[var(--text-tertiary)] text-[13px]">
+          <div className="text-[var(--text-tertiary)] text-[14px]">
             Керування списаннями картки
           </div>
         </div>
@@ -114,99 +114,99 @@ function Settings({ setIsSettingsOpen }) {
         style={{
           background: "var(--bg-gradient-subscriptions)",
         }}
-        className="rounded-2xl flex flex-col gap-5 p-5"
+        className="rounded-[22px] flex flex-col gap-7 px-4 py-6"
       >
-        <div className="flex gap-3 items-center">
-          <div className="w-[31px] h-[31px] flex justify-center items-center">
+        <div className="flex gap-4 items-center">
+          <div className="w-[50px] h-[50px] flex justify-center items-center">
             <img src={plastic_card} alt="" />
           </div>
           <div className="flex flex-col">
-            <div className="text-[var(--text-settings)] text-[15px]">
+            <div className="text-[var(--text-settings)] text-[16px]">
               Випустити пластикову картку
             </div>
           </div>
         </div>
 
-        <div className="flex gap-3 items-center">
-          <div className="w-[31px] h-[31px] flex justify-center items-center">
+        <div className="flex gap-4 items-center">
+          <div className="w-[50px] h-[50px] flex justify-center items-center">
             <img src={reopen_icon} alt="" />
           </div>
           <div className="flex flex-col">
-            <div className="text-[var(--text-settings)] text-[15px]">
+            <div className="text-[var(--text-settings)] text-[16px]">
               Перевипустити картку
             </div>
           </div>
         </div>
 
-        <div className="flex gap-3 items-center">
-          <div className="w-[31px] h-[31px] flex justify-center items-center">
+        <div className="flex gap-4 items-center">
+          <div className="w-[50px] h-[50px] flex justify-center items-center">
             <img src={iron_up} alt="" />
           </div>
           <div className="flex flex-col">
-            <div className="text-[var(--text-settings)] text-[15px]">
+            <div className="text-[var(--text-settings)] text-[16px]">
               Підпищення до Platinum або IRON
             </div>
           </div>
         </div>
 
-        <div className="flex gap-3 items-center">
-          <div className="w-[31px] h-[31px] flex justify-center items-center">
+        <div className="flex gap-4 items-center">
+          <div className="w-[50px] h-[50px] flex justify-center items-center">
             <img src={key_icon} alt="" />
           </div>
           <div className="flex flex-col">
-            <div className="text-[var(--text-settings)] text-[15px]">
+            <div className="text-[var(--text-settings)] text-[16px]">
               Налаштування ПІН-коду
             </div>
           </div>
         </div>
 
-        <div className="flex gap-3 items-center">
-          <div className="w-[31px] h-[31px] flex justify-center items-center">
+        <div className="flex gap-4 items-center">
+          <div className="w-[50px] h-[50px] flex justify-center items-center">
             <img src={credit_icon} alt="" />
           </div>
           <div className="flex flex-col">
-            <div className="text-[var(--text-settings)] text-[15px]">
+            <div className="text-[var(--text-settings)] text-[16px]">
               Підпищення до Platinum або IRON
             </div>
           </div>
         </div>
 
-        <div className="flex gap-3 items-center">
-          <div className="w-[31px] h-[31px] flex justify-center items-center">
+        <div className="flex gap-4 items-center">
+          <div className="w-[50px] h-[50px] flex justify-center items-center">
             <img src={pracent_icon} alt="" />
           </div>
           <div className="flex flex-col">
-            <div className="text-[var(--text-settings)] text-[15px]">
+            <div className="text-[var(--text-settings)] text-[16px]">
               Додаткові картки
             </div>
-            <div className="text-[var(--text-tertiary)] text-[13px]">
+            <div className="text-[var(--text-tertiary)] text-[14px]">
               Картка mono х АТБ
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-[var(--blue-medium)] rounded-2xl flex flex-col gap-5 p-5">
-        <div className="flex gap-3 items-center">
-          <div className="w-[31px] h-[31px] flex justify-center items-center">
+      <div className="bg-[var(--blue-medium)] rounded-[22px] flex flex-col gap-7 px-4 py-6">
+        <div className="flex gap-4 items-center">
+          <div className="w-[50px] h-[50px] flex justify-center items-center">
             <img src={iban_icon} alt="" />
           </div>
           <div className="flex flex-col">
-            <div className="text-[var(--text-settings)] text-[15px]">
+            <div className="text-[var(--text-settings)] text-[16px]">
               Реквізити картки
             </div>
-            <div className="text-[var(--text-tertiary)] text-[13px]">
+            <div className="text-[var(--text-tertiary)] text-[14px]">
               Для поповнення за IBAN
             </div>
           </div>
         </div>
 
-        <div className="flex gap-3 items-center">
-          <div className="w-[31px] h-[31px] flex justify-center items-center">
+        <div className="flex gap-4 items-center">
+          <div className="w-[50px] h-[50px] flex justify-center items-center">
             <img src={pdf_settings} alt="" />
           </div>
           <div className="flex flex-col">
-            <div className="text-[var(--text-settings)] text-[15px]">
+            <div className="text-[var(--text-settings)] text-[16px]">
               Надіслати виписку за карткою
             </div>
           </div>

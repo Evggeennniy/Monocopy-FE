@@ -365,8 +365,8 @@ export default function TransferPage() {
 
           <div>
             <h2
-              className={`font-bold text-[19px] fira-sans-semibold sm:text-lg ${
-                theme === "light" ? "text-black" : "text-[var(--transfer-text-amount)]"
+              className={`pt-sans font-bold text-[19px] sm:text-lg ${
+                theme === "light" ? "text-black" : "text-white"
               }`}
             >
               {(() => {

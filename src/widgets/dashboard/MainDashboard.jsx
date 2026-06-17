@@ -39,7 +39,7 @@ function MainDashboard({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
           transition={{ duration: 0.5 }}
-          className="w-full flex flex-col gap-3 "
+          className="w-full flex flex-col gap-5 "
         >
           {/* Навигация */}
           <div className="flex justify-around mt-7">
@@ -98,7 +98,7 @@ function MainDashboard({
               setHasFlown={setHasFlown}
             />
 
-            <div className="bg-[var(--gray-1)] py-4 px-3 rounded-2xl">
+            <div className="bg-[var(--gray-1)] pt-6 pb-5 px-5 rounded-[28px]">
               <h3 className="text-lg font-semibold mb-4">Інформація</h3>
               <div className="bg-[var(--gray-4)] flex flex-col gap-2 p-4 rounded-xl">
                 <p className="text-[var(--text-tertiary)] text-[13px]!">
@@ -119,7 +119,7 @@ function MainDashboard({
               </div>
             </div>
 
-            <div className="bg-[var(--gray-1)] py-4 px-3 rounded-2xl">
+            <div className="bg-[var(--gray-1)] pt-6 pb-5 px-5 rounded-[28px]">
               <h3 className="text-lg font-semibold mb-4">Корисне</h3>
               <div className="bg-[var(--gray-4)] flex flex-col items-center mb-3 gap-2 p-4 rounded-xl">
                 <div className="flex gap-2 items-center">

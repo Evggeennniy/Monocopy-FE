@@ -50,7 +50,7 @@ const OperationsList = ({
       isOpen={showAll}
       setHasFlown={setHasFlown}
     >
-      <div className="mt-8 bg-[var(--gray-1)] pb-3 pt-6 px-3 rounded-2xl relative z-[1000]">
+      <div className="mt-3 bg-[var(--gray-1)] pb-3  pt-6 px-3 rounded-2xl relative z-[1000]">
         <div className="flex justify-between items-center mb-3">
           <h3 className="text-[17px] font-semibold text-[var(--text-primary)]">
             Операції

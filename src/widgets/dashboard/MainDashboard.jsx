@@ -42,7 +42,7 @@ function MainDashboard({
           className="w-full flex flex-col gap-3 "
         >
           {/* Навигация */}
-          <div className="flex justify-around mt-4">
+          <div className="flex justify-around mt-10">
             <div
               onClick={() => {
                 setIsOpen(false);
@@ -50,34 +50,34 @@ function MainDashboard({
               }}
               className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer"
             >
-              <div className="flex flex-col items-center gap-2 w-[77px] text-center cursor-pointer">
-                <div className="w-[57px] h-[57px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
-                  <img src={card_icon} alt="" className="w-[30px] h-[30px]" />
+              <div className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer">
+                <div className="w-[67px] h-[67px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
+                  <img src={card_icon} alt="" className="w-[37px] h-[37px]" />
                 </div>
                 <p className="text-[13.5px] leading-[15px] font-medium text-[var(--text-primary)]">
                   Переказати на картку
                 </p>
               </div>
             </div>
-            <div className="flex flex-col items-center gap-2 w-[77px] text-center cursor-pointer">
-              <div className="w-[57px] h-[57px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
-                <img src={pdf_icon} alt="" className="w-[30px] h-[30px]" />
+            <div className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer">
+              <div className="w-[67px] h-[67px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
+                <img src={pdf_icon} alt="" className="w-[37px] h-[37px]" />
               </div>
               <p className="text-[13.5px] leading-[15px] font-medium text-[var(--text-primary)]">
                 Платіж <br /> за IBAN
               </p>
             </div>
-            <div className="flex flex-col items-center gap-2 w-[77px] text-center cursor-pointer">
-              <div className="w-[57px] h-[57px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
-                <img src={car_icon} alt="" className="w-[25px] h-[25px]" />
+            <div className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer">
+              <div className="w-[67px] h-[67px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
+                <img src={car_icon} alt="" className="w-[32px] h-[32px]" />
               </div>
               <p className="text-[13.5px] leading-[15px] font-medium text-[var(--text-primary)]">
                 Штрафи <br /> ПДР
               </p>
             </div>
-            <div className="flex flex-col items-center gap-2 w-[77px] text-center cursor-pointer">
-              <div className="w-[57px] h-[57px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
-                <img src={slices_icon} alt="" className="w-[30px] h-[30px]" />
+            <div className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer">
+              <div className="w-[67px] h-[67px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
+                <img src={slices_icon} alt="" className="w-[37px] h-[37px]" />
               </div>
               <p className="text-[13.5px] leading-[15px] font-medium text-[var(--text-primary)]">
                 Інші <br /> платежі

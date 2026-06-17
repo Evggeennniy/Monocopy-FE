@@ -188,7 +188,7 @@
     var(--gradient-default-middle1) 9%,
     var(--gradient-default-middle1) 16%,
     var(--gradient-default-middle2) 25%,
-    var(--gradient-default-end) 40%
+    var(--gradient-default-end) 56%
   );
 
   --bg-gradient-contacts: linear-gradient(
@@ -398,7 +398,7 @@
     var(--gradient-default-middle1) 9%,
     var(--gradient-default-middle1) 16%,
     var(--gradient-default-middle2) 25%,
-    var(--gradient-default-end) 40%
+    var(--gradient-default-end) 56%
   );
 
   --bg-gradient-contacts: linear-gradient(

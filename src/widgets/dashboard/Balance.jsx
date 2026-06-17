@@ -66,7 +66,9 @@ export default function Balance() {
         const res = await fetchWithAuth(`${API_URL}/my-contacts/`);
         if (!res.ok) throw new Error("Failed to fetch contacts");
         const data = await res.json();
-        setPrefetchedContacts(Array.isArray(data) && data.length > 0 ? data : fallbackContacts);
+        setPrefetchedContacts(
+          Array.isArray(data) && data.length > 0 ? data : fallbackContacts,
+        );
       } catch (err) {
         console.error(err);
         setPrefetchedContacts(fallbackContacts);
@@ -102,7 +104,8 @@ export default function Balance() {
 
         if (data.length > 0) {
           const newBalance = data[0].balance;
-          const prevBalance = parseFloat(localStorage.getItem("firstCardBalance")) || 0;
+          const prevBalance =
+            parseFloat(localStorage.getItem("firstCardBalance")) || 0;
 
           if (prevBalance !== newBalance) {
             animateBalance(prevBalance, newBalance);
@@ -194,11 +197,17 @@ export default function Balance() {
           <div className="flex items-center gap-4">
             <div className="flex gap-2 items-center">
               <img src={prize} alt="price" className="w-[23px] h-[27px] pb-1" />
-              <div className="text-[var(--balance)] fira-sans-semibold text-[12px]">50.00 ₴</div>
+              <div className="text-[var(--balance)] fira-sans-semibold text-[12px]">
+                50.00 ₴
+              </div>
             </div>
             <div className="h-[24px] w-[1px] bg-[var(--border-divider)]" />
             <div className="flex gap-5 items-center">
-              <img src={monobank} alt="monobank" className="w-[22px] h-[22px]" />
+              <img
+                src={monobank}
+                alt="monobank"
+                className="w-[22px] h-[22px]"
+              />
               <img src={rating} alt="rating" className="w-[22px] h-[22px]" />
             </div>
           </div>
@@ -224,18 +233,22 @@ export default function Balance() {
               {/* ===== Баланс ===== */}
               {!isSettingsOpen && !isContactsOpen && !showAll && (
                 <>
-                  <div className="h-[70px] w-full" />
-                  <div className="text-center mb-4 flex justify-center items-center gap-2">
-                    <img src={plus} alt="plus" className="relative top-[1.5px]" />
+                  <div className="h-[90px] w-full" />
+                  <div className="text-center mb-[65px] flex justify-center items-center gap-2">
+                    <img
+                      src={plus}
+                      alt="plus"
+                      className="w-[38px] h-[38px] relative top-[1.5px]"
+                    />
                     <div className="relative">
-                      <p className="text-[47px] leading-[40px] flex items-center">
+                      <p className="text-[52px] leading-[45px] flex items-center">
                         <span className="font-[-apple-system,system-ui,sans-serif] font-bold text-[var(--balance)] tracking-[2px] leading-none">
                           {formattedBalance}
                         </span>
                         <img
                           src={grivna}
                           alt="₴"
-                          className="h-[35px] cursor-pointer transition-opacity hover:opacity-80 active:opacity-60 relative top-[1.5px]"
+                          className="h-[44px] cursor-pointer transition-opacity hover:opacity-80 active:opacity-60 relative top-[1.5px]"
                           onClick={handleGrivnaClick}
                         />
                       </p>
@@ -265,7 +278,11 @@ export default function Balance() {
                     isOpen={isSettingsOpen}
                     setIsOpen={setIsSettingsOpen}
                     offsetY={offsetY}
-                    borderColor={index === 0 ? "var(--border-card-first)" : "var(--border-card-other)"}
+                    borderColor={
+                      index === 0
+                        ? "var(--border-card-first)"
+                        : "var(--border-card-other)"
+                    }
                     owner={`${card.user.first_name} ${card.user.last_name}`}
                   />
                 </div>
@@ -297,23 +314,26 @@ export default function Balance() {
           <>
             {cards.length === 1 ? (
               <div
-                className="flex absolute top-[22.5rem] right-1/2 z-[100] w-[120px] bg-[var(--bg-black-transparent)] rounded-full justify-center items-center gap-2 transform translate-x-1/2 transition-opacity duration-300"
+                className="flex absolute top-[23.1rem] right-1/2 z-[100] w-[120px] bg-[var(--bg-black-transparent)] rounded-full justify-center items-center gap-2 transform translate-x-1/2 transition-opacity duration-300"
                 style={{
-                  opacity: offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1,
+                  opacity:
+                    offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1,
                 }}
               >
                 <span className="w-2 h-2 bg-[var(--color-white)] rounded-full"></span>
-                <button className="text-[var(--text-gray-500)] pb-[1px] font-bold">+</button>
+                <button className="text-[var(--text-gray-500)] pb-[1px] font-bold">
+                  +
+                </button>
               </div>
             ) : (
               <button
-                className="flex absolute top-[21.4rem] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-4 gap-2 py-[2px] rounded-full bg-[var(--blue-dark-1)] opacity-90 transition-opacity duration-300"
-                style={{
-                  opacity: offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1,
-                }}
+                className="flex absolute top-[27.5rem] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-5 gap-2 py-[4px] rounded-full opacity-90 transition-opacity duration-300"
+                style={{ opacity: offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1, background: "#0b1b3a" }}
               >
-                <img src={bank_cards} alt="bank_cards" />
-                <p className="text-[12px] text-[text-[var(--text-secondary)]]">Усі картки</p>
+                <img src={bank_cards} alt="bank_cards" className="w-[18px] h-[18px]" />
+                <p className="text-[13px] font-semibold text-[var(--text-gray-400)]">
+                  Усі картки
+                </p>
               </button>
             )}
           </>
@@ -346,7 +366,10 @@ export default function Balance() {
                   { img: six, label: "Накопичення" },
                   { img: dots, label: "Ще" },
                 ].map(({ img, label, active }) => (
-                  <div key={label} className="flex flex-col justify-center items-center">
+                  <div
+                    key={label}
+                    className="flex flex-col justify-center items-center"
+                  >
                     <img src={img} alt={label} className="w-[27px] h-[27px]" />
                     <p
                       className={`text-[10px] ${active ? "text-[var(--red-secondary)]" : "text-[var(--text-primary)]"}`}

@@ -31,8 +31,8 @@ export default function MonobankCard({
 
       <div
         className={`${
-          !isOpen ? "w-[90%] max-w-[320px]" : "w-[92%] max-w-[340px]"
-        } sm:w-[384px] h-[180px] sm:h-[196px] transition-all duration-300`}
+          !isOpen ? "w-[90%] max-w-[320px]" : "w-[96%] max-w-[385px]"
+        } sm:w-[384px] ${isOpen ? "h-[215px] sm:h-[230px]" : "h-[180px] sm:h-[196px]"} transition-all duration-300`}
         style={{ perspective: "1200px" }}
       >
         {!isOpen && (
@@ -53,7 +53,7 @@ export default function MonobankCard({
           style={{
             transform: isOpen
               ? "translateY(0px) rotateX(0deg)"
-              : `translateY(-10px) rotateX(${offsetY > 10 ? 63 : 66}deg)`,
+              : `translateY(-10px) rotateX(${offsetY > 10 ? 55 : 58}deg)`,
             transformStyle: "preserve-3d",
             background: "var(--bg-gradient-card)",
             borderBottom: isOpen
@@ -74,13 +74,19 @@ export default function MonobankCard({
               <img src={monobankLogo} alt="Monobank" className="w-full" />
             </div>
 
-            <div className="relative mx-auto text-center">
+            <div
+              className={
+                isOpen
+                  ? "absolute inset-0 flex items-center justify-center"
+                  : "relative mx-auto text-center"
+              }
+            >
               <p
                 className="tracking-widest"
                 style={{
                   fontWeight: 500,
                   fontSize: isOpen
-                    ? "clamp(20px, 4vw, 20px)"
+                    ? "clamp(22px, 6vw, 24мpx)"
                     : "clamp(19px, 3.8vw, 19px)",
                   color: "rgba(245, 245, 245, 1)",
                   fontVariantNumeric: "tabular-nums",

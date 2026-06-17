@@ -50,15 +50,15 @@ const OperationsList = ({
       isOpen={showAll}
       setHasFlown={setHasFlown}
     >
-      <div className="mt-3 bg-[var(--gray-1)] pb-3  pt-6 px-3 rounded-2xl relative z-[1000]">
-        <div className="flex justify-between items-center mb-3">
-          <h3 className="text-[17px] font-semibold text-[var(--text-primary)]">
+      <div className="mt-3 bg-[var(--gray-1)] pb-5 pt-6 px-5 rounded-[28px] relative z-[1000]">
+        <div className="flex justify-between items-center mb-5">
+          <h3 className="text-[20px] font-bold text-[var(--text-primary)]">
             Операції
           </h3>
 
           <button
             onClick={() => setShowAll(true)}
-            className="bg-[var(--gray-3)] rounded-full w-[54px] justify-center gap-1 text-[11px] h-[25px] text-[var(--blue-link)] flex items-center"
+            className="bg-[var(--gray-3)] rounded-full w-[66px] justify-center gap-1 text-[15px] h-[29px] text-[#7ab0f0] flex items-center"
           >
             Усі
             <img src={arrow_left} alt="" className="pt-[1px]" />

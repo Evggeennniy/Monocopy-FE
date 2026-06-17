@@ -13,16 +13,16 @@ const OperationItem = ({ item, isOpen = false }) => {
     <li
       key={item.id}
       onClick={() => navigate("/transaction/" + item.id)}
-      className="flex justify-between items-center rounded-xl py-[6px] cursor-pointer hover:bg-[var(--bg-hover)] transition-colors duration-200 "
+      className="flex justify-between items-center rounded-xl py-[10px] cursor-pointer hover:bg-[var(--bg-hover)] transition-colors duration-200 "
     >
       <div className="flex gap-4 items-center">
         {isWithdraw ? (
           <>
-            <div className="w-[42px] h-[42px] relative rounded-full bg-[var(--blue-primary)] flex justify-center items-center">
+            <div className="w-[48px] h-[48px] relative rounded-full bg-[var(--blue-primary)] flex justify-center items-center">
               {item.image_withdraw ? (
                 <img
                   src={item.image_withdraw}
-                  className="w-[42px] h-[42px] rounded-full"
+                  className="w-[48px] h-[48px] rounded-full"
                   alt=""
                 />
               ) : (
@@ -32,7 +32,7 @@ const OperationItem = ({ item, isOpen = false }) => {
             </div>
 
             <div className="flex flex-col">
-              <span className="text-[17px] text-[var(--text-primary)]">
+              <span className="text-[19px] text-[var(--text-primary)]">
                 {formatCardNumber(item.cardholder_name)}
               </span>
               {item.comment && isOpen && (
@@ -47,12 +47,12 @@ const OperationItem = ({ item, isOpen = false }) => {
           <>
             <div
               style={{ background: "var(--blue-deposit)" }}
-              className="w-[42px] h-[42px] rounded-full relative flex justify-center items-center"
+              className="w-[48px] h-[48px] rounded-full relative flex justify-center items-center"
             >
               {item.image_deposit ? (
                 <img
                   src={item.image_deposit}
-                  className="w-[42px] h-[42px] rounded-full"
+                  className="w-[48px] h-[48px] rounded-full"
                   alt=""
                 />
               ) : (
@@ -61,7 +61,7 @@ const OperationItem = ({ item, isOpen = false }) => {
               {item.bank !== "mono" && getBankIconByName(item.bank)}
             </div>
 
-            <span className="text-[17px] flex flex-col">
+            <span className="text-[19px] flex flex-col">
               <div className="text-[var(--text-primary)]">
                 Від:{" "}
                 <span className="text-[var(--text-primary)]">
@@ -81,7 +81,7 @@ const OperationItem = ({ item, isOpen = false }) => {
 
       <div className="flex items-start">
         <span
-          className={`text-[18px] ${
+          className={`text-[20px] ${
             isWithdraw
               ? "text-[var(--text-primary)]"
               : "text-[var(--green-primary)]"
@@ -91,7 +91,7 @@ const OperationItem = ({ item, isOpen = false }) => {
           {Math.abs(item.amount).toLocaleString("ru-RU")}
         </span>
         <span
-          className={`text-[18px] ${
+          className={`text-[20px] ${
             isWithdraw
               ? "text-[var(--text-primary)]"
               : "text-[var(--green-primary)]"

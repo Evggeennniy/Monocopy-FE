@@ -188,27 +188,27 @@ export default function Balance() {
           }`}
         >
           <div className="flex gap-3 items-center">
-            <div className="w-[33px] h-[33px] rounded-full bg-[var(--blue-primary)] flex justify-center items-center text-[var(--text-primary)]">
+            <div className="w-[38px] h-[38px] rounded-full bg-[var(--blue-primary)] flex justify-center items-center text-[var(--text-primary)]">
               {firstCard.user.first_name[0].toUpperCase()}
             </div>
-            <img src={message} alt="message" className="w-[22px] h-[20px]" />
+            <img src={message} alt="message" className="w-[26px] h-[24px]" />
           </div>
 
           <div className="flex items-center gap-4">
             <div className="flex gap-2 items-center">
-              <img src={prize} alt="price" className="w-[23px] h-[27px] pb-1" />
+              <img src={prize} alt="price" className="w-[27px] h-[31px] pb-1" />
               <div className="text-[var(--balance)] fira-sans-semibold text-[12px]">
                 50.00 ₴
               </div>
             </div>
             <div className="h-[24px] w-[1px] bg-[var(--border-divider)]" />
-            <div className="flex gap-5 items-center">
+            <div className="flex gap-7 items-center">
               <img
                 src={monobank}
                 alt="monobank"
-                className="w-[22px] h-[22px]"
+                className="w-[26px] h-[26px]"
               />
-              <img src={rating} alt="rating" className="w-[22px] h-[22px]" />
+              <img src={rating} alt="rating" className="w-[26px] h-[26px]" />
             </div>
           </div>
         </div>
@@ -290,7 +290,7 @@ export default function Balance() {
 
               <AnimatePresence mode="popLayout">
                 {!isSettingsOpen && !isContactsOpen && (
-                  <div className="p-3">
+                  <div className="p-5">
                     <MainDashboard
                       setHasFlown={setHasFlown}
                       showAll={showAll}
@@ -328,9 +328,17 @@ export default function Balance() {
             ) : (
               <button
                 className="flex absolute top-[27.5rem] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-5 gap-2 py-[4px] rounded-full opacity-90 transition-opacity duration-300"
-                style={{ opacity: offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1, background: "#0b1b3a" }}
+                style={{
+                  opacity:
+                    offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1,
+                  background: "#0b1b3a",
+                }}
               >
-                <img src={bank_cards} alt="bank_cards" className="w-[18px] h-[18px]" />
+                <img
+                  src={bank_cards}
+                  alt="bank_cards"
+                  className="w-[18px] h-[18px]"
+                />
                 <p className="text-[13px] font-semibold text-[var(--text-gray-400)]">
                   Усі картки
                 </p>
@@ -370,7 +378,7 @@ export default function Balance() {
                     key={label}
                     className="flex flex-col justify-center items-center"
                   >
-                    <img src={img} alt={label} className="w-[27px] h-[27px]" />
+                    <img src={img} alt={label} className="w-[32px] h-[32px]" />
                     <p
                       className={`text-[10px] ${active ? "text-[var(--red-secondary)]" : "text-[var(--text-primary)]"}`}
                     >
@@ -388,7 +396,7 @@ export default function Balance() {
               <img src={market} alt="market" className="w-[37px] h-[37px]" />
             </button>
           </div>
-          <div className="fixed bottom-0 left-0 w-full h-[90px] bg-[var(--gradient-footer)] z-[1]" />
+          <div className="fixed bottom-0 left-0 w-full h-[95px] bg-[var(--gradient-footer)] z-[1]" />
         </>
       )}
 

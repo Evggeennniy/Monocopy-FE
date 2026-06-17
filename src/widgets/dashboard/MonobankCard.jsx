@@ -33,11 +33,11 @@ export default function MonobankCard({
         className={`${
           !isOpen ? "w-[90%] max-w-[320px]" : "w-[96%] max-w-[385px]"
         } sm:w-[384px] ${isOpen ? "h-[215px] sm:h-[230px]" : "h-[180px] sm:h-[196px]"} transition-all duration-300`}
-        style={{ perspective: "1200px" }}
+        style={{ perspective: "800px" }}
       >
         {!isOpen && (
           <div
-            className="absolute top-2 inset-0 w-[85%] max-w-[300px] mx-auto pointer-events-none rounded-2xl"
+            className="absolute top-2 inset-0 w-[85%] max-w-[300px] mx-auto pointer-events-none rounded-[20px]"
             style={{
               background: "var(--radial-card-glow)",
               filter: "blur(40px)",
@@ -49,11 +49,12 @@ export default function MonobankCard({
 
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="main-card relative w-full h-full text-white p-5 sm:p-6 rounded-2xl cursor-pointer transition-transform duration-700 ease-out"
+          className="main-card relative w-full h-full text-white p-5 sm:p-6 rounded-[20px] cursor-pointer transition-transform duration-700 ease-out"
           style={{
+            borderRadius: "20px",
             transform: isOpen
               ? "translateY(0px) rotateX(0deg)"
-              : `translateY(-10px) rotateX(${offsetY > 10 ? 55 : 58}deg)`,
+              : `translateY(-22px) rotateX(${offsetY > 10 ? 55 : 58}deg)`,
             transformStyle: "preserve-3d",
             background: "var(--bg-gradient-card)",
             borderBottom: isOpen
@@ -61,9 +62,19 @@ export default function MonobankCard({
               : `7px solid ${borderColor}`,
             boxShadow: isOpen
               ? "0 10px 15px rgba(var(--color-black-rgb), 0.5) inset"
-              : "0 20px 20px rgba(var(--color-black-rgb), 0.5), 0 0 50px rgba(var(--color-black-rgb), 0.1) inset",
+              : "0 45px 80px rgba(5, 10, 50, 0.65), 0 20px 40px rgba(8, 15, 55, 0.45)",
           }}
         >
+          {/* Световой оверлей для 3D эффекта */}
+          {!isOpen && (
+            <div
+              className="absolute inset-0 rounded-[20px] pointer-events-none z-20"
+              style={{
+                background: "linear-gradient(to bottom, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 60%)",
+              }}
+            />
+          )}
+
           {/* Контент карты */}
           <div className="flex flex-col gap-6 h-full relative z-10">
             <div
@@ -88,9 +99,9 @@ export default function MonobankCard({
                   fontSize: isOpen
                     ? "clamp(22px, 6vw, 24мpx)"
                     : "clamp(19px, 3.8vw, 19px)",
-                  color: "rgba(245, 245, 245, 1)",
+                  color: "rgba(255, 255, 255, 1)",
                   fontVariantNumeric: "tabular-nums",
-                  textShadow: "0 1px 2px rgba(var(--color-black-rgb), 0.3)",
+                  textShadow: "0 1px 2px rgba(var(--color-black-rgb), 0.1)",
                   textRendering: "geometricPrecision",
                   WebkitFontSmoothing: "antialiased",
                   MozOsxFontSmoothing: "grayscale",

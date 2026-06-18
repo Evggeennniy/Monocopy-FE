@@ -19,7 +19,7 @@ const OperationItem = ({ item, isOpen = false }) => {
       <div className="flex gap-4 items-center min-w-0 flex-1">
         {isWithdraw ? (
           <>
-            <div className="w-[48px] h-[48px] relative rounded-full bg-[var(--blue-primary)] flex justify-center items-center">
+            <div className="w-[48px] h-[48px] shrink-0 relative rounded-full bg-[var(--blue-primary)] flex justify-center items-center">
               {item.image_withdraw ? (
                 <img
                   src={item.image_withdraw}
@@ -32,8 +32,8 @@ const OperationItem = ({ item, isOpen = false }) => {
               {item.bank !== "mono" && getBankIconByName(item.bank)}
             </div>
 
-            <div className="flex flex-col">
-              <span className="text-[19px] font-semibold text-[var(--text-primary)]">
+            <div className="flex flex-col min-w-0">
+              <span className="text-[19px] font-semibold text-[var(--text-primary)] truncate">
                 {formatCardNumber(item.cardholder_name)}
               </span>
               {item.comment && isOpen && (
@@ -48,7 +48,7 @@ const OperationItem = ({ item, isOpen = false }) => {
           <>
             <div
               style={{ background: "var(--blue-deposit)" }}
-              className="w-[48px] h-[48px] rounded-full relative flex justify-center items-center"
+              className="w-[48px] h-[48px] shrink-0 rounded-full relative flex justify-center items-center"
             >
               {item.image_deposit ? (
                 <img
@@ -63,7 +63,7 @@ const OperationItem = ({ item, isOpen = false }) => {
             </div>
 
             <span className="text-[19px] flex flex-col min-w-0">
-              <div className="text-[var(--text-primary)] font-semibold break-words whitespace-normal">
+              <div className="text-[var(--text-primary)] font-semibold truncate">
                 Від:{" "}
                 <span className="text-[var(--text-primary)]">
                   {item.cardholder_name}

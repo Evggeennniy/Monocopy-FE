@@ -342,7 +342,7 @@ export default function Balance() {
               </div>
             ) : (
               <button
-                className="flex absolute top-[27.5rem] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-5 gap-2 py-[4px] rounded-full opacity-90 transition-opacity duration-300"
+                className="flex absolute top-[27rem] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-5 gap-2 py-[4px] rounded-full opacity-90 transition-opacity duration-300"
                 style={{
                   opacity:
                     offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1,

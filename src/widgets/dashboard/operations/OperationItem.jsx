@@ -14,9 +14,9 @@ const OperationItem = ({ item, isOpen = false }) => {
     <li
       key={item.id}
       onClick={() => navigate("/transaction/" + item.id)}
-      className="flex justify-between items-center rounded-xl py-[10px] cursor-pointer hover:bg-[var(--bg-hover)] transition-colors duration-200 "
+      className="flex justify-between items-center gap-4 rounded-xl py-[10px] cursor-pointer hover:bg-[var(--bg-hover)] transition-colors duration-200 "
     >
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-4 items-center min-w-0 flex-1">
         {isWithdraw ? (
           <>
             <div className="w-[48px] h-[48px] relative rounded-full bg-[var(--blue-primary)] flex justify-center items-center">
@@ -33,7 +33,7 @@ const OperationItem = ({ item, isOpen = false }) => {
             </div>
 
             <div className="flex flex-col">
-              <span className="text-[19px] text-[var(--text-primary)]">
+              <span className="text-[19px] font-semibold text-[var(--text-primary)]">
                 {formatCardNumber(item.cardholder_name)}
               </span>
               {item.comment && isOpen && (
@@ -62,8 +62,8 @@ const OperationItem = ({ item, isOpen = false }) => {
               {item.bank !== "mono" && getBankIconByName(item.bank)}
             </div>
 
-            <span className="text-[19px] flex flex-col">
-              <div className="text-[var(--text-primary)]">
+            <span className="text-[19px] flex flex-col min-w-0">
+              <div className="text-[var(--text-primary)] font-semibold break-words whitespace-normal">
                 Від:{" "}
                 <span className="text-[var(--text-primary)]">
                   {item.cardholder_name}
@@ -82,7 +82,7 @@ const OperationItem = ({ item, isOpen = false }) => {
 
       <div className="flex items-start">
         <span
-          className={`text-[20px] ${
+          className={`text-[20px] font-semibold ${
             isWithdraw
               ? "text-[var(--text-primary)]"
               : "text-[var(--green-primary)]"
@@ -92,7 +92,7 @@ const OperationItem = ({ item, isOpen = false }) => {
           {Math.abs(item.amount).toLocaleString("ru-RU")}
         </span>
         <span
-          className={`text-[20px] ${
+          className={`text-[20px] font-semibold ${
             isWithdraw
               ? "text-[var(--text-primary)]"
               : "text-[var(--green-primary)]"

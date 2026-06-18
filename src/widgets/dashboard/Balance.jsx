@@ -256,14 +256,14 @@ export default function Balance() {
                       className="w-[38px] h-[38px] relative top-[1.5px]"
                     />
                     <div className="relative">
-                      <p className="text-[52px] leading-[45px] flex items-center">
+                      <p className="text-[44px] leading-none flex items-center">
                         <span className="font-[-apple-system,system-ui,sans-serif] font-bold text-white tracking-[2px] leading-none">
                           {formattedBalance}
                         </span>
                         <img
                           src={grivna}
                           alt="₴"
-                          className="h-[44px] cursor-pointer transition-opacity hover:opacity-80 active:opacity-60 brightness-0 invert self-center"
+                          className="h-[37px] cursor-pointer transition-opacity hover:opacity-80 active:opacity-60 brightness-0 invert self-center"
                           onClick={handleGrivnaClick}
                         />
                       </p>

@@ -34,7 +34,7 @@ const OperationItem = ({ item, isOpen = false }) => {
 
             <div className="flex flex-col min-w-0">
               <span
-                className={`${formatCardNumber(item.cardholder_name).includes("*") ? "text-[17px]" : "text-[19px]"} font-semibold text-[var(--text-primary)] truncate`}
+                className={`${formatCardNumber(item.cardholder_name).includes("*") ? "text-[15px]" : "text-[19px]"} font-semibold text-[var(--text-primary)]`}
                 style={formatCardNumber(item.cardholder_name).includes("*") ? { letterSpacing: 0, wordSpacing: "-4px" } : {}}
               >
                 {formatCardNumber(item.cardholder_name)}
@@ -66,7 +66,7 @@ const OperationItem = ({ item, isOpen = false }) => {
             </div>
 
             <span className="text-[19px] flex flex-col min-w-0">
-              <div className="text-[var(--text-primary)] font-semibold truncate">
+              <div className="text-[var(--text-primary)] font-semibold">
                 Від:{" "}
                 <span className="text-[var(--text-primary)]">
                   {item.cardholder_name}
@@ -85,7 +85,7 @@ const OperationItem = ({ item, isOpen = false }) => {
 
       <div className="flex items-start">
         <span
-          className={`text-[20px] font-semibold ${
+          className={`text-[18px] font-semibold ${
             isWithdraw
               ? "text-[var(--text-primary)]"
               : "text-[var(--green-primary)]"
@@ -95,7 +95,7 @@ const OperationItem = ({ item, isOpen = false }) => {
           {Math.abs(item.amount).toLocaleString("ru-RU")}
         </span>
         <span
-          className={`text-[20px] font-semibold ${
+          className={`text-[18px] font-semibold ${
             isWithdraw
               ? "text-[var(--text-primary)]"
               : "text-[var(--green-primary)]"

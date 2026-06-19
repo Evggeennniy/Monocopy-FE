@@ -305,7 +305,7 @@ export default function Balance() {
 
               <AnimatePresence mode="popLayout">
                 {!isSettingsOpen && !isContactsOpen && (
-                  <div className="p-5">
+                  <div className="p-4">
                     <MainDashboard
                       setHasFlown={setHasFlown}
                       showAll={showAll}

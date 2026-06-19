@@ -33,7 +33,10 @@ const OperationItem = ({ item, isOpen = false }) => {
             </div>
 
             <div className="flex flex-col min-w-0">
-              <span className="text-[19px] font-semibold text-[var(--text-primary)] truncate">
+              <span
+                className={`${formatCardNumber(item.cardholder_name).includes("*") ? "text-[17px]" : "text-[19px]"} font-semibold text-[var(--text-primary)] truncate`}
+                style={formatCardNumber(item.cardholder_name).includes("*") ? { letterSpacing: 0, wordSpacing: "-4px" } : {}}
+              >
                 {formatCardNumber(item.cardholder_name)}
               </span>
               {item.comment && isOpen && (

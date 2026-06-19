@@ -90,7 +90,7 @@ export default function TransactionPage() {
   useEffect(() => {
     if (!transactionData) return;
     const imgSrc = transactionData.image_withdraw || transactionData.image_deposit;
-    if (!imgSrc) { setThemeColor("#0a1d3e"); return; }
+    if (!imgSrc) { setThemeColor("var(--blue-primary)"); return; }
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.onload = () => {
@@ -117,13 +117,15 @@ export default function TransactionPage() {
     <>
       {bankName !== "mono" && (
         <div className="relative bg-[var(--blue-primary)]">
-          {(transactionData.image_withdraw || transactionData.image_deposit) && (
+          {(transactionData.image_withdraw || transactionData.image_deposit) ? (
             <img
               src={transactionData.image_withdraw || transactionData.image_deposit}
               alt=""
               className="absolute inset-0 w-full h-full object-cover pointer-events-none"
               style={{ filter: "blur(18px) brightness(0.75) saturate(1.4)", transform: "scale(1.1)" }}
             />
+          ) : (
+            <div className="default-trans-background absolute bottom-0 left-0 right-0 top-0 w-full" />
           )}
           <div className="absolute top-0 left-0 w-full h-7 bg-gradient-to-b from-black/30 to-transparent pointer-events-none z-20" />
           <div className="relative h-[120px] flex flex-col" style={{ paddingTop: "env(safe-area-inset-top)" }}>

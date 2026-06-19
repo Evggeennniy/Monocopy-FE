@@ -263,7 +263,7 @@ export default function Balance() {
                         <img
                           src={grivna}
                           alt="₴"
-                          className="h-[37px] cursor-pointer transition-opacity hover:opacity-80 active:opacity-60 brightness-0 invert self-center"
+                          className="h-[37px] cursor-pointer transition-opacity hover:opacity-80 active:opacity-60 self-center"
                           onClick={handleGrivnaClick}
                         />
                       </p>

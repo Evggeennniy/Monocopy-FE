@@ -2,16 +2,16 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0.00 0.00 133.00 133.00">
 <g stroke-width="2.00" fill="none" stroke-linecap="butt">
-<path stroke="#7c849e" vector-effect="non-scaling-stroke" d="
+<path stroke="transparent" vector-effect="non-scaling-stroke" d="
   M 117.07 64.12
   L 15.78 64.14"
 />
-<path stroke="#7c849e" vector-effect="non-scaling-stroke" d="
+<path stroke="transparent" vector-effect="non-scaling-stroke" d="
   M 117.07 71.89
   L 15.77 71.92"
 />
 </g>
-<path fill="#e1e1e1" d="
+<path fill="#ffffff" d="
   M 117.07 64.12
   L 15.78 64.14
   L 15.83 55.89
@@ -56,7 +56,7 @@
   L 117.07 64.12
   Z"
 />
-<path fill="#e1e1e1" d="
+<path fill="#ffffff" d="
   M 117.07 71.89
   L 117.05 80.09
   A 0.53 0.53 0.0 0 1 116.52 80.62

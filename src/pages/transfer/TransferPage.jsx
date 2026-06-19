@@ -65,6 +65,19 @@ function SubmitLoaderOverlay({ theme, onComplete }) {
   );
 }
 
+const renderCardText = (text) => {
+  if (!text) return null;
+  return text.split(" ").map((group, i) => (
+    <span key={i} style={{ marginLeft: i > 0 ? "5px" : 0, letterSpacing: 0 }}>
+      {group.split("").map((char, j) =>
+        char === "*" ? (
+          <span key={j} style={{ position: "relative", top: "0px", fontSize: "0.9em", fontWeight: 800 }}>*</span>
+        ) : char
+      )}
+    </span>
+  ));
+};
+
 export default function TransferPage() {
   const { id } = useParams();
 
@@ -365,20 +378,21 @@ export default function TransferPage() {
 
           <div>
             <h2
-              className={`pt-sans font-bold text-[19px] sm:text-lg ${
+              className={`font-extrabold text-[19px] sm:text-lg ${
                 theme === "light" ? "text-black" : "text-white"
               }`}
+              style={{ fontFamily: "Inter, sans-serif", wordSpacing: "normal" }}
             >
               {(() => {
                 if (transactionData?.operation_type === "deposit") {
-                  return <>{formatCardNumber(transactionData?.cardholder_name)}</>;
+                  return <>{renderCardText(formatCardNumber(transactionData?.cardholder_name))}</>;
                 }
 
                 if (transactionData?.operation_type === "withdraw") {
-                  return <>{formatCardNumber(transactionData?.cardholder_name)}</>;
+                  return <>{renderCardText(formatCardNumber(transactionData?.cardholder_name))}</>;
                 }
 
-                return <>{formatCardNumber(randomUser.name)}</>;
+                return <>{renderCardText(formatCardNumber(randomUser.name))}</>;
               })()}
             </h2>
 

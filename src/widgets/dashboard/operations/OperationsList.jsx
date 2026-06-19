@@ -75,7 +75,7 @@ const OperationsList = ({
         </div>
 
         {/* последние 3 операции */}
-        <ul className="flex flex-col gap-0">
+        <ul className="flex flex-col gap-2">
           {lastThreeReversed.map((item) => (
             <OperationItem key={item.id} item={item} />
           ))}
@@ -153,7 +153,7 @@ const OperationsList = ({
                               <div className="sticky top-0 bg-[var(--gray-1)] text-center text-[var(--text-muted)] text-sm font-medium z-20 py-2">
                                 {date}
                               </div>
-                              <ul className="flex flex-col gap-4">
+                              <ul className="flex flex-col gap-5">
                                 {items.map((item) => (
                                   <OperationItem
                                     key={item.id}

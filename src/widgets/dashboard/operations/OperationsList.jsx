@@ -93,7 +93,7 @@ const OperationsList = ({
               />
 
               <motion.div
-                className="fixed inset-0 min-h-screen bg-[var(--gray-1)] z-50 flex flex-col px-5 overflow-y-auto"
+                className="fixed inset-0 min-h-[100dvh] bg-[var(--gray-1)] z-50 flex flex-col px-5 overflow-y-auto"
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
                 exit={{ y: "100%" }}

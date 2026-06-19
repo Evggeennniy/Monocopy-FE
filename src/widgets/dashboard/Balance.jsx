@@ -180,7 +180,7 @@ export default function Balance() {
   return (
     <div
       style={{ background: gradientBg }}
-      className={`min-h-screen text-white relative flex flex-col items-center  ${isContactsOpen ? "p-0" : "p-0"}`}
+      className={`min-h-[100dvh] text-white relative flex flex-col items-center  ${isContactsOpen ? "p-0" : "p-0"}`}
     >
       {/* ===== Верхняя панель ===== */}
       <div

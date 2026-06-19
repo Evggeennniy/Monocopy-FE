@@ -68,7 +68,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center  bg-gradient-to-b from-[#121212] via-[#0f0f0f] to-[#0a0a0a] p-6">
+    <div className="min-h-[100dvh] flex items-center justify-center  bg-gradient-to-b from-[#121212] via-[#0f0f0f] to-[#0a0a0a] p-6">
       <div
         className="w-full max-w-md bg-opacity-60 backdrop-blur-md rounded-2xl border border-gray-800 shadow-lg p-8"
         style={{ backgroundColor: "rgba(18,18,18,0.6)" }}

@@ -18,7 +18,7 @@ export default function CustomKeyboard() {
   };
 
   return (
-    <div className="bg-[#1E1E1E] min-h-screen flex flex-col items-center justify-center text-white p-4">
+    <div className="bg-[#1E1E1E] min-h-[100dvh] flex flex-col items-center justify-center text-white p-4">
       <input
         type="text"
         ref={inputRef}

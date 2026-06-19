@@ -160,7 +160,7 @@ export default function TransactionPage() {
 
       {transactionData.operation_type === "deposit" && (
         <>
-          <div className="bg-[var(--gray-1)] relative -top-3 w-full z-10 rounded-t-2xl flex flex-col gap-[15px] min-h-screen">
+          <div className="bg-[var(--gray-1)] relative -top-3 w-full z-10 rounded-t-2xl flex flex-col gap-[15px] min-h-[100dvh]">
             {/* Убираем верхний градиент из контента, оставляем только в хедере */}
 
             <div className="relative w-[80px] h-[40px] mx-auto">
@@ -287,7 +287,7 @@ export default function TransactionPage() {
 
       {transactionData.operation_type !== "deposit" && (
         <>
-          <div className="bg-[var(--gray-1)] relative -top-3 w-full z-10 rounded-t-2xl flex flex-col gap-[15px] min-h-screen">
+          <div className="bg-[var(--gray-1)] relative -top-3 w-full z-10 rounded-t-2xl flex flex-col gap-[15px] min-h-[100dvh]">
             {/* Убираем верхний градиент из контента, оставляем только в хедере */}
 
             <div className="relative w-[80px] h-[40px] mx-auto">

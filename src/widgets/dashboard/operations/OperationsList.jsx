@@ -75,7 +75,7 @@ const OperationsList = ({
         </div>
 
         {/* последние 3 операции */}
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-0">
           {lastThreeReversed.map((item) => (
             <OperationItem key={item.id} item={item} />
           ))}

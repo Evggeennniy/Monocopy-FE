@@ -42,7 +42,7 @@ function MainDashboard({
           className="w-full flex flex-col gap-5 "
         >
           {/* Навигация */}
-          <div className="flex justify-around mt-0">
+          <div className="flex justify-around mt-0 [@media(min-height:860px)]:mt-[20px]">
             <div
               onClick={() => {
                 setIsOpen(false);

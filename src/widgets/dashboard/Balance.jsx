@@ -249,7 +249,7 @@ export default function Balance() {
               {!isSettingsOpen && !isContactsOpen && !showAll && (
                 <>
                   <div className="h-[80px] w-full" />
-                  <div className="text-center mb-[50px] flex justify-center items-center gap-2">
+                  <div className="text-center mb-[50px] [@media(min-height:860px)]:mb-[70px] flex justify-center items-center gap-2">
                     <img
                       src={plus}
                       alt="plus"
@@ -329,7 +329,7 @@ export default function Balance() {
           <>
             {cards.length === 1 ? (
               <div
-                className="flex absolute top-[23.1rem] right-1/2 z-[100] w-[120px] bg-[var(--bg-black-transparent)] rounded-full justify-center items-center gap-2 transform translate-x-1/2 transition-opacity duration-300"
+                className="flex absolute top-[376px] [@media(min-height:860px)]:top-[399px] right-1/2 z-[100] w-[120px] bg-[var(--bg-black-transparent)] rounded-full justify-center items-center gap-2 transform translate-x-1/2 transition-opacity duration-300"
                 style={{
                   opacity:
                     offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1,
@@ -342,7 +342,7 @@ export default function Balance() {
               </div>
             ) : (
               <button
-                className="flex absolute top-[376px] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-4 gap-2 py-[4px] rounded-full opacity-90 transition-opacity duration-300"
+                className="flex absolute top-[376px] [@media(min-height:860px)]:top-[399px]  left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-4 gap-2 py-[4px] rounded-full opacity-90 transition-opacity duration-300"
                 style={{
                   opacity:
                     offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1,

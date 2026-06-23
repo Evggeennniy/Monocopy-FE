@@ -248,8 +248,8 @@ export default function Balance() {
               {/* ===== Баланс ===== */}
               {!isSettingsOpen && !isContactsOpen && !showAll && (
                 <>
-                  <div className="h-[80px] [@media(min-height:860px)]:h-[95px] w-full" />
-                  <div className="text-center mb-[50px] [@media(min-height:860px)]:mb-[100px] flex justify-center items-center gap-2">
+                  <div className="h-[80px] [@media(min-height:860px)]:h-[100px] w-full" />
+                  <div className="text-center mb-[50px] [@media(min-height:860px)]:mb-[95px] flex justify-center items-center gap-2">
                     <img
                       src={plus}
                       alt="plus"

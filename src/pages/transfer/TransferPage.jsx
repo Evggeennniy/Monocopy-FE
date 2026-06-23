@@ -197,6 +197,9 @@ export default function TransferPage() {
 
   useEffect(() => {
     setThemeColor("var(--transfer-bg)");
+    return () => {
+      setThemeColor("var(--gradient-default-start)");
+    };
   }, []);
 
   useEffect(() => {

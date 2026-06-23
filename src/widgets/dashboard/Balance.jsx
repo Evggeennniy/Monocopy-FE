@@ -198,7 +198,7 @@ export default function Balance() {
 
       {!isSettingsOpen && !isContactsOpen && !showAll && firstCard && (
         <div
-          className={`flex justify-between w-full items-end p-4 transition-opacity duration-300 z-0 relative ${
+          className={`flex justify-between w-full items-end px-4 pb-4 transition-opacity duration-300 z-0 relative ${
             hasFlown ? "opacity-0" : "opacity-100"
           }`}
         >
@@ -249,11 +249,11 @@ export default function Balance() {
               {!isSettingsOpen && !isContactsOpen && !showAll && (
                 <>
                   <div className="h-[80px] w-full" />
-                  <div className="text-center mb-[55px] flex justify-center items-center gap-2">
+                  <div className="text-center mb-[50px] flex justify-center items-center gap-2">
                     <img
                       src={plus}
                       alt="plus"
-                      className="w-[38px] h-[38px] relative top-[1.5px]"
+                      className="w-[32px] h-[32px] relative top-[1.5px]"
                     />
                     <div className="relative">
                       <p className="text-[44px] leading-none flex items-center">
@@ -342,7 +342,7 @@ export default function Balance() {
               </div>
             ) : (
               <button
-                className="flex absolute top-[25.5rem] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-5 gap-2 py-[4px] rounded-full opacity-90 transition-opacity duration-300"
+                className="flex absolute top-[376px] left-1/2 z-[100] transform -translate-x-1/2 items-center mx-auto px-4 gap-2 py-[4px] rounded-full opacity-90 transition-opacity duration-300"
                 style={{
                   opacity:
                     offsetY > 10 ? Math.max(1 - (offsetY - 10) / 40, 0) : 1,
@@ -352,9 +352,9 @@ export default function Balance() {
                 <img
                   src={bank_cards}
                   alt="bank_cards"
-                  className="w-[18px] h-[18px]"
+                  className="w-[14px] h-[14px]"
                 />
-                <p className="text-[13px] font-semibold text-[var(--text-gray-400)]">
+                <p className="text-[11px] font-semibold text-[var(--text-gray-400)]">
                   Усі картки
                 </p>
               </button>
@@ -381,8 +381,8 @@ export default function Balance() {
       {!isSettingsOpen && !isContactsOpen && !showAll && (
         <>
           <div className="flex justify-center fixed bottom-6 z-[999] gap-3 w-full items-center">
-            <div className="bg-[var(--gray-2)] py-[12px] px-[34px] rounded-full">
-              <div className="flex justify-around gap-[26px]">
+            <div className="bg-[var(--gray-2)] py-[11px] px-[24px] rounded-full">
+              <div className="flex justify-around gap-[20px]">
                 {[
                   { img: two_cards, label: "Картки", active: true },
                   { img: credits, label: "Кредити" },
@@ -393,7 +393,7 @@ export default function Balance() {
                     key={label}
                     className="flex flex-col justify-center items-center"
                   >
-                    <img src={img} alt={label} className="w-[35px] h-[35px]" />
+                    <img src={img} alt={label} className="w-[28px] h-[28px]" />
                     <p
                       className={`text-[10px] ${active ? "text-[var(--red-secondary)]" : "text-[var(--text-primary)]"}`}
                     >
@@ -406,9 +406,9 @@ export default function Balance() {
 
             <button
               onClick={toggleTheme}
-              className="bg-[var(--gray-2)] h-[65px] w-[65px] flex items-center justify-center rounded-full"
+              className="bg-[var(--gray-2)] h-[54px] w-[54px] flex items-center justify-center rounded-full"
             >
-              <img src={market} alt="market" className="w-[37px] h-[37px]" />
+              <img src={market} alt="market" className="w-[30px] h-[30px]" />
             </button>
           </div>
           <div className="fixed bottom-0 left-0 w-full h-[95px] bg-[var(--gradient-footer)] z-[1]" />

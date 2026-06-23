@@ -61,13 +61,13 @@ const OperationsList = ({
     >
       <div className="mt-0 bg-[var(--gray-1)] pb-3 pt-4 px-4 rounded-[28px] relative z-[1000]">
         <div className="flex justify-between items-center mb-2">
-          <h3 className="text-[20px] font-bold text-[var(--text-primary)]">
+          <h3 className="text-[17px] font-bold text-[var(--text-primary)]">
             Операції
           </h3>
 
           <button
             onClick={() => startTransition(() => setShowAll(true))}
-            className="bg-[var(--gray-3)] rounded-full w-[66px] justify-center gap-1 text-[15px] h-[29px] text-[#7ab0f0] flex items-center"
+            className="bg-[var(--gray-3)] rounded-full w-[58px] justify-center gap-1 text-[13px] h-[25px] text-[#7ab0f0] flex items-center"
           >
             Усі
             <img src={arrow_left} alt="" className="pt-[1px]" />

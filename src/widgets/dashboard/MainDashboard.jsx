@@ -42,7 +42,7 @@ function MainDashboard({
           className="w-full flex flex-col gap-5 "
         >
           {/* Навигация */}
-          <div className="flex justify-around mt-7">
+          <div className="flex justify-around mt-0">
             <div
               onClick={() => {
                 setIsOpen(false);
@@ -51,8 +51,8 @@ function MainDashboard({
               className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer"
             >
               <div className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer">
-                <div className="w-[67px] h-[67px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
-                  <img src={card_icon} alt="" className="w-[37px] h-[37px]" />
+                <div className="w-[57px] h-[57px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
+                  <img src={card_icon} alt="" className="w-[30px] h-[30px]" />
                 </div>
                 <p className="text-[13.5px] leading-[15px] font-medium text-[var(--text-primary)]">
                   Переказати на картку
@@ -60,24 +60,24 @@ function MainDashboard({
               </div>
             </div>
             <div className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer">
-              <div className="w-[67px] h-[67px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
-                <img src={pdf_icon} alt="" className="w-[37px] h-[37px]" />
+              <div className="w-[57px] h-[57px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
+                <img src={pdf_icon} alt="" className="w-[30px] h-[30px]" />
               </div>
               <p className="text-[13.5px] leading-[15px] font-medium text-[var(--text-primary)]">
                 Платіж <br /> за IBAN
               </p>
             </div>
             <div className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer">
-              <div className="w-[67px] h-[67px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
-                <img src={car_icon} alt="" className="w-[32px] h-[32px]" />
+              <div className="w-[57px] h-[57px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
+                <img src={car_icon} alt="" className="w-[26px] h-[26px]" />
               </div>
               <p className="text-[13.5px] leading-[15px] font-medium text-[var(--text-primary)]">
                 Штрафи <br /> ПДР
               </p>
             </div>
             <div className="flex flex-col items-center gap-3 w-[77px] text-center cursor-pointer">
-              <div className="w-[67px] h-[67px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
-                <img src={slices_icon} alt="" className="w-[37px] h-[37px]" />
+              <div className="w-[57px] h-[57px] rounded-full bg-[var(--bg-icon-dark)] flex justify-center items-center">
+                <img src={slices_icon} alt="" className="w-[30px] h-[30px]" />
               </div>
               <p className="text-[13.5px] leading-[15px] font-medium text-[var(--text-primary)]">
                 Інші <br /> платежі
@@ -87,16 +87,18 @@ function MainDashboard({
 
           {/* Операции */}
           <>
-            <OperationsList
-              offsetY={offsetY}
-              setOffsetY={setOffsetY}
-              lastThreeReversed={lastThreeReversed}
-              allOperations={operationsCards}
-              setShowAll={setShowAll}
-              showAll={showAll}
-              balance={balance}
-              setHasFlown={setHasFlown}
-            />
+            <div className="mt-[-5px]">
+              <OperationsList
+                offsetY={offsetY}
+                setOffsetY={setOffsetY}
+                lastThreeReversed={lastThreeReversed}
+                allOperations={operationsCards}
+                setShowAll={setShowAll}
+                showAll={showAll}
+                balance={balance}
+                setHasFlown={setHasFlown}
+              />
+            </div>
 
             <div className="bg-[var(--gray-1)] pt-6 pb-5 px-5 rounded-[28px]">
               <h3 className="text-lg font-semibold mb-4">Інформація</h3>
